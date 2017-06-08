@@ -1,0 +1,55 @@
+package com.broll.poklmon.map.areas;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+import com.broll.pokllib.jscript.PackageImporter;
+import com.broll.pokllib.map.MapFile;
+
+public class MapAreaContainer {
+
+	private List<MapArea> areas = new ArrayList<MapArea>();
+
+	public MapAreaContainer(MapFile mapFile) {
+		if (mapFile.getAreaScripts() != null) {
+			for (String script : mapFile.getAreaScripts()) {
+				if (script != null && script.length() > 0) {
+					MapArea area = descriptArea(script);
+					areas.add(area);
+				}
+			}
+		}
+	}
+
+	public MapArea descriptArea(String script) {
+		MapArea area = new MapArea();
+		AreaScriptActions actions = new AreaScriptActions(area);
+		ScriptEngineManager factory = new ScriptEngineManager();
+//		ScriptEngine engine = factory.getEngineByName("JavaScript");
+		ScriptEngine engine = factory.getEngineByName("rhino");
+
+		//ScriptEngine engine = new ScriptEngineManager(null).getEngineByName("rhino");
+		PackageImporter importer = new PackageImporter();
+		importer.addPackage(AreaType.class.getPackage());
+
+		engine.put("area", actions);
+		try {
+			engine.eval(importer.buildScript(script));
+		} catch (javax.script.ScriptException e) {
+			System.err.println("Error in map area script: " + script);
+			e.printStackTrace();
+		}
+		return area;
+	}
+
+	public MapArea getArea(int id) {
+		if (id < 0 || id >= areas.size()) {
+			return null;
+		}
+		return areas.get(id);
+	}
+
+}

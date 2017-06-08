@@ -1,4 +1,9 @@
+
+
+
 buildscript {
+
+
     repositories {
         mavenLocal()
         mavenCentral()
@@ -9,16 +14,18 @@ buildscript {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
         classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
+        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
     }
 }
+
 
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
-
+    apply plugin: "me.tatarka.retrolambda"
     version = '1.0'
     ext {
-        appName = "Pokmlon"
+        appName = "Poklmon"
         gdxVersion = '1.9.4'
         roboVMVersion = '2.2.0'
         box2DLightsVersion = '1.4'
@@ -66,6 +73,7 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+		compile fileTree(dir: '../libs', include: '*.jar')
     }
 }
 
@@ -108,6 +116,8 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+		compile fileTree(dir: '../libs', include: '*.jar')
+		
     }
 }
 
