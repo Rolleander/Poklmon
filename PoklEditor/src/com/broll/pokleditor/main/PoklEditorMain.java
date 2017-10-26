@@ -1,6 +1,8 @@
 package com.broll.pokleditor.main;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
@@ -14,38 +16,37 @@ import com.broll.pokleditor.window.EditorWindow;
 import com.broll.pokleditor.window.LoadingWindow;
 import com.broll.pokllib.main.KryoDataControl;
 import com.broll.pokllib.main.PoklLib;
-import com.broll.poklmon.main.BugSplashDialog;
-import com.broll.poklmon.main.PoklmonGameMain;
 
 public class PoklEditorMain {
 
 	private static KryoDataControl dataControl;
 	public static File POKL_PATH;
+	private static File dataPath;
 
 	public static void main(String[] args) {
-
-		if (args != null && args.length == 1) {
+		
+			if(args.length==0) {
+				//in ide
+				String path = PoklEditorMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+				path=path.substring(0,path.length()-"PoklEditor/bin/".length());
+				path=path+"Poklmon/android/assets/";
+				POKL_PATH = new File(path + "data/");
+				GameDebugger.debugPath = new File(path + "/");
+			}
+			else
+			{
 			try {
-				String path = PoklmonGameMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+				String path = PoklEditorMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+				System.out.println("EditorClass: "+path);
 				String decodedPath = URLDecoder.decode(path, "UTF-8");
-				POKL_PATH = new File(decodedPath + "/data/");
+				decodedPath = decodedPath.substring(0, decodedPath.length() - "PoklEditor.jar".length());					
+				POKL_PATH = new File(decodedPath + "data/");
 				GameDebugger.debugPath = new File(decodedPath + "/");
 			} catch (UnsupportedEncodingException e) {
-
 				e.printStackTrace();
 			}
-
-		} else {
-			try {
-				String path = PoklmonGameMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-				String decodedPath = URLDecoder.decode(path, "UTF-8");
-				decodedPath.substring(0,decodedPath.length()-"Poklmon/bin".length());
-				POKL_PATH = new File(decodedPath + "../data/");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-		}
+
 		System.out.println("POKL_PATH: " + POKL_PATH.getAbsolutePath());
 		ImageLoader.initPath(POKL_PATH);
 		SoundLoader.initPath(POKL_PATH);
@@ -54,10 +55,11 @@ public class PoklEditorMain {
 		System.out.println("Load Tiles...");
 		MapTileEditor.tiles = ImageLoader.loadTileset();
 		System.out.println("Load DbControl...");
-		dataControl = new KryoDataControl(POKL_PATH.getPath() + "/poklmon.data");
+		dataPath=new File(POKL_PATH.getPath() + "/poklmon.data");
+		dataControl = new KryoDataControl();
 		try {
 			System.out.println("Load Data...");
-			dataControl.read();
+			dataControl.read(new FileInputStream(dataPath));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -83,7 +85,7 @@ public class PoklEditorMain {
 		try {
 			System.out.println("Saving...");
 			// dataControl.saveData("data/poklmon.data");
-			dataControl.commit();
+			dataControl.commit(new FileOutputStream(dataPath));
 		} catch (Exception e) {
 			e.printStackTrace();
 			BugSplashDialog.showError("Failed to save data: " + e.getMessage());

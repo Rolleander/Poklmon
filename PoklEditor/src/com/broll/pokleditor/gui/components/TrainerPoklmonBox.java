@@ -3,7 +3,6 @@ package com.broll.pokleditor.gui.components;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -38,7 +37,7 @@ public class TrainerPoklmonBox extends JPanel {
 				Poklmon data = PoklData.loadPoklmon(id);
 				List<AttackLearnEntry> atks = data.getAttackList().getAttacks();
 				int nr = 0;
-				for (int i = atks.size() - 1; i > 0; i--) {
+				for (int i = atks.size() - 1; i >= 0; i--) {
 					if (atks.get(i).getLearnLevel() <= lvl) {
 						attacks[nr].setAttack(atks.get(i).getAttackNumber());
 						nr++;

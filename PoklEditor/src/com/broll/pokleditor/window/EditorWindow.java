@@ -5,7 +5,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
@@ -16,14 +15,12 @@ import javax.swing.JPanel;
 import com.broll.pokleditor.animationdex.AnimationdexPanel;
 import com.broll.pokleditor.attackdex.AttackdexPanel;
 import com.broll.pokleditor.attackstatistic.AttackStatisticPanel;
-import com.broll.pokleditor.data.PoklData;
 import com.broll.pokleditor.gui.graphics.GraphicLoader;
 import com.broll.pokleditor.itemdex.ItemdexPanel;
+import com.broll.pokleditor.main.BugSplashDialog;
 import com.broll.pokleditor.main.PoklEditorMain;
-import com.broll.pokleditor.map.MapPanel;
 import com.broll.pokleditor.panel.EditorPanel;
 import com.broll.pokleditor.pokldex.PokldexPanel;
-import com.broll.poklmon.main.BugSplashDialog;
 
 public class EditorWindow {
 

@@ -8,6 +8,7 @@ import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.debug.DebugRender;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.gui.GUIUpdate;
+import com.broll.poklmon.gui.TouchIconsRender;
 import com.broll.poklmon.input.CharReceiver;
 import com.broll.poklmon.main.GameState;
 import com.broll.poklmon.network.NetworkEndpoint;
@@ -20,6 +21,7 @@ public class MapState extends GameState {
 	private DataContainer data;
 	private GameManager gameInstance;
 	private DebugRender debugRender;
+	private BattleEndListener battleEndListener;
 
 	public MapState(DataContainer data) {
 		this.data = data;
@@ -52,6 +54,7 @@ public class MapState extends GameState {
 
 	@Override
 	public void onEnter() {
+		gameInstance.checkFastItemUse();
 		game.getInput().setCharReceiver(new CharReceiver() {
 			@Override
 			public void typed(int keycode, char typedChar) {
@@ -66,6 +69,8 @@ public class MapState extends GameState {
 
 	@Override
 	public void onExit() {
+		TouchIconsRender.hideButton(2, true);
+		TouchIconsRender.hideButton(3, true);
 	}
 
 	@Override

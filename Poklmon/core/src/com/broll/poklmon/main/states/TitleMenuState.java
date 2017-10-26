@@ -50,7 +50,7 @@ public class TitleMenuState extends GameState {
 			selection.blockItem(0, true);
 			selection.setSelectedItem(1);
 		}
-
+		selection.blockItem(2,true);
 		selection.setListener(new SelectionBoxListener() {
 			public void select(int item) {
 				switch (item) {
@@ -97,7 +97,7 @@ public class TitleMenuState extends GameState {
 			}
 			items[i] = files.get(i).getPlayerName() + " - " + hours + ":" + m + ":" + s;
 		}
-		saveBox = new ScrollableSelectionBox(data, items, 225, 360, 350, 4, false);
+		saveBox = new ScrollableSelectionBox(data, items, 150, 360, 500, 4, false);
 		saveBox.setListener(new SelectionBoxListener() {
 			@Override
 			public void select(int item) {

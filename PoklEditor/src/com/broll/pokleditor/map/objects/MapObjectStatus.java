@@ -2,14 +2,12 @@ package com.broll.pokleditor.map.objects;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.broll.pokleditor.gui.components.CharacterGraphicBox;
 import com.broll.pokleditor.gui.components.ObjectViewDirectionBox;
-import com.broll.pokleditor.gui.components.ScriptBox;
 import com.broll.pokleditor.gui.components.StringBox;
 import com.broll.pokleditor.window.VerticalLayout;
 import com.broll.pokllib.object.MapObject;

@@ -1,16 +1,11 @@
 package com.broll.pokleditor.pokldex;
 
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import com.broll.pokleditor.gui.components.EXPTypeBox;
 import com.broll.pokleditor.gui.components.IntBox;
-import com.broll.pokleditor.gui.components.TypeBox;
-import com.broll.pokllib.poklmon.ElementType;
 import com.broll.pokllib.poklmon.Poklmon;
 
 public class PoklEditEXP extends JPanel {

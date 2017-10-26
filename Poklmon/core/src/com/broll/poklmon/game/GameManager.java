@@ -15,6 +15,7 @@ import com.broll.poklmon.game.scene.ObjectTriggerCheck;
 import com.broll.poklmon.game.scene.SceneProcessManager;
 import com.broll.poklmon.game.scene.ScriptInstance;
 import com.broll.poklmon.gui.GUIUpdate;
+import com.broll.poklmon.gui.TouchIconsRender;
 import com.broll.poklmon.main.GameStateManager;
 import com.broll.poklmon.main.SystemClock;
 import com.broll.poklmon.main.states.MapState;
@@ -60,6 +61,7 @@ public class GameManager {
 		playerMovementTrigger = new PlayerMovementTrigger(this);
 		player.getOverworld().setMovementListener(playerMovementTrigger);
 	}
+
 
 	public void startGame(GameData data) {
 		player.init(data);
@@ -217,6 +219,16 @@ public class GameManager {
 	public void changeMenuState(boolean open) {
 		menuOpen = open;
 		setMovementAllowed(!open);
+		if(open==false){
+			checkFastItemUse();
+		}
+	}
+
+	public void checkFastItemUse(){
+		boolean showA=player.getVariableControl().getInt(Player.SHORTCUT + "A")>0;
+		boolean showB=player.getVariableControl().getInt(Player.SHORTCUT + "B")>0;
+		TouchIconsRender.hideButton(2, !showA);
+		TouchIconsRender.hideButton(3, !showB);
 	}
 
 	public SceneProcessManager getSceneProcessManager() {

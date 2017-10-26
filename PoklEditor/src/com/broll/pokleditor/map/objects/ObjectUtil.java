@@ -27,8 +27,6 @@ public class ObjectUtil
       paste.setGraphic(copy.getGraphic());
       paste.setName(copy.getName());
       paste.setTriggerScript(copy.getTriggerScript());
-      paste.setXpos(copy.getXpos());
-      paste.setYpos(copy.getYpos());
       return paste;
     }
 }

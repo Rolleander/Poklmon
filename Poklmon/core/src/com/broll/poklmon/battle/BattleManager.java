@@ -7,6 +7,7 @@ import com.broll.pokllib.poklmon.TypeComperator;
 import com.broll.poklmon.battle.enemy.EnemyMoveSelection;
 import com.broll.poklmon.battle.field.FieldEffects;
 import com.broll.poklmon.battle.player.PlayerMoveSelection;
+import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.process.BattleProcessCore;
 import com.broll.poklmon.battle.process.CustomScriptCall;
 import com.broll.poklmon.battle.render.BattleRender;
@@ -17,6 +18,7 @@ import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.main.SystemClock;
 import com.broll.poklmon.network.NetworkEndpoint;
 import com.broll.poklmon.player.Player;
+import com.esotericsoftware.minlog.Log;
 
 public class BattleManager {
 

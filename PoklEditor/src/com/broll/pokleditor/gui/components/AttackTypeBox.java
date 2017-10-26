@@ -5,8 +5,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.broll.pokllib.attack.AttackType;
-import com.broll.pokllib.poklmon.EXPLearnTypes;
-import com.broll.pokllib.poklmon.ElementType;
 
 
 public class AttackTypeBox extends JPanel{

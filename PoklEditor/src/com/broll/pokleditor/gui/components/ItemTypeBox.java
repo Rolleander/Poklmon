@@ -4,10 +4,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.broll.pokllib.attack.AttackType;
 import com.broll.pokllib.item.ItemType;
-import com.broll.pokllib.poklmon.EXPLearnTypes;
-import com.broll.pokllib.poklmon.ElementType;
 
 
 public class ItemTypeBox extends JPanel{

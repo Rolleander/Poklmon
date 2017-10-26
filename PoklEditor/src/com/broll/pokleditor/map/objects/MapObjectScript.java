@@ -35,7 +35,7 @@ public class MapObjectScript {
 	}
 
 	private void addScriptDictionary(ScriptingEnvironment env, ScriptBox box) {
-		env.addController(null, new com.broll.poklmon.map.object.MapObject(null));
+		env.addController(null, new com.broll.poklmon.map.object.MapObject(null,null));
 		JScriptHelpBox help = new JScriptHelpBox();
 		for (int i = 0; i < env.getController().size(); i++) {
 			help.addObject(env.getController().get(i).getClass(), env.getObjectNames().get(i));

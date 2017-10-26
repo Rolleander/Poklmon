@@ -18,13 +18,11 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
-import com.broll.pokleditor.data.PoklDataUtil;
-
 public class ScriptEntityList extends JPanel {
 
 	private JList list;
 
-	public ScriptEntityList(List<String> data) {
+	public ScriptEntityList(List<String> data, int selected) {
 
 		setPreferredSize(new Dimension(300, 500));
 		setLayout(new BorderLayout());
@@ -37,7 +35,9 @@ public class ScriptEntityList extends JPanel {
 		final FilteredListModel filteredListModel = new FilteredListModel(source);
 
 		list = new JList(filteredListModel);
-
+		if (selected != -1) {
+			list.setSelectedIndex(selected);
+		}
 		JScrollPane listScroller = new JScrollPane(list);
 		add(listScroller, BorderLayout.CENTER);
 
@@ -78,11 +78,16 @@ public class ScriptEntityList extends JPanel {
 	}
 
 	public int getSelected() {
-		return list.getSelectedIndex();
+		String v= (String) list.getSelectedValue();
+		return Integer.parseInt(v.split(":")[0]);
 	}
 
 	public static int showList(List<String> entries) {
-		ScriptEntityList list = new ScriptEntityList(entries);
+		return showList(entries, -1);
+	}
+
+	public static int showList(List<String> entries, int selected) {
+		ScriptEntityList list = new ScriptEntityList(entries, selected);
 		JOptionPane.showMessageDialog(null, list, "ID Info", JOptionPane.INFORMATION_MESSAGE, null);
 		return list.getSelected();
 	}

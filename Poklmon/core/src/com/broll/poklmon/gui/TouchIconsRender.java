@@ -23,13 +23,18 @@ public class TouchIconsRender {
         buttons.add(new TouchButton(size,1, Input.Keys.P,new Vector2(border+size/2,PoklmonGame.HEIGHT-border-size/2)));
         buttons.add(new TouchButton(size,2, Input.Keys.K,new Vector2(PoklmonGame.WIDTH-border-size/2,border+size/2)));
         buttons.add(new TouchButton(size,3, Input.Keys.L,new Vector2(border+size/2,border+size/2)));
+        hideButton(2,true);
+        hideButton(3,true);
+    }
 
+    public static void hideButton(int nr, boolean hide){
+        buttons.get(nr).setHide(hide);
     }
 
     public static int checkButtonPress(Vector2 pos){
         for(TouchButton button: buttons){
             Vector2 buttonPos=button.getPosition();
-            if(pos.dst(buttonPos)<=button.getSize()/2) {
+            if(pos.dst(buttonPos)<=button.getSize()/2+20) {
                 return button.getKeyCode();
             }
         }
@@ -38,9 +43,12 @@ public class TouchIconsRender {
 
     public static void render(Graphics g){
         for(TouchButton button: buttons){
+            if(!button.isHide())
+            {
             int nr=button.getImageNr();
             Vector2 pos=button.getPosition();
             MenuGraphics.touchIcons.getSprite(nr,0).drawCentered(pos.x, pos.y, button.getSize(), button.getSize());
+             }
         }
     }
 
@@ -50,12 +58,21 @@ public class TouchIconsRender {
         private float size=64;
         private Vector2 position;
         private int imageNr;
+        private boolean hide=false;
 
         public TouchButton(float size,int nr,int code, Vector2 pos){
             this.keyCode=code;
             this.size=size;
             this.imageNr=nr;
             this.position=pos;
+        }
+
+        public boolean isHide() {
+            return hide;
+        }
+
+        public void setHide(boolean hide) {
+            this.hide = hide;
         }
 
         public float getSize() {

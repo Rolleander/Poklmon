@@ -4,15 +4,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.JPopupMenu;
-
-import com.broll.pokleditor.map.control.PopupMenu;
 import com.broll.pokleditor.map.tileset.AreaSetPanel;
 import com.broll.pokleditor.map.tileset.TileSetPanel;
 import com.broll.pokleditor.map.tools.CurrentTool;
 import com.broll.pokleditor.map.tools.FloodFillAlgorithm;
 import com.broll.pokleditor.map.tools.MapPaintTools;
-import com.broll.pokleditor.panel.Toolbar;
 import com.broll.pokllib.map.MapData;
 
 public class MousePlacementListener implements MouseListener, MouseMotionListener

@@ -24,8 +24,8 @@ public class MapAnimation extends Animation {
 	
 	@Override
 	public void draw(float vx, float vy) {
-		int w = getWidth() * 2;
-		int h = getHeight() * 2;
+		float w = getWidth() * 2;
+		float h = getHeight() * 2;
 		if(absolute)
 		{
 			super.draw(vx+x-w/2,vy+y-h/2,w,h);
@@ -40,12 +40,7 @@ public class MapAnimation extends Animation {
 	}
 
 	public void update(float delta) {
+		super.update(delta);
 	}
-
-	public boolean isStopped() {
-		
-		return false;
-	}
-
 
 }

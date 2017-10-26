@@ -1,16 +1,11 @@
 package com.broll.pokleditor.attackstatistic;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JDialog;
 
-import com.broll.pokleditor.data.PoklData;
 import com.broll.pokleditor.gui.graphics.GraphicLoader;
 import com.broll.pokleditor.window.EditorWindow;
-import com.broll.pokllib.attack.Attack;
 
 public class AttackStatisticPanel extends JDialog {
 

@@ -26,6 +26,8 @@ public class PoklmonGenerator {
 		poklmon.setPokldexNumber(0);
 		poklmon.setSecondaryType(null);
 		poklmon.setCatchRate(getMaxValue());
+		poklmon.setGraphicName("todo.png");
+		poklmon.setDescription("#TODO");
 		
 		PoklmonAttributes attributes=new PoklmonAttributes();
 		attributes.setBaseKP(getBaseValue()+10);

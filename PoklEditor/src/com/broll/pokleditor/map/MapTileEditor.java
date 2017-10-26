@@ -2,6 +2,7 @@ package com.broll.pokleditor.map;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -17,7 +18,6 @@ import com.broll.pokleditor.map.objects.MapObjectGenerator;
 import com.broll.pokleditor.map.objects.ObjectType;
 import com.broll.pokleditor.map.objects.ObjectUtil;
 import com.broll.pokleditor.map.tileset.AreaColors;
-import com.broll.pokleditor.map.tileset.AreaSetPanel;
 import com.broll.pokleditor.map.tools.CurrentTool;
 import com.broll.pokleditor.map.tools.MapPaintTools;
 import com.broll.pokleditor.window.EditorWindow;
@@ -77,7 +77,9 @@ public class MapTileEditor extends JPanel {
 			ObjectType create = ObjectType.values()[selected];
 			MapObject newobject = MapObjectGenerator.openWizard(create);
 			control.addObject(newobject);
-			control.editObject();
+			if (create != ObjectType.TELEPORTER && create != ObjectType.LEDGE && create != ObjectType.REMOTE) {
+				control.editObject();
+			}
 		} else {
 			// edit event
 			control.editObject();
@@ -138,11 +140,30 @@ public class MapTileEditor extends JPanel {
 				}
 			}
 		}
+		FontMetrics fm = g.getFontMetrics();
+
 		if (map.getFile().getObjects() != null) {
 			for (MapObject object : map.getFile().getObjects()) {
 				int xp = object.getXpos() * TILE_SIZE;
 				int yp = object.getYpos() * TILE_SIZE;
 				g.drawImage(eventTile, xp, yp, null);
+				int id = object.getObjectID();
+				String txt = "" + id;
+
+				int tx = xp + TILE_SIZE / 2 - fm.stringWidth(txt) / 2;
+				int ty = yp + 20;
+				g.setColor(new Color(0, 0, 0));
+				int b = 1;
+				g.drawString(txt, tx - b, ty - b);
+				g.drawString(txt, tx - b, ty);
+				g.drawString(txt, tx + b, ty);
+				g.drawString(txt, tx, ty - b);
+				g.drawString(txt, tx, ty + b);
+				g.drawString(txt, tx + b, ty + b);
+
+				g.setColor(new Color(250, 250, 250));
+				g.drawString(txt, tx, ty);
+
 			}
 		}
 		if (MapPaintTools.selectedTool == CurrentTool.SELECTOR) {

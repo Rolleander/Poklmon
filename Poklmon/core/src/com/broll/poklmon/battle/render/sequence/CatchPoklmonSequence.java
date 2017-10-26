@@ -1,5 +1,6 @@
 package com.broll.poklmon.battle.render.sequence;
 
+import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.render.poklball.PoklballThrow;
 import com.broll.poklmon.battle.util.AnimationEndListener;
@@ -66,7 +67,7 @@ public class CatchPoklmonSequence extends SequenceRender {
 	public void update(float delta) {
 		if (ballLanded) {
 			if (wobbleWait > 0) {
-				wobbleWait -= delta;
+				wobbleWait -= delta* PoklmonGame.FPS;
 			} else {
 
 				if (wobbleSin < Math.PI * 2) {

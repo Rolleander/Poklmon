@@ -17,22 +17,20 @@ import com.esotericsoftware.kryo.io.Output;
 
 public class SaveFileManager {
 
-	private static String saveFolder = "save/";
 	private final static String metaFile = "savefolder";
 	private static SaveFolderInfo saveFolderInfo;
 	private static SaveFileInfo loadedGameFile;
+	private static DeviceSaveOperations saveOperations;
+
+	public static void initSaveInterface(DeviceSaveOperations op){
+		SaveFileManager.saveOperations=op;
+	}
 
 	public static void readSaves() {
-		//check if save folder exists
-		File file=new File(saveFolder);
-		if(!file.exists()){
-			file.mkdir(); //create save folder
-		}
-		file = new File(saveFolder + metaFile + ".dat");	
-		if (file.exists()) {
-			saveFolderInfo = (SaveFolderInfo) loadFile(metaFile, SaveFolderInfo.class);
-		} else {
-			saveFolderInfo = new SaveFolderInfo();
+		saveFolderInfo= (SaveFolderInfo)loadFile(metaFile,SaveFolderInfo.class);
+		if(saveFolderInfo==null){
+			saveFolderInfo=new SaveFolderInfo();
+			saveFile(metaFile,saveFolderInfo);
 		}
 	}
 
@@ -74,15 +72,13 @@ public class SaveFileManager {
 		Kryo kryo = new Kryo();
 		Output output = null;
 		try {
-			output = new Output(new FileOutputStream(saveFolder + file + ".dat"));
+			output = new Output(saveOperations.writeFile(file + ".dat"));
 			kryo.writeObject(output, object);
 			output.close();
-		} catch (FileNotFoundException e) {
-			System.err.println(e);
-		} finally {
-			if (output != null)
-				output.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 	}
 
 	private static Object loadFile(String file, Class clazz) {
@@ -90,14 +86,14 @@ public class SaveFileManager {
 		Input input = null;
 		Object data = null;
 		try {
-			input = new Input(new FileInputStream(saveFolder + file + ".dat"));
+			input = new Input(saveOperations.readFile(file + ".dat"));
 			data = kryo.readObject(input, clazz);
-		} catch (FileNotFoundException e) {
+			input.close();
+		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (input != null)
-				input.close();
 		}
+
+
 		if (data == null) {
 			System.err.println("Could not load: "+file);
 		}

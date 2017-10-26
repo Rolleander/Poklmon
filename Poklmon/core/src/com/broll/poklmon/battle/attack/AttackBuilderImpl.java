@@ -13,6 +13,7 @@ import com.broll.poklmon.battle.field.FieldEffects;
 import com.broll.poklmon.battle.field.TeamEffect;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.data.DataContainer;
+import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
 
 public class AttackBuilderImpl extends AttackBuilder {
 
@@ -32,8 +33,7 @@ public class AttackBuilderImpl extends AttackBuilder {
 		atk.setHitchance(adata.getDamage().getHitchance());
 		atk.setType(adata.getAttackType());
 		
-		ScriptEngineManager factory = new ScriptEngineManager();
-		ScriptEngine engine = factory.getEngineByName("rhino");
+		ScriptEngine engine =ScriptEngineFactory.createScriptEngine();
 		scriptActions.init(atk, user, target);
 		engine.put("atk", atk);
 		engine.put("user", user);

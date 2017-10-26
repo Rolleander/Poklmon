@@ -39,14 +39,14 @@ public class IntroState extends GameState {
 
 	@Override
 	public void update(float delta) {
-		timer += delta;
+		timer ++;
 		if (logoY > 100) {
 			logoY -= 7;
 			MenuGraphics.logo.rotate(15);
 		} else {
 			MenuGraphics.logo.setRotation(0);
 		}
-		if (timer > 3) {
+		if (timer > 180) {
 			states.transition(followState);
 		}
 	}

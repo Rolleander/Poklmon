@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 
 import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.pokllib.map.MapFile;
+import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
 
 public class MapAreaContainer {
 
@@ -27,9 +27,7 @@ public class MapAreaContainer {
 	public MapArea descriptArea(String script) {
 		MapArea area = new MapArea();
 		AreaScriptActions actions = new AreaScriptActions(area);
-		ScriptEngineManager factory = new ScriptEngineManager();
-//		ScriptEngine engine = factory.getEngineByName("JavaScript");
-		ScriptEngine engine = factory.getEngineByName("rhino");
+		ScriptEngine engine =  ScriptEngineFactory.createScriptEngine();
 
 		//ScriptEngine engine = new ScriptEngineManager(null).getEngineByName("rhino");
 		PackageImporter importer = new PackageImporter();

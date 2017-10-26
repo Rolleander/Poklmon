@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 import com.broll.pokleditor.gui.graphics.GraphicLoader;
 import com.broll.pokllib.animation.AnimationFX;
 import com.broll.pokllib.animation.AnimationFXTarget;
-import com.broll.pokllib.animation.AnimationFXType;
 
 public class AnimationFXLine extends JPanel
 {

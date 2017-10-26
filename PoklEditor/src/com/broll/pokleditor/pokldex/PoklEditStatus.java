@@ -4,7 +4,6 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import com.broll.pokleditor.gui.components.IntBox;
 import com.broll.pokleditor.gui.components.LevelBox;
 import com.broll.pokleditor.gui.components.PoklmonBox;
 import com.broll.pokleditor.gui.components.StringBox;

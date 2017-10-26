@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.broll.pokleditor.gui.components.IntRangeBox;
-import com.broll.pokleditor.gui.components.LevelBox;
 import com.broll.pokleditor.gui.components.TrainerPoklmonBox;
 import com.broll.pokleditor.window.VerticalLayout;
 
@@ -102,6 +101,7 @@ public class TrainerObjectDialog extends JPanel {
 		trigger += "if(battle.startTrainerBattle(self.getName(),\"" + outro.getText() + "\"," + money.getText() + ")){\n";
 		trigger += "object.setKnown()\n";
 		trigger += "self.setViewTriggerRange(0)\n";
+		trigger += "path.removePath()\n";	
 		trigger += "}\n";
 		trigger += "}\n";
 		return trigger;

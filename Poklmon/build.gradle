@@ -12,9 +12,6 @@ buildscript {
     }
 
 }
-
-
-
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
@@ -35,7 +32,6 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
 }
-
 project(":desktop") {
     apply plugin: "java"
 
@@ -46,7 +42,6 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }
-
 project(":android") {
     apply plugin: "android"
     configurations { natives }
@@ -62,7 +57,6 @@ project(":android") {
         compile fileTree(dir: '../libs', include: '*.jar')
     }
 }
-
 project(":ios") {
     apply plugin: "java"
     apply plugin: "robovm"
@@ -76,7 +70,6 @@ project(":ios") {
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
     }
 }
-
 project(":html") {
     apply plugin: "gwt"
     apply plugin: "war"
@@ -89,7 +82,6 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
     }
 }
-
 project(":core") {
     apply plugin: "java"
 
@@ -97,10 +89,9 @@ project(":core") {
     dependencies {
         compile 'io.apisense:rhino-android:1.0'
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        	compile fileTree(dir: '../libs', include: '*.jar')
+        compile fileTree(dir: '../libs', include: '*.jar')
     }
 }
-
 tasks.eclipse.doLast {
     delete ".project"
 }

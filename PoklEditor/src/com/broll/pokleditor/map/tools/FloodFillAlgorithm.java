@@ -1,6 +1,5 @@
 package com.broll.pokleditor.map.tools;
 
-import java.awt.Rectangle;
 import java.util.Stack;
 
 public class FloodFillAlgorithm

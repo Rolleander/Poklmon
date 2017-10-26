@@ -103,6 +103,8 @@ public class PoklmonMenu extends MenuPage {
 				selectionBox = null;
 			}
 		});
+		selectionBox.blockItem(2, getItemList(ItemType.MEDICIN).length == 0);
+		selectionBox.blockItem(3, getItemList(ItemType.WEARABLE).length==0&&carriesItem==false);
 	}
 
 	private String[] getItemList(ItemType type) {

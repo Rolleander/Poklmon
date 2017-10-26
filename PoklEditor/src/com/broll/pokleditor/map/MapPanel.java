@@ -9,15 +9,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.xml.bind.JAXBException;
 
 import com.broll.pokleditor.data.PoklData;
-import com.broll.pokleditor.data.PoklDataUtil;
 import com.broll.pokleditor.gui.graphics.GraphicLoader;
 import com.broll.pokleditor.map.tileset.AreaSetPanel;
 import com.broll.pokleditor.map.tileset.TileSetPanel;
 import com.broll.pokleditor.map.util.MapGenerator;
-import com.broll.pokleditor.resource.ImageLoader;
 import com.broll.pokleditor.window.EditorWindow;
 import com.broll.pokllib.main.PoklLib;
 import com.broll.pokllib.map.MapData;

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import javax.swing.JDialog;
 
 import com.broll.pokleditor.gui.components.IDListSelector;
-import com.broll.pokleditor.gui.components.ScriptBox;
 import com.broll.pokleditor.gui.graphics.GraphicLoader;
 import com.broll.pokleditor.window.EditorWindow;
 import com.broll.pokllib.map.MapFile;

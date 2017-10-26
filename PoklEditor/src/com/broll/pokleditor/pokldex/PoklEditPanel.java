@@ -3,7 +3,6 @@ package com.broll.pokleditor.pokldex;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.broll.pokleditor.gui.components.StringBox;

@@ -14,7 +14,7 @@ public class WildBattleTransition extends ScreenTransition {
 
 	@Override
 	public void render(float delta) {
-		currentState.render(g);
+		currentState.render(delta);
 		int w =800;
 		int h =600;
 		// blinken

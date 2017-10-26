@@ -11,6 +11,7 @@ import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.game.items.execute.ItemExecuteCallback;
 import com.broll.poklmon.gui.GUIUpdate;
+import com.broll.poklmon.gui.TouchIconsRender;
 import com.broll.poklmon.gui.selection.ScrollableSelectionContext;
 import com.broll.poklmon.menu.MenuPage;
 import com.broll.poklmon.menu.MenuUtils;
@@ -34,6 +35,8 @@ public class InventarMenu extends MenuPage {
 
 	@Override
 	public void onEnter() {
+		TouchIconsRender.hideButton(2, false);
+		TouchIconsRender.hideButton(3, false);
 		bagSelection = 0;
 		itemSelection = new ScrollableSelectionContext[bags.length];
 		for (int i = 0; i < bags.length; i++) {
@@ -65,6 +68,8 @@ public class InventarMenu extends MenuPage {
 
 	@Override
 	public void onExit() {
+		TouchIconsRender.hideButton(2, true);
+		TouchIconsRender.hideButton(3, true);
 	}
 
 	@Override
@@ -208,10 +213,16 @@ public class InventarMenu extends MenuPage {
 				shortcut = "B";
 				shortcut2 = "A";
 			}
-			player.getVariableControl().setInt(Player.SHORTCUT + shortcut, item.getId());
-			//reset other, so you cant point both to the same item
-			if (player.getVariableControl().getInt(Player.SHORTCUT + shortcut2) == item.getId()) {
-				player.getVariableControl().setInt(Player.SHORTCUT + shortcut2, 0);
+			if(player.getVariableControl().getInt(Player.SHORTCUT + shortcut)==item.getId()){
+				//was set before, so reset now
+				player.getVariableControl().setInt(Player.SHORTCUT + shortcut, 0);
+			}
+			else {
+				player.getVariableControl().setInt(Player.SHORTCUT + shortcut, item.getId());
+				//reset other, so you cant point both to the same item
+				if (player.getVariableControl().getInt(Player.SHORTCUT + shortcut2) == item.getId()) {
+					player.getVariableControl().setInt(Player.SHORTCUT + shortcut2, 0);
+				}
 			}
 		}
 	}

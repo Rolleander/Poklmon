@@ -14,7 +14,6 @@ public class ScreenLocationCalc {
 
         boolean belowLine1=belowLine1(touch);
         boolean belowLine2=belowLine2(touch);
-        System.out.println(touch);
         if(!belowLine1&&belowLine2){
             return ObjectDirection.LEFT;
         }

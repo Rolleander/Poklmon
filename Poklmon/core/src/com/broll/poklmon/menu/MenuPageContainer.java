@@ -5,6 +5,7 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 import com.broll.poklmon.data.DataContainer;
+import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.menu.inventar.InventarMenu;
 import com.broll.poklmon.menu.pc.PcMenu;
@@ -57,7 +58,9 @@ public class MenuPageContainer {
 		} else {
 			
 			// close menu
-		
+			if(currentPage!=null){
+				currentPage.onExit();
+			}
 			playerMenu.closeMenu();
 		}
 	}
@@ -88,6 +91,7 @@ public class MenuPageContainer {
 
 	public void render(Graphics g) {
 		if (currentPage != null) {
+			data.getGraphics().getMenuGraphicsContainer().getMenuBackground().draw();
 			currentPage.render(g);
 		}
 	}

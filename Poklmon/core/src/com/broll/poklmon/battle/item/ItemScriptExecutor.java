@@ -22,6 +22,7 @@ import com.broll.poklmon.game.items.execute.AttackItemRunner;
 import com.broll.poklmon.game.items.execute.BasisItemRunner;
 import com.broll.poklmon.game.items.execute.MenuMedicineItemRunner;
 import com.broll.poklmon.game.items.execute.OtherItemRunner;
+import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
 import com.broll.poklmon.model.CharacterWorldState;
 
 public class ItemScriptExecutor {
@@ -32,8 +33,7 @@ public class ItemScriptExecutor {
 	}
 
 	private void buildScriptEngine() {
-		ScriptEngineManager factory = new ScriptEngineManager();
-		engine = factory.getEngineByName("rhino");
+		engine = ScriptEngineFactory.createScriptEngine();
 	}
 
 	private void runItemScript(Item item) {

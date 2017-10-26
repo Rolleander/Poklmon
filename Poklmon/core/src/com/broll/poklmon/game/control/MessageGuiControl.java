@@ -1,5 +1,6 @@
 package com.broll.poklmon.game.control;
 
+import com.badlogic.gdx.Gdx;
 import com.broll.poklmon.battle.util.SelectionListener;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.Graphics;
@@ -16,6 +17,8 @@ import com.broll.poklmon.gui.input.NumberInputListener;
 import com.broll.poklmon.gui.selection.ScrollableSelectionBox;
 import com.broll.poklmon.gui.selection.SelectionBox;
 import com.broll.poklmon.gui.selection.SelectionBoxListener;
+import com.broll.poklmon.main.GameStateManager;
+import com.broll.poklmon.main.states.TitleMenuState;
 import com.broll.poklmon.menu.MenuCloseListener;
 import com.broll.poklmon.menu.MenuPage;
 import com.broll.poklmon.menu.PlayerMenu;
@@ -24,336 +27,359 @@ import com.broll.poklmon.save.manage.SaveFileManager;
 
 public class MessageGuiControl {
 
-	private GameManager game;
-	private DataContainer data;
-	private DialogBox dialogBox;
-	private ScrollableSelectionBox selectionBox;
-	private SelectionBox menuBox;
-	private InfoBox infoBox;
-	private NumberInputField numberInput;
-	private NameInputField nameInput;
-	private SceneProcessManager process;
-	private int selectedOption;
-	private int inputNumber;
-	private String inputName;
-	private boolean guiVisible = false;
-	private String[] menuItems = new String[7];
-	private PlayerMenu playerMenu;
-	private final static int SELECTION_MAX = 10;
+    private GameManager game;
+    private DataContainer data;
+    private DialogBox dialogBox;
+    private ScrollableSelectionBox selectionBox;
+    private SelectionBox menuBox;
+    private InfoBox infoBox;
+    private NumberInputField numberInput;
+    private NameInputField nameInput;
+    private SceneProcessManager process;
+    private int selectedOption;
+    private int inputNumber;
+    private String inputName;
+    private boolean guiVisible = false;
+    private String[] menuItems = new String[8];
+    private PlayerMenu playerMenu;
+    private final static int SELECTION_MAX = 10;
 
-	public MessageGuiControl(GameManager game, SceneProcessManager sceneProcessManager) {
-		this.game = game;
-		this.data = game.getData();
-		dialogBox = new DialogBox(data);
-		dialogBox.setTextSpeed(DialogBox.TEXT_FAST);
-		nameInput = new NameInputField(data);
-		numberInput = new NumberInputField(data);
-		process = sceneProcessManager;
-		dialogBox.setStyle(DialogBox.STYLE_PLAIN);
-		infoBox = new InfoBox(0, 0, false);
+    public MessageGuiControl(GameManager game, SceneProcessManager sceneProcessManager) {
+        this.game = game;
+        this.data = game.getData();
+        dialogBox = new DialogBox(data);
+        dialogBox.setTextSpeed(DialogBox.TEXT_FAST);
+        nameInput = new NameInputField(data);
+        numberInput = new NumberInputField(data);
+        process = sceneProcessManager;
+        dialogBox.setStyle(DialogBox.STYLE_PLAIN);
+        infoBox = new InfoBox(0, 0, false);
 
-	}
+    }
 
-	public void initMenu() {
-		menuItems[0] = "PoklDex";
-		menuItems[1] = "Poklmon";
-		menuItems[2] = "Inventar";
-		menuItems[3] = game.getPlayer().getData().getPlayerData().getName();
-		menuItems[4] = "Speichern";
-		menuItems[5] = "Optionen";
-		menuItems[6] = "Zurück";
-		playerMenu = new PlayerMenu(game.getPlayer(), game.getData(), game);
-	}
+    public void initMenu() {
+        menuItems[0] = "PoklDex";
+        menuItems[1] = "Poklmon";
+        menuItems[2] = "Inventar";
+        menuItems[3] = game.getPlayer().getData().getPlayerData().getName();
+        menuItems[4] = "Speichern";
+        menuItems[5] = "Optionen";
+        menuItems[6] = "Beenden";
+        menuItems[7] = "Zurück";
 
-	private boolean acceptedText = false;
+        playerMenu = new PlayerMenu(game.getPlayer(), game.getData(), game);
+    }
 
-	public void hideGui() {
-		guiVisible = false;
-	}
+    private boolean acceptedText = false;
 
-	public void openMenu() {
-		int x = 700;
-		int y = 450;
-		menuBox = new SelectionBox(data, menuItems, x, y, false);
-		menuBox.blockItem(4, !Player.SAVING_ALLOWED);
-		data.getSounds().playSound("bagopen");
-		menuBox.setListener(new SelectionBoxListener() {
-			@Override
-			public void select(int item) {
-				if (item == 6) {
-					// close
-					game.changeMenuState(false);
-					menuBox = null;
-					data.getSounds().playSound("bagopen");
-				} else {
-					// reset listener
-					playerMenu.setMenuCloseListener(null);
-					// open menus
-					switch (item) {
-					case 0:
-						playerMenu.getControl().openPokldex();
-						break;
-					case 1:
-						playerMenu.getControl().openTeam();
-						break;
-					case 2:
-						playerMenu.getControl().openInventar();
-						break;
-					case 3:
-						playerMenu.getControl().openPlayer();
-						break;
-					case 4:
-						menuBox = null;
-						showSaveDialog();
-						break;
-					case 5:
-						playerMenu.getControl().openSettings();
-						break;
-					}
-				}
-			}
+    public void hideGui() {
+        guiVisible = false;
+    }
 
-			@Override
-			public void cancelSelection() {
-				menuBox = null;
-				game.changeMenuState(false);
-				data.getSounds().playSound("bagopen");
-			}
-		});
-	}
+    public void openMenu() {
+        int x = 700;
+        int y = 435;
+        menuBox = new SelectionBox(data, menuItems, x, y, false);
+        menuBox.blockItem(4, !Player.SAVING_ALLOWED);
+        data.getSounds().playSound("bagopen");
+        menuBox.setListener(new SelectionBoxListener() {
+            @Override
+            public void select(int item) {
+                if (item == 7) {
+                    // close
+                    game.changeMenuState(false);
+                    menuBox = null;
+                    data.getSounds().playSound("bagopen");
+                } else {
+                    // reset listener
+                    playerMenu.setMenuCloseListener(null);
+                    // open menus
+                    switch (item) {
+                        case 0:
+                            playerMenu.getControl().openPokldex();
+                            break;
+                        case 1:
+                            playerMenu.getControl().openTeam();
+                            break;
+                        case 2:
+                            playerMenu.getControl().openInventar();
+                            break;
+                        case 3:
+                            playerMenu.getControl().openPlayer();
+                            break;
+                        case 4:
+                            menuBox = null;
+                            showSaveDialog();
+                            break;
+                        case 5:
+                            playerMenu.getControl().openSettings();
+                            break;
+                        case 6:
+                            menuBox = null;
+                            showExitDialog();
+                            break;
+                    }
+                }
+            }
 
-	public void showCustomDialog(final String text) {
-		process.runScript(new ScriptInstance(new Runnable() {
-			@Override
-			public void run() {
-				showText(text);
-				process.waitForResume();
-				guiVisible = false;
-			}
-		}));
-	}
+            @Override
+            public void cancelSelection() {
+                menuBox = null;
+                game.changeMenuState(false);
+                data.getSounds().playSound("bagopen");
+            }
+        });
+    }
 
-	public void showRecoverDialog() {
-		process.runScript(new ScriptInstance(new Runnable() {
-			@Override
-			public void run() {
-				showText(game.getPlayer().getData().getPlayerData().getName() + " hat sich wieder erholt!");
-				process.waitForResume();
-				guiVisible = false;
-			}
-		}));
-	}
+    public void showCustomDialog(final String text) {
+        process.runScript(new ScriptInstance(new Runnable() {
+            @Override
+            public void run() {
+                showText(text);
+                process.waitForResume();
+                guiVisible = false;
+            }
+        }));
+    }
 
-	public void showSaveDialog() {
-		process.runScript(new ScriptInstance(new Runnable() {
-			@Override
-			public void run() {
-				showText("Möchtest du das Spiel speichern?");
-				process.waitForResume();
-				showSelection(new String[] { "Ja", "Nein" });
-				process.waitForResume();
-				if (getSelectedOption() == 0) {
-					dialogBox.showInfo("Speichern...", "");
-					game.getPlayer().getPlayerControl().saveCurrentLocation(game.getMap().getMapId());
-					SaveFileManager.saveGame(game.getPlayer().getData().getSaveFile());
-					showText("Spiel gespeichert!");
-					process.waitForResume();
-				}
-				game.changeMenuState(false);
-				guiVisible = false;
-			}
-		}));
-	}
+    public void showRecoverDialog() {
+        process.runScript(new ScriptInstance(new Runnable() {
+            @Override
+            public void run() {
+                showText(game.getPlayer().getData().getPlayerData().getName() + " hat sich wieder erholt!");
+                process.waitForResume();
+                guiVisible = false;
+            }
+        }));
+    }
 
-	public void showText(String text) {
-		acceptedText = false;
-		guiVisible = true;
-		dialogBox.showMessage(text, new SelectionListener() {
-			@Override
-			public void selectionDone() {
-				if (acceptedText == false) {
-					acceptedText = true;
-					process.resume();
-				}
-			}
-		});
-	}
+    public void showExitDialog() {
+        process.runScript(new ScriptInstance(new Runnable() {
+            @Override
+            public void run() {
+                showText("Möchtest du das Spiel wirklich beenden?");
+                process.waitForResume();
+                showSelection(new String[]{"Ja", "Nein"});
+                process.waitForResume();
+                if (getSelectedOption() == 0) {
+                    Gdx.app.exit();
+                }
+                game.changeMenuState(false);
+                guiVisible = false;
+            }
+        }));
+    }
 
-	public int getSelectedOption() {
-		return selectedOption;
-	}
+    public void showSaveDialog() {
+        process.runScript(new ScriptInstance(new Runnable() {
+            @Override
+            public void run() {
+                showText("Möchtest du das Spiel speichern?");
+                process.waitForResume();
+                showSelection(new String[]{"Ja", "Nein"});
+                process.waitForResume();
+                if (getSelectedOption() == 0) {
+                    dialogBox.showInfo("Speichern...", "");
+                    game.getPlayer().getPlayerControl().saveCurrentLocation(game.getMap().getMapId());
+                    SaveFileManager.saveGame(game.getPlayer().getData().getSaveFile());
+                    showText("Spiel gespeichert!");
+                    process.waitForResume();
+                }
+                game.changeMenuState(false);
+                guiVisible = false;
+            }
+        }));
+    }
 
-	public String getInputName() {
-		return inputName;
-	}
+    public void showText(String text) {
+        acceptedText = false;
+        guiVisible = true;
+        dialogBox.showMessage(text, new SelectionListener() {
+            @Override
+            public void selectionDone() {
+                if (acceptedText == false) {
+                    acceptedText = true;
+                    process.resume();
+                }
+            }
+        });
+    }
 
-	public void showSelection(String[] items) {
-		int x = 800;
-		int y = (600 - 157);
-		selectionBox = new ScrollableSelectionBox(data, items, x, y, SELECTION_MAX, false);
-		selectionBox.setListener(new SelectionBoxListener() {
-			@Override
-			public void select(int item) {
-				selectedOption = item;
-				process.resume();
-				selectionBox = null;
-			}
+    public int getSelectedOption() {
+        return selectedOption;
+    }
 
-			@Override
-			public void cancelSelection() {
+    public String getInputName() {
+        return inputName;
+    }
 
-			}
-		});
-	}
+    public void showSelection(String[] items) {
+        int x = 800;
+        int y = (600 - 157);
+        selectionBox = new ScrollableSelectionBox(data, items, x, y, SELECTION_MAX, false);
+        selectionBox.setListener(new SelectionBoxListener() {
+            @Override
+            public void select(int item) {
+                selectedOption = item;
+                process.resume();
+                selectionBox = null;
+            }
 
-	public void showInfoBox(String text) {
-		infoBox.showText(text);
-	}
+            @Override
+            public void cancelSelection() {
 
-	public void hideInfoBox() {
-		infoBox.setVisible(false);
-	}
+            }
+        });
+    }
 
-	public void showSelection(String[] items, boolean[] locked, final boolean cancelable, boolean iconized) {
-		int x = 800;
-		int y = (600 - 157);
-		selectionBox = new ScrollableSelectionBox(data, items, x, y, SELECTION_MAX, iconized);
-		for (int i = 0; i < locked.length; i++) {
-			selectionBox.blockItem(i, locked[i]);
-		}
-		selectionBox.setListener(new SelectionBoxListener() {
-			@Override
-			public void select(int item) {
-				selectedOption = item;
-				process.resume();
-				selectionBox = null;
-			}
+    public void showInfoBox(String text) {
+        infoBox.showText(text);
+    }
 
-			@Override
-			public void cancelSelection() {
-				if (cancelable) {
-					selectedOption = -1;
-					process.resume();
-					selectionBox = null;
-				}
-			}
-		});
-	}
+    public void hideInfoBox() {
+        infoBox.setVisible(false);
+    }
 
-	public void setSelectionIcons(Image[] icons) {
-		selectionBox.setIcons(icons);
-	}
+    public void showSelection(String[] items, boolean[] locked, final boolean cancelable, boolean iconized) {
+        int x = 800;
+        int y = (600 - 157);
+        selectionBox = new ScrollableSelectionBox(data, items, x, y, SELECTION_MAX, iconized);
+        for (int i = 0; i < locked.length; i++) {
+            selectionBox.blockItem(i, locked[i]);
+        }
+        selectionBox.setListener(new SelectionBoxListener() {
+            @Override
+            public void select(int item) {
+                selectedOption = item;
+                process.resume();
+                selectionBox = null;
+            }
 
-	public void render(Graphics g) {
-		if (playerMenu.isVisible()) {
-			playerMenu.render(g);
-		} else {
-			if (menuBox != null) {
-				menuBox.render(g);
-			}
-		}
-		if (guiVisible) {
-			dialogBox.render(g);
-			if (selectionBox != null) {
-				selectionBox.render(g);
-			}
-			numberInput.render(g);
-			nameInput.render(g);
-		}
-		infoBox.render(g);
-	}
+            @Override
+            public void cancelSelection() {
+                if (cancelable) {
+                    selectedOption = -1;
+                    process.resume();
+                    selectionBox = null;
+                }
+            }
+        });
+    }
 
-	public void update(float delta) {
-		if (guiVisible) {
-			dialogBox.update();
-			if (selectionBox != null) {
-				selectionBox.update();
-			}
-			numberInput.update();
-		} else {
-			if (playerMenu.isVisible()) {
-				playerMenu.update(delta);
-			} else {
-				if (menuBox != null) {
-					menuBox.update();
-				}
-			}
-		}
-	}
+    public void setSelectionIcons(Image[] icons) {
+        selectionBox.setIcons(icons);
+    }
 
-	public void openNameInput(String t) {
-		guiVisible = true;
-		nameInput.openNameInput(t, new NameInputListener() {
-			public void inputName(String name) {
-				inputName = name;
-				process.resume();
-			}
-		});
-	}
-	
-	public void openTextInput(String t, int max) {
-		guiVisible = true;
-		nameInput.openCustomInput(t,max, new NameInputListener() {
-			public void inputName(String name) {
-				inputName = name;
-				process.resume();
-			}
-		});
-	}
+    public void render(Graphics g) {
+        if (playerMenu.isVisible()) {
+            playerMenu.render(g);
+        } else {
+            if (menuBox != null) {
+                menuBox.render(g);
+            }
+        }
+        if (guiVisible) {
+            dialogBox.render(g);
+            if (selectionBox != null) {
+                selectionBox.render(g);
+            }
+            numberInput.render(g);
+            nameInput.render(g);
+        }
+        infoBox.render(g);
+    }
 
-	public void openNumberInput(String info, int value, int min, int max, boolean cancelable) {
-		guiVisible = true;
-		numberInput.show(info, value, min, max, cancelable, new NumberInputListener() {
-			@Override
-			public void input(int number) {
-				inputNumber = number;
-				process.resume();
-			}
+    public void update(float delta) {
+        if (guiVisible) {
+            dialogBox.update();
+            if (selectionBox != null) {
+                selectionBox.update();
+            }
+            numberInput.update();
+        } else {
+            if (playerMenu.isVisible()) {
+                playerMenu.update(delta);
+            } else {
+                if (menuBox != null) {
+                    menuBox.update();
+                }
+            }
+        }
+    }
 
-			@Override
-			public void cancel() {
-				inputNumber = NumberInputField.CANCEL_VALUE;
-				process.resume();
-			}
-		});
-	}
+    public void openNameInput(String t) {
+        guiVisible = true;
+        nameInput.openNameInput(t, new NameInputListener() {
+            public void inputName(String name) {
+                inputName = name;
+                process.resume();
+            }
+        });
+    }
 
-	public int getInputNumber() {
-		return inputNumber;
-	}
+    public void openTextInput(String t, int max) {
+        guiVisible = true;
+        nameInput.openCustomInput(t, max, new NameInputListener() {
+            public void inputName(String name) {
+                inputName = name;
+                process.resume();
+            }
+        });
+    }
 
-	public void keyPressed(int key, char c) {
-		nameInput.keyPressed(key, c);
-	}
+    public void openNumberInput(String info, int value, int min, int max, boolean cancelable) {
+        guiVisible = true;
+        numberInput.show(info, value, min, max, cancelable, new NumberInputListener() {
+            @Override
+            public void input(int number) {
+                inputNumber = number;
+                process.resume();
+            }
 
-	public void showInfo(String text) {
-		guiVisible = true;
-		dialogBox.showMessage(text, null);
-		dialogBox.setMaxLetters();
-	}
+            @Override
+            public void cancel() {
+                inputNumber = NumberInputField.CANCEL_VALUE;
+                process.resume();
+            }
+        });
+    }
 
-	public void setTextEnd() {
-		dialogBox.setMaxLetters();
-	}
+    public int getInputNumber() {
+        return inputNumber;
+    }
 
-	public void showMenu(Class<? extends MenuPage> page) {
-		guiVisible = false;
-		playerMenu.setMenuCloseListener(new MenuCloseListener() {
-			@Override
-			public void menuClosed() {
-				process.resume();
-			}
-		});
-		playerMenu.showMenu();
-		playerMenu.openPage(page);
-	}
+    public void keyPressed(int key, char c) {
+        nameInput.keyPressed(key, c);
+    }
 
-	public MenuPage getPage(Class<? extends MenuPage> page) {
-		return playerMenu.getPage(page);
-	}
-	
-	public PlayerMenu getPlayerMenu() {
-		return playerMenu;
-	}
+    public void showInfo(String text) {
+        guiVisible = true;
+        dialogBox.showMessage(text, null);
+        dialogBox.setMaxLetters();
+    }
+
+    public void setTextEnd() {
+        dialogBox.setMaxLetters();
+    }
+
+    public void showMenu(Class<? extends MenuPage> page) {
+        guiVisible = false;
+        playerMenu.setMenuCloseListener(new MenuCloseListener() {
+            @Override
+            public void menuClosed() {
+                process.resume();
+            }
+        });
+        playerMenu.showMenu();
+        playerMenu.openPage(page);
+    }
+
+    public MenuPage getPage(Class<? extends MenuPage> page) {
+        return playerMenu.getPage(page);
+    }
+
+    public PlayerMenu getPlayerMenu() {
+        return playerMenu;
+    }
 
 }

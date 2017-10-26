@@ -36,7 +36,7 @@ public class Graphics {
 
 	public void drawString(String string, float x, float y) {
 		font.setColor(color);
-		font.draw(sb, string, x, y + font.getCapHeight());
+		font.draw(sb, string, x, y + font.getCapHeight() / 2);
 	}
 
 	public void fillArc(float x, float y, float radius, float start, float end) {
@@ -77,8 +77,30 @@ public class Graphics {
 		image.draw(x, y);
 	}
 
-	public void fillRoundRect(int x, int y, int w, int h, int b) {
-		
+	public void fillRoundRect(float x, float y, float width, float height, float radius) {
+
+		sb.end();
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		shapeRenderer.begin(ShapeType.Filled);
+		shapeRenderer.setColor(color);
+			// Central rectangle
+			shapeRenderer.rect(x + radius, y + radius, width - 2 * radius, height - 2 * radius);
+
+			// Four side rectangles, in clockwise order
+			shapeRenderer.rect(x + radius, y, width - 2 * radius, radius);
+			shapeRenderer.rect(x + width - radius, y + radius, radius, height - 2 * radius);
+			shapeRenderer.rect(x + radius, y + height - radius, width - 2 * radius, radius);
+			shapeRenderer.rect(x, y + radius, radius, height - 2*radius);
+
+			// Four arches, clockwise too
+			shapeRenderer.arc(x + radius, y + radius, radius, 180f, 90f);
+			shapeRenderer.arc(x + width - radius, y + radius, radius, 270f, 90f);
+			shapeRenderer.arc(x + width - radius, y + height - radius, radius, 0f, 90f);
+			shapeRenderer.arc(x + radius, y + height - radius, radius, 90f, 90f);
+		shapeRenderer.end();
+		sb.begin();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
 	}
 
 	public Color getColor() {

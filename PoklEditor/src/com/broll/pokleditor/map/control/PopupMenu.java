@@ -6,10 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-import com.broll.pokleditor.map.dialog.ResizeMapDialog;
 import com.broll.pokleditor.map.objects.MapObjectGenerator;
 import com.broll.pokleditor.map.objects.ObjectType;
 
@@ -17,13 +15,14 @@ public class PopupMenu
 {
 
     private static JMenu newobject;
-    private static JMenuItem debug,edit, copy, paste,delete;
+    private static JMenuItem debug,edit,cut, copy, paste,delete;
 
     public static void activateObjectOptions(boolean active)
     {
         edit.setEnabled(active);
         delete.setEnabled(active);       
         copy.setEnabled(active);
+        cut.setEnabled(active);
         newobject.setEnabled(!active);
         paste.setEnabled(!active);
     }
@@ -117,7 +116,6 @@ public class PopupMenu
             public void actionPerformed(ActionEvent e)
             {
                 control.addObject(MapObjectGenerator.openWizard(ObjectType.TELEPORTER));
-                control.editObject();
             }
         }));
         newobject.add(addItem("Citizen", new ActionListener() {
@@ -141,11 +139,23 @@ public class PopupMenu
             public void actionPerformed(ActionEvent e)
             {
                 control.addObject(MapObjectGenerator.openWizard(ObjectType.ITEM));
-                control.editObject();
-               
+                control.editObject();              
             }
         }));
-
+        newobject.add(addItem("Ledge", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                control.addObject(MapObjectGenerator.openWizard(ObjectType.LEDGE));
+            }
+        }));
+        newobject.add(addItem("Remote", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                control.addObject(MapObjectGenerator.openWizard(ObjectType.REMOTE));
+            }
+        }));
         m.add(newobject);
 
         edit = new JMenuItem("Edit Object");
@@ -183,6 +193,17 @@ public class PopupMenu
             }
         });
         m.add(copy);
+        
+        cut = new JMenuItem("Cut Object");
+        cut.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                control.cutObject();
+            }
+        });
+        m.add(cut);
 
         paste = new JMenuItem("Paste Object");
         paste.addActionListener(new ActionListener() {

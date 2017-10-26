@@ -6,6 +6,8 @@ import com.broll.poklmon.battle.util.BattleEndListener;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.gui.GUIUpdate;
+import com.broll.poklmon.gui.TouchIconsRender;
+import com.broll.poklmon.input.CharReceiver;
 import com.broll.poklmon.main.GameState;
 import com.broll.poklmon.network.NetworkEndpoint;
 import com.broll.poklmon.player.Player;
@@ -78,11 +80,18 @@ public class BattleState extends GameState {
 
 	@Override
 	public void onEnter() {
+		game.getInput().setCharReceiver(new CharReceiver() {
+			@Override
+			public void typed(int keycode, char typedChar) {
+				battle.getBattleRender().getHudRender().keyPressed(keycode, typedChar);
+			}
+		});
 		data.getMusics().playMusic("battle.ogg", true);
 	}
 
 	@Override
 	public void onExit() {
+
 	}
 
 	@Override

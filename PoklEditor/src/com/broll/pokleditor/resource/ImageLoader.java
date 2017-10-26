@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import com.broll.pokleditor.animationdex.AnimationSpriteset;
-import com.broll.pokllib.animation.AnimationSprite;
 
 public class ImageLoader {
 

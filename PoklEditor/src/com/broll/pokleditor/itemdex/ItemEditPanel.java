@@ -1,11 +1,9 @@
 package com.broll.pokleditor.itemdex;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.item.Item;
 
 public class ItemEditPanel extends JPanel{

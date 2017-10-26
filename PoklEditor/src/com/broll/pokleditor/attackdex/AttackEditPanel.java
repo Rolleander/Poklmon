@@ -3,7 +3,6 @@ package com.broll.pokleditor.attackdex;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.broll.pokleditor.gui.components.SaveListener;

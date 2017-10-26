@@ -4,9 +4,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.broll.pokleditor.data.PoklDataUtil;
 import com.broll.pokllib.attack.AttackPriority;
-import com.broll.pokllib.attack.AttackType;
 
 public class AttackPriorityBox extends JPanel {
 

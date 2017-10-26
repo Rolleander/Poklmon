@@ -4,7 +4,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.broll.pokleditor.debug.GameDebugger;
-import com.broll.pokleditor.main.PoklEditorMain;
 import com.broll.pokleditor.map.MapPanel;
 import com.broll.pokleditor.map.MapTileEditor;
 import com.broll.pokleditor.map.dialog.MoveMapDialog;
@@ -13,9 +12,7 @@ import com.broll.pokleditor.map.objects.ObjectUtil;
 import com.broll.pokleditor.window.EditorWindow;
 import com.broll.pokllib.map.MapData;
 import com.broll.pokllib.object.MapObject;
-import com.broll.poklmon.main.PoklmonGameMain;
 import com.broll.poklmon.main.StartInformation;
-import com.broll.poklmon.player.Player;
 
 public class MapControlImpl implements MapControlInterface {
 	private MapData map;
@@ -53,7 +50,7 @@ public class MapControlImpl implements MapControlInterface {
 		int x = selectionx;
 		int y = selectiony;
 
-		StartInformation startInformation = new StartInformation();
+		StartInformation startInformation = new StartInformation(null);
 		startInformation.debugMap(mapId, x, y);
 		GameDebugger.debugGame(startInformation);
 	}
@@ -115,16 +112,36 @@ public class MapControlImpl implements MapControlInterface {
 		}
 	}
 
+	private boolean copyCut = false;
+
+	@Override
+	public void cutObject() {
+		copyCut = true;
+		copyObject = ObjectUtil.findObjectAt(map.getFile().getObjects(), selectionx, selectiony);
+	}
+
 	@Override
 	public void copyObject() {
+		copyCut = false;
 		copyObject = ObjectUtil.findObjectAt(map.getFile().getObjects(), selectionx, selectiony);
 	}
 
 	@Override
 	public void pasteObject() {
 		if (copyObject != null) {
-			MapObject paste = ObjectUtil.copyObject(copyObject);
-			spawnNewObject(paste);
+			if (copyCut) {
+				copyCut = false;
+				// just update position
+				copyObject.setXpos(selectionx);
+				copyObject.setYpos(selectiony);
+				editor.repaint();
+			} else {
+				MapObject paste = ObjectUtil.copyObject(copyObject);
+				paste.setXpos(selectionx);
+				paste.setYpos(selectiony);
+				spawnNewObject(paste);
+			}
+
 		} else {
 			EditorWindow.showErrorMessage("No Object copied!");
 		}

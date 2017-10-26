@@ -29,8 +29,18 @@ public class MapAreaScriptBox extends JPanel {
 		JButton poklwizard = new JButton("Add Wild Poklmons", GraphicLoader.loadIcon("grass.png"));
 		poklwizard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WildPoklmonWizard wizard = new WildPoklmonWizard();
+				WildPoklmonWizard wizard = new WildPoklmonWizard(false);
 				if (MapControlImpl.acceptDialog(wizard, "Wild Poklmon Wizard")) {
+					script.appendText(wizard.getScript());
+				}
+			}
+		});
+		tools.add(poklwizard);
+		poklwizard = new JButton("Add Fishing Poklmons", GraphicLoader.loadIcon("grass.png"));
+		poklwizard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WildPoklmonWizard wizard = new WildPoklmonWizard(true);
+				if (MapControlImpl.acceptDialog(wizard, "Fishing Poklmon Wizard")) {
 					script.appendText(wizard.getScript());
 				}
 			}

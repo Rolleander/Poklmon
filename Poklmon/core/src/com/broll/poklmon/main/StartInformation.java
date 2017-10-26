@@ -2,6 +2,8 @@ package com.broll.poklmon.main;
 
 import java.io.File;
 
+import com.broll.poklmon.main.states.TitleMenuState;
+
 public class StartInformation {
 
 	private boolean debugGame;
@@ -26,7 +28,7 @@ public class StartInformation {
 		this.touchControling = touchControling;
 	}
 
-	/*public static String parseToConsole(StartInformation info) {
+	public static String parseToConsole(StartInformation info) {
 		if (info.isDebugAnimation()) {
 			return "debug:animation:" + info.getAnimationId();
 		} else if (info.isDebugAttack()) {
@@ -40,7 +42,7 @@ public class StartInformation {
 	}
 
 	public static StartInformation parseFromConsole(String in) {
-		StartInformation info = new StartInformation();
+		StartInformation info = new StartInformation(null);
 		in = in.toLowerCase();
 		if (in.equals("debug:game")) {
 			info.debugScene(TitleMenuState.class);
@@ -55,7 +57,7 @@ public class StartInformation {
 			info.debugAnimation(Integer.parseInt(param));
 		}
 		return info;
-	}*/
+	}
 	
 	public void debugScene(Class scene) {
 		this.debugScene = scene;

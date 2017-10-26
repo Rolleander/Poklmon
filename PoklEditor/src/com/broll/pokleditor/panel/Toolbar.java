@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
+import javax.swing.JComboBox;
 import javax.swing.JToolBar;
 
 import com.broll.pokleditor.gui.graphics.GraphicLoader;
@@ -91,8 +91,7 @@ public class Toolbar
             }
         });
         bar.add(box);
-        
-
+      
     }
 
   

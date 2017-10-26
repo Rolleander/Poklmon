@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.broll.pokllib.poklmon.EXPLearnTypes;
-import com.broll.pokllib.poklmon.ElementType;
 
 
 public class EXPTypeBox extends JPanel{

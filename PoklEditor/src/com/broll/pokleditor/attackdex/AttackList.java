@@ -3,24 +3,14 @@ package com.broll.pokleditor.attackdex;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import com.broll.pokleditor.data.PoklData;
 import com.broll.pokleditor.data.PoklDataUtil;
 import com.broll.pokleditor.gui.components.ObjectList;
 import com.broll.pokleditor.gui.graphics.GraphicLoader;
-import com.broll.pokllib.attack.Attack;
-import com.broll.pokllib.poklmon.Poklmon;
 
 public class AttackList extends JPanel {
 

@@ -3,6 +3,7 @@ package com.broll.poklmon.game.scene.script.commands;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.pokllib.script.syntax.VariableException;
 import com.broll.poklmon.battle.BattleParticipants;
 import com.broll.poklmon.battle.poklmon.FightPokemonBuilder;
@@ -78,11 +79,15 @@ public class NetworkCommands extends CommandControl {
 			game.getPlayer().healTeam();
 			HashMap<Integer, PoklmonData> team = game.getPlayer().getPoklmonControl().getPoklmonsInTeam();
 			PoklmonData[] teamarray = new PoklmonData[team.size()];
-			Iterator<Integer> keyset = team.keySet().iterator();
 			int nr = 0;
-			while (keyset.hasNext()) {
-				teamarray[nr] = team.get(keyset.next());
-				nr++;
+			for (int i = 0; i < 6; i++) {
+				PoklmonData pokl = team.get(i);
+				if (pokl != null) {
+					Poklmon poklmon = game.getData().getPoklmons().getPoklmon(pokl.getPoklmon());
+					teamarray[nr]=pokl;
+					Log.debug("send team nr "+nr+" = "+poklmon.getName()+" "+teamarray[nr].getLevel());
+					nr++;
+				}
 			}
 			TeamTransfer transfer = new TeamTransfer();
 			transfer.team = teamarray;
@@ -153,8 +158,10 @@ public class NetworkCommands extends CommandControl {
 		long seed = init.seed;
 		PoklmonData[] team = enemyTeam.team;
 		for (int i = 0; i < team.length; i++) {
-			FightPoklmon trainer = FightPokemonBuilder.createPlayerPoklmon(game.getData(), team[i]);
-			participants.addEnemyPoklmon(trainer);
+			PoklmonData data=team[i];
+			FightPoklmon enemy = FightPokemonBuilder.createPlayerPoklmon(game.getData(), data);
+			Log.debug("enemy team pos "+i+" pokmlon "+enemy.getName()+" level "+enemy.getLevel());
+			participants.addEnemyPoklmon(enemy);
 		}
 		String enemyName = enemyTeam.name;
 		return startNetworkBattle(participants, endpoint, seed, enemyName, 0);

@@ -2,7 +2,11 @@ package com.broll.poklmon.network;
 
 import java.io.IOException;
 import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -14,9 +18,14 @@ public class NetworkServer extends NetworkEndpoint {
 	private Server server;
 	private Connection client;
 	private final static int TIMEOUT = 10;
+	private static AddressProvider addressProvider;
 
 	public NetworkServer() {
 
+	}
+
+	public static void setAddressProvider(AddressProvider addressProvider){
+		NetworkServer.addressProvider=addressProvider;
 	}
 
 	public void close() {
@@ -62,8 +71,9 @@ public class NetworkServer extends NetworkEndpoint {
 
 	public String getAddress() throws NetworkException {
 		try {
-			return Inet4Address.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
+			return addressProvider.getIpAddress();
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new NetworkException(e.getMessage());
 		}
 	}

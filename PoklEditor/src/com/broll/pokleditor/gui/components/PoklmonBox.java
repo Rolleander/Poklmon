@@ -7,10 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.broll.pokleditor.data.PoklData;
 import com.broll.pokleditor.data.PoklDataUtil;
 import com.broll.pokleditor.gui.graphics.GraphicLoader;
 

@@ -21,6 +21,8 @@ public interface MapControlInterface
     
     public void addObject(MapObject object);
 
+    public void cutObject();
+    
     public void copyObject();
 
     public void pasteObject();

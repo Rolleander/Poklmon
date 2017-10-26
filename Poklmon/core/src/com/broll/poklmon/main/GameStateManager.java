@@ -2,7 +2,9 @@ package com.broll.poklmon.main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
+import com.badlogic.gdx.Screen;
 import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.DataLoader;
@@ -28,6 +30,7 @@ public class GameStateManager {
 	private List<GameState> states = new ArrayList<GameState>();
 	private PoklmonGame game;
 	private Graphics graphics;
+	private Stack<WaitingTranstion> transitionStack=new Stack<WaitingTranstion>();
 
 	public GameStateManager(PoklmonGame game) {
 		this.game = game;
@@ -77,18 +80,39 @@ public class GameStateManager {
 		for (GameState state : states) {
 			if (state.getClass().equals(newState)) {
 				final GameState nextState = state;
-				GameState currentState = (GameState) game.getScreen();
-				currentState.onExit();
-				transition.start(graphics, currentState, nextState, new TransitionListener() {
-					@Override
-					public void transitionFinished() {
-						game.setScreen(nextState);
-						nextState.onEnter();
-					}
-				});
-				game.setScreen(transition);
+				Screen currentState =  game.getScreen();
+				if(currentState instanceof  GameState){
+					GameState currentGameState=(GameState)currentState;
+					currentGameState.onExit();
+					transition.start(graphics, currentGameState, nextState, new TransitionListener() {
+						@Override
+						public void transitionFinished() {
+							game.setScreen(nextState);
+							nextState.onEnter();
+							// check stack for waiting transitions
+							if(!transitionStack.isEmpty()){
+								WaitingTranstion wt=transitionStack.pop();
+								transition(wt.newState,wt.transition);
+							}
+						}
+					});
+					game.setScreen(transition);
+				}
+				else{
+					//allready a transition running, add to transition stack
+					WaitingTranstion wt=new WaitingTranstion();
+					wt.newState=newState;
+					wt.transition=transition;
+					transitionStack.push(wt);
+				}
+
 			}
 		}
 
+	}
+
+	private class WaitingTranstion{
+		public ScreenTransition transition;
+		public Class<? extends GameState> newState;
 	}
 }

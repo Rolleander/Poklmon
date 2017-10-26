@@ -4,11 +4,9 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import com.broll.pokleditor.gui.components.AttackTypeBox;
 import com.broll.pokleditor.gui.components.IntBox;
 import com.broll.pokleditor.gui.components.ItemTypeBox;
 import com.broll.pokleditor.gui.components.StringBox;
-import com.broll.pokleditor.gui.components.TypeBox;
 import com.broll.pokllib.item.Item;
 
 public class ItemEditStatus extends JPanel{

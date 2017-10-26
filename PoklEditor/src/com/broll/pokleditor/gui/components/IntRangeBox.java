@@ -1,7 +1,5 @@
 package com.broll.pokleditor.gui.components;
 
-import java.awt.event.ActionListener;
-
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

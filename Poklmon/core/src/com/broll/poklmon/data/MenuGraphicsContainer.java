@@ -7,7 +7,7 @@ public class MenuGraphicsContainer extends ResourceContainer {
 
 	private final static String menuGraphicPath = "menu/";
 
-	private Image stateBackground, boxBackground, pokldexBackground, missingPoklmon, arrow;
+	private Image stateBackground, boxBackground, pokldexBackground, missingPoklmon,menuBackground, arrow;
 	private SpriteSheet dnaspikes, elements, attacktypes;
 	private SpriteSheet riderBackground, menuRiders, medals;
 	private SpriteSheet teamBlock, boxBlock, designButton;
@@ -19,6 +19,8 @@ public class MenuGraphicsContainer extends ResourceContainer {
 
 	public void load() throws DataException {
 		stateBackground = loadImage("statemenu.png");
+		menuBackground = loadImage("background.jpg");
+
 		arrow = loadImage("arrow.png");
 		pokldexBackground = loadImage("pokldex_background.png");
 		pokldexIcons = loadSprites("pokldex_icons.png", 24, 24);
@@ -36,6 +38,10 @@ public class MenuGraphicsContainer extends ResourceContainer {
 		teamBlock = loadSprites("teamblock.png", 380, 130);
 		boxBlock = loadSprites("boxblock.png", 180, 40);
 		designButton = loadSprites("designbutton.png", 200, 40);
+	}
+
+	public Image getMenuBackground() {
+		return menuBackground;
 	}
 
 	public Image getArrow() {

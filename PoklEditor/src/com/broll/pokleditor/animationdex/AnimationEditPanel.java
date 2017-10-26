@@ -11,10 +11,8 @@ import javax.swing.JPanel;
 import com.broll.pokleditor.debug.GameDebugger;
 import com.broll.pokleditor.gui.components.StringBox;
 import com.broll.pokleditor.gui.graphics.GraphicLoader;
-import com.broll.pokleditor.main.PoklEditorMain;
 import com.broll.pokleditor.window.EditorWindow;
 import com.broll.pokllib.animation.Animation;
-import com.broll.poklmon.main.PoklmonGameMain;
 import com.broll.poklmon.main.StartInformation;
 
 public class AnimationEditPanel extends JPanel{
@@ -44,7 +42,7 @@ public class AnimationEditPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				save();
 				EditorWindow.save();
-				StartInformation startInformation = new StartInformation();
+				StartInformation startInformation = new StartInformation(null);
 				startInformation.debugAnimation(animation.getId());
 				GameDebugger.debugGame(startInformation);
 			}

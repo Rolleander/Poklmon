@@ -106,6 +106,8 @@ public class JScriptHelpBox extends JPanel {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								addClass(method.getReturnType(),null);
+								JScriptHelpBox.this.revalidate();
+								JScriptHelpBox.this.repaint();
 							}
 						});
 						info.add(returnButton);
@@ -124,6 +126,8 @@ public class JScriptHelpBox extends JPanel {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								addClass(param.getType(),null);
+								JScriptHelpBox.this.revalidate();
+								JScriptHelpBox.this.repaint();
 							}
 						});
 						info.add(returnButton);
@@ -132,6 +136,9 @@ public class JScriptHelpBox extends JPanel {
 
 					info.setVisible(false);
 					text = "<html>";
+					if(objectName==null){
+						objectName=clazz.getSimpleName();
+					}
 					text += objectName+".<font color='#3385ff'>" + method.getName() + "</font>   ";
 					text += "</html>";
 					JButton button = new JButton(text, GraphicLoader.loadIcon("math_functions.png"));

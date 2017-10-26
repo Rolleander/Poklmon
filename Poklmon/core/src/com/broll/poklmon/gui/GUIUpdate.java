@@ -1,6 +1,7 @@
 package com.broll.poklmon.gui;
 
 import com.badlogic.gdx.Input.Keys;
+import com.broll.poklmon.PoklmonGame;
 
 public class GUIUpdate {
 
@@ -57,10 +58,16 @@ public class GUIUpdate {
 	}
 
 	public static String getKeyShortcutA() {
+		if(PoklmonGame.TOUCH_MODE){
+			return "1";
+		}
 		return "K";
 	}
 
 	public static String getKeyShortcutB() {
+		if(PoklmonGame.TOUCH_MODE){
+			return "2";
+		}
 		return "L";
 	}
 

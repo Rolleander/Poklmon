@@ -27,6 +27,7 @@ public class TeleportLocationDialog extends JPanel {
 
 	public TeleportLocationDialog() {
 
+		doStep.setSelected(true);
 		map = new MapPreviewPanel();
 		loadMap(0);
 		setLayout(new BorderLayout());
@@ -84,9 +85,11 @@ public class TeleportLocationDialog extends JPanel {
 				t += "Step";
 			}
 			t += "(" + args + "," + dir + ")";
+			// 
+			//t = "if(player.getPlayerDirection()=="+dir+") {\n" + t + "\n}";
 		} else {
 			t += "(" + args + ")";
-		}
+		}	
 		return t;
 	}
 

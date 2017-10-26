@@ -57,6 +57,7 @@ public abstract class PoklmonTeamDialog {
 	
 	public void render(Graphics g) {
 		if (isVisible) {
+			data.getGraphics().getMenuGraphicsContainer().getMenuBackground().draw();
 			ArrayList<FightPoklmon> team = manager.getParticipants().getPlayerTeam();
 			selectionRender.render(g, team, selection);
 			if (selectionBox != null) {

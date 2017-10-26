@@ -2,10 +2,10 @@ package com.broll.poklmon.game.scene;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import com.broll.poklmon.game.scene.script.ObjectScriptExtension;
+import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
 import com.broll.poklmon.game.scene.script.ScriptingEnvironment;
 import com.broll.poklmon.map.object.MapObject;
 
@@ -20,8 +20,7 @@ public class ObjectScriptHandler {
 		this.source = object;
 		this.environment = gameInterface;
 		buildScript(script);
-		ScriptEngineManager factory = new ScriptEngineManager();
-	    engine = factory.getEngineByName("rhino");
+	    engine =  ScriptEngineFactory.createScriptEngine();
 		this.script = gameInterface.getImporter().buildScript(this.script);
 	}
 

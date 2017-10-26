@@ -64,6 +64,7 @@ public class PlayerPoklmonIntro extends SequenceRender
     public void update(float delta)
     {
         poklball.update(delta);
+        playerAnimation.update(delta);
         if (start)
         {
             if (!poklball.isFlying())
