@@ -1,14 +1,10 @@
 package com.broll.poklmon.data;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 import com.broll.pokllib.animation.Animation;
 import com.broll.pokllib.animation.AnimationDex;
 import com.broll.pokllib.animation.AnimationID;
@@ -26,12 +22,28 @@ import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.data.basics.SpriteSheet;
 import com.broll.poklmon.resource.ResourceUtils;
+import com.esotericsoftware.minlog.Log;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DataLoader {
 	private static String graphicsPath = "graphics/";
 	public static boolean SKIP_SOUNDS = false;
 	private static Graphics graphics;
-	
+	private static Array<Texture> textures=new Array<Texture>();
+	private static Array<Sound> sounds=new Array<Sound>();
+
+	public static void dispose(){
+		for(Sound sound: sounds){
+			sound.dispose();
+		}
+		for(Texture texture: textures ){
+			texture.dispose();
+		}
+	}
+
 	public static void setGraphics(Graphics graphics) {
 		DataLoader.graphics = graphics;
 	}
@@ -107,6 +119,7 @@ public class DataLoader {
 					String name = f.name();
 					String path = ResourceUtils.DATA_PATH + "sounds/" + name;
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
+					sounds.add(sound);
 					name = name.split("\\.")[0];
 					list.put(name, sound);
 				}
@@ -118,6 +131,7 @@ public class DataLoader {
 					String name = f.name();
 					String path = ResourceUtils.DATA_PATH + "sounds/battle/" + name;
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
+					sounds.add(sound);
 					name = "battle_" + name.split("\\_")[0];
 					list.put(name, sound);
 				}
@@ -127,9 +141,19 @@ public class DataLoader {
 	}
 
 	public static SpriteSheet loadTileSet() throws DataException {
-
-		return loadSprites(ResourceUtils.DATA_PATH + graphicsPath + "tileset.png", 16, 16);
-
+		boolean searching=true;
+		int index=0;
+		List<Image> tilesets=new ArrayList<Image>();
+		do{
+			try {
+				Image image=loadImage(ResourceUtils.DATA_PATH + graphicsPath + "tileset"+index+".png");
+				tilesets.add(image);
+			}catch (Exception e){
+				searching=false;
+			}
+			index++;
+		}while(searching);
+		return new SpriteSheet(tilesets,16,16);
 	}
 
 	public static SpriteSheet loadAnimationSet() throws DataException {
@@ -155,11 +179,11 @@ public class DataLoader {
 		FileHandle file=Gdx.files.internal(ResourceUtils.DATA_PATH + graphicsPath + "chars");
 		for (FileHandle f : file.list()) {
 			String name = f.name();
-
-			SpriteSheet image = loadSprites(ResourceUtils.DATA_PATH + graphicsPath + "chars/" + name, 32, 32);
-
-			list.put(name, image);
-
+			Image image= loadImage(ResourceUtils.DATA_PATH + graphicsPath + "chars/" + name);
+			int width=(int)(image.getWidth()/4);
+			int height=(int)(image.getHeight()/4);
+			SpriteSheet spriteSheet=new SpriteSheet(image,width,height);
+			list.put(name, spriteSheet);
 		}
 		return list;
 	}
@@ -170,6 +194,7 @@ public class DataLoader {
 
 	public static Image loadImage(String file) throws DataException  {
 		Texture texture = new Texture(Gdx.files.internal(file));
+		textures.add(texture);
 		return new Image(graphics,texture);
 	}
 }

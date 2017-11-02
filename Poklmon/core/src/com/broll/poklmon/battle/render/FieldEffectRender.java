@@ -1,7 +1,5 @@
 package com.broll.poklmon.battle.render;
 
-import java.util.HashMap;
-
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.field.FieldEffects;
 import com.broll.poklmon.battle.field.WeatherEffect;
@@ -14,6 +12,8 @@ import com.broll.poklmon.battle.render.weather.StormRender;
 import com.broll.poklmon.battle.render.weather.SunRender;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.Graphics;
+
+import java.util.HashMap;
 
 public class FieldEffectRender
 {

@@ -1,9 +1,9 @@
 package com.broll.poklmon.player.control;
 
-import java.util.List;
-
 import com.broll.pokllib.item.ItemType;
 import com.broll.poklmon.battle.item.InventarItemInstance;
+
+import java.util.List;
 
 public interface InventarControlInterface {
 	

@@ -1,11 +1,11 @@
 package com.broll.poklmon.network;
 
-import java.io.IOException;
-
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
+
+import java.io.IOException;
 
 public class NetworkClient extends NetworkEndpoint {
 

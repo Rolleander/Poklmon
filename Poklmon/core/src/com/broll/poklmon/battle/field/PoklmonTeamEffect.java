@@ -1,11 +1,11 @@
 package com.broll.poklmon.battle.field;
 
+import com.broll.poklmon.battle.poklmon.FightPoklmon;
+import com.broll.poklmon.battle.poklmon.states.EffectDurationCount;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.broll.poklmon.battle.poklmon.FightPoklmon;
-import com.broll.poklmon.battle.poklmon.states.EffectDurationCount;
 
 public class PoklmonTeamEffect
 {

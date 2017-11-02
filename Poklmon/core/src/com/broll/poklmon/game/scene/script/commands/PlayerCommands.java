@@ -1,10 +1,5 @@
 package com.broll.poklmon.game.scene.script.commands;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.pokllib.script.syntax.VariableException;
@@ -23,6 +18,11 @@ import com.broll.poklmon.player.TeleportDestination;
 import com.broll.poklmon.poklmon.PoklmonDataFactory;
 import com.broll.poklmon.poklmon.util.PoklmonLevelCalc;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class PlayerCommands extends CommandControl {
 

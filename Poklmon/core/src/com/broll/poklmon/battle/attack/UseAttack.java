@@ -1,7 +1,5 @@
 package com.broll.poklmon.battle.attack;
 
-import java.util.ArrayList;
-
 import com.broll.pokllib.attack.AttackType;
 import com.broll.pokllib.poklmon.ElementType;
 import com.broll.poklmon.battle.attack.script.SpecialScript;
@@ -10,6 +8,8 @@ import com.broll.poklmon.battle.field.TeamEffect;
 import com.broll.poklmon.battle.field.WeatherEffect;
 import com.broll.poklmon.battle.poklmon.states.EffectStatus;
 import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
+
+import java.util.ArrayList;
 
 public class UseAttack
 {

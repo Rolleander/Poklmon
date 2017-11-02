@@ -10,6 +10,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.main.StartInformation;
+import com.broll.poklmon.main.states.MenuDebugState;
 import com.broll.poklmon.network.NetworkServer;
 import com.broll.poklmon.save.manage.SaveFileManager;
 
@@ -42,7 +43,8 @@ public class DesktopLauncher {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		startInformation.debugMap(8,36,9);
+		startInformation.debugMap(15,34,76);
+//		startInformation.debugScene(MenuDebugState.class);
 		SaveFileManager.initSaveInterface(new DesktopSaveFolder());
 		NetworkServer.setAddressProvider(new DesktopIpProvider());
 		new LwjglApplication(new PoklmonGame(startInformation), config);

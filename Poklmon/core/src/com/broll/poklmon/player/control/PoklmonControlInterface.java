@@ -1,10 +1,10 @@
 package com.broll.poklmon.player.control;
 
+import com.broll.poklmon.save.PoklmonData;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.broll.poklmon.save.PoklmonData;
 
 public interface PoklmonControlInterface {
 

@@ -2,7 +2,7 @@ package com.broll.poklmon.battle.util.message;
 
 public class BattleMessages
 {
-    
+    /*
     public static String wildPoklmonIntro="Ein wildes # erscheint!";
     public static String playerPoklmonIntro="Los #!";
     public static String playerPoklmonOutro="Zurück in den Poklball #!";
@@ -44,7 +44,7 @@ public class BattleMessages
     public static String[] actions={"Kampf","Beutel","Poklmon","Flucht"};
     public static String[] attributeChangeStrength={"!"," stark!"," enorm!"};
     public static String chooseNextPoklmon="Welches Poklmon schickst du in den Kampf?";
- 
+ */
     public static String putName(String text,String poklmonName)
     {
         return text.replace("#", poklmonName);

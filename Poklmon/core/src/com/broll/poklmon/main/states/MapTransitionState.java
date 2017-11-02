@@ -44,7 +44,6 @@ public class MapTransitionState extends GameState {
 		if (dir != null) {
 			game.getPlayer().getOverworld().setDirection(dir);
 		}
-		System.out.println("telport "+teleportDestination.getX()+" "+teleportDestination.getY()+"  map "+teleportDestination.getMap());
 		if (teleportDestination.isDoStep()) {
 			game.getPlayer().getOverworld().move(dir);
 		}

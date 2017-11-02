@@ -1,11 +1,11 @@
 package com.broll.poklmon.player;
 
-import java.util.ArrayList;
-
 import com.broll.poklmon.save.GameData;
 import com.broll.poklmon.save.GameVariables;
 import com.broll.poklmon.save.PlayerData;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
 
 public class PlayerGameData
 {

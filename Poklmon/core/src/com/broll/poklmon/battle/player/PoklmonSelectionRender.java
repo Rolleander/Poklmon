@@ -1,7 +1,5 @@
 package com.broll.poklmon.battle.player;
 
-import java.util.ArrayList;
-
 import com.broll.pokllib.poklmon.ElementType;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
@@ -15,12 +13,15 @@ import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.resource.FontUtils;
 import com.broll.poklmon.resource.GUIFonts;
 
+import java.util.ArrayList;
+
 public class PoklmonSelectionRender {
 
 	private final static int WIDTH = 350;
 	private final static int HEIGHT = 100;
 	private DataContainer data;
 	private BattleManager battle;
+	private FontUtils fontUtils=new FontUtils();
 
 	public PoklmonSelectionRender(DataContainer data, BattleManager battle) {
 		this.data = data;
@@ -113,7 +114,7 @@ public class PoklmonSelectionRender {
 			float c = x + 49;
 			g.setColor(ColorUtil.newColor(250, 250, 250));
 			
-			g.drawString(overlay, c -FontUtils.getWidth( GUIFonts.smallText,overlay) / 2, y + 72);
+			g.drawString(overlay, c -fontUtils.getWidth( GUIFonts.smallText,overlay) / 2, y + 72);
 		}
 
 		float ty = y - 3;
@@ -126,7 +127,7 @@ public class PoklmonSelectionRender {
 		g.setColor(ColorUtil.newColor(250, 250, 250));
 		int level = poklmon.getLevel();
 		String ls = "Lv." + level;
-		float tx = x + WIDTH - 5 - FontUtils.getWidth(GUIFonts.smallText,ls);
+		float tx = x + WIDTH - 5 - fontUtils.getWidth(GUIFonts.smallText,ls);
 		ty += 8;
 		g.drawString(ls, tx, ty);
 		g.setColor(ColorUtil.newColor(50, 50, 50));
@@ -154,7 +155,7 @@ public class PoklmonSelectionRender {
 		// draw status
 		MainFightStatus status = poklmon.getStatusChanges().getMainStatus();
 		if (status != null) {
-			HudRenderUtils.renderMainStatus(g,status, (int)(x+WIDTH-62), (int)(y+HEIGHT-25));
+			HudRenderUtils.renderMainStatus(g,fontUtils,status, (int)(x+WIDTH-62), (int)(y+HEIGHT-25));
 		}
 
 	}

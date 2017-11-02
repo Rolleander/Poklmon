@@ -1,7 +1,5 @@
 package com.broll.poklmon.game.scene.script.commands;
 
-import java.util.HashMap;
-
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.pokllib.script.syntax.VariableException;
 import com.broll.poklmon.battle.BattleParticipants;
@@ -17,6 +15,8 @@ import com.broll.poklmon.map.areas.AreaType;
 import com.broll.poklmon.save.PoklmonData;
 import com.broll.poklmon.save.PoklmonStatistic;
 import com.broll.poklmon.transition.WildBattleTransition;
+
+import java.util.HashMap;
 
 public class BattleCommands extends CommandControl {
 	private BattleParticipants battleParticipants;
@@ -54,6 +54,10 @@ public class BattleCommands extends CommandControl {
 
 	public void setBattleArea(AreaType area) {
 		battleParticipants.setAreaType(area);
+	}
+	
+	public void setBattleMusic(String musicName) {
+		battleParticipants.setCustomMusic(musicName);
 	}
 
 	public void addWildPoklmon(int poklId, int level) {

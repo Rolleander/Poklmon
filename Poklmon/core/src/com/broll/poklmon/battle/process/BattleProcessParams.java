@@ -1,7 +1,5 @@
 package com.broll.poklmon.battle.process;
 
-import java.util.ArrayList;
-
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.attack.AttackAttributePlus;
 import com.broll.poklmon.battle.attack.AttributeChange;
@@ -12,6 +10,9 @@ import com.broll.poklmon.battle.render.BattleSequenceRender;
 import com.broll.poklmon.battle.render.BattleSequences;
 import com.broll.poklmon.battle.render.sequence.PoklmonAttributeChangeAnimation;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
+
+import java.util.ArrayList;
 
 public class BattleProcessParams extends BattleProcessControl {
 
@@ -37,16 +38,16 @@ public class BattleProcessParams extends BattleProcessControl {
 		String changeName = null;
 
 		if (wasEffective) {
-			changeName = BattleMessages.changeAttributePositive;
+			changeName =  TextContainer.get("changeAttributePositive");
 			if (strength < 0) {
-				changeName = BattleMessages.changeAttributeNegative;
+				changeName =  TextContainer.get("changeAttributeNegative");
 			}
 
 			if (strength < 0) {
 				strength *= -1;
 			}
-			String changeStrengthText = BattleMessages.attributeChangeStrength[strength - 1];
-			String text = BattleMessages.putName(BattleMessages.changeAttribute, poklName, atrName) + changeName
+			String changeStrengthText = TextContainer.get("attributeChangeStrength",strength-1);
+			String text =  TextContainer.get("changeAttribute",atrName,poklName) + changeName
 					+ changeStrengthText;
 			// show change animation
 			BattleSequenceRender render = manager.getBattleRender().getSequenceRender();
@@ -58,13 +59,13 @@ public class BattleProcessParams extends BattleProcessControl {
 
 		} else {
 			// change failed
-			changeName = BattleMessages.changeAttributePositiveFailed;
+			changeName = TextContainer.get("changeAttributePositiveFailed");
 			if (strength < 0) {
-				changeName = BattleMessages.changeAttributeNegativeFailed;
+				changeName = TextContainer.get("changeAttributeNegativeFailed");
 			}
 
 			// no animation!, just text
-			String text = BattleMessages.putName(BattleMessages.changeAttribute, poklName, atrName) + changeName;
+			String text =  TextContainer.get("changeAttribute",atrName,poklName)  + changeName;
 			showText(text);
 		}
 	}

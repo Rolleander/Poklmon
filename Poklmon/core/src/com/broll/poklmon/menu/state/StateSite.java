@@ -7,6 +7,7 @@ import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.menu.MenuUtils;
+import com.broll.poklmon.resource.FontUtils;
 import com.broll.poklmon.save.PoklmonData;
 
 public abstract class StateSite
@@ -15,6 +16,7 @@ public abstract class StateSite
     protected Poklmon poklmonInfo;
     protected PoklmonData poklmon;
     protected DataContainer data;
+    protected FontUtils fontUtils=new FontUtils();
 
 
     public StateSite(Poklmon poklmonInfo, PoklmonData poklmon, DataContainer data)
@@ -49,7 +51,7 @@ public abstract class StateSite
             g.fillRect(x, y, 450, lineHeight);
         }
 
-        int w=MenuUtils.getTextWidth(g, value);
+        int w=MenuUtils.getTextWidth(g,fontUtils, value);
    
         if(value!=null&&value.length()>0&&w>0)
         {

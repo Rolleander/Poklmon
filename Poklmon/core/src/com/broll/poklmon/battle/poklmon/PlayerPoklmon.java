@@ -1,12 +1,12 @@
 package com.broll.poklmon.battle.poklmon;
 
-import java.util.ArrayList;
-
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.poklmon.EXPCalculator;
 import com.broll.poklmon.battle.attack.FightAttack;
 import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
 
 public class PlayerPoklmon extends FightPoklmon {
 

@@ -1,7 +1,5 @@
 package com.broll.poklmon.battle.player;
 
-import java.util.ArrayList;
-
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.poklmon.PlayerPoklmon;
@@ -11,6 +9,8 @@ import com.broll.poklmon.gui.GUIUpdate;
 import com.broll.poklmon.gui.selection.SelectionBox;
 import com.broll.poklmon.gui.selection.SelectionBoxListener;
 import com.broll.poklmon.menu.state.PoklmonStateMenu;
+
+import java.util.ArrayList;
 
 public abstract class PoklmonTeamDialog {
 

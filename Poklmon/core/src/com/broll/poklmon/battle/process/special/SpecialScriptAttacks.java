@@ -18,6 +18,7 @@ import com.broll.poklmon.battle.util.flags.BattleEventFlags;
 import com.broll.poklmon.battle.util.flags.DamageTaken;
 import com.broll.poklmon.battle.util.message.BattleMessages;
 import com.broll.poklmon.data.AttackContainer;
+import com.broll.poklmon.data.TextContainer;
 
 public class SpecialScriptAttacks extends BattleProcessControl
 {
@@ -297,14 +298,13 @@ public class SpecialScriptAttacks extends BattleProcessControl
         String atkName = atk.getName();
         String poklName = poklmon.getName();
         poklmon.getAttacks()[place] = learnAttack;
-        String msg = "# erlernt %!";
-        String text = BattleMessages.putName(msg, poklName, atkName);
+        String text =  TextContainer.get("dialog_LearnTM_Success",poklName,atkName);
         showText(text);
     }
 
     private void noEffect()
     {
-        showText(BattleMessages.attackNoEffect);
+        showText(TextContainer.get("attackNoEffect"));
     }
 
     private void adaptKP(FightPoklmon poklmon, int newkp)

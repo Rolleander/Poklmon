@@ -10,6 +10,7 @@ import com.broll.poklmon.newgame.NewgameGUI;
 import com.broll.poklmon.newgame.NewgameListener;
 import com.broll.poklmon.newgame.NewgameProcess;
 import com.broll.poklmon.poklmon.CaughtPoklmonMeasurement;
+import com.broll.poklmon.resource.MenuGraphics;
 import com.broll.poklmon.save.GameData;
 import com.broll.poklmon.save.PokldexEntry;
 import com.broll.poklmon.save.manage.SaveFileManager;
@@ -77,6 +78,7 @@ public class NewGameState extends GameState {
 
 	@Override
 	public void render(Graphics g) {
+		MenuGraphics.background.draw();
 		gui.render(g);
 	}
 

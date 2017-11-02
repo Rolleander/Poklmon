@@ -40,7 +40,7 @@ public class MenuDebugState extends GameState {
 		menu = new PlayerMenu(player, data, gameManager);
 
 		// menu.getControl().openPokldex();
-		menu.getControl().openInventar();
+		menu.getControl().openTeam();
 	}
 
 	@Override

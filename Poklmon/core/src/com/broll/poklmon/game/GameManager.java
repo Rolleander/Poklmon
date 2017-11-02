@@ -1,8 +1,5 @@
 package com.broll.poklmon.game;
 
-import java.util.Iterator;
-import java.util.List;
-
 import com.broll.pokllib.item.Item;
 import com.broll.pokllib.item.ItemType;
 import com.broll.pokllib.map.MapFile;
@@ -30,6 +27,9 @@ import com.broll.poklmon.player.TeleportDestination;
 import com.broll.poklmon.save.GameData;
 import com.broll.poklmon.transition.ScreenTransition;
 
+import java.util.Iterator;
+import java.util.List;
+
 public class GameManager {
 
 	private DataContainer data;
@@ -56,7 +56,7 @@ public class GameManager {
 		viewport = new Viewport();
 		map = new MapContainer(this);
 		player = new Player(this);
-		sceneProcessManager = new SceneProcessManager(this);
+		sceneProcessManager = new SceneProcessManager(this,gameStateManager);
 		messageGuiControl = new MessageGuiControl(this, sceneProcessManager);
 		playerMovementTrigger = new PlayerMovementTrigger(this);
 		player.getOverworld().setMovementListener(playerMovementTrigger);
@@ -99,8 +99,8 @@ public class GameManager {
 			player.getOverworld().setDirection(teleportDestination.getDir());
 		}
 		MapTransitionState state = (MapTransitionState) gameStateManager.getState(MapTransitionState.class);
-		gameStateManager.transition(MapTransitionState.class);
 		state.teleportPlayer(this, teleportDestination);
+		gameStateManager.transition(MapTransitionState.class);
 	}
 
 	public void gameOver() {
@@ -108,8 +108,8 @@ public class GameManager {
 		player.getData().getPlayerData().playerDied();
 		MapTransitionState state = (MapTransitionState) gameStateManager.getState(MapTransitionState.class);
 		state.gameOverTransition();
-		gameStateManager.transition(MapTransitionState.class);
 		state.teleportPlayer(this, player.getRecoveryLocation());
+		gameStateManager.transition(MapTransitionState.class);
 	}
 
 	public void recoverPlayer() {

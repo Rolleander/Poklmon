@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import com.broll.pokleditor.map.MapPanel;
 import com.broll.pokleditor.map.MapTileEditor;
 
 public class MouseSelection implements MouseMotionListener,MouseListener{
@@ -20,6 +21,7 @@ public class MouseSelection implements MouseMotionListener,MouseListener{
 		panel.addMouseListener(this);
 		panel.addMouseMotionListener(this);
 		this.panel=panel;
+		set(0, 0, 1, 1);
 	}
 	
 	@Override
@@ -78,6 +80,7 @@ public class MouseSelection implements MouseMotionListener,MouseListener{
 		this.tiley=y;
 		this.width=w;
 		this.height=h;
+		MapPanel.selectTile(x, y, w, h);
 		panel.repaint();
 	}
 	

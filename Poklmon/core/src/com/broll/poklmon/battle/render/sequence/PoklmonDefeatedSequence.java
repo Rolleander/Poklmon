@@ -5,6 +5,7 @@ import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.util.SelectionListener;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
@@ -28,7 +29,7 @@ public class PoklmonDefeatedSequence extends SequenceRender
         this.target = target;
         textAccepted = false;
         String name = target.getName();
-        String text = BattleMessages.putName(BattleMessages.poklmonDefeated, name);
+        String text = TextContainer.get("poklmonDefeated",name);
         battle.getBattleRender().getHudRender().showText(text, new SelectionListener() {
 			
 			@Override

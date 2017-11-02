@@ -1,8 +1,5 @@
 package com.broll.poklmon.network;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.attack.AttackDamage;
 import com.broll.pokllib.attack.AttackPriority;
@@ -29,6 +26,9 @@ import com.broll.poklmon.save.PoklmonData;
 import com.broll.poklmon.save.PoklmonStatistic;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.FrameworkMessage.KeepAlive;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class NetworkEndpoint {
 

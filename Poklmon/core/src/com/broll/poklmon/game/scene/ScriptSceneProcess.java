@@ -1,8 +1,10 @@
 package com.broll.poklmon.game.scene;
 
+import javax.script.ScriptException;
+
 public class ScriptSceneProcess implements Runnable {
 
-	private SceneEndListener endListener;
+	protected SceneEndListener endListener;
 	private ObjectScriptHandler objectHandler;
 
 	public ScriptSceneProcess(SceneEndListener endListener, ObjectScriptHandler object) {
@@ -10,11 +12,20 @@ public class ScriptSceneProcess implements Runnable {
 		this.objectHandler = object;
 	}
 
-	@Override
-	public void run() {
+	protected void runScript() throws NoSuchMethodException, ScriptException{
 		// run script
 		objectHandler.run();
-		endListener.sceneEnded();
+	}
+
+	@Override
+	public void run() {
+		try {
+			runScript();
+			endListener.sceneEnded();
+		}catch (Exception e){
+			//exception occured in script
+			endListener.exceptionOccured(e);
+		}
 	}
 
 	public synchronized void waitForResume() {

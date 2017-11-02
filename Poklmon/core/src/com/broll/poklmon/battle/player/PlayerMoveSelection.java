@@ -7,6 +7,7 @@ import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.util.BattleMove;
 import com.broll.poklmon.battle.util.ProcessThreadHandler;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.gui.GUIUpdate;
 import com.broll.poklmon.gui.dialog.DialogBox;
@@ -34,7 +35,12 @@ public class PlayerMoveSelection {
 		changePoklmonDialog = new ChangePoklmonDialog(battleManager.getData(), battleManager);
 		itemDialog = new SelectItemDialog(battleManager);
 		text.setStyle(DialogBox.STYLE_BATTLE);
-		actionsBox = new RectSelectionBox(battle.getData(), BattleMessages.actions, 430, 600 - 157, 370, 157);
+		String[] actions=new String[4];
+		actions[0]=TextContainer.get("battleFight");
+		actions[1]=TextContainer.get("battleInventar");
+		actions[2]=TextContainer.get("battleTeam");
+		actions[3]=TextContainer.get("battleEscape");
+		actionsBox = new RectSelectionBox(battle.getData(), actions, 430, 600 - 157, 370, 157);
 
 		attacks = new AttackSelectionBox(battle.getData());
 	}
@@ -54,8 +60,8 @@ public class PlayerMoveSelection {
 		canChooseAttack = !battle.getParticipants().getPlayer().noApLeft();
 		// show what do text
 		String poklmon = battle.getParticipants().getPlayer().getName();
-		String text = BattleMessages.putName(BattleMessages.commandInfo, poklmon);
-		this.text.showInfo(text, BattleMessages.commandInfo2);
+		String text = TextContainer.get("commandInfo",poklmon);
+		this.text.showInfo(text, TextContainer.get("commandInfo2"));
 	}
 
 	public void render(Graphics g) {

@@ -1,10 +1,5 @@
 package com.broll.poklmon.player.control.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.data.DataContainer;
@@ -12,6 +7,11 @@ import com.broll.poklmon.player.Player;
 import com.broll.poklmon.player.control.PoklmonControlInterface;
 import com.broll.poklmon.save.AttackData;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class PoklmonControl implements PoklmonControlInterface {
 

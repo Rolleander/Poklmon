@@ -1,11 +1,11 @@
 package com.broll.poklmon.data;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.data.basics.SpriteSheet;
 import com.broll.poklmon.data.player.PlayerGraphics;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GraphicsContainer 
 {
@@ -33,9 +33,8 @@ public class GraphicsContainer
         poklmonGraphics=DataLoader.loadPoklmonImages();
         charGraphics=DataLoader.loadCharImages();
         
-         
-   
-        for(int i=0; i<1; i++)
+
+        for(int i=0; i<2; i++)
         {
         	player.add(new PlayerGraphics(i));
         }

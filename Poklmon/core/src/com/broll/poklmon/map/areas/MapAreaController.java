@@ -1,7 +1,5 @@
 package com.broll.poklmon.map.areas;
 
-import java.util.List;
-
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.battle.BattleParticipants;
 import com.broll.poklmon.battle.poklmon.FightPokemonBuilder;
@@ -14,6 +12,9 @@ import com.broll.poklmon.map.areas.util.WildPoklmonEntry;
 import com.broll.poklmon.map.areas.util.WildPoklmonOccurCalc;
 import com.broll.poklmon.player.Player;
 import com.broll.poklmon.transition.WildBattleTransition;
+import com.esotericsoftware.minlog.Log;
+
+import java.util.List;
 
 public class MapAreaController {
 

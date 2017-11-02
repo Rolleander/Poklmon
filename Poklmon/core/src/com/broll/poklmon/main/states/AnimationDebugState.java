@@ -1,8 +1,5 @@
 package com.broll.poklmon.main.states;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import com.broll.pokllib.animation.Animation;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.BattleParticipants;
@@ -19,6 +16,9 @@ import com.broll.poklmon.main.GameState;
 import com.broll.poklmon.player.Player;
 import com.broll.poklmon.save.GameData;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AnimationDebugState extends GameState {
 

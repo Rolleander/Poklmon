@@ -1,12 +1,12 @@
 package com.broll.poklmon.debug.renders;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
 import com.badlogic.gdx.Input.Keys;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.debug.DebugRenderSite;
 import com.broll.poklmon.game.GameManager;
+
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class DebugRenderIntVariables extends DebugRenderSite {
 

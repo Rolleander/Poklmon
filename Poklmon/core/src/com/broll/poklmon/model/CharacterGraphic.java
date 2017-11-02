@@ -5,6 +5,7 @@ import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.data.basics.SpriteSheet;
 import com.broll.poklmon.map.MapDisplay;
+import com.esotericsoftware.minlog.Log;
 
 public class CharacterGraphic {
 
@@ -13,6 +14,7 @@ public class CharacterGraphic {
 	private int currentFrameX, currentFrameY;
 	private float animationSpeed = 0.35f;
 	private float animationWait;
+	private float height;
 	private boolean fix = false;
 
 	public CharacterGraphic() {
@@ -26,15 +28,18 @@ public class CharacterGraphic {
 		currentFrameY = y;
 	}
 
+
 	public void setSpriteSheet(SpriteSheet sprite) {
 		fix = false;
 		this.graphic = sprite;
 		this.fixedSprite = null;
+		height=sprite.getSprite(0,0).getHeight();
 	}
 
 	public void setFixSprite(Image image) {
 		fix = true;
 		this.fixedSprite = image;
+		height=fixedSprite.getHeight();
 	}
 
 	public void setAnimationSpeed(int animationSpeed) {
@@ -85,10 +90,10 @@ public class CharacterGraphic {
 
 	public void render(Graphics g, float x, float y) {
 		if (fixedSprite != null) {
-			fixedSprite.draw(x - MapDisplay.TILE_SIZE / 2,  (y - MapDisplay.TILE_SIZE / 2), 2);
+			fixedSprite.drawXCentered(x,y-height*2+MapDisplay.TILE_SIZE/2, 2);
 		} else if (graphic != null) {
 			Image image = graphic.getSprite(currentFrameX, currentFrameY);
-			image.draw(x - MapDisplay.TILE_SIZE, (float)(y - MapDisplay.TILE_SIZE * 1.5), 2);
+			image.drawXCentered(x , y-height*2+MapDisplay.TILE_SIZE/2, 2);
 		}
 
 	}

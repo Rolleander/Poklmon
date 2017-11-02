@@ -1,8 +1,13 @@
 package com.broll.poklmon.game.control;
 
+/**
+ * Created by Roland on 28.10.2017.
+ */
+
 import com.badlogic.gdx.Gdx;
 import com.broll.poklmon.battle.util.SelectionListener;
 import com.broll.poklmon.data.DataContainer;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.game.GameManager;
@@ -17,13 +22,11 @@ import com.broll.poklmon.gui.input.NumberInputListener;
 import com.broll.poklmon.gui.selection.ScrollableSelectionBox;
 import com.broll.poklmon.gui.selection.SelectionBox;
 import com.broll.poklmon.gui.selection.SelectionBoxListener;
-import com.broll.poklmon.main.GameStateManager;
-import com.broll.poklmon.main.states.TitleMenuState;
 import com.broll.poklmon.menu.MenuCloseListener;
 import com.broll.poklmon.menu.MenuPage;
 import com.broll.poklmon.menu.PlayerMenu;
 import com.broll.poklmon.player.Player;
-import com.broll.poklmon.save.manage.SaveFileManager;
+import com.broll.poklmon.resource.FontUtils;
 
 public class MessageGuiControl {
 
@@ -43,6 +46,7 @@ public class MessageGuiControl {
     private String[] menuItems = new String[8];
     private PlayerMenu playerMenu;
     private final static int SELECTION_MAX = 10;
+    private FontUtils fontUtils=new FontUtils();
 
     public MessageGuiControl(GameManager game, SceneProcessManager sceneProcessManager) {
         this.game = game;
@@ -58,15 +62,14 @@ public class MessageGuiControl {
     }
 
     public void initMenu() {
-        menuItems[0] = "PoklDex";
-        menuItems[1] = "Poklmon";
-        menuItems[2] = "Inventar";
-        menuItems[3] = game.getPlayer().getData().getPlayerData().getName();
-        menuItems[4] = "Speichern";
-        menuItems[5] = "Optionen";
-        menuItems[6] = "Beenden";
-        menuItems[7] = "Zurück";
-
+        menuItems[0] = TextContainer.get("playerMenu_PoklDex");
+        menuItems[1] = TextContainer.get("playerMenu_Team");
+        menuItems[2] = TextContainer.get("playerMenu_Inventar");
+        menuItems[3] = TextContainer.get("playerMenu_Player",game.getPlayer().getData().getPlayerData().getName());
+        menuItems[4] = TextContainer.get("playerMenu_Save");
+        menuItems[5] = TextContainer.get("playerMenu_Options");
+        menuItems[6] = TextContainer.get("playerMenu_Exit");
+        menuItems[7] = TextContainer.get("playerMenu_Close");
         playerMenu = new PlayerMenu(game.getPlayer(), game.getData(), game);
     }
 
@@ -157,9 +160,9 @@ public class MessageGuiControl {
         process.runScript(new ScriptInstance(new Runnable() {
             @Override
             public void run() {
-                showText("Möchtest du das Spiel wirklich beenden?");
+                showText(TextContainer.get("dialog_ExitGame"));
                 process.waitForResume();
-                showSelection(new String[]{"Ja", "Nein"});
+                showSelection(new String[]{TextContainer.get("option_Yes"), TextContainer.get("option_No")});
                 process.waitForResume();
                 if (getSelectedOption() == 0) {
                     Gdx.app.exit();
@@ -174,15 +177,14 @@ public class MessageGuiControl {
         process.runScript(new ScriptInstance(new Runnable() {
             @Override
             public void run() {
-                showText("Möchtest du das Spiel speichern?");
+                showText(TextContainer.get("dialog_SaveGame"));
                 process.waitForResume();
-                showSelection(new String[]{"Ja", "Nein"});
+                showSelection(new String[]{TextContainer.get("option_Yes"), TextContainer.get("option_No")});
                 process.waitForResume();
                 if (getSelectedOption() == 0) {
-                    dialogBox.showInfo("Speichern...", "");
-                    game.getPlayer().getPlayerControl().saveCurrentLocation(game.getMap().getMapId());
-                    SaveFileManager.saveGame(game.getPlayer().getData().getSaveFile());
-                    showText("Spiel gespeichert!");
+                    dialogBox.showInfo(TextContainer.get("dialog_SaveGame_Saving"), "");
+                    game.getPlayer().saveGame();
+                    showText(TextContainer.get("dialog_SaveGame_Finished"));
                     process.waitForResume();
                 }
                 game.changeMenuState(false);
@@ -216,7 +218,7 @@ public class MessageGuiControl {
     public void showSelection(String[] items) {
         int x = 800;
         int y = (600 - 157);
-        selectionBox = new ScrollableSelectionBox(data, items, x, y, SELECTION_MAX, false);
+        selectionBox = new ScrollableSelectionBox(data,items,fontUtils, x, y, SELECTION_MAX, false);
         selectionBox.setListener(new SelectionBoxListener() {
             @Override
             public void select(int item) {
@@ -243,7 +245,7 @@ public class MessageGuiControl {
     public void showSelection(String[] items, boolean[] locked, final boolean cancelable, boolean iconized) {
         int x = 800;
         int y = (600 - 157);
-        selectionBox = new ScrollableSelectionBox(data, items, x, y, SELECTION_MAX, iconized);
+        selectionBox = new ScrollableSelectionBox(data, items,fontUtils, x, y, SELECTION_MAX, iconized);
         for (int i = 0; i < locked.length; i++) {
             selectionBox.blockItem(i, locked[i]);
         }

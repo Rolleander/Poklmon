@@ -1,8 +1,5 @@
 package com.broll.poklmon.game.scene.script.commands;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.pokllib.script.syntax.VariableException;
 import com.broll.poklmon.battle.BattleParticipants;
@@ -23,6 +20,8 @@ import com.broll.poklmon.network.transfer.TeamTransfer;
 import com.broll.poklmon.save.PoklmonData;
 import com.broll.poklmon.transition.WildBattleTransition;
 import com.esotericsoftware.minlog.Log;
+
+import java.util.HashMap;
 
 public class NetworkCommands extends CommandControl {
 

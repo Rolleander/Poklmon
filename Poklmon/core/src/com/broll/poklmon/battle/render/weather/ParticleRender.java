@@ -1,12 +1,12 @@
 package com.broll.poklmon.battle.render.weather;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import com.badlogic.gdx.graphics.Color;
 import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class ParticleRender

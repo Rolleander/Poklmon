@@ -1,12 +1,12 @@
 package com.broll.poklmon.map.object;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.broll.pokllib.map.MapFile;
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.map.MapContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class MapObjectLoader {
 
@@ -23,15 +23,15 @@ public abstract class MapObjectLoader {
 			int ypos = dataObject.getYpos();
 
 			MapObject o = new MapObject(data,mapContainer);
+			o.setMovementSpeed(0.04f);
+			o.setDirection(direction);
+			o.setBlocking(true);
 			o.init(objectName, objectId, triggerScript, initScript);
 			o.teleport(xpos, ypos);
 			if(graphic!=null&&!graphic.isEmpty())
 			{
 			o.setGraphic(data.getGraphics().getCharImage(graphic));
 			}
-			o.setMovementSpeed(0.04f);
-			o.setDirection(direction);
-			o.setBlocking(true);
 			list.add(o);
 		}
 		return list;

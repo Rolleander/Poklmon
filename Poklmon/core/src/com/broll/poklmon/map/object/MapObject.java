@@ -1,7 +1,6 @@
 package com.broll.poklmon.map.object;
 
 import com.broll.pokllib.object.ObjectDirection;
-import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.map.MapContainer;
 import com.broll.poklmon.model.OverworldCharacter;

@@ -1,7 +1,5 @@
 package com.broll.poklmon.battle.process;
 
-import java.util.ArrayList;
-
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.battle.BattleManager;
@@ -14,7 +12,7 @@ import com.broll.poklmon.battle.render.sequence.PoklmonEvolutionSequence;
 import com.broll.poklmon.battle.render.sequence.PoklmonExpSequence;
 import com.broll.poklmon.battle.util.ScriptValue;
 import com.broll.poklmon.battle.util.message.BattleMessages;
-import com.broll.poklmon.game.items.callbacks.PoklmonEnterCallback;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.items.callbacks.XpReceiverCalculationCallback;
 import com.broll.poklmon.game.items.callbacks.XpValueCalculationCallback;
 import com.broll.poklmon.poklmon.util.FpCalculator;
@@ -22,6 +20,8 @@ import com.broll.poklmon.poklmon.util.LevelCalcListener;
 import com.broll.poklmon.poklmon.util.PoklmonAttackLearning;
 import com.broll.poklmon.poklmon.util.PoklmonLevelCalc;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
 
 public class BattleProcessEXP extends BattleProcessControl {
 	private PlayerPoklmon expPoklmon;
@@ -154,7 +154,7 @@ public class BattleProcessEXP extends BattleProcessControl {
 
 	private synchronized void giveEXPTo(PlayerPoklmon poklmon, int exp) {
 		String name = poklmon.getName();
-		String text = BattleMessages.putName(BattleMessages.gainEXP, name, "" + exp);
+		String text = TextContainer.get("gainEXP",name,exp);
 		showText(text);
 		PoklmonLevelCalc levelCalc = new PoklmonLevelCalc(manager.getData());
 		expPoklmon = poklmon;

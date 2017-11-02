@@ -1,9 +1,9 @@
 package com.broll.poklmon.game.scene.script;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-
-import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class ScriptEngineFactory {
 

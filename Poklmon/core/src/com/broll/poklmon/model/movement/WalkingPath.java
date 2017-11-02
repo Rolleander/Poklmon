@@ -1,9 +1,9 @@
 package com.broll.poklmon.model.movement;
 
+import com.broll.poklmon.model.OverworldCharacter;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.broll.poklmon.model.OverworldCharacter;
 
 public class WalkingPath {
 

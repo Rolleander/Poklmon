@@ -1,8 +1,8 @@
 package com.broll.poklmon.battle.item;
 
-import java.util.HashMap;
-
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
+
+import java.util.HashMap;
 
 public class WearableItemVariables {
 

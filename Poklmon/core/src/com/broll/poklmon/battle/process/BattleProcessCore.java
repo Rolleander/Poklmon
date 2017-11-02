@@ -11,7 +11,6 @@ import com.broll.poklmon.battle.util.BattleMoveType;
 import com.broll.poklmon.battle.util.PoklmonTeamCheck;
 import com.broll.poklmon.battle.util.ProcessThreadHandler;
 import com.broll.poklmon.battle.util.flags.BattleEventFlags;
-import com.broll.poklmon.game.items.callbacks.AttackHealCalculationCallback;
 import com.broll.poklmon.game.items.callbacks.PoklmonEnterCallback;
 import com.broll.poklmon.game.items.callbacks.RoundEndCallback;
 import com.broll.poklmon.game.items.callbacks.RoundStartCallback;

@@ -6,7 +6,7 @@ import com.broll.poklmon.resource.ResourceUtils;
 
 public class MusicContainer {
 
-	private Music lastMusic;
+	private static Music lastMusic;
 	private String musicName;
 	private float volume = 0.5f;
 
@@ -24,7 +24,7 @@ public class MusicContainer {
 					lastMusic.play();
 				}
 			} else {
-				stop();
+				dispose();
 				musicName = name;
 				String file = ResourceUtils.DATA_PATH + "music/" + name;
 				lastMusic = Gdx.audio.newMusic(Gdx.files.internal(file));
@@ -35,11 +35,17 @@ public class MusicContainer {
 		}
 	}
 
-	public void stop() {
+	public static void dispose(){
+		stop();
+		if(lastMusic!=null){
+			lastMusic.dispose();
+		}
+	}
+
+	public static void stop() {
 		if (lastMusic != null) {
 			lastMusic.stop();
 			lastMusic.setVolume(0);
-			musicName = null;
 		}
 	}
 }

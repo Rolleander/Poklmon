@@ -1,8 +1,5 @@
 package com.broll.poklmon.battle.process;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import com.broll.pokllib.animation.Animation;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.calc.EscapeBattleCalculation;
@@ -16,11 +13,14 @@ import com.broll.poklmon.battle.util.BattleMove;
 import com.broll.poklmon.battle.util.BattleMoveType;
 import com.broll.poklmon.battle.util.PoklmonTeamCheck;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.items.callbacks.PoklmonEnterCallback;
 import com.broll.poklmon.game.items.callbacks.PoklmonLeaveCallback;
 import com.broll.poklmon.game.items.callbacks.PoklmonSwitchCallback;
-import com.broll.poklmon.game.items.callbacks.XpReceiverCalculationCallback;
 import com.broll.poklmon.network.NetworkException;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class BattleProcessPlayerMove extends BattleProcessControl {
 	private FightPoklmon nextPoklmon;
@@ -57,15 +57,14 @@ public class BattleProcessPlayerMove extends BattleProcessControl {
 			break;
 
 		case TRY_ESCAPE:
-			showText(manager.getParticipants().getPlayerName() + " versucht zu flüchten!");
-
+			showText(TextContainer.get("tryEscape",manager.getParticipants().getPlayerName()));
 			if (EscapeBattleCalculation.canEscape(manager.getParticipants().getPlayer(),
 					manager.getParticipants().getEnemy(), escapeTries)) {
 				manager.getData().getSounds().playSound("b_escape_battle");
-				showText("Du bist geflüchtet!");
+				showText(TextContainer.get("escapeSuccess"));
 				core.escapeBattle();
 			} else {
-				showText("Flucht gescheitert!");
+				showText(TextContainer.get("escapeFail"));
 			}
 			break;
 
@@ -81,7 +80,7 @@ public class BattleProcessPlayerMove extends BattleProcessControl {
 	}
 
 	public void connectionWaiting() {
-		showInfo("Warten auf Gegner...");
+		showInfo(TextContainer.get("battleWaiting"));
 	}
 
 	public void connectionLost(String message) {
@@ -93,7 +92,7 @@ public class BattleProcessPlayerMove extends BattleProcessControl {
 	private void switchToPoklmon(FightPoklmon poklmon) throws NetworkException {
 		FightPoklmon oldPoklmon = manager.getParticipants().getPlayer();
 		String oldName = oldPoklmon.getName();
-		String text = BattleMessages.putName(BattleMessages.playerPoklmonOutro, oldName);
+		String text =  TextContainer.get("playerPoklmonOutro",oldName);
 		showText(text);
 		manager.getData().getSounds().playSound("b_swap_poklmon");
 		// TODO show outro animation
@@ -159,7 +158,7 @@ public class BattleProcessPlayerMove extends BattleProcessControl {
 	}
 
 	public void showPoklmonChangeDialog(boolean forcedSelection) throws NetworkException {
-		String text = BattleMessages.chooseNextPoklmon;
+		String text = TextContainer.get("chooseNextPoklmon");
 		showText(text);
 		showInfo(text);
 		// open select dialog
@@ -194,7 +193,7 @@ public class BattleProcessPlayerMove extends BattleProcessControl {
 						.send(NetworkUtil.convert(manager.getParticipants(), new BattleMove(lastPoklmon)));
 			}
 			// auto choose last living poklmon
-			String text = BattleMessages.playerLastPoklmon;
+			String text =  TextContainer.get("playerLastPoklmon");
 			showText(text);
 			sendNextPoklmon(lastPoklmon);
 		}
@@ -204,11 +203,11 @@ public class BattleProcessPlayerMove extends BattleProcessControl {
 		// show player lost dialog
 		if (core.isNetworkBattle()) {
 			String enemyName = manager.getParticipants().getEnemyName();
-			String text = BattleMessages.putName(BattleMessages.networkLost, enemyName);
+			String text = TextContainer.get("networkLost",enemyName);
 			showText(text);
 		} else {
 			String playerName = manager.getParticipants().getPlayerName();
-			String text = BattleMessages.putName(BattleMessages.playerLost, playerName);
+			String text = TextContainer.get("playerLost",playerName);
 			showText(text);
 		}
 	}

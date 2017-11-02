@@ -7,6 +7,7 @@ import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.data.basics.SpriteSheet;
 import com.broll.poklmon.menu.MenuUtils;
+import com.broll.poklmon.resource.FontUtils;
 import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.save.PoklmonData;
 
@@ -16,7 +17,8 @@ public class PcBlockRender
     private DataContainer data;
     public static int WIDTH=180;
     public static int HEIGHT=40;
-    
+    private FontUtils fontUtils=new FontUtils();
+
     public PcBlockRender(DataContainer data)
     {
         this.data=data;
@@ -73,7 +75,7 @@ public class PcBlockRender
         g.setColor(ColorUtil.newColor(0,0,100));
         int level=poklmon.getLevel();
         String t="Lv."+level;
-        g.drawString(t,x+176-MenuUtils.getTextWidth(g, t),y+16);
+        g.drawString(t,x+176-MenuUtils.getTextWidth(g,fontUtils, t),y+16);
 
     }
 

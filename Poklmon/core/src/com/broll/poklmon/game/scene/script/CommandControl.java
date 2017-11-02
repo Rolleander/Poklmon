@@ -1,11 +1,11 @@
 package com.broll.poklmon.game.scene.script;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import com.broll.pokllib.script.syntax.VariableException;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.map.object.MapObject;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public abstract class CommandControl {
 	protected GameManager game;

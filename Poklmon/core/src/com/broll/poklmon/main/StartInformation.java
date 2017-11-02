@@ -1,8 +1,8 @@
 package com.broll.poklmon.main;
 
-import java.io.File;
-
 import com.broll.poklmon.main.states.TitleMenuState;
+
+import java.io.File;
 
 public class StartInformation {
 

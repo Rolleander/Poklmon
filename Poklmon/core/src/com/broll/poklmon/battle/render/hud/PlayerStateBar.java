@@ -13,6 +13,7 @@ public class PlayerStateBar extends StateBar {
 	private static int expBarWidth = 206;
 	private static int expBarHeight = 6;
 	public static Color expBarColor = ColorUtil.newColor(64, 200, 248);
+	private FontUtils fontUtils=new FontUtils();
 
 	public PlayerStateBar(DataContainer data) {
 		initGraphics(true, data);
@@ -38,7 +39,7 @@ public class PlayerStateBar extends StateBar {
 		int kp = poklmon.getAttributes().getHealth();
 		int maxkp = poklmon.getAttributes().getMaxhealth();
 		String text = kp + "/" + maxkp;
-		int w = FontUtils.getWidth( GUIFonts.hudText,text);
+		int w = fontUtils.getWidth( GUIFonts.hudText,text);
 		g.drawString(text, x + 300 - w, y + 68);
 
 		// draw exp
@@ -50,7 +51,7 @@ public class PlayerStateBar extends StateBar {
 		// draw status
 		MainFightStatus status = poklmon.getStatusChanges().getMainStatus();
 		if (status != null) {
-			HudRenderUtils.renderMainStatus(g,status, x + 41, y + 49);
+			HudRenderUtils.renderMainStatus(g,fontUtils,status, x + 41, y + 49);
 		}
 	}
 

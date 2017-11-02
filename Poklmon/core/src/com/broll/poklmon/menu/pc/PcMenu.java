@@ -1,8 +1,5 @@
 package com.broll.poklmon.menu.pc;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
@@ -16,6 +13,9 @@ import com.broll.poklmon.menu.state.StateMenu;
 import com.broll.poklmon.player.Player;
 import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PcMenu extends MenuPage
 {
@@ -80,7 +80,7 @@ public class PcMenu extends MenuPage
         }
         
        
-        //immer mindestens 2 leere reihen für die team poklmons
+        //immer mindestens 2 leere reihen fï¿½r die team poklmons
         }
         enterFromStatus=false;
     }
@@ -154,7 +154,7 @@ public class PcMenu extends MenuPage
             maxs++;
         }
         String text="Seite "+(id+1)+" / "+maxs;
-        g.drawString(text,558-MenuUtils.getTextWidth(g, text),73);
+        g.drawString(text,558-MenuUtils.getTextWidth(g,fontUtils, text),73);
  
         //draw box
         for (int i = 0; i < anz; i++)
@@ -189,7 +189,7 @@ public class PcMenu extends MenuPage
         for (int i = 0; i < PcSelection.options.length; i++)
         {
             boolean selected = optionSelection == i && selectMode == PcSelection.SELECT_OPTION;
-            x += MenuUtils.drawButton(g, PcSelection.options[i], x, 10, selected);
+            x += MenuUtils.drawButton(g, PcSelection.options[i],fontUtils, x, 10, selected);
             x += 10;
         }
 

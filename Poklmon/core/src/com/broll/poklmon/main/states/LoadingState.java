@@ -1,8 +1,5 @@
 package com.broll.poklmon.main.states;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.badlogic.gdx.Gdx;
 import com.broll.pokllib.main.KryoDataControl;
 import com.broll.pokllib.main.PoklLib;
@@ -17,6 +14,7 @@ import com.broll.poklmon.data.MiscContainer;
 import com.broll.poklmon.data.MusicContainer;
 import com.broll.poklmon.data.PoklmonContainer;
 import com.broll.poklmon.data.SoundContainer;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.debug.DebugPlayerFactory;
@@ -28,6 +26,9 @@ import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.resource.MenuGraphics;
 import com.broll.poklmon.resource.ResourceUtils;
 import com.broll.poklmon.save.GameData;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class LoadingState extends GameState {
 
@@ -115,6 +116,7 @@ public class LoadingState extends GameState {
 					e.printStackTrace();
 				}
 				PoklLib.init(dataControl);
+				TextContainer.load();
 				break;
 
 			case 1:

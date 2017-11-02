@@ -1,9 +1,9 @@
 package com.broll.poklmon.battle.util;
 
+import com.broll.poklmon.gui.dialog.TimerListener;
+
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.broll.poklmon.gui.dialog.TimerListener;
 
 public class BattleTimer {
 

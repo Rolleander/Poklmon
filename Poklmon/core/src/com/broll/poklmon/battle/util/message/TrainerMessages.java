@@ -1,9 +1,9 @@
 package com.broll.poklmon.battle.util.message;
 
+import com.broll.poklmon.battle.util.BattleRandom;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.broll.poklmon.battle.util.BattleRandom;
 
 public class TrainerMessages
 {
@@ -27,16 +27,16 @@ public class TrainerMessages
         poklmonIntro.add("Deine Zeit ist gekommen #!");
 
         //outro messages
-        poklmonOutro.add("Zurück mit dir #!");
-        poklmonOutro.add("Gut gekämpft #!");
+        poklmonOutro.add("ZurÃ¼ck mit dir #!");
+        poklmonOutro.add("Gut gekÃ¤mpft #!");
         poklmonOutro.add("Dich brauche ich jetzt nicht mehr #!");
         poklmonOutro.add("Du hast dir eine Pause verdient #!");
-        poklmonOutro.add("Mein nächstes Poklmon wird dich vernichten!");
+        poklmonOutro.add("Mein nÃ¤chstes Poklmon wird dich vernichten!");
 
         //defeated messages
         poklmonDefeated.add("Oh nein, mein #!");
         poklmonDefeated.add("Was wie konnte das passieren!?");
-        poklmonDefeated.add("So viel Glück ist unglaublich!");
+        poklmonDefeated.add("So viel GlÃ¼ck ist unglaublich!");
         poklmonDefeated.add("Mist! #!");
 
         //kill messages

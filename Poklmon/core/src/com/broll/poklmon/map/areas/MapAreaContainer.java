@@ -1,13 +1,14 @@
 package com.broll.poklmon.map.areas;
 
+import com.broll.pokllib.jscript.PackageImporter;
+import com.broll.pokllib.map.MapFile;
+import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
+import com.esotericsoftware.minlog.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.script.ScriptEngine;
-
-import com.broll.pokllib.jscript.PackageImporter;
-import com.broll.pokllib.map.MapFile;
-import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
 
 public class MapAreaContainer {
 
@@ -19,6 +20,9 @@ public class MapAreaContainer {
 				if (script != null && script.length() > 0) {
 					MapArea area = descriptArea(script);
 					areas.add(area);
+				}else{
+					//add empty area (to ensure right order)
+					areas.add(new MapArea());
 				}
 			}
 		}
@@ -37,7 +41,7 @@ public class MapAreaContainer {
 		try {
 			engine.eval(importer.buildScript(script));
 		} catch (javax.script.ScriptException e) {
-			System.err.println("Error in map area script: " + script);
+			Log.error("Error in map area script: " + script);
 			e.printStackTrace();
 		}
 		return area;

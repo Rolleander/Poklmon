@@ -4,10 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.utils.BufferUtils;
+import com.esotericsoftware.minlog.Log;
+
+import java.nio.IntBuffer;
 
 public class Graphics {
 
@@ -19,6 +24,19 @@ public class Graphics {
 	public Graphics() {
 		sb = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
+		IntBuffer intBuffer = BufferUtils.newIntBuffer(16);
+		Gdx.gl20.glGetIntegerv(GL20.GL_MAX_TEXTURE_SIZE, intBuffer);
+		Log.info("GL20 Max Texture Size: "+intBuffer.get());
+	}
+
+	public SpriteBatch getSpriteBatch() {
+		return sb;
+	}
+
+	public void dispose(){
+		sb.dispose();
+		font.dispose();
+		shapeRenderer.dispose();
 	}
 
 	public void prepareRender(Camera camera) {

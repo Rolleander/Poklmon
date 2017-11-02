@@ -1,9 +1,9 @@
 package com.broll.poklmon.map.areas;
 
+import com.broll.poklmon.map.areas.util.WildPoklmonEntry;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.broll.poklmon.map.areas.util.WildPoklmonEntry;
 
 public class MapArea {
 

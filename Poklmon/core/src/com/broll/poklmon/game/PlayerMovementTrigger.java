@@ -1,7 +1,5 @@
 package com.broll.poklmon.game;
 
-import java.util.List;
-
 import com.broll.poklmon.game.scene.ObjectTriggerCheck;
 import com.broll.poklmon.game.scene.SceneProcessManager;
 import com.broll.poklmon.game.scene.ScriptInstance;
@@ -14,6 +12,8 @@ import com.broll.poklmon.map.MapDisplay;
 import com.broll.poklmon.map.object.MapObject;
 import com.broll.poklmon.model.movement.MovementListener;
 import com.broll.poklmon.player.Player;
+
+import java.util.List;
 
 public class PlayerMovementTrigger implements MovementListener {
 

@@ -11,6 +11,7 @@ import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.data.basics.SpriteSheet;
 import com.broll.poklmon.menu.MenuUtils;
 import com.broll.poklmon.poklmon.PoklmonAttributeCalculator;
+import com.broll.poklmon.resource.FontUtils;
 import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.save.PoklmonData;
 
@@ -19,6 +20,7 @@ public class PoklmonBlockRender {
 	public static int WIDTH = 380;
 	private static int KP_BAR_WIDTH = 222;
 	private DataContainer data;
+	private FontUtils fontUtils=new FontUtils();
 
 	public PoklmonBlockRender(DataContainer data) {
 		this.data = data;
@@ -71,7 +73,7 @@ public class PoklmonBlockRender {
 		// draw status
 		MainFightStatus status = poklmon.getStatus();
 		if (status != null) {
-			HudRenderUtils.renderMainStatus(g, status, (int) (tx), (int) (ty+50));
+			HudRenderUtils.renderMainStatus(g,fontUtils, status, (int) (tx), (int) (ty+50));
 		}
 		
 		g.setFont(GUIFonts.smallText);

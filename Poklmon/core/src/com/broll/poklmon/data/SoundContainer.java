@@ -1,8 +1,8 @@
 package com.broll.poklmon.data;
 
-import java.util.HashMap;
-
 import com.badlogic.gdx.audio.Sound;
+
+import java.util.HashMap;
 
 public class SoundContainer {
 

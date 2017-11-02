@@ -3,6 +3,7 @@ package com.broll.poklmon.player;
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.SpriteSheet;
+import com.broll.poklmon.data.player.PlayerGraphics;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.gui.GUIUpdate;
 import com.broll.poklmon.map.MapDisplay;
@@ -15,21 +16,15 @@ public class OverworldPlayer extends OverworldCharacter {
 	private final static float WALKING_SPEED = 0.05f;
 	private final static float RUNNING_SPEED = 0.1f;
 	private boolean running = false;
-	private SpriteSheet walkingGraphic, speedGraphic;
+	private PlayerGraphics playerGraphics;
 
 	public OverworldPlayer(GameManager game) {
 		super(game.getData(), game.getMap());
 		this.game = game;
 	}
 
-	public void initGraphic(PlayerGameData data) {
-		if (data.getPlayerData().getCharacter() == 0) {
-			walkingGraphic = game.getData().getGraphics().getCharImage("playerM.png");
-			speedGraphic = game.getData().getGraphics().getCharImage("playerM_bicycle.png");
-		} else {
-			walkingGraphic = game.getData().getGraphics().getCharImage("playerF.png");
-			speedGraphic = game.getData().getGraphics().getCharImage("playerM_bicycle.png");
-		}
+	public void initGraphic(PlayerGraphics playerGraphics) {
+		this.playerGraphics=playerGraphics;
 		activateWalkMode();
 	}
 
@@ -41,13 +36,13 @@ public class OverworldPlayer extends OverworldCharacter {
 
 	public void activateSpeedMode() {		
 		setMovementSpeed(RUNNING_SPEED);
-		setGraphic(speedGraphic);
+		setGraphic(playerGraphics.getBicycleChar());
 		running = true;
 	}
 
 	public void activateWalkMode() {
 		setMovementSpeed(WALKING_SPEED);
-		setGraphic(walkingGraphic);
+		setGraphic(playerGraphics.getMapChar());
 		running = false;
 	}
 

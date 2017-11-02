@@ -1,12 +1,12 @@
 package com.broll.poklmon.game.scene;
 
-import java.util.List;
-
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.poklmon.map.MapContainer;
 import com.broll.poklmon.map.object.MapObject;
 import com.broll.poklmon.model.movement.MovementUtil;
 import com.broll.poklmon.player.Player;
+
+import java.util.List;
 
 public abstract class ObjectTriggerCheck {
 

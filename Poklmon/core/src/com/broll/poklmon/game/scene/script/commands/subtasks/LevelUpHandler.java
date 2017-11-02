@@ -3,6 +3,7 @@ package com.broll.poklmon.game.scene.script.commands.subtasks;
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.pokllib.script.syntax.VariableException;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.scene.script.CommandControl;
 import com.broll.poklmon.game.scene.script.Invoke;
@@ -36,7 +37,7 @@ public class LevelUpHandler extends CommandControl implements LevelCalcListener 
 		final String name = playerCommands.getPoklmonName(poklmon);
 		invoke(new Invoke() {
 			public void invoke() throws VariableException {
-				game.getMessageGuiControl().showText(name + " erreicht Level " + level + "!");
+				game.getMessageGuiControl().showText(TextContainer.get("levelup",name,level));
 			}
 		});
 	}
@@ -48,7 +49,7 @@ public class LevelUpHandler extends CommandControl implements LevelCalcListener 
 		if (attackLearning.tryLearnAttack(poklmon, attack)) {
 			invoke(new Invoke() {
 				public void invoke() throws VariableException {
-					game.getMessageGuiControl().showText(name + " hat " + atk.getName() + " erlernt!");
+					game.getMessageGuiControl().showText(TextContainer.get("dialog_LearnTM_Success",name,atk.getName()));
 				}
 			});
 			return true;
@@ -58,18 +59,12 @@ public class LevelUpHandler extends CommandControl implements LevelCalcListener 
 
 				invoke(new Invoke() {
 					public void invoke() throws VariableException {
-						game.getMessageGuiControl()
-								.showText(
-										name
-												+ " versucht "
-												+ atk.getName()
-												+ " zu erlernen, kann aber nicht mehr als vier Attacken gleichzeitig haben. Soll eine andere Attacke für "
-												+ atk.getName() + " vergessen werden?");
+						game.getMessageGuiControl().showText(TextContainer.get("dialog_LearnTM_Try",name,atk.getName()));
 					}
 				});
 				invoke(new Invoke() {
 					public void invoke() throws VariableException {
-						game.getMessageGuiControl().showSelection(new String[] { "Ja", "Nein" });
+						game.getMessageGuiControl().showSelection(new String[] { TextContainer.get("option_Yes"), TextContainer.get("option_No") });
 					}
 				});
 				int selection = game.getMessageGuiControl().getSelectedOption();
@@ -82,15 +77,14 @@ public class LevelUpHandler extends CommandControl implements LevelCalcListener 
 					}
 					invoke(new Invoke() {
 						public void invoke() throws VariableException {
-							game.getMessageGuiControl().showText(
-									"Welche Attacke soll für " + atk.getName() + " vergessen werden?");
+							game.getMessageGuiControl().showText(TextContainer.get("dialog_LearnTM_ForgetWhat",atk.getName()));
 						}
 					});
 					invoke(new Invoke() {
 						public void invoke() throws VariableException {
 							game.getMessageGuiControl()
 									.showSelection(
-											new String[] { "Nicht lernen", atkNames[0], atkNames[1], atkNames[2],
+											new String[] { TextContainer.get("dialog_LearnTM_Cancel"), atkNames[0], atkNames[1], atkNames[2],
 													atkNames[3] });
 						}
 					});
@@ -100,12 +94,12 @@ public class LevelUpHandler extends CommandControl implements LevelCalcListener 
 						attackLearning.learnAttack(poklmon, attack, place);
 						invoke(new Invoke() {
 							public void invoke() throws VariableException {
-								game.getMessageGuiControl().showText(name + " vegisst " + atkNames[place] + "...");
+								game.getMessageGuiControl().showText(TextContainer.get("dialog_LearnTM_Forget",name,atkNames[place]));
 							}
 						});
 						invoke(new Invoke() {
 							public void invoke() throws VariableException {
-								game.getMessageGuiControl().showText(name + " hat " + atk.getName() + " erlernt!");
+								game.getMessageGuiControl().showText(TextContainer.get("dialog_LearnTM_Success",name ,atk.getName()));
 							}
 						});
 						learning = false;
@@ -126,7 +120,7 @@ public class LevelUpHandler extends CommandControl implements LevelCalcListener 
 		final String name2 = pokl.getName();
 		invoke(new Invoke() {
 			public void invoke() throws VariableException {
-				game.getMessageGuiControl().showText(name + " hat sich in " + name2 + " entwickelt!");
+				game.getMessageGuiControl().showText(TextContainer.get("evolved",name,name2));
 			}
 		});
 		poklmon.setPoklmon(id);

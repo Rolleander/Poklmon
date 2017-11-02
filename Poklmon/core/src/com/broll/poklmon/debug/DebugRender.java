@@ -1,8 +1,5 @@
 package com.broll.poklmon.debug;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.graphics.Color;
 import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.data.basics.ColorUtil;
@@ -16,6 +13,9 @@ import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.input.InputReceiver;
 import com.broll.poklmon.input.KeyPressReceiver;
 import com.broll.poklmon.resource.GUIFonts;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DebugRender {
 

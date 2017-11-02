@@ -6,7 +6,6 @@ import com.broll.poklmon.battle.util.BattleEndListener;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.gui.GUIUpdate;
-import com.broll.poklmon.gui.TouchIconsRender;
 import com.broll.poklmon.input.CharReceiver;
 import com.broll.poklmon.main.GameState;
 import com.broll.poklmon.network.NetworkEndpoint;
@@ -22,12 +21,27 @@ public class BattleState extends GameState {
 		this.data = data;
 
 	}
+	
+	private void playBattleMusic(BattleParticipants participants) {
+		String customMusic=participants.getCustomMusic();
+		if(customMusic!=null) {
+			data.getMusics().playMusic(customMusic+".ogg", true);											
+		}
+		else if(participants.isTrainerFight()) {
+			data.getMusics().playMusic("battle_trainer.ogg", true);								
+		}
+		else {
+			data.getMusics().playMusic("battle.ogg", true);					
+		}
+	}
 
 	public void startBattle(BattleParticipants participants, Player player, final BattleEndListener endListener) {
 		if (battle == null) {
 			// init
 			battle = new BattleManager(data, player);
 		}
+		playBattleMusic(participants);
+
 		battle.startBattle(participants, new BattleEndListener() {
 			public void battleWon() {
 				endBattle();
@@ -52,6 +66,8 @@ public class BattleState extends GameState {
 			// init
 			battle = new BattleManager(data, player);
 		}
+		playBattleMusic(participants);
+
 		battle.startNetworkBattle(endpoint, seed, participants, new BattleEndListener() {
 			public void battleWon() {
 				endBattle();
@@ -86,7 +102,6 @@ public class BattleState extends GameState {
 				battle.getBattleRender().getHudRender().keyPressed(keycode, typedChar);
 			}
 		});
-		data.getMusics().playMusic("battle.ogg", true);
 	}
 
 	@Override

@@ -1,13 +1,15 @@
 package com.broll.poklmon.game.scene;
 
-import java.util.Stack;
-
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.scene.script.ObjectInitEnvironment;
 import com.broll.poklmon.game.scene.script.ObjectRuntimeEnvironment;
 import com.broll.poklmon.game.scene.script.ObjectScriptExtension;
+import com.broll.poklmon.main.GameStateManager;
 import com.broll.poklmon.map.object.MapObject;
+import com.esotericsoftware.minlog.Log;
+
+import java.util.Stack;
 
 public class SceneProcessManager {
 	private ScriptSceneProcess scriptProcess;
@@ -16,9 +18,11 @@ public class SceneProcessManager {
 	private ObjectRuntimeEnvironment runtimeEnvironment;
 	private ObjectInitEnvironment initEnvironment;
 	private Stack<ScriptInstance> triggerStack = new Stack<ScriptInstance>();
+	private GameStateManager stateManager;
 
-	public SceneProcessManager(GameManager game) {
+	public SceneProcessManager(GameManager game, GameStateManager stateManager) {
 		this.game = game;
+		this.stateManager=stateManager;
 		runtimeEnvironment = new ObjectRuntimeEnvironment();
 		initEnvironment = new ObjectInitEnvironment();
 	}
@@ -46,10 +50,15 @@ public class SceneProcessManager {
 				public void sceneEnded() {
 					finishedScript();
 				}
+				@Override
+				public void exceptionOccured(Exception e) {
+					Log.error("Exception occured in ControlSceneProcess",e);
+					stateManager.gameException(e);
+				}
 			});
 		} else {
 			MapObject object = script.getMapObject();
-			String triggerScript = script.getScript();
+			final String triggerScript = script.getScript();
 			ObjectScriptExtension extension = script.getExtension();
 			// turn object towards player
 			turnObjectToPlayer(object);
@@ -60,6 +69,11 @@ public class SceneProcessManager {
 				@Override
 				public void sceneEnded() {
 					finishedScript();
+				}
+				@Override
+				public void exceptionOccured(Exception e) {
+					Log.error("Exception occured in ScriptSceneProcess ["+triggerScript+"]",e);
+					stateManager.gameException(e);
 				}
 			}, objectScriptHandler);
 			runtimeEnvironment.initController(object, scriptProcess);
@@ -79,12 +93,17 @@ public class SceneProcessManager {
 		}
 	}
 
-	public boolean runInitScript(MapObject object, String script) {
+	public boolean runInitScript(MapObject object,final String script) {
 		initEnvironment.addController(game, object);
 		ObjectScriptHandler objectScriptHandler = new ObjectScriptHandler(object, script, initEnvironment);
 		ScriptSceneProcess scriptProcess = new ScriptSceneProcess(new SceneEndListener() {
 			@Override
 			public void sceneEnded() {
+			}
+			@Override
+			public void exceptionOccured(Exception e) {
+				Log.error("Exception occured in Init-Script ["+script+"]",e);
+				stateManager.gameException(e);
 			}
 		}, objectScriptHandler);
 		initEnvironment.initController(object, scriptProcess);

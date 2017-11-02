@@ -1,11 +1,10 @@
 package com.broll.poklmon.player;
 
-import java.util.HashMap;
-
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.poklmon.battle.BattleParticipants;
 import com.broll.poklmon.battle.poklmon.FightPokemonBuilder;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
+import com.broll.poklmon.data.player.PlayerGraphics;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.player.control.impl.InventarControl;
 import com.broll.poklmon.player.control.impl.PlayerControl;
@@ -16,6 +15,9 @@ import com.broll.poklmon.poklmon.PoklmonAttributeCalculator;
 import com.broll.poklmon.save.AttackData;
 import com.broll.poklmon.save.GameData;
 import com.broll.poklmon.save.PoklmonData;
+import com.broll.poklmon.save.manage.SaveFileManager;
+
+import java.util.HashMap;
 
 public class Player {
 
@@ -27,10 +29,12 @@ public class Player {
 	private VariableControl variableControl;
 	private PoklmonControl poklmonControl;
 	private GameManager game;
+	private PlayerGraphics playerGraphics;
 	public static boolean SAVING_ALLOWED = true;
 	public final static String SCHUTZ_ID = "$PLAYER.SCHUTZ";
 	public final static String STEP_ID = "$PLAYER.STEPS";
 	public final static String SHORTCUT = "#itemshortcut";
+
 
 
 	public Player(GameManager gameManager) {
@@ -40,6 +44,11 @@ public class Player {
 
 	// for debug
 	public Player() {
+	}
+
+	public void saveGame(){
+		playerControl.saveCurrentLocation(game.getMap().getMapId());
+		SaveFileManager.saveGame(data.getSaveFile());
 	}
 
 	public void doneStep() {
@@ -98,7 +107,9 @@ public class Player {
 		playerControl = new PlayerControl(overworld, data.getPlayerData());
 		variableControl = new VariableControl(data);
 		poklmonControl = new PoklmonControl(game.getData(),this);
-		overworld.initGraphic(data);
+		int playerNr=data.getPlayerData().getCharacter();
+		this.playerGraphics=game.getData().getGraphics().getPlayer().get(playerNr);
+		overworld.initGraphic(playerGraphics);
 	}
 
 	public void addTeamToFight(BattleParticipants battleParticipants) {
@@ -144,4 +155,7 @@ public class Player {
 		return poklmonControl;
 	}
 
+	public PlayerGraphics getPlayerGraphics() {
+		return playerGraphics;
+	}
 }

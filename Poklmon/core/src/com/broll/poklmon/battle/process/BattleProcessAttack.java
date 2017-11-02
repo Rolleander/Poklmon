@@ -22,11 +22,11 @@ import com.broll.poklmon.battle.render.sequence.PoklmonHealSequence;
 import com.broll.poklmon.battle.util.ScriptValue;
 import com.broll.poklmon.battle.util.flags.DamageTaken;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.items.callbacks.AfterAttackCallback;
 import com.broll.poklmon.game.items.callbacks.AttackHealCalculationCallback;
 import com.broll.poklmon.game.items.callbacks.BeforeAttackCallback;
 import com.broll.poklmon.game.items.callbacks.DamageCalculationCallback;
-import com.broll.poklmon.game.items.callbacks.StatKpCallback;
 import com.broll.poklmon.network.NetworkException;
 
 public class BattleProcessAttack extends BattleProcessControl {
@@ -60,7 +60,7 @@ public class BattleProcessAttack extends BattleProcessControl {
 		}
 
 		if (core.getEffectProcess().getHandicapProcess().canAttack(user, atk)) {
-			final String text = BattleMessages.putName(BattleMessages.attackText, poklmonName, name);
+			final String text = TextContainer.get("attackText",poklmonName,name);
 			final BattleHUDRender hud = manager.getBattleRender().getHudRender();
 			showText(text);
 			// reduce ap
@@ -69,10 +69,10 @@ public class BattleProcessAttack extends BattleProcessControl {
 			boolean hitAttack = AttackHitCalculator.hitsAttack(user, target, atk);
 			String noHitText;
 			if (atk.isHasNoEffect()) {
-				noHitText = BattleMessages.attackNoEffect;
+				noHitText = TextContainer.get("attackNoEffect");
 				hitAttack = false;
 			} else {
-				noHitText = BattleMessages.putName(BattleMessages.attackNoHit, poklmonName);
+				noHitText = TextContainer.get("attackNoHit",poklmonName);
 			}
 			if (hitAttack) {
 				// mark attack as last used
@@ -106,7 +106,7 @@ public class BattleProcessAttack extends BattleProcessControl {
 				}
 
 				if (multi) {
-					String msg = BattleMessages.putName(BattleMessages.multihit, "" + hitCount);
+					String msg = TextContainer.get("multihit",hitCount);
 					showText(msg);
 					// show effect text if needed
 					TypeCompare comp = DamageCalculator.getTypeBonus();
@@ -148,7 +148,7 @@ public class BattleProcessAttack extends BattleProcessControl {
 				double kplose = attack.getLifeLose();
 				if (kplose > 0) {
 					int kpd = (int) (user.getAttributes().getMaxhealth() * kplose);
-					String text = BattleMessages.putName(BattleMessages.kpopfer, user.getName());
+					String text =  TextContainer.get("kpopfer",user.getName());
 					doDamage(user, text, kpd);
 					if (user.isFainted()) {
 						return;
@@ -185,7 +185,7 @@ public class BattleProcessAttack extends BattleProcessControl {
 				}
 				if (volltreffer) {
 					// show volltreffer message
-					String disp = BattleMessages.volltreffer;
+					String disp = TextContainer.get("volltreffer");
 					showText(disp);
 				}
 				damageTaken.setDamage(damage);
@@ -219,7 +219,7 @@ public class BattleProcessAttack extends BattleProcessControl {
 					// do self damage
 					int sdamage = (int) (effectiveDamage * selfdamage);
 					if (sdamage > 0) {
-						String text = BattleMessages.putName(BattleMessages.rueckstoss, user.getName());
+						String text =  TextContainer.get("rueckstoss",user.getName());
 						doDamage(user, text, sdamage);
 					}
 				}
@@ -237,7 +237,7 @@ public class BattleProcessAttack extends BattleProcessControl {
 					}
 				}
 				kpheal = scriptValue.value;
-				String text = BattleMessages.putName(BattleMessages.selfheal, user.getName());
+				String text = TextContainer.get("selfheal",user.getName());
 				// showText(text);
 				core.getEffectProcess().getInflictprocess().healPoklmon(user, text, kpheal);
 			}

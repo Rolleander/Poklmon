@@ -1,9 +1,5 @@
 package com.broll.poklmon.main;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 import com.badlogic.gdx.Screen;
 import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.data.DataContainer;
@@ -13,6 +9,7 @@ import com.broll.poklmon.main.states.AnimationDebugState;
 import com.broll.poklmon.main.states.BattleDebugState;
 import com.broll.poklmon.main.states.BattleState;
 import com.broll.poklmon.main.states.CreditState;
+import com.broll.poklmon.main.states.ExceptionState;
 import com.broll.poklmon.main.states.IntroState;
 import com.broll.poklmon.main.states.LoadingState;
 import com.broll.poklmon.main.states.MapState;
@@ -24,6 +21,11 @@ import com.broll.poklmon.main.states.TitleMenuState;
 import com.broll.poklmon.transition.DefaultTransition;
 import com.broll.poklmon.transition.ScreenTransition;
 import com.broll.poklmon.transition.TransitionListener;
+import com.esotericsoftware.minlog.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class GameStateManager {
 
@@ -42,6 +44,7 @@ public class GameStateManager {
 		LoadingState loadingState = new LoadingState(startInformation);
 		DataContainer data = loadingState.getData();
 		addState(loadingState);
+        addState(new ExceptionState(game.getViewport()));
 		addState(new AnimationDebugState(data));
 		addState(new BattleDebugState(data));
 		addState(new BattleState(data));
@@ -54,9 +57,22 @@ public class GameStateManager {
 		addState(new NewGameState(data));
 		addState(new TitleMenuState(data));
 		for (GameState state : states) {
-			state.init(game, this, graphics, data);
-		}
+            try {
+                state.init(game, this, graphics, data);
+            } catch (Exception e) {
+                gameException(e);
+            }
+        }
 		game.setScreen(loadingState);
+	}
+
+	public void gameException( Exception e){
+        Log.error("Exception occured in Game!",e);
+        ExceptionState state= (ExceptionState) getState(ExceptionState.class);
+		String currentState=game.getScreen().getClass().getSimpleName();
+		state.setException(currentState,e);
+        state.onEnter();
+		game.setScreen(state);
 	}
 
 	private void addState(GameState state) {
@@ -73,42 +89,49 @@ public class GameStateManager {
 	}
 
 	public void transition(Class<? extends GameState> newState) {
-		transition(newState, new DefaultTransition());
+            transition(newState, new DefaultTransition());
 	}
 
 	public void transition(Class<? extends GameState> newState, ScreenTransition transition) {
-		for (GameState state : states) {
-			if (state.getClass().equals(newState)) {
-				final GameState nextState = state;
-				Screen currentState =  game.getScreen();
-				if(currentState instanceof  GameState){
-					GameState currentGameState=(GameState)currentState;
-					currentGameState.onExit();
-					transition.start(graphics, currentGameState, nextState, new TransitionListener() {
-						@Override
-						public void transitionFinished() {
-							game.setScreen(nextState);
-							nextState.onEnter();
-							// check stack for waiting transitions
-							if(!transitionStack.isEmpty()){
-								WaitingTranstion wt=transitionStack.pop();
-								transition(wt.newState,wt.transition);
-							}
-						}
-					});
-					game.setScreen(transition);
-				}
-				else{
-					//allready a transition running, add to transition stack
-					WaitingTranstion wt=new WaitingTranstion();
-					wt.newState=newState;
-					wt.transition=transition;
-					transitionStack.push(wt);
-				}
+        try{
+            for (GameState state : states) {
+                if (state.getClass().equals(newState)) {
+                    final GameState nextState = state;
+                    Screen currentState =  game.getScreen();
+                    if(currentState instanceof  GameState){
+                        GameState currentGameState=(GameState)currentState;
+                        currentGameState.onExit();
+                        transition.start(graphics, currentGameState, nextState, new TransitionListener() {
+                            @Override
+                            public void transitionFinished() {
+                                game.setScreen(nextState);
+                                try {
+                                    nextState.onEnter();
+                                    // check stack for waiting transitions
+                                    if(!transitionStack.isEmpty()){
+                                        WaitingTranstion wt=transitionStack.pop();
+                                        transition(wt.newState,wt.transition);
+                                    }
+                                } catch (Exception e) {
+                                    gameException(e);
+                                }
+                            }
+                        });
+                        game.setScreen(transition);
+                    }
+                    else{
+                        //allready a transition running, add to transition stack
+                        WaitingTranstion wt=new WaitingTranstion();
+                        wt.newState=newState;
+                        wt.transition=transition;
+                        transitionStack.push(wt);
+                    }
 
-			}
-		}
-
+                }
+            }
+        }catch (Exception e){
+            gameException(e);
+        }
 	}
 
 	private class WaitingTranstion{

@@ -3,6 +3,7 @@ package com.broll.poklmon.game.items.execute;
 import com.broll.pokllib.attack.Attack;
 import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.items.MedicineItemScript;
 import com.broll.poklmon.poklmon.PoklmonAttributeCalculator;
@@ -53,8 +54,7 @@ public class MenuMedicineItemRunner extends MenuItemRunner implements MedicineIt
 		if (target.getStatus() == MainFightStatus.FAINTED) {
 			target.setStatus(null);
 		}
-
-		gui.showText(BattleMessages.putName(BattleMessages.itemHeal, getName(), "" + healed));
+		gui.showText(TextContainer.get("itemHeal",getName(),healed));
 		process.waitForResume();
 	}
 
@@ -140,7 +140,7 @@ public class MenuMedicineItemRunner extends MenuItemRunner implements MedicineIt
 			select[i] = "-";
 			blocked[i] = true;
 		}
-		gui.showText("Welche Attacke soll aufgefüllt werden?");
+		gui.showText(TextContainer.get("item_Ap_Select"));
 		process.waitForResume();
 		gui.showSelection(select, blocked, false, false);
 		process.waitForResume();
@@ -154,7 +154,7 @@ public class MenuMedicineItemRunner extends MenuItemRunner implements MedicineIt
 		int ap = target.getAttacks()[id].getAp();
 		byte newAp = (byte) Math.min(maxAp, ap + apPlus);
 		target.getAttacks()[id].setAp(newAp);
-		gui.showText(BattleMessages.putName(BattleMessages.itemAp, getName()));
+		gui.showText( TextContainer.get("itemAp",getName()));
 		process.waitForResume();
 	}
 
@@ -175,7 +175,7 @@ public class MenuMedicineItemRunner extends MenuItemRunner implements MedicineIt
 				}
 			}	
 		}
-		gui.showText(BattleMessages.putName(BattleMessages.itemAp, getName()));
+		gui.showText( TextContainer.get("itemAp",getName()));
 		process.waitForResume();
 	}
 

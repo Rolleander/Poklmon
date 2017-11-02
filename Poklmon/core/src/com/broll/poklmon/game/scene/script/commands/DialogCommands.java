@@ -1,9 +1,5 @@
 package com.broll.poklmon.game.scene.script.commands;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.pokllib.script.syntax.VariableException;
 import com.broll.poklmon.data.basics.Image;
@@ -11,6 +7,10 @@ import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.scene.script.CommandControl;
 import com.broll.poklmon.game.scene.script.Invoke;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DialogCommands extends CommandControl {
 

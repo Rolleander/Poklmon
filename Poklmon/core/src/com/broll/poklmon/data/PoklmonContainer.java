@@ -1,8 +1,8 @@
 package com.broll.poklmon.data;
 
-import java.util.List;
-
 import com.broll.pokllib.poklmon.Poklmon;
+
+import java.util.List;
 
 public class PoklmonContainer
 {

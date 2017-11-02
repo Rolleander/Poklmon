@@ -1,11 +1,6 @@
 package com.broll.poklmon.menu;
 
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.Stack;
-
 import com.broll.poklmon.data.DataContainer;
-import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.menu.inventar.InventarMenu;
 import com.broll.poklmon.menu.pc.PcMenu;
@@ -15,6 +10,10 @@ import com.broll.poklmon.menu.poklmon.PoklmonMenu;
 import com.broll.poklmon.menu.state.StateMenu;
 import com.broll.poklmon.player.Player;
 import com.broll.poklmon.resource.GUIDesign;
+
+import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
 public class MenuPageContainer {
 	private MenuPage currentPage;

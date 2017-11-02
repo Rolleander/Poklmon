@@ -149,6 +149,13 @@ public class PopupMenu
                 control.addObject(MapObjectGenerator.openWizard(ObjectType.LEDGE));
             }
         }));
+        newobject.add(addItem("MapTile", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                control.addObject(MapObjectGenerator.openWizard(ObjectType.MAPTILE));
+            }
+        }));
         newobject.add(addItem("Remote", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)

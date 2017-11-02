@@ -6,6 +6,7 @@ import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.data.basics.SpriteSheet;
+import com.broll.poklmon.resource.FontUtils;
 import com.broll.poklmon.resource.GUIFonts;
 
 public abstract class StateBar {
@@ -13,6 +14,7 @@ public abstract class StateBar {
 	protected SpriteSheet healthBar;
 	public static int healthBarWidth = 154;
 	public static Color textColor = ColorUtil.newColor(80, 80, 80);
+	protected FontUtils fontUtils=new FontUtils();
 
 	protected void initGraphics(boolean player, DataContainer data) {
 		if (player) {

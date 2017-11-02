@@ -28,6 +28,10 @@ public class MapState extends GameState {
 
 	}
 
+	public GameManager getGameInstance() {
+		return gameInstance;
+	}
+
 	public void openGame(GameData gameData) {
 		gameInstance = new GameManager(data, states, this);
 		gameInstance.startGame(gameData);

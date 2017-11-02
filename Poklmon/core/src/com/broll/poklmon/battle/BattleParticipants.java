@@ -1,12 +1,12 @@
 package com.broll.poklmon.battle;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.broll.poklmon.battle.enemy.EnemyKIType;
 import com.broll.poklmon.battle.item.TrainerItem;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.map.areas.AreaType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BattleParticipants {
 
@@ -20,13 +20,21 @@ public class BattleParticipants {
 	private int winMoney;
 	private String introText, outroText;
 	private AreaType areaType=AreaType.GRASS;
-	
+	private String customMusic;
 
 	public BattleParticipants() {
 	}
 
 	public void setAreaType(AreaType areaType) {
 		this.areaType = areaType;
+	}
+	
+	public void setCustomMusic(String customMusic) {
+		this.customMusic = customMusic;
+	}
+	
+	public String getCustomMusic() {
+		return customMusic;
 	}
 	
 	public void addTrainerItem(int id) {

@@ -3,6 +3,7 @@ package com.broll.poklmon.battle.render.sequence;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.util.SelectionListener;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
@@ -43,7 +44,7 @@ public class WildPoklmonIntro extends SequenceRender {
 				// show text
 				battle.getBattleRender().getPoklmonRender().setEnemyPoklmonVisible(true);
 				String poklmon = battle.getParticipants().getEnemy().getName();
-				String text = BattleMessages.putName(BattleMessages.wildPoklmonIntro, poklmon);
+				String text =  TextContainer.get("wildPoklmonIntro",poklmon);
 				battle.getBattleRender().getHudRender().showText(text, new SelectionListener() {
 
 					@Override

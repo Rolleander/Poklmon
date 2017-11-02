@@ -1,13 +1,11 @@
 package com.broll.poklmon.game.scene.script.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.item.Item;
 import com.broll.pokllib.item.ItemType;
 import com.broll.pokllib.script.syntax.VariableException;
 import com.broll.poklmon.battle.item.InventarItemInstance;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.control.MessageGuiControl;
 import com.broll.poklmon.game.scene.script.CommandControl;
@@ -18,6 +16,9 @@ import com.broll.poklmon.model.shop.ShopArticle;
 import com.broll.poklmon.model.shop.ShopInstance;
 import com.broll.poklmon.player.control.impl.InventarControl;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuCommands extends CommandControl {
 
@@ -73,7 +74,7 @@ public class MenuCommands extends CommandControl {
 		if (targets.size() > 0) {
 			invoke(new Invoke() {
 				public void invoke() throws VariableException {
-					gui.showText("Welches deiner Poklmon soll " + atkName + " lernen?");
+					gui.showText(TextContainer.get("dialog_LearnTM_Who",atkName));
 				}
 			});
 			PoklmonData target = dialog.selectionPoklmon(targets);
@@ -82,7 +83,7 @@ public class MenuCommands extends CommandControl {
 		} else {
 			invoke(new Invoke() {
 				public void invoke() throws VariableException {
-					gui.showText("Keines deiner Poklmon kann " + atkName + " lernen!");
+					gui.showText(TextContainer.get("dialog_LearnTM_Fail",atkName));
 				}
 			});
 			return false;
@@ -92,7 +93,7 @@ public class MenuCommands extends CommandControl {
 	public void openShop(final String shopText, final String cancelText) {
 
 		final MessageGuiControl gui = game.getMessageGuiControl();
-
+		String currency=TextContainer.get("currency");
 		boolean inShop = true;
 		boolean inList = true;
 		invoke(new Invoke() {
@@ -105,7 +106,7 @@ public class MenuCommands extends CommandControl {
 		locked[0] = !shop.isBuy();
 		locked[1] = !shop.isSell();
 		do {
-			gui.showInfoBox("$" + game.getPlayer().getInventarControl().getMoney());
+			gui.showInfoBox(currency + game.getPlayer().getInventarControl().getMoney());
 			gui.showInfo(shopText);
 			invoke(new Invoke() {
 				public void invoke() throws VariableException {
@@ -118,13 +119,13 @@ public class MenuCommands extends CommandControl {
 			if (selection == 0) {
 				inList = true;
 				do {
-					gui.showInfoBox("$" + game.getPlayer().getInventarControl().getMoney());
+					gui.showInfoBox(currency + game.getPlayer().getInventarControl().getMoney());
 					gui.showInfo(shopText);
 					// buy
 					final List<String> buyList = new ArrayList<String>();
 					for (ShopArticle article : shop.getArticles()) {
 						String name = game.getData().getItems().getItem(article.getItemId()).getName();
-						String price = article.getPrice() + "$";
+						String price = article.getPrice() + currency;
 						buyList.add(name + " : " + price);
 					}
 					invoke(new Invoke() {
@@ -142,12 +143,12 @@ public class MenuCommands extends CommandControl {
 						if (max == 0) {
 							invoke(new Invoke() {
 								public void invoke() throws VariableException {
-									gui.showText("Das kannst du garnicht bezahlen!");
+									gui.showText(TextContainer.get("shop_poor"));
 								}
 							});
 						} else {
 							final String name = game.getData().getItems().getItem(item.getItemId()).getName();
-							gui.showInfo(" >" + name + "< Wie viele sollen es denn sein?");
+							gui.showInfo(TextContainer.get("shop_Buy_Amount",name));
 							invoke(new Invoke() {
 								public void invoke() throws VariableException {
 									gui.openNumberInput("", 1, 1, max, true);
@@ -158,7 +159,7 @@ public class MenuCommands extends CommandControl {
 								final int price = item.getPrice() * number;
 								invoke(new Invoke() {
 									public void invoke() throws VariableException {
-										gui.showText(number + " x " + name + ", das macht dann  " + price + "$!");
+										gui.showText(TextContainer.get("shop_Buy",number,name,price));
 									}
 								});
 								InventarControl inventar = game.getPlayer().getInventarControl();
@@ -177,8 +178,8 @@ public class MenuCommands extends CommandControl {
 				// sell
 				inList = true;
 				do {
-					gui.showInfoBox("$" + game.getPlayer().getInventarControl().getMoney());
-					gui.showInfo("Was möchtest du verkaufen?");
+					gui.showInfoBox(currency + game.getPlayer().getInventarControl().getMoney());
+					gui.showInfo(TextContainer.get("shop_Sell"));
 					// sell items
 
 					final List<String> sellList = new ArrayList<String>();
@@ -188,7 +189,7 @@ public class MenuCommands extends CommandControl {
 						// cant sell basis items!
 						if (i.getType() != ItemType.BASIS_ITEM) {
 							String name = i.getName();
-							String price = shop.getSellWorth(item.getId()) + "$";
+							String price = shop.getSellWorth(item.getId()) + currency;
 							sellList.add(item.getCount() + " x " + name + " [ " + price + " ]");
 							sellItems.add(i);
 						}
@@ -209,7 +210,7 @@ public class MenuCommands extends CommandControl {
 						int id = item.getId();
 						int value = shop.getSellWorth(id);
 						final int count = inventar.getItemCount(id);
-						gui.showInfo("Verkaufen: " + name + " im Besitz: >" + count + "<  Wert: >" + value + "$<");
+						gui.showInfo(TextContainer.get("shop_Sell_Info",name,count,value));
 						invoke(new Invoke() {
 							public void invoke() throws VariableException {
 								gui.openNumberInput("", 1, 1, count, true);
@@ -220,7 +221,7 @@ public class MenuCommands extends CommandControl {
 							final int price = value * number;
 							invoke(new Invoke() {
 								public void invoke() throws VariableException {
-									gui.showText(number + " x " + name + ", dafür gebe ich dir " + price + "$!");
+									gui.showText(TextContainer.get("shop_Sell_Price",number,name,price));
 								}
 							});
 							inventar.addMoney(price);

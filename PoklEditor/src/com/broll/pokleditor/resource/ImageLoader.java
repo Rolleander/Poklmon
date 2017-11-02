@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -70,24 +71,41 @@ public class ImageLoader {
 	public final static int TILE_SIZE=16;
 	public static Image[] loadTileset()
 	{
-		try {
-			Image image=ImageIO.read(new File(graphicsPath+"tileset.png"));
+		int count=0;
+		boolean searching=true;
+		List<Image> sets=new ArrayList<Image>();
+		int width=0;
+		int height=0;
+		do {
+			try {
+				Image image=ImageIO.read(new File(graphicsPath+"tileset"+count+".png"));
+				sets.add(image);
+				int w=image.getWidth(null)/TILE_SIZE;
+				int h=image.getHeight(null)/TILE_SIZE;
+				if(w>width) {
+					width=w;
+				}
+				height+=h;
+				count++;
+			} catch (Exception e) {
+				searching=false;
+			}			
+		}while(searching);
+		Image[] tiles=new Image[width*height]; 
+		int deltay=0;
+		for(Image image:sets) {
 			int w=image.getWidth(null)/TILE_SIZE;
 			int h=image.getHeight(null)/TILE_SIZE;
-			Image[] tiles=new Image[w*h]; 
 			for(int y=0; y<h; y++)
 			{
 			for(int x=0; x<w; x++)
 			{
-				tiles[y*w+x]=cutImage(image, x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+				tiles[(y+deltay)*w+x]=cutImage(image, x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
 			}
 			}
-			return tiles;
-		} catch (IOException e) {
-			
-			e.printStackTrace();
+			deltay+=h;
 		}
-		return null;
+		return tiles;
 	}
 	
 	public static Image[] loadAnimationSprites()

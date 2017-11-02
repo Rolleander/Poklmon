@@ -20,10 +20,19 @@ public class FightPoklmon {
 	protected boolean hasPowerfulGenes;
 	protected boolean isFighting = false;
 	protected int carryItem = -1;
+	protected int poklball=0;
 	private boolean participating = false;
 
 	public FightPoklmon() {
 
+	}
+
+	public int getPoklball() {
+		return poklball;
+	}
+
+	public void setPoklball(int poklball) {
+		this.poklball = poklball;
 	}
 
 	public void setCarryItem(int carryItem) {

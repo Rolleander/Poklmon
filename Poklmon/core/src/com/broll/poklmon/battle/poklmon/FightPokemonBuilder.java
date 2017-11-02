@@ -1,7 +1,5 @@
 package com.broll.poklmon.battle.poklmon;
 
-import java.util.List;
-
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.poklmon.AttackLearnEntry;
 import com.broll.pokllib.poklmon.Poklmon;
@@ -22,6 +20,8 @@ import com.broll.poklmon.poklmon.CaughtPoklmonMeasurement;
 import com.broll.poklmon.poklmon.PoklmonAttributeCalculator;
 import com.broll.poklmon.save.AttackData;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.List;
 
 public class FightPokemonBuilder {
 
@@ -64,6 +64,7 @@ public class FightPokemonBuilder {
 			p.setName(name);
 		}
 		int level = poklmon.getLevel();
+		p.setPoklball(poklmon.getPoklball());
 		p.setImage(data.getGraphics().getPoklmonImage(pokl.getGraphicName()));
 		p.setLevel(level);
 		p.setMainStatus(poklmon.getStatus());

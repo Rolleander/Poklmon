@@ -1,9 +1,9 @@
 package com.broll.poklmon.poklmon;
 
+import com.broll.pokllib.poklmon.PoklmonWesen;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.broll.pokllib.poklmon.PoklmonWesen;
 
 public class CaughtPoklmonMeasurement
 {

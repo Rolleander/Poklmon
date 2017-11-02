@@ -24,7 +24,8 @@ public class SelectionBox {
 	private int width, height;
 	private boolean iconized = false;
 	protected DataContainer data;
-	
+	private FontUtils fontUtils=new FontUtils();
+
 	public SelectionBox(DataContainer data, String[] items, int x, int y, int w, boolean iconized) {
 		int d = 10;
 		this.data=data;
@@ -52,7 +53,7 @@ public class SelectionBox {
 		this.iconized = iconized;
 		int width = 0;
 		for (String item : items) {
-			int l = FontUtils.getWidth(GUIFonts.dialogText,item) + PADDING * 2 + 10;
+			int l = fontUtils.getWidth(GUIFonts.dialogText,item) + PADDING * 2 + 10;
 			if (l > width) {
 				width = l;
 			}

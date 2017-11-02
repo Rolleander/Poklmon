@@ -2,6 +2,7 @@ package com.broll.poklmon.game.items.execute;
 
 import com.broll.pokllib.item.Item;
 import com.broll.poklmon.battle.item.ItemScriptExecutor;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.scene.ScriptInstance;
 import com.broll.poklmon.save.PoklmonData;
@@ -27,7 +28,7 @@ public class MenuItemExecutor {
 
 				if (runner.isCanceled()) {
 
-					game.getMessageGuiControl().showText("Das Item hatte keine Wirkung!");
+					game.getMessageGuiControl().showText(TextContainer.get("item_Fail"));
 					game.getSceneProcessManager().waitForResume();
 				}
 				game.getMessageGuiControl().hideGui();

@@ -1,8 +1,5 @@
 package com.broll.poklmon.debug;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.battle.poklmon.FightPokemonBuilder;
 import com.broll.poklmon.battle.poklmon.WildPoklmon;
@@ -15,6 +12,9 @@ import com.broll.poklmon.save.ItemEntry;
 import com.broll.poklmon.save.PlayerData;
 import com.broll.poklmon.save.PokldexEntry;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DebugPlayerFactory {
 

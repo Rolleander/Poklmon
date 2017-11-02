@@ -3,6 +3,7 @@ package com.broll.poklmon.battle.render.sequence;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.util.SelectionListener;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.data.basics.Graphics;
 
 public class TrainerPoklmonIntro extends SequenceRender {
@@ -19,8 +20,7 @@ public class TrainerPoklmonIntro extends SequenceRender {
 		 waitForText = true;
 		String pokl=battle.getParticipants().getEnemy().getName();
 		String name=battle.getParticipants().getEnemyName();
-		String text = BattleMessages.putName(BattleMessages.trainerPoklmonIntro, pokl,name);
-	
+		String text = TextContainer.get("trainerPoklmonIntro",name,pokl);
 			battle.getBattleRender().getHudRender().showText(text, new SelectionListener() {
 
 				public void selectionDone() {

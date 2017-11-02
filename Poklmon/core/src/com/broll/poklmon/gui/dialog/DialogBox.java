@@ -5,6 +5,7 @@ import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.gui.GUIUpdate;
+import com.broll.poklmon.resource.FontUtils;
 import com.broll.poklmon.resource.GUIDesign;
 import com.broll.poklmon.resource.GUIFonts;
 
@@ -26,6 +27,7 @@ public class DialogBox {
 	private float timerSeconds;
 	private DataContainer data;
 	private boolean clicked = false;
+	private FontUtils fontUtils=new FontUtils();
 
 	public DialogBox(DataContainer data) {
 		this.data = data;
@@ -53,7 +55,7 @@ public class DialogBox {
 		clicked = false;
 		timer.cancel();
 		this.exitListener = listener;
-		lines = MessageLineCutter.cutMessage(message);
+		lines = MessageLineCutter.cutMessage(message,fontUtils);
 		withTimer = false;
 		letters = 0;
 	}
@@ -70,7 +72,7 @@ public class DialogBox {
 		clicked = false;
 		timer.cancel();
 		this.exitListener = listener;
-		lines = MessageLineCutter.cutMessage(message);
+		lines = MessageLineCutter.cutMessage(message,fontUtils);
 		timerSeconds = seconds;
 		withTimer = true;
 		letters = 0;

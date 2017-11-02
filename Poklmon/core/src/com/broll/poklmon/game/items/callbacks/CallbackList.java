@@ -1,10 +1,10 @@
 package com.broll.poklmon.game.items.callbacks;
 
-import java.util.Set;
+import com.broll.poklmon.battle.process.CustomScriptCall;
 
 import org.reflections.Reflections;
 
-import com.broll.poklmon.battle.process.CustomScriptCall;
+import java.util.Set;
 
 public class CallbackList {
 

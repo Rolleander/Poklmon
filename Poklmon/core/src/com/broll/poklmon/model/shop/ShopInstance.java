@@ -1,10 +1,10 @@
 package com.broll.poklmon.model.shop;
 
+import com.broll.poklmon.data.DataContainer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.broll.poklmon.data.DataContainer;
 
 public class ShopInstance {
 

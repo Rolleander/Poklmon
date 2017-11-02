@@ -1,7 +1,5 @@
 package com.broll.poklmon.battle.render;
 
-import java.util.HashMap;
-
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.render.sequence.CatchPoklmonSequence;
 import com.broll.poklmon.battle.render.sequence.PlayerPoklmonIntro;
@@ -17,6 +15,8 @@ import com.broll.poklmon.battle.render.sequence.TrainerPoklmonIntro;
 import com.broll.poklmon.battle.render.sequence.WildPoklmonIntro;
 import com.broll.poklmon.battle.util.ProcessThreadHandler;
 import com.broll.poklmon.data.basics.Graphics;
+
+import java.util.HashMap;
 
 public class BattleSequenceRender
 {

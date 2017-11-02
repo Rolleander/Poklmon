@@ -1,10 +1,12 @@
 package com.broll.poklmon.battle.render.sequence;
 
 import com.broll.poklmon.battle.BattleManager;
+import com.broll.poklmon.battle.poklmon.PlayerPoklmon;
 import com.broll.poklmon.battle.render.poklball.PoklballThrow;
 import com.broll.poklmon.battle.util.AnimationEndListener;
 import com.broll.poklmon.battle.util.SelectionListener;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.data.basics.Animation;
 import com.broll.poklmon.data.basics.Graphics;
 
@@ -28,17 +30,16 @@ public class PlayerPoklmonIntro extends SequenceRender
     protected void start()
     {
         poklball = new PoklballThrow(data);
-
         playerX = 750;
         playerSize = 240;
-        playerAnimation = new Animation(data.getGraphics().getPlayer().get(0).getThrowAnimation(), 130);
+        playerAnimation = new Animation(battle.getPlayer().getPlayerGraphics().getThrowAnimation(), 130);
         playerAnimation.setLooping(false);
         playerAnimation.stop();
         start = false;
 
         //show text
         String poklmon = battle.getParticipants().getPlayer().getName();
-        String text = BattleMessages.putName(BattleMessages.playerPoklmonIntro, poklmon);
+        String text =  TextContainer.get("playerPoklmonIntro",poklmon);
         battle.getBattleRender().getHudRender().showText(text, new SelectionListener() {
             @Override
             public void selectionDone()
@@ -74,7 +75,8 @@ public class PlayerPoklmonIntro extends SequenceRender
                     poklball.setStartPos((int)playerX - 70, 450);
                     poklball.setSpeed(-5f);
                     // throw ball
-                    poklball.throwPoklball(0, new AnimationEndListener() {
+                    int ballType=battle.getParticipants().getPlayer().getPoklball();
+                    poklball.throwPoklball(ballType, new AnimationEndListener() {
 
                         @Override
                         public void animationEnd()

@@ -84,7 +84,7 @@ public class FameSite extends StateSite
         this.lineWidth = 300;
 
 
-        renderLine(g, "Arenakämpfe", "" + statistic.getDefeatedArenas());
+        renderLine(g, "Laborleiterkämpfe", "" + statistic.getDefeatedArenas());
 
         int liga = statistic.getLigaWins();
 

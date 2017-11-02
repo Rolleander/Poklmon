@@ -24,7 +24,6 @@ allprojects {
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
     }
-
     repositories {
         mavenLocal()
         mavenCentral()

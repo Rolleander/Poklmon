@@ -6,6 +6,7 @@ import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
+import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.menu.state.StateSite;
 import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.save.PoklmonData;
@@ -39,6 +40,7 @@ public class InfoSite extends StateSite {
 		String catchDate = poklmon.getDateCaught();
 		int levelCaught = poklmon.getLevelCaught();
 		int pokldex = poklmonInfo.getPokldexNumber();
+		int ballType=poklmon.getPoklball();
 		String realName = poklmonInfo.getName();
 		String item = null;
 		int itemId = poklmon.getCarryItem();
@@ -54,7 +56,9 @@ public class InfoSite extends StateSite {
 		lines = 0;
 		renderLine(g, "Gefangen", catchDate);
 		renderLine(g, "Mit Level", "" + levelCaught);
-		renderLine(g, "", "");
+		Image ball=data.getGraphics().getBattleGraphicsContainer().getPokeballs().getSprite(ballType, 0).getScaledCopy(1.5f);
+		renderImageLine(g,"Ball",ball);
+
 		renderLine(g, "Pokldex", "Nr." + pokldex);
 		renderLine(g, "Poklmon", "" + realName);
 		if (item == null) {

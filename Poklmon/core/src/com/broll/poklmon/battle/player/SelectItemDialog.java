@@ -1,8 +1,5 @@
 package com.broll.poklmon.battle.player;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.broll.pokllib.item.Item;
 import com.broll.pokllib.item.ItemType;
 import com.broll.poklmon.battle.BattleManager;
@@ -14,6 +11,9 @@ import com.broll.poklmon.gui.selection.ScrollableSelectionBox;
 import com.broll.poklmon.gui.selection.SelectionBox;
 import com.broll.poklmon.gui.selection.SelectionBoxListener;
 import com.broll.poklmon.player.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectItemDialog {
 

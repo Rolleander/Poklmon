@@ -1,6 +1,7 @@
 package com.broll.poklmon;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -19,11 +20,11 @@ public class AndroidLauncher extends AndroidApplication {
 		config.useGyroscope=false;
 		config.useImmersiveMode=true;
 		StartInformation start=new StartInformation(null);
-		start.debugMap(8,36,9);
 	//	start.debugScene(TitleMenuState.class);
 		start.setTouchControling(true);
 		SaveFileManager.initSaveInterface(new AndroidSaveFolder());
 		NetworkServer.setAddressProvider(new AndroidIpProvider(getContext()));
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		initialize(new PoklmonGame(start), config);
 
 	}

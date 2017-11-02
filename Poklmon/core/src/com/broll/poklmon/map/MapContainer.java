@@ -1,9 +1,5 @@
 package com.broll.poklmon.map;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import com.broll.pokllib.main.PoklLib;
 import com.broll.pokllib.map.MapData;
 import com.broll.pokllib.map.MapFile;
@@ -12,6 +8,10 @@ import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.map.areas.MapAreaController;
 import com.broll.poklmon.model.CharacterWorldState;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class MapContainer {
 	private CurrentMap map;

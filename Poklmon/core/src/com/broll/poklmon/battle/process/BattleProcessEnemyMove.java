@@ -1,9 +1,5 @@
 package com.broll.poklmon.battle.process;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-
 import com.broll.pokllib.animation.Animation;
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.battle.BattleManager;
@@ -16,12 +12,16 @@ import com.broll.poklmon.battle.util.BattleMove;
 import com.broll.poklmon.battle.util.PoklmonTeamCheck;
 import com.broll.poklmon.battle.util.ScriptValue;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.items.callbacks.PoklmonEnterCallback;
 import com.broll.poklmon.game.items.callbacks.PoklmonLeaveCallback;
 import com.broll.poklmon.game.items.callbacks.PoklmonSwitchCallback;
 import com.broll.poklmon.game.items.callbacks.PricemoneyCalculationCallback;
-import com.broll.poklmon.game.items.callbacks.RoundEndCallback;
 import com.broll.poklmon.network.NetworkException;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 public class BattleProcessEnemyMove extends BattleProcessControl {
 
@@ -55,8 +55,7 @@ public class BattleProcessEnemyMove extends BattleProcessControl {
 
 		FightPoklmon oldPoklmon = manager.getParticipants().getEnemy();
 		String oldName = oldPoklmon.getName();
-		String text = BattleMessages.putName(BattleMessages.trainerSwitch, oldName, manager.getParticipants()
-				.getEnemyName());
+		String text = TextContainer.get("trainerSwitch",manager.getParticipants().getEnemyName(),oldName);
 		showText(text);
 		// TODO show outro animation
 		sendNextPoklmon(to);
@@ -82,10 +81,10 @@ public class BattleProcessEnemyMove extends BattleProcessControl {
 	public void trainerLost() {
 		if (core.isNetworkBattle()) {
 			String enemy = manager.getParticipants().getEnemyName();
-			showText(BattleMessages.putName(BattleMessages.networkWon, enemy));
+			showText(TextContainer.get("networkWon",enemy));
 		} else {
 			String trainer = manager.getParticipants().getEnemyName();
-			showText(BattleMessages.putName(BattleMessages.trainerDefeated, trainer));
+			showText(TextContainer.get("trainerDefeated",trainer));
 			String outro = manager.getParticipants().getOutroText();
 			showText(outro);
 			int money = manager.getParticipants().getWinMoney();
@@ -96,8 +95,7 @@ public class BattleProcessEnemyMove extends BattleProcessControl {
 				}
 			}
 			money = value.value;
-			showText(BattleMessages.putName(BattleMessages.trainerMoney, manager.getParticipants().getPlayerName(), ""
-					+ money));
+			showText( TextContainer.get("trainerMoney",manager.getParticipants().getPlayerName(),money));
 			manager.getPlayer().getInventarControl().addMoney(money);
 		}
 	}
@@ -107,8 +105,7 @@ public class BattleProcessEnemyMove extends BattleProcessControl {
 		if (!core.isNetworkBattle()) { // fast switching not in network fights!
 			int okPoklNum = PoklmonTeamCheck.getNumberOfUnfaintedPoklmons(manager.getParticipants().getPlayerTeam());
 			if (okPoklNum > 1) {
-				int sel = showCancelableSelection(BattleMessages.putName(BattleMessages.trainerNextPoklmonQuestion,
-						next.getName(), manager.getParticipants().getEnemyName()), new String[] { "Ja", "Nein" });
+				int sel = showCancelableSelection(TextContainer.get("trainerNextPoklmonQuestion",manager.getParticipants().getEnemyName(),next.getName()), new String[] { "Ja", "Nein" });
 				if (sel == 0) {
 					// switch poklmon
 					core.getPlayerMoveProcess().showPoklmonChangeDialog(false);
@@ -165,7 +162,7 @@ public class BattleProcessEnemyMove extends BattleProcessControl {
 
 			if (trainerIntro) {
 				String trainer = manager.getParticipants().getEnemyName();
-				showText(BattleMessages.putName(BattleMessages.trainerIntro, trainer));
+				showText(TextContainer.get("trainerIntro",trainer));
 				manager.getBattleRender().getSequenceRender()
 						.showAnimation(BattleSequences.TRAINER_INTRO, processThreadHandler);
 				waitForResume();

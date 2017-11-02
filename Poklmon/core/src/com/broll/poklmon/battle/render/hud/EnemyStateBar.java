@@ -1,13 +1,14 @@
 package com.broll.poklmon.battle.render.hud;
 
-import java.util.ArrayList;
-
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.data.basics.SpriteSheet;
+import com.broll.poklmon.resource.FontUtils;
+
+import java.util.ArrayList;
 
 public class EnemyStateBar extends StateBar {
 	private DataContainer data;
@@ -43,7 +44,7 @@ public class EnemyStateBar extends StateBar {
 		// draw status
 		MainFightStatus status = poklmon.getStatusChanges().getMainStatus();
 		if (status != null) {
-			HudRenderUtils.renderMainStatus(g, status, x + 12, y + 49);
+			HudRenderUtils.renderMainStatus(g,fontUtils, status, x + 12, y + 49);
 		}
 
 		if (team.length > 1) {

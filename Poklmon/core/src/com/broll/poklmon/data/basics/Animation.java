@@ -1,7 +1,5 @@
 package com.broll.poklmon.data.basics;
 
-import com.broll.poklmon.PoklmonGame;
-
 public class Animation {
 
 	private SpriteSheet animation;

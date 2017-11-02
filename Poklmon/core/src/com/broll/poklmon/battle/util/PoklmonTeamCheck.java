@@ -1,8 +1,8 @@
 package com.broll.poklmon.battle.util;
 
-import java.util.List;
-
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
+
+import java.util.List;
 
 public class PoklmonTeamCheck
 {

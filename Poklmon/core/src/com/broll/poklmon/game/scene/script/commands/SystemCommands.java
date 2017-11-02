@@ -1,9 +1,5 @@
 package com.broll.poklmon.game.scene.script.commands;
 
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.item.Item;
 import com.broll.pokllib.object.ObjectDirection;
@@ -20,6 +16,10 @@ import com.broll.poklmon.poklmon.CaughtPoklmonMeasurement;
 import com.broll.poklmon.poklmon.PoklmonAttributeCalculator;
 import com.broll.poklmon.save.PoklmonData;
 import com.broll.poklmon.save.manage.SaveFileManager;
+
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class SystemCommands extends CommandControl {
 

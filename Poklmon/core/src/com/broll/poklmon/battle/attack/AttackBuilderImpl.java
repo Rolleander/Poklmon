@@ -1,8 +1,5 @@
 package com.broll.poklmon.battle.attack;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.pokllib.object.ObjectDirection;
@@ -14,6 +11,8 @@ import com.broll.poklmon.battle.field.TeamEffect;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
+
+import javax.script.ScriptEngine;
 
 public class AttackBuilderImpl extends AttackBuilder {
 

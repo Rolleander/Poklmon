@@ -1,14 +1,14 @@
 package com.broll.poklmon.game.scene.script;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.script.ScriptEngine;
-
 import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.scene.ScriptSceneProcess;
 import com.broll.poklmon.map.object.MapObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.script.ScriptEngine;
 
 public abstract class ScriptingEnvironment {
 

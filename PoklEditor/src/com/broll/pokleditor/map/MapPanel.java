@@ -3,6 +3,7 @@ package com.broll.pokleditor.map;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -29,6 +30,7 @@ public class MapPanel extends JPanel
     private static AreaSetPanel areaset;
     private int lastID = -1;
     private static  JTabbedPane eastPane;
+    private static JLabel tileInfo=new JLabel("");
 
     public MapPanel()
     {
@@ -49,8 +51,12 @@ public class MapPanel extends JPanel
                                              ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.getVerticalScrollBar().setUnitIncrement(32);
         
-         eastPane=new JTabbedPane();
-        eastPane.addTab("Map Tileset", GraphicLoader.loadIcon("map.png"), scroll);
+        JPanel tilePanel=new JPanel(new BorderLayout());
+        tilePanel.add(scroll,BorderLayout.CENTER);
+        tilePanel.add(tileInfo,BorderLayout.NORTH);
+        
+        eastPane=new JTabbedPane();
+        eastPane.addTab("Map Tileset", GraphicLoader.loadIcon("map.png"), tilePanel);
         eastPane.addTab("Areas", GraphicLoader.loadIcon("areachart.png"), areaset);
         
         
@@ -65,6 +71,15 @@ public class MapPanel extends JPanel
 
         editor.setVisible(false);
         setBackground(MapEditorPanel.background);
+    }
+    
+    public static void selectTile(int x, int y, int w, int h) {
+    	if(w==1&&h==1) {
+        	tileInfo.setText("X: "+x+" Y: "+y+ " [ID:"+(y*10+x)+"]");
+    	}
+    	else {
+        	tileInfo.setText("X: "+x+" Y: "+y+ " W:"+w+" H:"+h);    		
+    	}
     }
     
     public static boolean isAreaPanelSelected()

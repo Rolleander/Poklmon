@@ -1,7 +1,5 @@
 package com.broll.poklmon.main.states;
 
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.broll.poklmon.data.DataContainer;
@@ -16,6 +14,9 @@ import com.broll.poklmon.resource.MenuGraphics;
 import com.broll.poklmon.save.GameData;
 import com.broll.poklmon.save.manage.SaveFileInfo;
 import com.broll.poklmon.save.manage.SaveFileManager;
+import com.broll.poklmon.save.manage.SaveFileUtils;
+
+import java.util.List;
 
 public class TitleMenuState extends GameState {
 
@@ -82,20 +83,7 @@ public class TitleMenuState extends GameState {
 		for (int i = 0; i < files.size(); i++) {
 			SaveFileInfo file = files.get(i);
 			int time = file.getPlayTime();
-			int hours = (int) time / 3600;
-			int remainder = (int) time - hours * 3600;
-			int mins = remainder / 60;
-			remainder = remainder - mins * 60;
-			int secs = remainder;
-			String m = "" + mins;
-			if (m.length() == 1) {
-				m = "0" + m;
-			}
-			String s = "" + secs;
-			if (s.length() == 1) {
-				s = "0" + s;
-			}
-			items[i] = files.get(i).getPlayerName() + " - " + hours + ":" + m + ":" + s;
+			items[i] = files.get(i).getPlayerName() + " - "+ SaveFileUtils.getPlayTime(time);
 		}
 		saveBox = new ScrollableSelectionBox(data, items, 150, 360, 500, 4, false);
 		saveBox.setListener(new SelectionBoxListener() {

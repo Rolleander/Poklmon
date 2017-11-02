@@ -20,12 +20,12 @@ public class ScrollableSelectionBox extends SelectionBox {
 		selection = new SelectionWrapper(items);
 	}
 
-	private static String[] findLongest(String[] items, int window) {
+	private static String[] findLongest(String[] items,FontUtils fontUtils, int window) {
 		String[] results = new String[Math.min(items.length, window)];
 		int width = 0;
 		String itemr = "";
 		for (String item : items) {
-			int l = FontUtils.getWidth(GUIFonts.dialogText,item);
+			int l = fontUtils.getWidth(GUIFonts.dialogText,item);
 			if (l > width) {
 				width = l;
 				itemr = item;
@@ -38,9 +38,9 @@ public class ScrollableSelectionBox extends SelectionBox {
 		return results;
 	}
 
-	public ScrollableSelectionBox(DataContainer data, String[] items, int x, int y, int window, boolean iconized) {
+	public ScrollableSelectionBox(DataContainer data, String[] items,FontUtils fontUtils, int x, int y, int window, boolean iconized) {
 
-		super(data, findLongest(items, window), x, y, iconized);
+		super(data, findLongest(items,fontUtils, window), x, y, iconized);
 		this.window = window;
 		model = new ScrollableSelectionContext(data,items.length, window);
 		selection = new SelectionWrapper(items);

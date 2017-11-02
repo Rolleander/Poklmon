@@ -1,10 +1,5 @@
 package com.broll.poklmon.menu.pokldex;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import com.badlogic.gdx.graphics.Color;
 import com.broll.pokllib.poklmon.ElementType;
 import com.broll.pokllib.poklmon.Poklmon;
@@ -19,6 +14,11 @@ import com.broll.poklmon.menu.MenuPage;
 import com.broll.poklmon.menu.PlayerMenu;
 import com.broll.poklmon.player.Player;
 import com.broll.poklmon.resource.GUIFonts;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class PokldexMenu extends MenuPage {
 
@@ -167,7 +167,7 @@ public class PokldexMenu extends MenuPage {
 		g.fillRect(x - 2, y + 2, 380, 80);
 		g.setColor(ColorUtil.newColor(20, 20, 20));
 		g.setFont(GUIFonts.tinyText);
-		String[] lines = MessageLineCutter.cutMessage(description, GUIFonts.tinyText, 375, 15);
+		String[] lines = MessageLineCutter.cutMessage(description,fontUtils, GUIFonts.tinyText, 375, 15);
 		for (String st : lines) {
 			g.drawString(st, x, y);
 			y += 18;
@@ -175,7 +175,7 @@ public class PokldexMenu extends MenuPage {
 	}
 
 	private void renderDexInfo(Graphics g, int x, int y) {
-		// draw übersicht
+		// draw ?bersicht
 		g.setFont(GUIFonts.hudText);
 		g.drawString("Übersicht", x, y);
 		g.setFont(GUIFonts.smallText);

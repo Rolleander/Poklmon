@@ -1,20 +1,27 @@
 package com.broll.poklmon;
 
-import java.io.File;
-import java.util.Timer;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.broll.poklmon.data.DataLoader;
+import com.broll.poklmon.data.MusicContainer;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.gui.TouchIconsRender;
 import com.broll.poklmon.input.InputReceiver;
 import com.broll.poklmon.main.GameStateManager;
 import com.broll.poklmon.main.StartInformation;
 import com.broll.poklmon.main.SystemClock;
+import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.resource.ResourceUtils;
+import com.esotericsoftware.minlog.Log;
+
+import java.io.File;
+import java.nio.IntBuffer;
+import java.util.Timer;
 
 public class PoklmonGame extends Game {
 
@@ -45,6 +52,7 @@ public class PoklmonGame extends Game {
 		if (dataPath == null) {
 			dataPath = new File("data");
 		}
+
 		TOUCH_MODE=startInformation.isTouchControling();
 		DEBUG_MODE=startInformation.isDebugGame();
 		TouchIconsRender.init();
@@ -72,8 +80,13 @@ public class PoklmonGame extends Game {
 
 	@Override
 	public void dispose() {
+		Log.info("Dispose Game");
 		timer.cancel();
 		timer = null;
+		MusicContainer.dispose();
+		DataLoader.dispose();
+		GUIFonts.dispose();
+		graphics.dispose();
 	}
 
 	@Override
@@ -86,4 +99,7 @@ public class PoklmonGame extends Game {
 		return input;
 	}
 
+	public Viewport getViewport() {
+		return viewport;
+	}
 }

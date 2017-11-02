@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.broll.pokleditor.gui.dialogs.LedgeDialog;
+import com.broll.pokleditor.gui.dialogs.MapTileDialog;
 import com.broll.pokleditor.gui.dialogs.TeleportLocationDialog;
 import com.broll.pokleditor.gui.dialogs.TrainerObjectDialog;
 import com.broll.pokllib.main.PoklLib;
@@ -96,9 +97,16 @@ public class MapObjectGenerator {
 					object.setTriggerScript("object.triggerRemoteScript(11," + id + ")");
 					return object;
 				}
+				return null;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		case MAPTILE:
+			object = new MapObject();
+			object.setName("MapTile");
+			object.setDirection(ObjectDirection.DOWN);
+			object.setAttributes(MapTileDialog.showMapTileDialog());
+			return object;
 		}
 
 		return null;

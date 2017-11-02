@@ -1,6 +1,7 @@
 package com.broll.poklmon.game.items.execute;
 
 import com.broll.pokllib.attack.Attack;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.items.AttackItemScript;
 import com.broll.poklmon.game.scene.SceneProcessManager;
@@ -86,8 +87,8 @@ public class AttackItemRunner extends MenuItemRunner implements AttackItemScript
 	public void standardLearnAttack(int id) {
 		Attack atk = game.getData().getAttacks().getAttack(id);
 		String atkName = atk.getName();
-		dialog.text("Diese TM enthält " + atkName + ". Soll eines deiner Poklmon " + atkName + " lernen?");
-		if (dialog.selection("Ja", "Nein") == 0) {
+		dialog.text(TextContainer.get("dialog_LearnTM",atkName));
+		if (dialog.selection(TextContainer.get("option_Yes"), TextContainer.get("option_No")) == 0) {
 			if (!menu.openAttackLearnig(id)) {
 				reclaimItem();
 			}

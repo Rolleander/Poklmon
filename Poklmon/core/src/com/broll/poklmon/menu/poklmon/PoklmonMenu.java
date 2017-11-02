@@ -1,10 +1,5 @@
 package com.broll.poklmon.menu.poklmon;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
 import com.broll.pokllib.item.Item;
 import com.broll.pokllib.item.ItemType;
 import com.broll.poklmon.battle.item.InventarItemInstance;
@@ -20,6 +15,11 @@ import com.broll.poklmon.menu.state.StateMenu;
 import com.broll.poklmon.player.Player;
 import com.broll.poklmon.resource.GUIDesign;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class PoklmonMenu extends MenuPage {
 

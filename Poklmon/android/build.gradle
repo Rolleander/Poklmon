@@ -1,6 +1,8 @@
 android {
     buildToolsVersion "23.0.1"
     compileSdkVersion 20
+    compileOptions.encoding = 'ISO-8859-1'
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'

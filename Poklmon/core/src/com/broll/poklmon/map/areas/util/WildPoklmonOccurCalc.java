@@ -1,10 +1,10 @@
 package com.broll.poklmon.map.areas.util;
 
+import com.broll.poklmon.map.areas.MapArea;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import com.broll.poklmon.map.areas.MapArea;
 
 public class WildPoklmonOccurCalc {
 

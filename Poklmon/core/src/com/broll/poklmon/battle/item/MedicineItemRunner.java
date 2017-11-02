@@ -9,6 +9,7 @@ import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
 import com.broll.poklmon.battle.process.BattleProcessControl;
 import com.broll.poklmon.battle.process.BattleProcessCore;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.items.MedicineItemScript;
 
 public class MedicineItemRunner extends BattleProcessControl implements MedicineItemScript {
@@ -34,7 +35,7 @@ public class MedicineItemRunner extends BattleProcessControl implements Medicine
 		core.getEffectProcess().getInflictprocess().healPoklmon(target,null, kp);
 		int after = target.getAttributes().getHealth();
 		String healNumber = "" + (after - before);
-		showText(BattleMessages.putName(BattleMessages.itemHeal, target.getName(), healNumber));
+		showText(TextContainer.get("itemHeal",target.getName(),healNumber));
 	}
 
 	@Override
@@ -114,7 +115,7 @@ public class MedicineItemRunner extends BattleProcessControl implements Medicine
 			}
 			select[i] = "-";
 		}
-		return showSelection("Welche Attacke soll aufgefüllt werden?", select);
+		return showSelection(TextContainer.get("item_Ap_Select"), select);
 	}
 
 	@Override
@@ -129,7 +130,7 @@ public class MedicineItemRunner extends BattleProcessControl implements Medicine
 			if (target instanceof PlayerPoklmon) {
 				((PlayerPoklmon) target).getPoklmonData().getAttacks()[id].setAp(newAp);
 			}
-			showText(BattleMessages.putName(BattleMessages.itemAp, target.getName()));
+			showText( TextContainer.get("itemAp",target.getName()));
 		} else {
 			cancel();
 		}
@@ -154,7 +155,7 @@ public class MedicineItemRunner extends BattleProcessControl implements Medicine
 				}
 			}
 		}
-		showText(BattleMessages.putName(BattleMessages.itemAp, target.getName()));
+		showText( TextContainer.get("itemAp",target.getName()));
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.broll.poklmon.battle.poklmon.states.PoklmonStatusChanges;
 import com.broll.poklmon.battle.process.BattleProcessControl;
 import com.broll.poklmon.battle.process.BattleProcessCore;
 import com.broll.poklmon.battle.util.message.BattleMessages;
+import com.broll.poklmon.data.TextContainer;
 
 public class EffectProcessHeal extends BattleProcessControl
 {
@@ -26,7 +27,7 @@ public class EffectProcessHeal extends BattleProcessControl
             String healText = status.getExitName();
             if (healText != null)
             {
-                healText = BattleMessages.putName(healText, poklmon.getName());
+                healText =  TextContainer.get("healText",poklmon.getName());
                 // disp message for healing
                 showText(healText);
             }

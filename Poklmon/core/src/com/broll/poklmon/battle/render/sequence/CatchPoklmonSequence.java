@@ -38,7 +38,7 @@ public class CatchPoklmonSequence extends SequenceRender {
 		ball.setSpeed(7);
 		ballLanded = false;
 		data.getSounds().playSound("throw_poklball");
-		ball.throwPoklball(0, new AnimationEndListener() {
+		ball.throwPoklball(poklballIcon, new AnimationEndListener() {
 			@Override
 			public void animationEnd() {
 				ballLanded = true;

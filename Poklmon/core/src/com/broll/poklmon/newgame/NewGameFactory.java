@@ -1,8 +1,5 @@
 package com.broll.poklmon.newgame;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.pokllib.poklmon.AttackLearnEntry;
 import com.broll.pokllib.poklmon.EXPCalculator;
@@ -14,6 +11,9 @@ import com.broll.poklmon.save.AttackData;
 import com.broll.poklmon.save.GameVariables;
 import com.broll.poklmon.save.PlayerData;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class NewGameFactory {
 

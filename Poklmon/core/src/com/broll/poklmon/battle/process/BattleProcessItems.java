@@ -65,6 +65,7 @@ public class BattleProcessItems extends BattleProcessControl {
 		float strength = poklball.getBallStrength();
 		boolean success = false;
 		int wobbleCount = 0;
+		int poklballIcon=poklball.getBallIcon();
 		if (poklball.isCatchAlways()) {
 			success = true;
 			wobbleCount = 3;
@@ -74,7 +75,7 @@ public class BattleProcessItems extends BattleProcessControl {
 		}
 		CatchPoklmonSequence sequence = (CatchPoklmonSequence) manager.getBattleRender().getSequenceRender()
 				.getSequenceRender(BattleSequences.THROW_POKLBALL);
-		sequence.init(poklball.getBallIcon(), success, wobbleCount);
+		sequence.init(poklballIcon, success, wobbleCount);
 		manager.getBattleRender().getSequenceRender()
 				.showAnimation(BattleSequences.THROW_POKLBALL, processThreadHandler);
 		waitForResume();
@@ -82,6 +83,7 @@ public class BattleProcessItems extends BattleProcessControl {
 			String name = manager.getParticipants().getEnemy().getName();
 			WildPoklmon poklmon = (WildPoklmon) manager.getParticipants().getEnemy();
 			PoklmonData poklData = CoughtPoklmonFactory.caughtPoklmon(manager.getData(), manager.getPlayer(), poklmon);
+			poklData.setPoklball(poklballIcon);
 			showText("Super! Du hast " + name + " gefangen!");
 
 			if (manager.getPlayer().getPokldexControl().getCachedCount(poklmon.getPoklmon().getId()) == 0) {

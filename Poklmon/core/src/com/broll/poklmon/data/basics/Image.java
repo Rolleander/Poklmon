@@ -60,6 +60,7 @@ public class Image {
 	}
 
 	public void draw(float x, float y, Color c) {
+		sprite.setColor(c);
 		draw(x, y);
 	}
 
@@ -75,6 +76,18 @@ public class Image {
 
 	public void drawCentered(float x, float y) {
 		draw(x - getWidth() / 2, y - getHeight() / 2);
+	}
+
+	public void drawCentered(float x, float y, float scale) {
+		float w=getWidth()*scale;
+		float h=getHeight()*scale;
+		draw(x - w/2, y - h/2,w,h);
+	}
+
+	public void drawXCentered(float x, float y, float scale) {
+		float w=getWidth()*scale;
+		float h=getHeight()*scale;
+		draw(x - w/2, y ,w,h);
 	}
 
 	public void drawCentered(float x, float y, float w, float h) {

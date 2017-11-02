@@ -77,7 +77,7 @@ public class MapTileEditor extends JPanel {
 			ObjectType create = ObjectType.values()[selected];
 			MapObject newobject = MapObjectGenerator.openWizard(create);
 			control.addObject(newobject);
-			if (create != ObjectType.TELEPORTER && create != ObjectType.LEDGE && create != ObjectType.REMOTE) {
+			if (create != ObjectType.TELEPORTER && create != ObjectType.LEDGE && create != ObjectType.REMOTE&&create!=ObjectType.MAPTILE) {
 				control.editObject();
 			}
 		} else {

@@ -13,7 +13,7 @@ public abstract class GameState implements Screen {
 	protected GameStateManager states;
 	protected Graphics graphics;
 	
-	public void init(PoklmonGame game, GameStateManager states, Graphics graphics, DataContainer data) {
+	public void init(PoklmonGame game, GameStateManager states, Graphics graphics, DataContainer data) throws Exception {
 		this.data = data;
 		this.game=game;
 		this.states=states;
@@ -27,11 +27,15 @@ public abstract class GameState implements Screen {
 	}
 
 	@Override
-	public void render(float delta) {
-		update(delta);
-		render(graphics);
-		if(PoklmonGame.TOUCH_MODE){
-			TouchIconsRender.render(graphics);
+	public void render(float delta)  {
+		try{
+			update(delta);
+			render(graphics);
+			if(PoklmonGame.TOUCH_MODE){
+				TouchIconsRender.render(graphics);
+			}
+		}catch (Exception e ){
+			states.gameException(e);
 		}
 	}
 
@@ -55,14 +59,14 @@ public abstract class GameState implements Screen {
 	public void dispose() {
 	}
 
-	public abstract void onInit();
+	public abstract void onInit() throws Exception;
 	
-	public abstract void onEnter();
+	public abstract void onEnter() throws Exception;
 
-	public abstract void onExit();
+	public abstract void onExit() throws Exception;
 
-	public abstract void update(float delta);
+	public abstract void update(float delta) throws Exception;
 
-	public abstract void render(Graphics g);
+	public abstract void render(Graphics g) throws Exception;
 	
 }

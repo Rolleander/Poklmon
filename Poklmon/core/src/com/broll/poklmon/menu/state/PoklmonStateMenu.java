@@ -1,8 +1,5 @@
 package com.broll.poklmon.menu.state;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.broll.pokllib.poklmon.ElementType;
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
@@ -22,9 +19,13 @@ import com.broll.poklmon.menu.state.sites.GenomSite;
 import com.broll.poklmon.menu.state.sites.InfoSite;
 import com.broll.poklmon.menu.state.sites.StatisticSite;
 import com.broll.poklmon.menu.state.sites.TrainingSite;
+import com.broll.poklmon.resource.FontUtils;
 import com.broll.poklmon.resource.GUIDesign;
 import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PoklmonStateMenu {
 
@@ -37,6 +38,7 @@ public class PoklmonStateMenu {
 	private List<StateSite> stateSites = new ArrayList<StateSite>();
 	private int currentSite = 0;
 	private int maxKp;
+	private FontUtils fontUtils=new FontUtils();
 
 	public PoklmonStateMenu(DataContainer data) {
 		this.data = data;
@@ -113,7 +115,7 @@ public class PoklmonStateMenu {
 			// draw status
 			MainFightStatus status = poklmon.getStatus();
 			if (status != null) {
-				HudRenderUtils.renderMainStatus(g, status, 20,70);
+				HudRenderUtils.renderMainStatus(g,fontUtils, status, 20,70);
 			}
 
 			// draw types
@@ -138,7 +140,7 @@ public class PoklmonStateMenu {
 
 			int level = poklmon.getLevel();
 			String levelText = "Lv." + level;
-			int w = MenuUtils.getTextWidth(g, levelText);
+			int w = MenuUtils.getTextWidth(g,fontUtils, levelText);
 			MenuUtils.drawFancyString(g, levelText, 780 - w, 20);
 
 			// draw image
