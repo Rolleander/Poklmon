@@ -6,11 +6,11 @@ public class MapTile
 {
 
     private int areaID;
-    private int tileID;
+    private int[] tileID;
     private boolean blocked=false;
     private ObjectDirection ledge;
 
-    public MapTile(int tile, int area)
+    public MapTile(int[] tile, int area)
     {
         this.tileID = tile;
         this.areaID = area;
@@ -25,9 +25,9 @@ public class MapTile
 		this.ledge = ledge;
 	}
 
-    public void update(int tile, int area)
+    public void update(int tile, int layer, int area)
     {
-        this.tileID = tile;
+        this.tileID[layer] = tile;
         this.areaID = area;
     }
 
@@ -46,7 +46,7 @@ public class MapTile
         return areaID;
     }
 
-    public int getTileID()
+    public int[] getTileID()
     {
         return tileID;
     }

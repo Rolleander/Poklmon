@@ -52,7 +52,7 @@ public class MousePlacementListener implements MouseListener, MouseMotionListene
                             else
                             {
                                 int id = idy * 10 + idx + 1;
-                                map.getTiles()[xpos][ypos] = id;
+                                map.getTiles()[xpos][ypos][MapPaintTools.SELECTED_LAYER] = id;
                             }
                         }
                     }
@@ -67,7 +67,7 @@ public class MousePlacementListener implements MouseListener, MouseMotionListene
             }
             else
             {
-                map.getTiles()[x][y] = 0;
+                map.getTiles()[x][y][MapPaintTools.SELECTED_LAYER] = 0;
             }
         }
         else if (MapPaintTools.selectedTool == CurrentTool.FLOODFILL)
@@ -81,7 +81,7 @@ public class MousePlacementListener implements MouseListener, MouseMotionListene
                 int idx = TileSetPanel.selection.getTilex();
                 int idy = TileSetPanel.selection.getTiley();
                 int id = idy * 10 + idx + 1;
-                FloodFillAlgorithm.floodFill(map.getTiles(), x, y, id);
+                FloodFillAlgorithm.floodFill(map.getTiles(),MapPaintTools.SELECTED_LAYER, x, y, id);
             }
         }
 

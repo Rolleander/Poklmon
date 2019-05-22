@@ -43,7 +43,7 @@ public class DesktopLauncher {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		startInformation.debugMap(15,34,76);
+		startInformation.debugMap(8,36,9);
 //		startInformation.debugScene(MenuDebugState.class);
 		SaveFileManager.initSaveInterface(new DesktopSaveFolder());
 		NetworkServer.setAddressProvider(new DesktopIpProvider());

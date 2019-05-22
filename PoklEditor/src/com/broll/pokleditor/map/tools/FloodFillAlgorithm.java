@@ -36,9 +36,8 @@ public class FloodFillAlgorithm
                 }
             }
         }
-
     }
-
+    
     private static class Pixel
     {
         public int x, y;
@@ -49,4 +48,36 @@ public class FloodFillAlgorithm
             this.y = y;
         }
     }
+
+	public static void floodFill(int[][][] map, int layer, int sx, int sy, int newtile) {
+		   Stack<Pixel> stack = new Stack<Pixel>();
+	        stack.push(new Pixel(sx, sy));
+	        int oldtile = map[sx][sy][layer];
+
+	        if (oldtile == newtile)
+	        {
+	            return;
+	        }
+
+	        while (!stack.isEmpty())
+	        {
+
+	            Pixel p = stack.pop();
+	            int x = p.x;
+	            int y = p.y;
+	            if (x > -1 && y > -1 && x < map.length && y < map[0].length)
+	            {
+
+	                int t = map[x][y][layer];
+	                if (t == oldtile)
+	                {
+	                    map[x][y][layer] = newtile;
+	                    stack.push(new Pixel(x, y + 1));
+	                    stack.push(new Pixel(x, y - 1));
+	                    stack.push(new Pixel(x + 1, y));
+	                    stack.push(new Pixel(x - 1, y));
+	                }
+	            }
+	        }
+	}
 }

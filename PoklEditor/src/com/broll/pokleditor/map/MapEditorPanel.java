@@ -37,6 +37,7 @@ public class MapEditorPanel extends JPanel {
 		{
 		    map.getFile().setObjects(new ArrayList<MapObject>());
 		}
+		System.out.println("OpenMap: "+data.getFile().getName());
 		editor.setMap(data);
 		settings.setMap(data);
 		revalidate();

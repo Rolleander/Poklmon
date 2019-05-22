@@ -27,6 +27,7 @@ public class AreaScriptActions  {
 	}
 	
 	public void setWater(){
-		area.setWater(true);		
+		area.setType(AreaType.WATER);
+		area.setWater(true);
 	}
 }

@@ -117,12 +117,21 @@ public class MapTileEditor extends JPanel {
 		g.fillRect(0, 0, width * TILE_SIZE, height * TILE_SIZE);
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				int tile = map.getTiles()[x][y];
-				int area = map.getAreas()[x][y];
 				int xp = x * TILE_SIZE;
 				int yp = y * TILE_SIZE;
-				if (tile > 0) {
-					g.drawImage(tiles[tile - 1], xp, yp, TILE_SIZE, TILE_SIZE, null);
+				int area = map.getAreas()[x][y];
+				for(int i=0; i<MapData.LAYERS; i++)
+				{
+					if(MapPaintTools.hideOtherLayers) {
+						if(i!=MapPaintTools.SELECTED_LAYER) {
+							continue;
+						}
+					}
+					int tile = map.getTiles()[x][y][i];
+					if (tile > 0) {
+						g.drawImage(tiles[tile - 1], xp, yp, TILE_SIZE, TILE_SIZE, null);
+					}
+					
 				}
 				if (MapPanel.isAreaPanelSelected()) {
 					if (area == 1) {

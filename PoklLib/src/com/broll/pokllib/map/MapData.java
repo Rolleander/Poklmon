@@ -5,10 +5,11 @@ public class MapData {
 	private int width;
 	private int height;
 	private int[][] areas;
-	private int[][] tiles;
+	private int[][][] tiles;
 	private MapConvertor convertor = new MapConvertor();
 	private MapFile file;
-	
+	public final static int LAYERS=4;
+
 	public MapData(MapFile file) {
 		this.file=file;
 		this.width = file.getWidth();
@@ -22,7 +23,7 @@ public class MapData {
 		this.width = width;
 		this.height = height;
 		areas = new int[width][height];
-		tiles = new int[width][height];
+		tiles = new int[width][height][LAYERS];
 
 	}
 
@@ -30,7 +31,7 @@ public class MapData {
 		return convertor.writeMapTiles(this);
 	}
 
-	public int[][] getTiles() {
+	public int[][][] getTiles() {
 		return tiles;
 	}
 
@@ -61,7 +62,7 @@ public class MapData {
 	}
 
 
-	public void setTiles(int[][] tiles) {
+	public void setTiles(int[][][] tiles) {
 		this.tiles = tiles;
 	}
 

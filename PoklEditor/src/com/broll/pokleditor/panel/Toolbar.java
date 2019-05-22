@@ -80,18 +80,7 @@ public class Toolbar
         MapPaintTools paint=new MapPaintTools();
         bar.add(paint);
         
-     
-        
-        final JCheckBox box = new JCheckBox("Show Grid", false);
-        box.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                MapTileEditor.showGrid = box.isSelected();
-                EditorWindow.repaint();
-            }
-        });
-        bar.add(box);
-      
+
     }
 
   

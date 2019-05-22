@@ -3,9 +3,10 @@ package com.broll.pokllib.map;
 public class MapConvertor {
 
 	private int[][] areas;
-	private int[][] tiles;
+	private int[][][] tiles;
 	public final static String tileSeperator = ";";
 	public final static String infoSeperator = ",";
+	public final static String layerSeperator = "_";
 
 	public MapConvertor() {
 
@@ -14,9 +15,8 @@ public class MapConvertor {
 	public void readMapTiles(MapFile map) {
 		int w = map.getWidth();
 		int h = map.getHeight();
-
 		areas = new int[w][h];
-		tiles = new int[w][h];
+		tiles = new int[w][h][MapData.LAYERS];
 		String data = map.getMapTiles();
 		String[] tils = data.split(tileSeperator);
 		int x = 0;
@@ -26,18 +26,30 @@ public class MapConvertor {
 			if (inf.contains(infoSeperator)) {
 				// with area
 				String[] parts = inf.split(infoSeperator);
-				tiles[x][y] = Integer.parseInt(parts[0]);
+				readTile(tiles,x,y, parts[0]);
 				areas[x][y] = Integer.parseInt(parts[1]);
 			} else {
 				// no area
 				areas[x][y] = 0;
-				tiles[x][y] = Integer.parseInt(inf);
+				readTile(tiles,x,y, inf);
 			}
 			x++;
 			if (x >= w) {
 				x = 0;
 				y++;
 			}
+		}
+	}
+	
+	private void readTile(int[][][] tiles,int x, int y, String inf) {
+		if (inf.contains(layerSeperator)) {
+			String[] parts = inf.split(layerSeperator);
+			for(int i=0; i<parts.length; i++) {
+				tiles[x][y][i]=Integer.parseInt(parts[i]);
+			}
+		}
+		else {
+			tiles[x][y][0]= Integer.parseInt(inf);
 		}
 	}
 
@@ -47,8 +59,15 @@ public class MapConvertor {
 
 		for (int y = 0; y < data.getHeight(); y++) {
 			for (int x = 0; x < data.getWidth(); x++) {
-				int tile = data.getTiles()[x][y];
 				int area = data.getAreas()[x][y];
+				String tile="";
+				for(int i=0; i<MapData.LAYERS; i++) {
+					int t=data.getTiles()[x][y][i];
+					tile+=t;
+					if(i<MapData.LAYERS-1) {
+						tile+=layerSeperator;
+					}
+				}
 				if (area > 0) {
 					builder.append(tile + infoSeperator + area + tileSeperator);
 				} else {
@@ -63,7 +82,7 @@ public class MapConvertor {
 		return areas;
 	}
 
-	public int[][] getTiles() {
+	public int[][][] getTiles() {
 		return tiles;
 	}
 }

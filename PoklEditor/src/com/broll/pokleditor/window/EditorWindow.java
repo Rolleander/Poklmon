@@ -34,8 +34,8 @@ public class EditorWindow {
 	public EditorWindow() {
 		frame = new JFrame("PoklEditor");
 		frame.setIconImage(GraphicLoader.loadImage("icon.png"));
-		frame.setSize(new Dimension(1000, 800));
-		frame.setMinimumSize(new Dimension(1000, 800));
+		frame.setSize(new Dimension(1200, 800));
+		frame.setMinimumSize(new Dimension(1200, 800));
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setLocationByPlatform(true);
 		frame.addWindowListener(new WindowListener() {

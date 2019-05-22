@@ -1,5 +1,6 @@
 package com.broll.poklmon.battle.poklmon.extra;
 
+
 public class RarePoklmonCalc {
 	public static final float powerfulPercent = 0.88f;
 

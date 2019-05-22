@@ -106,7 +106,7 @@ public class MapContainer {
 	public void render(Graphics g) {
 		float x = viewport.getScreenX();
 		float y = viewport.getScreenY();
-		mapDisplay.renderMap(g, x, y);
+		mapDisplay.renderMap(g, x, y,0,2);
 		for(MapAnimation animation: mapAnimations){
 			animation.draw(x, y);
 		}
@@ -115,6 +115,7 @@ public class MapContainer {
 	public void renderOverlay(Graphics g) {
 		float x = viewport.getScreenX();
 		float y = viewport.getScreenY();
+		mapDisplay.renderMap(g, x, y,2,4);
 		for(MapAnimation animation: overlayAnimations){
 			animation.draw(x, y);
 		}

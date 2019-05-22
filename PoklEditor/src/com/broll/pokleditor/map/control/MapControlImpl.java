@@ -57,7 +57,7 @@ public class MapControlImpl implements MapControlInterface {
 
 	@Override
 	public void clearTiles() {
-		int[][] tiles = new int[map.getWidth()][map.getHeight()];
+		int[][][] tiles = new int[map.getWidth()][map.getHeight()][MapData.LAYERS];
 		map.setTiles(tiles);
 		editor.repaint();
 	}
@@ -156,7 +156,7 @@ public class MapControlImpl implements MapControlInterface {
 			int oldw = map.getWidth();
 			int oldh = map.getHeight();
 			if (neww > 0 && newh > 0) {
-				int[][] newtiles = new int[neww][newh];
+				int[][][] newtiles = new int[neww][newh][MapData.LAYERS];
 				int[][] newareas = new int[neww][newh];
 				for (int x = 0; x < neww; x++) {
 					for (int y = 0; y < newh; y++) {
@@ -187,7 +187,7 @@ public class MapControlImpl implements MapControlInterface {
 			int movey = dialog.getMoveY() * -1;
 			int w = map.getWidth();
 			int h = map.getHeight();
-			int[][] tiles = new int[w][h];
+			int[][][] tiles = new int[w][h][MapData.LAYERS];
 			int[][] areas = new int[w][h];
 			for (int x = 0; x < w; x++) {
 				for (int y = 0; y < h; y++) {

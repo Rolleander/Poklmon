@@ -35,6 +35,15 @@ public class MapEditSettings extends JPanel
                 MapPanel.updateAreaPanel();
             }
         });
+        
+        JButton initScript=new JButton("Edit Init Script");
+        add(initScript);
+        initScript.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
     }  
     
     public void setMap(MapData data) {
