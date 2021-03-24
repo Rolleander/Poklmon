@@ -1,0 +1,75 @@
+fields>
+bol:varb_XXX - zugriff auf das save-boolean nr.XXX
+num:varn_XXX - zugriff auf die save-zahl nr.XXX
+txt:vart_XXX - zugriff auf den save-text nr.XXX
+bol:visible - steuerung der sichtbarkeit dieses objekts
+bol:blocking - bei true ist es ein blockendes objekt auf der map
+bol:triggerActive - ein und ausschalten des triggers
+bol:touchTrigger - bei true reagiert das objekt auf berührung anstatt klicks
+
+commands>
+text @ txt:text,txt:... - Gibt den Text am Bildschirm aus
+wait @ num:seconds - Pausiert das spiel 
+teleportObject @ num:objectid, num:xpos, num:ypos - Teleportiert ein objekt zu den koordinaten
+teleportPlayer @ num:mapnr, num:xpos, num:ypos - Teleportiert den spieler zu diesen koordinaten
+kill @ num:objectid - Löscht das Objekt mit der id von der Map
+destroy @ - Löscht dieses objekt von der Map
+changeVisibility @ num:objectid, bol:visible - Macht objekte sichtbar / unsichtbar. Betrifft trigger nicht.
+changeTrigger @ num:objectid, bol:triggeractive - Stellt den trigger für ein objekt ein / aus
+triggerObject @ num:objectid - Aktiviert das triggerscripts des objekts
+giveItem @ num:itemid, num:count - Der spieler erhält ein item
+moveObject @ num:objectid, num:direction - Bewegt das objekt in die gegebene richtung 
+turnObject @ num:direction - Dreht das objekt in die richtung
+movePlayer @ num:direction - Bewegt den spieler in die gegebene richtung
+turnPlayer @ num:direction - Dreht den spieler in die richtung
+healPlayerTeam @ - Heilt das komplette team des spielers
+gameOver @ - Spieler wird ohnmächtig und kommt zum letzten poklcenter 
+knowObject @  bol:known - Ändert die known variable des objekts
+giveGold @ num:count - Ändert das geld des spielers um den betrag. 
+removeItem @ num:itemid, num:count - Der spieler verliert das item 
+givePoklmon @ num:poklid, num:level, txt:name  - Der spieler erhält das poklmon  
+callCustomScript @ txt:scriptname - Ruft ein custom script direkt im code auf.
+initBattle @ - Bereitet einen kampf vor
+addBattleItem @ num:itemid, num:count - Fügt dem objekt items hinzu für den kampf
+addBattler @ num:poklid, num:level - Fügt ein wildes poklmon dem kampf hinzu
+addBattler @ num:poklid, num:level, num:attack1, num:attack2, num:attack3, num:attack4 - Fügt ein trainer-poklmon dem kampf hinzu
+setCharSprite @ num:objectid,txt:sprite - Setzt einen char-sprite für das object
+setTileSprite @ num:objectid,num:x, num:y - Setzt für das objekt ein festes tile aus dem tileset
+setViewTrigger @ num:range - Setzt einen view-trigger mit der gegebenen reichweite in feldern
+walkToPlayer @  - Bewegt das objekt auf direkten weg zum spieler 
+
+functions>
+num:random $ - Gibt einen zufälligen wert zurück
+txt:totext $ num:number - Gibt die zahl als text zurück
+txt:concat $ txt:option1,txt:... - Hängt die texte hintereinander
+num:time $ - Gibt die ingame zeit in virtuellen minuten zurück (0 - 1439)
+num:getX $  num:objectid- Gibt die x-position des objekts zurück
+num:getY $ num:objectid - Gibt die y-position des objekts zurück
+num:getDirection $ num:objectid - Gibt die blickrichtung des objekts zurück
+num:getmap $ - Gibt die map-id zurück
+num:getPlayerX $ - Gibt die x-position des spielers zurück
+num:getPlayerY $ - Gibt die y-position des spielers zurück
+num:getPlayerDirection $ - Gibt die blickrichtung des spielers zurück
+num:getid $ - Gibt die object-id dieses objekts zurück
+num:playtime $ - Gibt die gesamte spielzeit in minuten zurück
+bol:known $ - Gibt zurück ob das objekt bereits bekannt ist
+bol:objectVisible $ num:objectid - Gibt zurück ob das objekt sichtbar ist
+bol:objectTriggerActive $ num:objectid - Gibt zurück ob der trigger des objekts aktiv ist
+bol:isMapPassable $ num:xpos, num:ypos - Gibt zurück ob das feld betretbar ist
+num:selection $ txt:option1,txt:...  - Öffnet eine selectionbox mit den übergebenen texten und gibt die nr der ausgewählten option zurück
+txt:input $ txt:default- Öffnet eine input box
+num:getPoklmonCount $ num:poklid - Gibt zurück wie oft der spieler das poklmon besitzt
+num:getTeamSize $ - Gibt zurück wie viele Poklmons der spieler im team hat
+num:getBoxSize $ - Gibt zurück wie viele Poklmons der spieler in der box hat
+bol:hasSeenPoklmon $ num:poklid - Gibt zurück ob das poklmon bereits gesehen wurde vom spieler
+num:getCatchCount $ num:poklid - Gibt zurück wie oft der spieler das poklmon gefangen hat
+num:getTotalSeenPoklmons $ - Gibt zurück wie viele verschiedene poklmon bereits gesichtet wurden
+num:getTotalCatchedPoklmons $ - Gibt zurück wie viele verschiedene poklmon bereits gefange wurden
+num:getGold $ - Gibt zurück wie viel geld der spieler hat
+bol:hasEnoughGold $ num:min - Gibt zurück ob der spieler genug geld hat
+num:getItemCount $ num:itemid - Gibt zurück wie oft der spieler das item besitzt.
+bol:hasPoklmonInTeam $ num:poklid - Gibt zurück ob der spieler das poklmon im team hat
+bol:isPlaceInTeam $ - Gibt zurück ob im team noch platz ist für ein weiteres poklmon
+bol:openPoklmonTrade $ num:poklidRequested - Fragt den spieler nach einen tausch. Bei true wurde der tausch akzeptiert.  
+bol:startTrainerBattle $ txt:introtext, txt:outrotext, num:wingold - Startet einen trainerkampf. Bei true hat der spieler gewonnen.
+bol:startWildBattle $ - Startet einen poklmonkampf gegen ein wildes poklmon. Bei true wurde es besiegt oder gefangen.
