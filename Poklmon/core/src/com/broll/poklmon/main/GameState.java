@@ -31,9 +31,6 @@ public abstract class GameState implements Screen {
 		try{
 			update(delta);
 			render(graphics);
-			if(PoklmonGame.TOUCH_MODE){
-				TouchIconsRender.render(graphics);
-			}
 		}catch (Exception e ){
 			states.gameException(e);
 		}

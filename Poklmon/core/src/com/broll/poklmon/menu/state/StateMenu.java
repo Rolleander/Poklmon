@@ -8,8 +8,7 @@ import com.broll.poklmon.menu.PlayerMenu;
 import com.broll.poklmon.player.Player;
 import com.broll.poklmon.save.PoklmonData;
 
-public class StateMenu extends MenuPage
-{
+public class StateMenu extends MenuPage {
 
 
     private PoklmonStateMenu poklmonStateMenu;
@@ -17,71 +16,77 @@ public class StateMenu extends MenuPage
     private int currentPoklmonNr;
     private boolean disableSwap;
 
-    public StateMenu(PlayerMenu menu, Player player, DataContainer data)
-    {
+    public StateMenu(PlayerMenu menu, Player player, DataContainer data) {
         super(menu, player, data);
         this.player = player;
         poklmonStateMenu = new PoklmonStateMenu(data);
     }
 
-    public void open(PoklmonData poklmon, int nr, boolean noSwap)
-    {
+    public void open(PoklmonData poklmon, int nr, boolean noSwap) {
         disableSwap = noSwap;
         poklmonStateMenu.open(poklmon);
         this.currentPoklmonNr = nr;
     }
 
     @Override
-    public void onEnter()
-    {
+    public void onEnter() {
 
     }
 
     @Override
-    public void onExit()
-    {
+    public void onExit() {
     }
 
 
-
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         poklmonStateMenu.render(g);
     }
 
-    @Override
-    public void update(float delta)
-    {
-        poklmonStateMenu.update();
-
-        if (!disableSwap)
-        {
-            if (GUIUpdate.isMoveUp())
-            {
-                currentPoklmonNr--;
-                if (currentPoklmonNr < 0)
-                {
-                    currentPoklmonNr = player.getPoklmonControl().getPoklmonsInTeam().size() - 1;
-                }
-                open(player.getPoklmonControl().getPoklmonsInTeam().get(currentPoklmonNr), currentPoklmonNr, false);
-            }
-            if (GUIUpdate.isMoveDown())
-            {
-                currentPoklmonNr++;
-                if (currentPoklmonNr >= player.getPoklmonControl().getPoklmonsInTeam().size())
-                {
-                    currentPoklmonNr = 0;
-                }
-                open(player.getPoklmonControl().getPoklmonsInTeam().get(currentPoklmonNr), currentPoklmonNr, false);
-            }
+    private void showPrevious() {
+        currentPoklmonNr--;
+        if (currentPoklmonNr < 0) {
+            currentPoklmonNr = player.getPoklmonControl().getPoklmonsInTeam().size() - 1;
         }
-        if (GUIUpdate.isCancel())
-        {
-            close();
+        PoklmonData poklmon = player.getPoklmonControl().getPoklmonsInTeam().get(currentPoklmonNr);
+        if (poklmon != null) {
+            open(poklmon, currentPoklmonNr, false);
+        } else {
+            //empty spot, skip
+            showPrevious();
         }
     }
 
+    private void showNext() {
+        currentPoklmonNr++;
+        if (currentPoklmonNr >= player.getPoklmonControl().getPoklmonsInTeam().size()) {
+            currentPoklmonNr = 0;
+        }
+        PoklmonData poklmon = player.getPoklmonControl().getPoklmonsInTeam().get(currentPoklmonNr);
+        if (poklmon != null) {
+            open(poklmon, currentPoklmonNr, false);
+        } else {
+            //empty spot, skip
+            showNext();
+        }
+    }
+
+    @Override
+    public void update(float delta) {
+        poklmonStateMenu.update();
+
+        if (!disableSwap) {
+            if (GUIUpdate.isMoveUp()) {
+                showPrevious();
+            }
+            if (GUIUpdate.isMoveDown()) {
+                showNext();
+            }
+        }
+        if (GUIUpdate.isCancel()) {
+            close();
+        }
+    }
 
 
 }
