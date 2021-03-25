@@ -25,9 +25,9 @@ public abstract class MapObjectLoader {
 			MapObject o = new MapObject(data,mapContainer);
 			o.setMovementSpeed(0.04f);
 			o.setDirection(direction);
+			o.teleport(xpos, ypos);
 			o.setBlocking(true);
 			o.init(objectName, objectId, triggerScript, initScript);
-			o.teleport(xpos, ypos);
 			if(graphic!=null&&!graphic.isEmpty())
 			{
 			o.setGraphic(data.getGraphics().getCharImage(graphic));

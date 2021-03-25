@@ -158,7 +158,7 @@ public class NewgameProcess implements Runnable {
 			showText("..so die anderen Beiden kann ich jetzt zum Pokl-Schlachter bringen, die will eh keiner mehr.");
 			showText("Dann haben wir ja jetzt alles gekl‰rt.");
 			showText("Also dann, hoffentlich bis bald!");
-			showText("...und vergiss nicht ab und zu verbeizukommen um mit mir zu reden!");
+			showText("...und vergiss nicht ab und zu vorbeizukommen um mit mir zu reden!");
 			showText("Ich werde dir zwar nichts mehr schenken glaube ich, aber ich bin nicht umsonst Professor Poklmon!");
 			showText("Ja und? Ich weiﬂ dass ich Professor Pfiffikus heiﬂe, aber das ist mein zurecht verdienter Titel, denn bald werde ich diese Viecher ja ganz genau unter die Lupe nehmen!");
 			showText("Und jetzt beweg deinen s¸ﬂen kleinen Arsch nach drauﬂen!");

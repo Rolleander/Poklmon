@@ -23,7 +23,7 @@ public class DialogBox {
 	private boolean withTimer = false;
 	private SelectionListener exitListener;
 	private int letters;
-	private int textWait = TEXT_MIDDLE;
+	private int textWait = TEXT_FAST;
 	private float timerSeconds;
 	private DataContainer data;
 	private boolean clicked = false;

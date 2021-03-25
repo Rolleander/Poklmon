@@ -2,12 +2,14 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        jcenter()
+        google()
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:3.5.4'
+
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.1'
     }
 
@@ -18,7 +20,7 @@ allprojects {
     version = '1.0'
     ext {
         appName = "Poklmon"
-        gdxVersion = '1.9.6'
+        gdxVersion = '1.9.14'
         roboVMVersion = '2.3.1'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
@@ -27,6 +29,7 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }

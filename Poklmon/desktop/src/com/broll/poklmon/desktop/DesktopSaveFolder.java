@@ -1,6 +1,5 @@
 package com.broll.poklmon.desktop;
 
-import com.badlogic.gdx.Gdx;
 import com.broll.poklmon.save.manage.DeviceSaveOperations;
 
 import java.io.File;

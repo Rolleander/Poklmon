@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.BufferUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.broll.poklmon.data.DataLoader;
@@ -61,7 +62,7 @@ public class PoklmonGame extends Game {
 		stateManager = new GameStateManager(this);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		viewport =new StretchViewport(PoklmonGame.WIDTH,PoklmonGame.HEIGHT,camera);
+		viewport =new FitViewport(PoklmonGame.WIDTH,PoklmonGame.HEIGHT,camera);
 		camera.position.set(PoklmonGame.WIDTH/2,PoklmonGame.HEIGHT/2,0);
 		graphics = new Graphics();
 		input = new InputReceiver(viewport);
