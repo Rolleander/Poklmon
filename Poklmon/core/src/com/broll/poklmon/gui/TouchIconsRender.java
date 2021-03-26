@@ -46,11 +46,13 @@ public class TouchIconsRender {
     }
 
     public static void hideButton(int nr, boolean hide) {
-        buttons.get(nr).setHide(hide);
+        if (!buttons.isEmpty()) {
+            buttons.get(nr).setHide(hide);
+        }
     }
 
     public static int checkButtonPress(Vector2 pos) {
-        for (int i=0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             TouchButton button = buttons.get(i);
             Vector2 buttonPos = button.getPosition();
             if (pos.dst(buttonPos) <= buttonSize / 2) {
@@ -61,7 +63,7 @@ public class TouchIconsRender {
     }
 
     public static int checkCrossPressed(Vector2 pos) {
-        for (int i=4; i<8; i++) {
+        for (int i = 4; i < 8; i++) {
             TouchButton button = buttons.get(i);
             Vector2 buttonPos = button.getPosition();
             if (pos.dst(buttonPos) <= buttonSize / 2) {

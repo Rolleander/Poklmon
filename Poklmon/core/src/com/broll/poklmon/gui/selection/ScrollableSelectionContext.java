@@ -17,9 +17,6 @@ public class ScrollableSelectionContext {
 		this.startPos = 0;
 		this.selectPos = 0;
 	}
-
-	
-	
 	
 	public boolean isWindowTop() {
 		return startPos == 0;

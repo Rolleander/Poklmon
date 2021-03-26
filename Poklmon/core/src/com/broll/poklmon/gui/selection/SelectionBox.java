@@ -21,7 +21,7 @@ public class SelectionBox {
 	public final static int ICONSIZE = 30;
 
 	protected SelectionModel selection;
-	private int width, height;
+	protected int height;
 	private boolean iconized = false;
 	protected DataContainer data;
 	private FontUtils fontUtils=new FontUtils();
@@ -34,11 +34,11 @@ public class SelectionBox {
 		selectionYP = selectionHeight + d;
 		selectionWidth = w - PADDING * 2;
 		this.iconized = iconized;
-		int height = items.length * (selectionYP) + PADDING * 2 - d;
+		height = items.length * (selectionYP) + PADDING * 2 - d;
+		int width = w;
 		render = new DialogBoxRender(GUIDesign.selectionBoxBorder, GUIDesign.selectionBoxBorder2,
 				GUIDesign.selectionBoxCorner, ColorUtil.newColor(248, 248, 248));
 		render.setSize(x, y, w, height);
-
 		xpos = x + PADDING + 10;
 		ypos = y + PADDING;
 		selection = new SelectionModel(items);
@@ -62,7 +62,6 @@ public class SelectionBox {
 			width += ICONSIZE + 10;
 		}
 		selectionWidth = width - PADDING * 2;
-
 		height = items.length * (selectionYP) + PADDING * 2 - d;
 		render = new DialogBoxRender(GUIDesign.selectionBoxBorder, GUIDesign.selectionBoxBorder2,
 				GUIDesign.selectionBoxCorner, ColorUtil.newColor(248, 248, 248));

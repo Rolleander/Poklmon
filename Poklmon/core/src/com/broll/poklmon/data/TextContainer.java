@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.broll.poklmon.resource.ResourceUtils;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 
 /**
  * Created by Roland on 29.10.2017.
@@ -23,6 +24,10 @@ public class TextContainer {
     }
 
     public static synchronized String get(String key, Object... values){
-        return i18NBundle.format(key,values);
+        try{
+            return i18NBundle.format(key,values);
+        }catch (MissingResourceException e){
+            return "[!]";
+        }
     }
 }

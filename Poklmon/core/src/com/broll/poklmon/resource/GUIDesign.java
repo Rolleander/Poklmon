@@ -11,6 +11,7 @@ public class GUIDesign
     public static Image selectionBoxBorder2;
     public static Image textbox,textbox2;
     public static Image selector;
+    public static Image caret,caret2;
     
     public static String MOVE_SOUND="select";
     public static String CLICK_SOUND="click";
@@ -27,5 +28,7 @@ public class GUIDesign
         textbox=DataLoader.loadImage(ResourceUtils.DATA_PATH +"resource/graphics/textbox.png");
         textbox2=DataLoader.loadImage(ResourceUtils.DATA_PATH +"resource/graphics/textbox2.png");  
         selector=DataLoader.loadImage(ResourceUtils.DATA_PATH +"resource/graphics/cursor.png");
+        caret=DataLoader.loadImage(ResourceUtils.DATA_PATH +"resource/graphics/caret.png");
+        caret2=DataLoader.loadImage(ResourceUtils.DATA_PATH +"resource/graphics/caret2.png");
     }
 }

@@ -33,11 +33,7 @@ public class FontUtils {
 	}
 
 	public int getHeight(BitmapFont font, String text) {
-		if(text==null){
-			return 0;
-		}
-		update(font,text);
-		return (int) glyphLayout.height;
+		return (int) font.getCapHeight();
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.broll.poklmon.gui.selection;
 
+import com.badlogic.gdx.Gdx;
 import com.broll.poklmon.data.DataContainer;
+import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.gui.GUIUpdate;
 import com.broll.poklmon.resource.FontUtils;
@@ -9,106 +11,121 @@ import com.broll.poklmon.resource.GUIFonts;
 
 public class ScrollableSelectionBox extends SelectionBox {
 
-	private ScrollableSelectionContext model;
-	private int window;
-	
-	public ScrollableSelectionBox(DataContainer data,String[] items, int x, int y, int w, int window, boolean iconized) {
+    private ScrollableSelectionContext model;
+    private int window;
 
-		super(data, new String[Math.min(items.length, window)], x, y, w, iconized);
-		this.window = window;
-		model = new ScrollableSelectionContext(data,items.length, window);
-		selection = new SelectionWrapper(items);
-	}
+    public ScrollableSelectionBox(DataContainer data, String[] items, int x, int y, int w, int window, boolean iconized) {
 
-	private static String[] findLongest(String[] items,FontUtils fontUtils, int window) {
-		String[] results = new String[Math.min(items.length, window)];
-		int width = 0;
-		String itemr = "";
-		for (String item : items) {
-			int l = fontUtils.getWidth(GUIFonts.dialogText,item);
-			if (l > width) {
-				width = l;
-				itemr = item;
-			}
-		}
-		for (int i = 0; i < results.length; i++) {
-			results[i] = "A";
-		}
-		results[0] = itemr;
-		return results;
-	}
+        super(data, new String[Math.min(items.length, window)], x, y, w, iconized);
+        this.window = window;
+        model = new ScrollableSelectionContext(data, items.length, window);
+        selection = new SelectionWrapper(items);
+    }
 
-	public ScrollableSelectionBox(DataContainer data, String[] items,FontUtils fontUtils, int x, int y, int window, boolean iconized) {
+    private static String[] findLongest(String[] items, FontUtils fontUtils, int window) {
+        String[] results = new String[Math.min(items.length, window)];
+        int width = 0;
+        String itemr = "";
+        for (String item : items) {
+            int l = fontUtils.getWidth(GUIFonts.dialogText, item);
+            if (l > width) {
+                width = l;
+                itemr = item;
+            }
+        }
+        for (int i = 0; i < results.length; i++) {
+            results[i] = "A";
+        }
+        results[0] = itemr;
+        return results;
+    }
 
-		super(data, findLongest(items,fontUtils, window), x, y, iconized);
-		this.window = window;
-		model = new ScrollableSelectionContext(data,items.length, window);
-		selection = new SelectionWrapper(items);
-	}
+    public ScrollableSelectionBox(DataContainer data, String[] items, FontUtils fontUtils, int x, int y, int window, boolean iconized) {
 
-	@Override
-	public void update() {
-		model.update();
-		if (GUIUpdate.isClick()) {
-			if(!selection.isSelectionBlocked()){
-				data.getSounds().playSound(GUIDesign.CLICK_SOUND);
-				listener.select(getSelectedIndex());				
-			}
-		}
-		if (GUIUpdate.isCancel()) {
-			listener.cancelSelection();
-		}
-	}
+        super(data, findLongest(items, fontUtils, window), x, y, iconized);
+        this.window = window;
+        model = new ScrollableSelectionContext(data, items.length, window);
+        selection = new SelectionWrapper(items);
+    }
 
-	@Override
-	public int getSelectedIndex() {
-		return model.getSelectedIndex();
-	}
+    @Override
+    public void update() {
+        model.update();
+        if (GUIUpdate.isClick()) {
+            if (!selection.isSelectionBlocked()) {
+                data.getSounds().playSound(GUIDesign.CLICK_SOUND);
+                listener.select(getSelectedIndex());
+            }
+        }
+        if (GUIUpdate.isCancel()) {
+            listener.cancelSelection();
+        }
+    }
 
-	private class SelectionWrapper extends SelectionModel {
+    private float caretAnimation;
 
-		public SelectionWrapper(String[] items) {
-			super(items);
-		}
+    @Override
+    public void render(Graphics g) {
+        super.render(g);
+        float dy = (float) (Math.cos(caretAnimation * 5) * 3);
+        if (!model.isWindowTop()) {
+            g.drawImage(GUIDesign.caret.getFlippedCopy(false, true), xpos + selectionWidth / 2 - 16, ypos + -25 - dy);
+        }
+        if (!model.isWindowBot()) {
+            g.drawImage(GUIDesign.caret, xpos + selectionWidth / 2 - 16, ypos + height - 55 + dy);
+        }
+        caretAnimation += Gdx.graphics.getDeltaTime();
+    }
 
-		@Override
-		public boolean isBlocked(int id) {
-			int p = model.getStartPos() + id;
-			if (p >= items.length) {
-				return false;
-			}
-			return blocked[p];
-		}
+    @Override
+    public int getSelectedIndex() {
+        return model.getSelectedIndex();
+    }
 
-		@Override
-		public String getItem(int id) {
-			int p = model.getStartPos() + id;
-			if (p >= items.length) {
-				return "";
-			}
-			return items[p];
-		}
+    private class SelectionWrapper extends SelectionModel {
 
-		@Override
-		public Image getIcon(int id) {
-			if (icons == null) {
-				return null;
-			}
-			int p = model.getStartPos() + id;
-			if (p >= icons.length) {
-				return null;
-			}
-			return icons[id];
-		}
+        public SelectionWrapper(String[] items) {
+            super(items);
+        }
 
-		@Override
-		public int getSelectedItem() {
-			return model.getSelectPos();
-		}
+        @Override
+        public boolean isBlocked(int id) {
+            int p = model.getStartPos() + id;
+            if (p >= items.length) {
+                return false;
+            }
+            return blocked[p];
+        }
 
-		@Override
-		public int getSize() {
-			return window;
-		}
-	}
+        @Override
+        public String getItem(int id) {
+            int p = model.getStartPos() + id;
+            if (p >= items.length) {
+                return "";
+            }
+            return items[p];
+        }
+
+        @Override
+        public Image getIcon(int id) {
+            if (icons == null) {
+                return null;
+            }
+            int p = model.getStartPos() + id;
+            if (p >= icons.length) {
+                return null;
+            }
+            return icons[id];
+        }
+
+        @Override
+        public int getSelectedItem() {
+            return model.getSelectPos();
+        }
+
+        @Override
+        public int getSize() {
+            return window;
+        }
+    }
 }

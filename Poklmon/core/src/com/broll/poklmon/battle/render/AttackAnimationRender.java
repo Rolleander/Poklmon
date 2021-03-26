@@ -39,7 +39,7 @@ public class AttackAnimationRender {
 	{
 	    if(isRunning)
 	    {
-	    float y=battle.getBattleRender().getBackgroundRender().getMoveY();
+	    float y=battle.getBattleRender().getBackgroundRender().getMoveY()+ BattlePoklmonRender.Y_SHIFT;
 		animationRender.render(g, 0, y);
 	    }
 	}

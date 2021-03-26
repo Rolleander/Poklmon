@@ -8,6 +8,8 @@ import com.broll.poklmon.menu.PlayerMenu;
 import com.broll.poklmon.player.Player;
 import com.broll.poklmon.save.PoklmonData;
 
+import java.util.List;
+
 public class StateMenu extends MenuPage {
 
 
@@ -15,6 +17,7 @@ public class StateMenu extends MenuPage {
     private Player player;
     private int currentPoklmonNr;
     private boolean disableSwap;
+    private List<PoklmonData> scrollList;
 
     public StateMenu(PlayerMenu menu, Player player, DataContainer data) {
         super(menu, player, data);
@@ -22,10 +25,10 @@ public class StateMenu extends MenuPage {
         poklmonStateMenu = new PoklmonStateMenu(data);
     }
 
-    public void open(PoklmonData poklmon, int nr, boolean noSwap) {
-        disableSwap = noSwap;
+    public void open(PoklmonData poklmon, List<PoklmonData> scrollList) {
         poklmonStateMenu.open(poklmon);
-        this.currentPoklmonNr = nr;
+        this.scrollList = scrollList;
+        this.currentPoklmonNr = scrollList.indexOf(poklmon);
     }
 
     @Override
@@ -46,11 +49,11 @@ public class StateMenu extends MenuPage {
     private void showPrevious() {
         currentPoklmonNr--;
         if (currentPoklmonNr < 0) {
-            currentPoklmonNr = player.getPoklmonControl().getPoklmonsInTeam().size() - 1;
+            currentPoklmonNr = scrollList.size() - 1;
         }
-        PoklmonData poklmon = player.getPoklmonControl().getPoklmonsInTeam().get(currentPoklmonNr);
+        PoklmonData poklmon = scrollList.get(currentPoklmonNr);
         if (poklmon != null) {
-            open(poklmon, currentPoklmonNr, false);
+            poklmonStateMenu.open(poklmon);
         } else {
             //empty spot, skip
             showPrevious();
@@ -59,12 +62,12 @@ public class StateMenu extends MenuPage {
 
     private void showNext() {
         currentPoklmonNr++;
-        if (currentPoklmonNr >= player.getPoklmonControl().getPoklmonsInTeam().size()) {
+        if (currentPoklmonNr >= scrollList.size()) {
             currentPoklmonNr = 0;
         }
-        PoklmonData poklmon = player.getPoklmonControl().getPoklmonsInTeam().get(currentPoklmonNr);
+        PoklmonData poklmon = scrollList.get(currentPoklmonNr);
         if (poklmon != null) {
-            open(poklmon, currentPoklmonNr, false);
+            poklmonStateMenu.open(poklmon);
         } else {
             //empty spot, skip
             showNext();
@@ -75,14 +78,13 @@ public class StateMenu extends MenuPage {
     public void update(float delta) {
         poklmonStateMenu.update();
 
-        if (!disableSwap) {
-            if (GUIUpdate.isMoveUp()) {
-                showPrevious();
-            }
-            if (GUIUpdate.isMoveDown()) {
-                showNext();
-            }
+        if (GUIUpdate.isMoveUp()) {
+            showPrevious();
         }
+        if (GUIUpdate.isMoveDown()) {
+            showNext();
+        }
+
         if (GUIUpdate.isCancel()) {
             close();
         }

@@ -29,12 +29,9 @@ public class PoklmonDamageSequence extends SequenceRender {
 		if (damage > 0) {
 			damageIntro = 20;
 			String sound = "b_damage";
-			// check for lethal
 			if (TypeCompare.EFFECTIVE.getName().equals(text)) {
-				// lethal
 				sound = "b_damage_effective";
 			} else if (TypeCompare.NOTEFFECTIVE.getName().equals(text)) {
-				// big damage
 				sound = "b_damage_ineffective";
 			}
 			data.getSounds().playSound(sound);

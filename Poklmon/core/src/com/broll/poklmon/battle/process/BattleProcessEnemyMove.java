@@ -185,5 +185,7 @@ public class BattleProcessEnemyMove extends BattleProcessControl {
 					.getAnimation(EffectProcessInflict.STRONG_GENES_ANIMATION_ID);
 			core.getAttackProcess().showOverlayAnimation(showAnimation, true);
 		}
+		manager.getBattleRender().getBackgroundRender().setMoving(true);
+		manager.getBattleRender().getHudRender().setShowHud(true);
 	}
 }

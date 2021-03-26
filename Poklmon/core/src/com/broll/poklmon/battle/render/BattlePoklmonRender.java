@@ -9,6 +9,7 @@ public class BattlePoklmonRender {
 	private BattleManager battle;
 	private boolean playerPoklmonVisible=false;
 	private boolean enemyPoklmonVisible=false;
+	public final static int Y_SHIFT = 15;
     
 	public BattlePoklmonRender(BattleManager battleManager) {
 		battle=battleManager;
@@ -17,7 +18,7 @@ public class BattlePoklmonRender {
 	public void render(Graphics g)
 	{
 	    float yp=battle.getBattleRender().getBackgroundRender().getMoveY();
-	    float y=200+yp;
+	    float y=200+yp+Y_SHIFT;
 	    float x1=160;
 	    float x2=640;
 	    

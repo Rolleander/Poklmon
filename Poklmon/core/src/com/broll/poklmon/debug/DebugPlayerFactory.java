@@ -72,7 +72,7 @@ public class DebugPlayerFactory {
 
 		}
 		int count=10 + (int) (Math.random() * 20);
-		count=30;
+	//	count=2000;
 		addPcPoklmons(pokls, count);
 		return pokls;
 	}

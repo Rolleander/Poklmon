@@ -1,5 +1,6 @@
 package com.broll.poklmon.menu.pc;
 
+import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
@@ -15,11 +16,12 @@ import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.save.PoklmonData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class PcMenu extends MenuPage
-{
-
+public class PcMenu extends MenuPage {
 
 
     private ArrayList<PoklmonData> pc;
@@ -30,94 +32,64 @@ public class PcMenu extends MenuPage
     private PcBlockRender blockRender;
     private PcSelection selection;
     private SelectionBox selectionBox;
-    private boolean enterFromStatus=false;
+    private boolean enterFromStatus = false;
 
-    public PcMenu(PlayerMenu menu, Player player, DataContainer data)
-    {
+    public PcMenu(PlayerMenu menu, Player player, DataContainer data) {
         super(menu, player, data);
         selection = new PcSelection(this);
         blockRender = new PcBlockRender(data);
     }
 
     @Override
-    public void onEnter()
-    {
-        if(enterFromStatus==false)
-        {
-        selection.init();
-      
-        pc = player.getPoklmonControl().getPoklmonsInPC();
-        
-        int max=0;
-        int pos=0;
-        for(PoklmonData pd: pc)
-        {
-            int p=0;
-            for(short s: pd.getDv())
-            {
-                p+=s;
-            }
-            if(p>max)
-            {
-                max=p;
-                pos=pc.indexOf(pd);
-            }
-        }
-       selection.setBoxSelection(pos);
-        
-        team = player.getPoklmonControl().getPoklmonsInTeam();
+    public void onEnter() {
+        if (enterFromStatus == false) {
+            selection.init();
 
-        size = pc.size();
+            pc = player.getPoklmonControl().getPoklmonsInPC();
 
-        
-        if(size%ROW_ITEMS==0)
-        {
-            size+=ROW_ITEMS*2;
+            team = player.getPoklmonControl().getPoklmonsInTeam();
+
+            size = pc.size();
+
+
+            if (size % ROW_ITEMS == 0) {
+                size += ROW_ITEMS * 2;
+            } else {
+                size = (size / ROW_ITEMS + 3) * ROW_ITEMS;
+            }
+
+
+            //immer mindestens 2 leere reihen f�r die team poklmons
         }
-        else
-        {
-            size = (size / ROW_ITEMS + 3) * ROW_ITEMS;           
-        }
-        
-       
-        //immer mindestens 2 leere reihen f�r die team poklmons
-        }
-        enterFromStatus=false;
+        enterFromStatus = false;
     }
 
     @Override
-    public void onExit()
-    {
+    public void onExit() {
 
     }
 
-    public void openStatus(int poklmon, boolean inTeam)
-    {
-        StateMenu state = (StateMenu)menu.getPage(StateMenu.class);
-       PoklmonData data = null;
-        if (inTeam)
-        {
+    public void openStatus(int poklmon, boolean inTeam) {
+        StateMenu state = (StateMenu) menu.getPage(StateMenu.class);
+        PoklmonData data = null;
+        List<PoklmonData> scrollList;
+        if (inTeam) {
             data = team.get(poklmon);
-        }
-        else
-        {
-            if (poklmon < pc.size())
-            {
+            scrollList = Arrays.asList(team.values().toArray(new PoklmonData[0]));
+        } else {
+            if (poklmon < pc.size()) {
                 data = pc.get(poklmon);
             }
+            scrollList = player.getPoklmonControl().getPoklmonsInPC();
         }
-
-        if (data != null)
-        {
-            enterFromStatus=true;
-            state.open(data, 0, true);
+        if (data != null) {
+            enterFromStatus = true;
+            state.open(data, scrollList);
             menu.openPage(StateMenu.class);
-            
         }
     }
 
-    public void swap(int boxID, int teamID)
-    {
+    public void swap(int boxID, int teamID) {
 
         player.getPoklmonControl().takePoklmonIntoTeam(boxID, teamID);
         //refreshs
@@ -127,48 +99,43 @@ public class PcMenu extends MenuPage
 
 
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
 
         Image background = data.getGraphics().getMenuGraphicsContainer().getBoxBackground();
         background.draw();
 
         g.setFont(GUIFonts.hudText);
         g.setColor(ColorUtil.newColor(250, 250, 250));
-        g.drawString("Abgelegte Poklmon ("+pc.size()+")", 60, 58);
+        g.drawString("Abgelegte Poklmon (" + pc.size() + ")", 60, 58);
         g.drawString("Team", 635, 58);
-       
+
         int boxSelection = selection.getBoxSelection();
         int selectMode = selection.getSelectMode();
         int teamSelection = selection.getTeamSelection();
         int optionSelection = selection.getOptionSelection();
 
-        
+
         int anz = MAX_ROWS * ROW_ITEMS;
         int id = boxSelection / anz;
 
         g.setFont(GUIFonts.smallText);
-        int maxs=size/anz;
-        if(size%anz!=0)
-        {
+        int maxs = size / anz;
+        if (size % anz != 0) {
             maxs++;
         }
-        String text="Seite "+(id+1)+" / "+maxs;
-        g.drawString(text,558-MenuUtils.getTextWidth(g,fontUtils, text),73);
- 
+        String text = "Seite " + (id + 1) + " / " + maxs;
+        g.drawString(text, 558 - MenuUtils.getTextWidth(g, fontUtils, text), 73);
+
         //draw box
-        for (int i = 0; i < anz; i++)
-        {
+        for (int i = 0; i < anz; i++) {
             int cid = i + id * anz;
             float x = calcBoxX(i);
             float y = calcBoxY(i);
             PoklmonData pokl = null;
-            if (cid < pc.size())
-            {
+            if (cid < pc.size()) {
                 pokl = pc.get(cid);
             }
-            if (cid < size)
-            {
+            if (cid < size) {
                 boolean selected = cid == boxSelection && selectMode == PcSelection.EDIT_BOX;
                 blockRender.renderBox(g, pokl, x, y, selected);
             }
@@ -176,8 +143,7 @@ public class PcMenu extends MenuPage
 
         //draw item
 
-        for (int i = 0; i < 6; i++)
-        {
+        for (int i = 0; i < 6; i++) {
             boolean selected = i == teamSelection && selectMode == PcSelection.EDIT_TEAM;
             PoklmonData pokl = team.get(i);
             float x = calcTeamX();
@@ -186,96 +152,79 @@ public class PcMenu extends MenuPage
         }
 
         float x = 10;
-        for (int i = 0; i < PcSelection.options.length; i++)
-        {
+        for (int i = 0; i < PcSelection.options.length; i++) {
             boolean selected = optionSelection == i && selectMode == PcSelection.SELECT_OPTION;
-            x += MenuUtils.drawButton(g, PcSelection.options[i],fontUtils, x, 10, selected);
+            x += MenuUtils.drawButton(g, PcSelection.options[i], fontUtils, x, 10, selected);
             x += 10;
         }
 
-        if (selectionBox != null)
-        {
+        if (selectionBox != null) {
             selectionBox.render(g);
         }
     }
 
-    private float calcBoxX(int select)
-    {
+    private float calcBoxX(int select) {
         float x = 15;
         return x + PcBlockRender.WIDTH * (select % ROW_ITEMS);
     }
 
-    private float calcBoxY(int select)
-    {
+    private float calcBoxY(int select) {
         float y = 102;
         return y + PcBlockRender.HEIGHT * (select / ROW_ITEMS);
     }
 
-    private float calcTeamX()
-    {
+    private float calcTeamX() {
         return 600;
     }
 
-    private float calcTeamY(int select)
-    {
+    private float calcTeamY(int select) {
         return 102 + select * 50;
     }
 
     @Override
-    public void update(float delta)
-    {
-        if (selectionBox != null)
-        {
+    public void update(float delta) {
+        if (selectionBox != null) {
             selectionBox.update();
         }
-        selection.update();    
+        selection.update();
     }
 
-    public void openSelection(String[] options, int pos, boolean inTeam, final SelectionBoxListener listener)
-    {
+    public void openSelection(String[] options, int pos, boolean inTeam, final SelectionBoxListener listener) {
         int x = 0;
         int y = 0;
-        if (inTeam)
-        {
-            x = (int)calcTeamX();
-            y = (int)calcTeamY(pos);
-        }
-        else
-        {
+        if (inTeam) {
+            x = (int) calcTeamX();
+            y = (int) calcTeamY(pos);
+        } else {
             pos = pos % (MAX_ROWS * ROW_ITEMS);
-            x = (int)calcBoxX(pos);
-            y = (int)calcBoxY(pos);
+            x = (int) calcBoxX(pos);
+            y = (int) calcBoxY(pos);
         }
 
         x += 205;
         y += 20;
 
-        selectionBox = new SelectionBox(data,options, x, y,false);
+        selectionBox = new SelectionBox(data, options, x, y, false);
         selectionBox.setListener(new SelectionBoxListener() {
-            public void select(int item)
-            {
+            public void select(int item) {
                 selectionBox = null;
                 listener.select(item);
             }
 
-            public void cancelSelection()
-            {
+            public void cancelSelection() {
                 selectionBox = null;
                 listener.cancelSelection();
             }
 
         });
-        if(y<500)
-        {
-        selectionBox.shiftDown();
+        if (y < 500) {
+            selectionBox.shiftDown();
         }
     }
 
-    public int getHeight()
-    {
+    public int getHeight() {
         return size / ROW_ITEMS;
     }
-
 
 
 }

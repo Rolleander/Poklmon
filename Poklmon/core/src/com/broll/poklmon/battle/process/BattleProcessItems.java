@@ -17,95 +17,94 @@ import com.broll.poklmon.save.PoklmonData;
 
 public class BattleProcessItems extends BattleProcessControl {
 
-	private ItemScriptExecutor itemScriptExecutor;
-	private WearableItemVariables wearableItemVariables;
-	private boolean catchedPoklmon;
+    private ItemScriptExecutor itemScriptExecutor;
+    private WearableItemVariables wearableItemVariables;
+    private boolean catchedPoklmon;
 
-	public BattleProcessItems(BattleManager manager, BattleProcessCore handler) {
-		super(manager, handler);
-		itemScriptExecutor = new ItemScriptExecutor();
-		wearableItemVariables = new WearableItemVariables();
-	}
+    public BattleProcessItems(BattleManager manager, BattleProcessCore handler) {
+        super(manager, handler);
+        itemScriptExecutor = new ItemScriptExecutor();
+        wearableItemVariables = new WearableItemVariables();
+    }
 
-	public void initWearables() {
-		for (FightPoklmon poklmon : manager.getParticipants().getPlayerTeam()) {
-			int item = poklmon.getCarryItem();
-			if (item != -1) {
-				Item wear = manager.getData().getItems().getItem(item);
-				if (wear.getType() == ItemType.WEARABLE) {
-					itemScriptExecutor.buildWearable(wear, poklmon,true, manager, core);
-				}
-			}
-		}
-	}
+    public void initWearables() {
+        for (FightPoklmon poklmon : manager.getParticipants().getPlayerTeam()) {
+            int item = poklmon.getCarryItem();
+            if (item != -1) {
+                Item wear = manager.getData().getItems().getItem(item);
+                if (wear.getType() == ItemType.WEARABLE) {
+                    itemScriptExecutor.buildWearable(wear, poklmon, true, manager, core);
+                }
+            }
+        }
+    }
 
-	public void useItem(int id, String user, FightPoklmon target) {
-		Item item = manager.getData().getItems().getItem(id);
-		manager.getPlayer().getInventarControl().useItem(id);
-		if (item.getType() == ItemType.POKLBALL) {
-			showText(user + " wirft " + item.getName() + "!");
-			catchPoklmon(item);
+    public void useItem(int id, String user, FightPoklmon target) {
+        Item item = manager.getData().getItems().getItem(id);
+        manager.getPlayer().getInventarControl().useItem(id);
+        if (item.getType() == ItemType.POKLBALL) {
+            showText(user + " wirft " + item.getName() + "!");
+            catchPoklmon(item);
 
-		} else if (item.getType() == ItemType.MEDICIN) {
-			showText(user + " gibt " + target.getName() + " " + item.getName() + " !");
-			MedicineItemRunner medicine = itemScriptExecutor.executeMedicineScript(target, item, manager, core);
-			if (medicine.isCancel()) {
-				showText("Das Item hatte keine Wirkung!");
-			}
-		}
-	}
+        } else if (item.getType() == ItemType.MEDICIN) {
+            showText(user + " gibt " + target.getName() + " " + item.getName() + " !");
+            MedicineItemRunner medicine = itemScriptExecutor.executeMedicineScript(target, item, manager, core);
+            if (medicine.isCancel()) {
+                showText("Das Item hatte keine Wirkung!");
+            }
+        }
+    }
 
-	public boolean isCatchedPoklmon() {
-		return catchedPoklmon;
-	}
+    public boolean isCatchedPoklmon() {
+        return catchedPoklmon;
+    }
 
-	public void catchPoklmon(Item item) {
-		catchedPoklmon = false;
-		PoklballItemRunner poklball = itemScriptExecutor.buildPoklball(item, manager, core);
-		float strength = poklball.getBallStrength();
-		boolean success = false;
-		int wobbleCount = 0;
-		int poklballIcon=poklball.getBallIcon();
-		if (poklball.isCatchAlways()) {
-			success = true;
-			wobbleCount = 3;
-		} else {
-			success = CacheWildCalculator.cacheWildPoklmon(manager.getParticipants().getEnemy(), strength);
-			wobbleCount = CacheWildCalculator.getWobbleCount();
-		}
-		CatchPoklmonSequence sequence = (CatchPoklmonSequence) manager.getBattleRender().getSequenceRender()
-				.getSequenceRender(BattleSequences.THROW_POKLBALL);
-		sequence.init(poklballIcon, success, wobbleCount);
-		manager.getBattleRender().getSequenceRender()
-				.showAnimation(BattleSequences.THROW_POKLBALL, processThreadHandler);
-		waitForResume();
-		if (success) {
-			String name = manager.getParticipants().getEnemy().getName();
-			WildPoklmon poklmon = (WildPoklmon) manager.getParticipants().getEnemy();
-			PoklmonData poklData = CoughtPoklmonFactory.caughtPoklmon(manager.getData(), manager.getPlayer(), poklmon);
-			poklData.setPoklball(poklballIcon);
-			showText("Super! Du hast " + name + " gefangen!");
+    public void catchPoklmon(Item item) {
+        catchedPoklmon = false;
+        PoklballItemRunner poklball = itemScriptExecutor.buildPoklball(item, manager, core);
+        float strength = poklball.getBallStrength();
+        boolean success = false;
+        int wobbleCount = 0;
+        int poklballIcon = poklball.getBallIcon();
+        if (poklball.isCatchAlways()) {
+            success = true;
+            wobbleCount = 3;
+        } else {
+            success = CacheWildCalculator.cacheWildPoklmon(manager.getParticipants().getEnemy(), strength);
+            wobbleCount = CacheWildCalculator.getWobbleCount();
+        }
+        CatchPoklmonSequence sequence = (CatchPoklmonSequence) manager.getBattleRender().getSequenceRender()
+                .getSequenceRender(BattleSequences.THROW_POKLBALL);
+        sequence.init(poklballIcon, success, wobbleCount);
+        manager.getBattleRender().getSequenceRender()
+                .showAnimation(BattleSequences.THROW_POKLBALL, processThreadHandler);
+        waitForResume();
+        if (success) {
+            String name = manager.getParticipants().getEnemy().getName();
+            WildPoklmon poklmon = (WildPoklmon) manager.getParticipants().getEnemy();
+            PoklmonData poklData = CoughtPoklmonFactory.caughtPoklmon(manager.getData(), manager.getPlayer(), poklmon);
+            poklData.setPoklball(poklballIcon);
+            showText("Super! Du hast " + name + " gefangen!");
 
-			if (manager.getPlayer().getPokldexControl().getCachedCount(poklmon.getPoklmon().getId()) == 0) {
-				showText("Für " + name + " wird ein neuer Eintrag im PoklDex hinzugefügt!");
-			}
+            if (manager.getPlayer().getPokldexControl().getCachedCount(poklmon.getPoklmon().getId()) == 0) {
+                showText("Für " + name + " wird ein neuer Eintrag im PoklDex hinzugefügt!");
+            }
+            if (showCancelableSelection("Möchtest du " + name + " einen Namen geben?", new String[]{"Ja", "Nein"}) == 0) {
+                name = showInput("");
+                poklData.setName(name);
+            }
 
-			if (showSelection("Möchtest du " + name + " einen Namen geben?", new String[] { "Ja", "Nein" }) == 0) {
-				name = showInput("");
-				poklData.setName(name);
-			}
+            if (manager.getPlayer().getPoklmonControl().getPoklmonsInTeam().size() == 6) {
+                showText(name == null ? poklmon.getName() : name + " wurde in deine Box übertragen!");
+            }
+            manager.getPlayer().getPoklmonControl().addNewPoklmon(poklData);
+            catchedPoklmon = true;
+        } else {
+            showText("Das war knapp!");
+        }
+    }
 
-			if (manager.getPlayer().getPoklmonControl().getPoklmonsInTeam().size() == 6) {
-				showText(name + " wurde in deine Box übertragen!");
-			}
-			manager.getPlayer().getPoklmonControl().addNewPoklmon(poklData);
-			catchedPoklmon = true;
-		} else {
-			showText("Das war knapp!");
-		}
-	}
-
-	public WearableItemVariables getWearableItemVariables() {
-		return wearableItemVariables;
-	}
+    public WearableItemVariables getWearableItemVariables() {
+        return wearableItemVariables;
+    }
 }

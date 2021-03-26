@@ -143,7 +143,7 @@ public class MenuCommands extends CommandControl {
 						if (max == 0) {
 							invoke(new Invoke() {
 								public void invoke() throws VariableException {
-									gui.showText(TextContainer.get("shop_poor"));
+									gui.showText(TextContainer.get("shop_Poor"));
 								}
 							});
 						} else {
