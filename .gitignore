@@ -4,10 +4,12 @@
 /PoklEditor/.settings
 /PoklEditor/bin
 /PoklEditor/build
+/PoklEditor/local.properties
 /Poklmon/.gradle
 /Poklmon/gradle
 /Poklmon/.idea
 /Poklmon/.settings
+/Poklmon/local.properties
 /Poklmon/bin
 /Poklmon/build
 /PoklLib/.gradle
@@ -16,5 +18,6 @@
 /PoklLib/.settings
 /PoklLib/bin
 /PoklLib/build
+/PoklLib/local.properties
 .gradle
 .idea
