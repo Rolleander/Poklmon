@@ -10,11 +10,11 @@
 /Poklmon/.settings
 /Poklmon/bin
 /Poklmon/build
-/PoklEditor/.gradle
-/PoklEditor/gradle
-/PoklEditor/.idea
-/PoklEditor/.settings
-/PoklEditor/bin
-/PoklEditor/build
+/PoklLib/.gradle
+/PoklLib/gradle
+/PoklLib/.idea
+/PoklLib/.settings
+/PoklLib/bin
+/PoklLib/build
 .gradle
 .idea
