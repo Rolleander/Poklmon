@@ -9,6 +9,8 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
@@ -26,24 +28,41 @@ import com.broll.pokleditor.gui.components.preview.PoklmonPreview;
 import com.broll.pokleditor.gui.components.preview.TextSearchEntry;
 import com.broll.pokleditor.gui.dialogs.TeleportLocationDialog;
 import com.broll.pokleditor.gui.GraphicLoader;
+import com.broll.pokleditor.gui.script.JavascriptFormatter;
+
+import org.fife.rsta.ac.LanguageSupport;
+import org.fife.rsta.ac.LanguageSupportFactory;
+import org.fife.rsta.ac.js.JavaScriptLanguageSupport;
+import org.fife.rsta.ac.js.ast.JavaScriptVariableDeclaration;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 
 
 public class ScriptBox extends JPanel {
 
-    private JEditorPane script;
-
+    private RSyntaxTextArea script;
     private final static Color background = new Color(0, 0, 0);
     private final static Color text = new Color(150, 250, 150);
     private JLabel compileInfo = new JLabel("");
     private JSplitPane content = new JSplitPane();
+
+    private static JavaScriptLanguageSupport language;
+
+    static {
+        LanguageSupportFactory lsf = LanguageSupportFactory.get();
+        JavaScriptLanguageSupport support = (JavaScriptLanguageSupport) lsf.getSupportFor(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+        language = support;
+    }
 
     public ScriptBox(String name, int w, int h, final ScriptTest scriptTest) {
         setLayout(new BorderLayout());
         JPanel infoLine = new JPanel(new BorderLayout());
         FontMetrics fm = this.getFontMetrics((new JLabel().getFont()));
 
-        script = new JEditorPane();
-
+        script = new RSyntaxTextArea();
+        script.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+        script.setCodeFoldingEnabled(false);
+        language.install(script);
         JLabel title = new JLabel(name);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
         infoLine.add(title, BorderLayout.WEST);
@@ -64,7 +83,7 @@ public class ScriptBox extends JPanel {
 
         add(content, BorderLayout.CENTER);
 
-        script.setContentType("text/javascript");
+        //  script.setContentType("text/javascript");
         if (scriptTest != null) {
             JButton debug = new JButton("Debug", GraphicLoader.loadIcon("control_play_blue.png"));
             debug.addActionListener(new ActionListener() {
@@ -78,7 +97,12 @@ public class ScriptBox extends JPanel {
         }
 
         JPanel topLane = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton button = new JButton("Poklmons", GraphicLoader.loadIcon("poklball.png"));
+        JButton button = new JButton("", GraphicLoader.loadIcon("font.png"));
+        button.addActionListener(action -> {
+            setScript(JavascriptFormatter.beautify(getScript()));
+        });
+        topLane.add(button);
+        button = new JButton("Poklmons", GraphicLoader.loadIcon("poklball.png"));
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SearchableList.showList("Poklmons", PoklmonPreview.all()).ifPresent(it -> copyToClipboard("" + it));
