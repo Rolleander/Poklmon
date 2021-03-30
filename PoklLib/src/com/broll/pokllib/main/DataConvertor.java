@@ -17,7 +17,6 @@ import com.broll.pokllib.poklmon.AttackList;
 import com.broll.pokllib.poklmon.PoklDex;
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.pokllib.poklmon.PoklmonID;
-import com.db4o.foundation.StopWatch;
 
 public class DataConvertor {
 /*
@@ -38,12 +37,10 @@ public class DataConvertor {
 		Db4oDataControl db4oDataControl = new Db4oDataControl();
 
 		// save!
-		StopWatch w = new StopWatch();
-		w.start();
+
 		copy(xmlDataControl, db4oDataControl);
 		db4oDataControl.saveData("data/poklmon.data");
-		w.stop();
-		System.out.println("Saved in: " + w.elapsed());
+
 
 	}
 

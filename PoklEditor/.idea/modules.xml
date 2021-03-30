@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PoklEditor.iml" filepath="$PROJECT_DIR$/.idea/modules/PoklEditor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2075285717/PoklEditor.PoklLib.iml" filepath="$PROJECT_DIR$/.idea/modules/-2075285717/PoklEditor.PoklLib.iml" />
+    </modules>
+  </component>
+</project>

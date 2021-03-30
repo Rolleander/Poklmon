@@ -1,0 +1,2 @@
+include 'PoklLib'
+project(':PoklLib').projectDir = new File('../PoklLib/')

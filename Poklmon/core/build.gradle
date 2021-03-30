@@ -1,11 +1,18 @@
 apply plugin: "java"
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.6
 [compileJava, compileTestJava]*.options*.encoding = 'ISO-8859-1'
 
 sourceSets.main.java.srcDirs = [ "src/" ]
 
-
-eclipse.project {
-    name = appName + "-core"
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.broll'
+            artifactId = 'poklmon-core'
+            version = '1.0'
+            from components.java
+        }
+    }
 }

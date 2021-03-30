@@ -40,8 +40,8 @@ public class KryoDataControl implements DataControlInterface {
 	@SuppressWarnings("unchecked")
 	public void read(InputStream stream) {
 		Kryo kryo = new Kryo();
-		Input input = null;
-		input = new Input(stream);
+		kryo.setRegistrationRequired(false);
+		Input input = new Input(stream);
 		animationDex = kryo.readObject(input, AnimationDex.class);
 		attackDex = kryo.readObject(input, AttackDex.class);
 		itemDex = kryo.readObject(input, ItemDex.class);
@@ -56,8 +56,8 @@ public class KryoDataControl implements DataControlInterface {
 
 	public void commit(OutputStream stream) throws Exception {
 		Kryo kryo = new Kryo();
-		Output output = null;
-		output = new Output(stream);
+		kryo.setRegistrationRequired(false);
+		Output output = new Output(stream);
 		kryo.writeObject(output, animationDex);
 		kryo.writeObject(output, attackDex);
 		kryo.writeObject(output, itemDex);
