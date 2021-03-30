@@ -1,0 +1,19 @@
+apply plugin: "java-library"
+
+sourceCompatibility = 1.8
+sourceSets.main.java.srcDirs = [ "src/" ]
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    jcenter()
+    google()
+}
+
+dependencies {
+    testCompile("junit:junit:4.12")
+    implementation group: 'com.db4o', name: 'com.db4o', version: '7.7.67'
+    implementation group: 'com.esotericsoftware', name: 'kryo', version: '3.0.3'
+}

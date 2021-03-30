@@ -1,0 +1,31 @@
+apply plugin: "java"
+
+sourceCompatibility = 1.8
+sourceSets.main.java.srcDirs = [ "src/java/" ]
+sourceSets.main.resources.srcDirs = [ "src/sources/" ]
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    google()
+}
+
+dependencies {
+    compile project(":PoklLib")
+    compile group: 'com.broll', name: 'poklmon-core', version: '1.0'
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.12'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+}
+
+task dist(type: Jar) {
+    sourceSets.main.output.resourcesDir = sourceSets.main.java.outputDir
+    from files(sourceSets.main.output.classesDirs)
+    from files(sourceSets.main.output.resourcesDir)
+    from {configurations.compile.collect {zipTree(it)}}
+    manifest {
+        attributes 'Main-Class': 'com.broll.pokleditor.main.PoklEditorMain'
+    }
+}
