@@ -60,7 +60,6 @@ public abstract class OverworldCharacter {
 	}
 
 	public void setBlocking(boolean isBlocking) {
-		System.out.println(xpos+" "+ypos+ " block " +isBlocking);
 		map.blockTile((int) xpos, (int) ypos, isBlocking);
 		this.isBlocking = isBlocking;
 	}

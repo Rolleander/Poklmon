@@ -44,7 +44,7 @@ public class DesktopLauncher {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		startInformation.debugMap(10,27,35);
+	//	startInformation.debugMap(10,27,35);
 //		startInformation.debugScene(MenuDebugState.class);
 
 		SaveFileManager.initSaveInterface(new DesktopSaveFolder());

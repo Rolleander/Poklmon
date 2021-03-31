@@ -32,8 +32,8 @@ public class DataLoader {
 	private static String graphicsPath = "graphics/";
 	public static boolean SKIP_SOUNDS = false;
 	private static Graphics graphics;
-	private static Array<Texture> textures=new Array<Texture>();
-	private static Array<Sound> sounds=new Array<Sound>();
+	private static List<Texture> textures=new ArrayList<Texture>();
+	private static List<Sound> sounds=new ArrayList<Sound>();
 
 	public static void dispose(){
 		for(Sound sound: sounds){

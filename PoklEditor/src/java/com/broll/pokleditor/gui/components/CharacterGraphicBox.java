@@ -10,16 +10,16 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import com.broll.pokleditor.gui.components.preview.AttackPreview;
+import com.broll.pokleditor.gui.components.preview.CharacterPreview;
 import com.broll.pokleditor.resource.ImageLoader;
 
-public class CharacterGraphicBox extends JPanel
-{
+public class CharacterGraphicBox extends JPanel {
 
     private JButton image = new JButton();
     private String graphics;
 
-    public CharacterGraphicBox()
-    {
+    public CharacterGraphicBox() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createRaisedBevelBorder());
         image.setPreferredSize(new Dimension(128, 128));
@@ -28,49 +28,35 @@ public class CharacterGraphicBox extends JPanel
 
         image.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
-
+            public void actionPerformed(ActionEvent e) {
                 ArrayList<String> names = ImageLoader.listCharacterImages();
-                names.add(0,"NONE");
                 int index = names.indexOf(graphics);
-                if (index == -1)
-                {
-                    index = 0;
-                }
-                int select = ListSelection.openSelection(names, index);
-                if (select == 0)
-                {
-                    graphics = null;
-                }
-                else
-                {
-                    graphics = names.get(select );
-                }
-                updateImage();
-
+                SearchableList.showList("Character", CharacterPreview.all(), index).ifPresent(it -> {
+                    if (it == -1) {
+                        graphics = null;
+                    } else {
+                        graphics = names.get(it);
+                    }
+                    updateImage();
+                });
             }
         });
     }
 
-    private void updateImage()
-    {
-        if (graphics == null)
-        {
+    private void updateImage() {
+        if (graphics == null) {
             image.setIcon(null);
             return;
         }
         image.setIcon(ImageLoader.loadCharacterImage(graphics));
     }
 
-    public void setImage(String i)
-    {
+    public void setImage(String i) {
         graphics = i;
         updateImage();
     }
 
-    public String getImage()
-    {
+    public String getImage() {
         return graphics;
     }
 

@@ -18,6 +18,7 @@ import com.broll.pokllib.poklmon.Poklmon;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.minlog.Log;
 
 public class KryoDataControl implements DataControlInterface {
 
@@ -41,6 +42,7 @@ public class KryoDataControl implements DataControlInterface {
 	public void read(InputStream stream) {
 		Kryo kryo = new Kryo();
 		kryo.setRegistrationRequired(false);
+		Log.set(Log.LEVEL_WARN);
 		Input input = new Input(stream);
 		animationDex = kryo.readObject(input, AnimationDex.class);
 		attackDex = kryo.readObject(input, AttackDex.class);
@@ -57,6 +59,7 @@ public class KryoDataControl implements DataControlInterface {
 	public void commit(OutputStream stream) throws Exception {
 		Kryo kryo = new Kryo();
 		kryo.setRegistrationRequired(false);
+		Log.set(Log.LEVEL_WARN);
 		Output output = new Output(stream);
 		kryo.writeObject(output, animationDex);
 		kryo.writeObject(output, attackDex);

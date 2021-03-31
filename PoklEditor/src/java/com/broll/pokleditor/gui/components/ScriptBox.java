@@ -29,9 +29,11 @@ import com.broll.pokleditor.gui.components.preview.TextSearchEntry;
 import com.broll.pokleditor.gui.dialogs.TeleportLocationDialog;
 import com.broll.pokleditor.gui.GraphicLoader;
 import com.broll.pokleditor.gui.script.JavascriptFormatter;
+import com.broll.pokleditor.gui.script.RhinoJavaScriptLanguageSupport;
 
 import org.fife.rsta.ac.LanguageSupport;
 import org.fife.rsta.ac.LanguageSupportFactory;
+import org.fife.rsta.ac.java.JarManager;
 import org.fife.rsta.ac.js.JavaScriptLanguageSupport;
 import org.fife.rsta.ac.js.ast.JavaScriptVariableDeclaration;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -49,8 +51,16 @@ public class ScriptBox extends JPanel {
     private static JavaScriptLanguageSupport language;
 
     static {
-        LanguageSupportFactory lsf = LanguageSupportFactory.get();
-        JavaScriptLanguageSupport support = (JavaScriptLanguageSupport) lsf.getSupportFor(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+        RhinoJavaScriptLanguageSupport support = new RhinoJavaScriptLanguageSupport();
+       /*
+         JarManager jars = support.getJarManager();
+       try {
+           jars.addCurrentJreClassFileSource();
+            jars.addClassFileSource(new File("C:\\Users\\Roland\\Dropbox\\PoklDev\\game\\PoklGdxCore.jar"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        jars.getClassFileSources().forEach(it -> System.out.println(it));*/
         language = support;
     }
 

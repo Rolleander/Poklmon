@@ -1,6 +1,8 @@
 package com.broll.pokleditor.panel;
 
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
@@ -16,6 +18,7 @@ public class EditorPanel extends JPanel{
 		setLayout(new BorderLayout());
 		add(toolbar.getBar(),BorderLayout.NORTH);
 		add(map,BorderLayout.CENTER);
+
 	}
 	
 }

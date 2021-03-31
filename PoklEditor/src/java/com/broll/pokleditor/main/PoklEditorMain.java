@@ -18,6 +18,7 @@ import com.broll.pokleditor.window.LoadingWindow;
 import com.broll.pokllib.main.KryoDataControl;
 import com.broll.pokllib.main.PoklLib;
 
+
 public class PoklEditorMain {
 
     private static KryoDataControl dataControl;
@@ -25,7 +26,6 @@ public class PoklEditorMain {
     private static File dataPath;
 
     public static void main(String[] args) {
-
         if (args.length == 0) {
             //in ide
             String path = PoklEditorMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -47,6 +47,7 @@ public class PoklEditorMain {
         }
 
         System.out.println("POKL_PATH: " + POKL_PATH.getAbsolutePath());
+        System.out.println("DEBUG_PATH: " +   GameDebugger.debugPath .getAbsolutePath());
         ImageLoader.initPath(POKL_PATH);
         SoundLoader.initPath(POKL_PATH);
 

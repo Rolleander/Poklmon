@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import com.broll.pokleditor.animationdex.AnimationSpriteset;
+import com.broll.pokleditor.gui.components.preview.CharacterPreview;
 import com.broll.pokleditor.gui.components.preview.PoklmonPreview;
 
 public class ImageLoader {
@@ -29,6 +31,7 @@ public class ImageLoader {
         listPoklmonImages().forEach(it -> imageCache.put("poklmon_" + it, initPoklmonImage(it)));
         listCharacterImages().forEach(it -> imageCache.put("char_" + it, initCharacterImage(it)));
         PoklmonPreview.init();
+        CharacterPreview.init();
     }
 
     public static ImageIcon loadPoklmonImage(String graphics) {
@@ -54,6 +57,7 @@ public class ImageLoader {
         for (File f : file.listFiles()) {
             names.add(f.getName());
         }
+        Collections.sort(names);
         return names;
     }
 
