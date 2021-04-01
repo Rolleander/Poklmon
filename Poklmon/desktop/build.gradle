@@ -30,6 +30,7 @@ task dist(type: Jar) {
     from {configurations.compile.collect {zipTree(it)}}
    // from files(project.assetsDir);
     baseName = "Poklmon"
+    version = ""
     manifest {
         attributes 'Main-Class': project.mainClassName
     }

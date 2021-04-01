@@ -2,7 +2,10 @@ android {
     buildToolsVersion "23.0.3"
     compileSdkVersion 29
     compileOptions.encoding = 'ISO-8859-1'
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'

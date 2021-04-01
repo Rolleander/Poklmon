@@ -1,7 +1,8 @@
 apply plugin: "java-library"
-
-sourceCompatibility = 1.8
+apply plugin: 'maven-publish'
+sourceCompatibility = 1.6
 sourceSets.main.java.srcDirs = [ "src/" ]
+
 
 repositories {
     mavenLocal()
@@ -14,6 +15,17 @@ repositories {
 
 dependencies {
     testCompile("junit:junit:4.12")
-    implementation group: 'com.db4o', name: 'com.db4o', version: '7.7.67'
-    implementation group: 'com.esotericsoftware', name: 'kryo', version: '3.0.3'
+   // implementation group: 'com.db4o', name: 'com.db4o', version: '7.7.67'
+    api group: 'com.esotericsoftware', name: 'kryo', version: '3.0.3'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.broll'
+            artifactId = 'pokllib'
+            version = '1.0'
+            from components.java
+        }
+    }
 }

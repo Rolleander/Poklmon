@@ -1,8 +1,8 @@
 package com.broll.poklmon.game.scene;
 
-import com.broll.poklmon.game.scene.script.ObjectScriptExtension;
-import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
-import com.broll.poklmon.game.scene.script.ScriptingEnvironment;
+import com.broll.poklmon.script.ObjectScriptExtension;
+import com.broll.poklmon.script.ScriptEngineFactory;
+import com.broll.poklmon.script.ScriptingEnvironment;
 import com.broll.poklmon.map.object.MapObject;
 
 import javax.script.Invocable;

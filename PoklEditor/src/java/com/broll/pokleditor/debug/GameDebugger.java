@@ -29,10 +29,10 @@ public class GameDebugger {
 	}
 	
 	private static String[] getCommand( String startCommands){
-		String path=debugPath.getAbsolutePath()+"\\";
-		String cp="\""+path+"PoklGdxLauncher.jar;"+path+"PoklGdxCore.jar;"+path+"libs/*\"";			
-		String mainclass="com.broll.poklmon.desktop.DesktopLauncher";
-		return new String[] { "java", "-cp",cp,  mainclass, startCommands };
+		String path= debugPath.getAbsolutePath();
+	//	String cp="\""+path+"PoklGdxLauncher.jar;"+path+"PoklGdxCore.jar;"+path+"libs/*\"";
+	//	String mainclass="com.broll.poklmon.desktop.DesktopLauncher";
+		return new String[] { "java", "-jar",path, startCommands };
 	}
 
 }

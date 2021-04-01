@@ -8,9 +8,9 @@ import javax.swing.JTabbedPane;
 import com.broll.pokleditor.gui.components.JScriptHelpBox;
 import com.broll.pokleditor.gui.components.ScriptBox;
 import com.broll.pokllib.object.MapObject;
-import com.broll.poklmon.game.scene.script.ObjectInitEnvironment;
-import com.broll.poklmon.game.scene.script.ObjectRuntimeEnvironment;
-import com.broll.poklmon.game.scene.script.ScriptingEnvironment;
+import com.broll.poklmon.script.ObjectInitEnvironment;
+import com.broll.poklmon.script.ObjectRuntimeEnvironment;
+import com.broll.poklmon.script.ScriptingEnvironment;
 
 public class MapObjectScript {
 

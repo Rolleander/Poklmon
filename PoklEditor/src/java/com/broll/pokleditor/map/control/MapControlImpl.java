@@ -8,6 +8,7 @@ import com.broll.pokleditor.map.MapPanel;
 import com.broll.pokleditor.map.MapTileEditor;
 import com.broll.pokleditor.map.dialog.MoveMapDialog;
 import com.broll.pokleditor.map.dialog.ResizeMapDialog;
+import com.broll.pokleditor.map.history.MapEditControl;
 import com.broll.pokleditor.map.objects.ObjectUtil;
 import com.broll.pokleditor.window.EditorWindow;
 import com.broll.pokllib.map.MapData;
@@ -19,9 +20,11 @@ public class MapControlImpl implements MapControlInterface {
 	private int selectionx, selectiony;
 	private MapObject copyObject;
 	private MapTileEditor editor;
+	private MapEditControl editControl;
 
-	public MapControlImpl(MapTileEditor editor) {
+	public MapControlImpl(MapTileEditor editor, MapEditControl editControl) {
 		this.editor = editor;
+		this.editControl = editControl;
 	}
 
 	public void setMap(MapData map) {

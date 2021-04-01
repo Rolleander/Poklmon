@@ -18,7 +18,7 @@ import com.broll.poklmon.game.items.execute.AttackItemRunner;
 import com.broll.poklmon.game.items.execute.BasisItemRunner;
 import com.broll.poklmon.game.items.execute.MenuMedicineItemRunner;
 import com.broll.poklmon.game.items.execute.OtherItemRunner;
-import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
+import com.broll.poklmon.script.ScriptEngineFactory;
 import com.broll.poklmon.model.CharacterWorldState;
 
 import javax.script.Invocable;

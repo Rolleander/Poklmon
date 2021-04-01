@@ -94,7 +94,7 @@ public class PopupMenu
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (areYourSure("delete all Objectes"))
+                if (areYourSure("delete all Objects"))
                 {
                     control.clearTiles();
                 }
@@ -182,7 +182,7 @@ public class PopupMenu
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (areYourSure("delete this Objecte"))
+                if (areYourSure("delete this Object"))
                 {
                     control.deleteSelectedObject();
                 }

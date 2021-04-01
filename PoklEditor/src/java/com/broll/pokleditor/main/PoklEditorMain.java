@@ -30,9 +30,9 @@ public class PoklEditorMain {
             //in ide
             String path = PoklEditorMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
             path = path.substring(0, path.length() - "PoklEditor/build/classes/java/main/".length());
+            GameDebugger.debugPath = new File(path + "/Poklmon.jar");
             path = path + "Poklmon/android/assets/";
             POKL_PATH = new File(path + "data/");
-            GameDebugger.debugPath = new File(path + "/");
         } else {
             try {
                 String path = PoklEditorMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -40,7 +40,7 @@ public class PoklEditorMain {
                 String decodedPath = URLDecoder.decode(path, "UTF-8");
                 decodedPath = decodedPath.substring(0, decodedPath.length() - "PoklEditor.jar".length());
                 POKL_PATH = new File(decodedPath + "data/");
-                GameDebugger.debugPath = new File(decodedPath + "/");
+                GameDebugger.debugPath = new File(decodedPath + "/Poklmon.jar");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

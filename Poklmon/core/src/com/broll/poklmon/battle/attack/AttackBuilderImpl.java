@@ -10,7 +10,7 @@ import com.broll.poklmon.battle.field.FieldEffects;
 import com.broll.poklmon.battle.field.TeamEffect;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.data.DataContainer;
-import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
+import com.broll.poklmon.script.ScriptEngineFactory;
 
 import javax.script.ScriptEngine;
 

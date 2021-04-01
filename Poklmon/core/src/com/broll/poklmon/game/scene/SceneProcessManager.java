@@ -2,9 +2,9 @@ package com.broll.poklmon.game.scene;
 
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.poklmon.game.GameManager;
-import com.broll.poklmon.game.scene.script.ObjectInitEnvironment;
-import com.broll.poklmon.game.scene.script.ObjectRuntimeEnvironment;
-import com.broll.poklmon.game.scene.script.ObjectScriptExtension;
+import com.broll.poklmon.script.ObjectInitEnvironment;
+import com.broll.poklmon.script.ObjectRuntimeEnvironment;
+import com.broll.poklmon.script.ObjectScriptExtension;
 import com.broll.poklmon.main.GameStateManager;
 import com.broll.poklmon.map.object.MapObject;
 import com.esotericsoftware.minlog.Log;

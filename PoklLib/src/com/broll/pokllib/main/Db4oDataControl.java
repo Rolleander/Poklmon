@@ -1,3 +1,4 @@
+/*
 package com.broll.pokllib.main;
 
 import java.io.File;
@@ -149,7 +150,7 @@ public class Db4oDataControl implements DataControlInterface
         db.store(poklmons);
         db.store(mapDex);
         db.store(maps);
-        
+
         db.commit();
         db.close();
     }
@@ -283,3 +284,4 @@ public class Db4oDataControl implements DataControlInterface
 
 
 }
+*/

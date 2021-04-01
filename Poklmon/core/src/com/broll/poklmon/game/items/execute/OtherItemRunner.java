@@ -3,12 +3,12 @@ package com.broll.poklmon.game.items.execute;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.items.OtherItemScript;
 import com.broll.poklmon.game.scene.SceneProcessManager;
-import com.broll.poklmon.game.scene.script.ScriptProcessInteraction;
-import com.broll.poklmon.game.scene.script.commands.DialogCommands;
-import com.broll.poklmon.game.scene.script.commands.MenuCommands;
-import com.broll.poklmon.game.scene.script.commands.PlayerCommands;
-import com.broll.poklmon.game.scene.script.commands.SystemCommands;
-import com.broll.poklmon.game.scene.script.commands.VariableCommands;
+import com.broll.poklmon.script.ScriptProcessInteraction;
+import com.broll.poklmon.script.commands.DialogCommands;
+import com.broll.poklmon.script.commands.MenuCommands;
+import com.broll.poklmon.script.commands.PlayerCommands;
+import com.broll.poklmon.script.commands.SystemCommands;
+import com.broll.poklmon.script.commands.VariableCommands;
 import com.broll.poklmon.map.object.MapObject;
 
 public class OtherItemRunner extends MenuItemRunner implements OtherItemScript {

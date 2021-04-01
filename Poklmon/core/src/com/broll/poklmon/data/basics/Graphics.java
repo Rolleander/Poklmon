@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.BufferUtils;
-import com.esotericsoftware.minlog.Log;
 
 import java.nio.IntBuffer;
 
@@ -26,7 +25,7 @@ public class Graphics {
 		shapeRenderer = new ShapeRenderer();
 		IntBuffer intBuffer = BufferUtils.newIntBuffer(16);
 		Gdx.gl20.glGetIntegerv(GL20.GL_MAX_TEXTURE_SIZE, intBuffer);
-		Log.info("GL20 Max Texture Size: "+intBuffer.get());
+		System.out.println("GL20 Max Texture Size: "+intBuffer.get());
 	}
 
 	public SpriteBatch getSpriteBatch() {

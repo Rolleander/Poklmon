@@ -13,8 +13,8 @@ repositories {
 }
 
 dependencies {
-    compile project(":PoklLib")
     compile group: 'com.broll', name: 'poklmon-core', version: '1.0'
+    compile group: 'com.broll', name: 'pokllib', version: '1.0'
     compile group: 'org.reflections', name: 'reflections', version: '0.9.12'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'

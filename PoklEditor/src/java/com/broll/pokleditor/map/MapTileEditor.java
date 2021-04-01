@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -49,6 +50,7 @@ public class MapTileEditor extends JPanel {
     private MapEditControl mapEdit = new MapEditControl(this);
     private AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f);
     private AlphaComposite previewComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
+    private AlphaComposite areaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.85f);
     private AlphaComposite defaultComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER);
     private int mouseX, mouseY;
     private boolean preview;
@@ -56,7 +58,7 @@ public class MapTileEditor extends JPanel {
     public MapTileEditor() {
         collisionTile = GraphicLoader.loadImage("collisionTile.png");
         eventTile = GraphicLoader.loadImage("eventTile.png");
-        control = new MapControlImpl(this);
+        control = new MapControlImpl(this, mapEdit);
         mouse = new MousePlacementListener(this, mapEdit);
         this.setBackground(MapEditorPanel.background);
         this.addMouseListener(mouse);
@@ -139,7 +141,6 @@ public class MapTileEditor extends JPanel {
         int height = map.getHeight();
         g.setColor(new Color(100, 100, 100));
         g.fillRect(0, 0, width * TILE_SIZE, height * TILE_SIZE);
-        // g.setComposite(ac);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setComposite(defaultComposite);
         for (int i = 0; i < MapData.LAYERS; i++) {
@@ -154,25 +155,31 @@ public class MapTileEditor extends JPanel {
                 for (int y = 0; y < height; y++) {
                     int xp = x * TILE_SIZE;
                     int yp = y * TILE_SIZE;
-                    int area = map.getAreas()[x][y];
                     int tile = map.getTiles()[x][y][i];
                     if (tile > 0) {
                         g.drawImage(tiles[tile - 1], xp, yp, TILE_SIZE, TILE_SIZE, null);
                     }
-
-                    if (MapPanel.isAreaPanelSelected()) {
-                        if (area == 1) {
-                            // collision
-                            g.drawImage(collisionTile, xp, yp, null);
-                        } else if (area > 1) {
-                            // area
-                            g.setColor(AreaColors.getAreaColor(area - 2));
-                            g.fillRect(xp, yp, TILE_SIZE, TILE_SIZE);
-                        }
-                    }
                     if (showGrid) {
                         g.setColor(new Color(50, 50, 50));
                         g.drawRect(xp, yp, TILE_SIZE - 1, TILE_SIZE - 1);
+                    }
+                }
+            }
+        }
+        if(MapPanel.isAreaPanelSelected()){
+            g2d.setComposite(areaComposite);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    int xp = x * TILE_SIZE;
+                    int yp = y * TILE_SIZE;
+                    int area = map.getAreas()[x][y];
+                    if (area == 1) {
+                        // collision
+                        g.drawImage(collisionTile, xp, yp, null);
+                    } else if (area > 1) {
+                        // area
+                        g.setColor(AreaColors.getAreaColor(area - 2));
+                        g.fillRect(xp, yp, TILE_SIZE, TILE_SIZE);
                     }
                 }
             }

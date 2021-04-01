@@ -33,6 +33,8 @@ public class MapKeyActions extends KeyAdapter {
                 control.copyObject();
             } else if (KeyEvent.VK_X == e.getKeyCode()) {
                 control.cutObject();
+            }else if (KeyEvent.VK_V == e.getKeyCode()) {
+                control.pasteObject();
             }
         } else {
             if (KeyEvent.VK_DELETE == e.getKeyCode()) {

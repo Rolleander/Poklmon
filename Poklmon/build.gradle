@@ -32,6 +32,7 @@ allprojects {
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "https://clojars.org/repo/" }
     }
 }
 project(":desktop") {
@@ -82,6 +83,7 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+
     }
 }
 project(":core") {
@@ -89,9 +91,12 @@ project(":core") {
 
 
     dependencies {
+        compile group: 'com.broll', name: 'pokllib', version: '1.0'
         compile 'io.apisense:rhino-android:1.0'
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        compile fileTree(dir: '../libs', include: '*.jar')
+        compile group: 'kryonet', name: 'kryonet-all', version: '2.21'
+        compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+        compile group: 'commons-io', name: 'commons-io', version: '2.8.0'
     }
 }
 tasks.eclipse.doLast {

@@ -1,6 +1,6 @@
 package com.broll.poklmon.game.scene;
 
-import com.broll.poklmon.game.scene.script.ObjectScriptExtension;
+import com.broll.poklmon.script.ObjectScriptExtension;
 import com.broll.poklmon.map.object.MapObject;
 
 public class ScriptInstance {

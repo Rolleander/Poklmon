@@ -1,3 +1,4 @@
+/*
 package com.broll.pokllib.main;
 
 import com.broll.pokllib.animation.Animation;
@@ -19,6 +20,7 @@ import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.pokllib.poklmon.PoklmonID;
 
 public class DataConvertor {
+*/
 /*
 	public static void db4oToKryo() {
 		Db4oDataControl db4oDataControl = new Db4oDataControl();
@@ -30,7 +32,8 @@ public class DataConvertor {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}*//*
+
 
 	public static void xmlToDb4o() throws Exception {
 		XmlDataControl xmlDataControl = new XmlDataControl();
@@ -93,3 +96,4 @@ public class DataConvertor {
 	}
 
 }
+*/

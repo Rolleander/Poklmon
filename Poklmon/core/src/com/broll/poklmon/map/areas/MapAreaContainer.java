@@ -2,7 +2,7 @@ package com.broll.poklmon.map.areas;
 
 import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.pokllib.map.MapFile;
-import com.broll.poklmon.game.scene.script.ScriptEngineFactory;
+import com.broll.poklmon.script.ScriptEngineFactory;
 import com.esotericsoftware.minlog.Log;
 
 import java.util.ArrayList;

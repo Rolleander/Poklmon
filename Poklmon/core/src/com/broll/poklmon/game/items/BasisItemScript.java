@@ -1,11 +1,11 @@
 package com.broll.poklmon.game.items;
 
-import com.broll.poklmon.game.scene.script.commands.BattleCommands;
-import com.broll.poklmon.game.scene.script.commands.DialogCommands;
-import com.broll.poklmon.game.scene.script.commands.MenuCommands;
-import com.broll.poklmon.game.scene.script.commands.PlayerCommands;
-import com.broll.poklmon.game.scene.script.commands.SystemCommands;
-import com.broll.poklmon.game.scene.script.commands.VariableCommands;
+import com.broll.poklmon.script.commands.BattleCommands;
+import com.broll.poklmon.script.commands.DialogCommands;
+import com.broll.poklmon.script.commands.MenuCommands;
+import com.broll.poklmon.script.commands.PlayerCommands;
+import com.broll.poklmon.script.commands.SystemCommands;
+import com.broll.poklmon.script.commands.VariableCommands;
 
 public interface BasisItemScript {
 	
