@@ -75,10 +75,6 @@ public class PoklmonData {
 		this.teamPlace = teamPlace;
 	}
 
-	public static int getNotInTeam() {
-		return NOT_IN_TEAM;
-	}
-
 	public void setKp(int kp) {
 		this.kp = kp;
 	}

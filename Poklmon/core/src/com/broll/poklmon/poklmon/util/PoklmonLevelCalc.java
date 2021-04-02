@@ -47,7 +47,6 @@ public class PoklmonLevelCalc {
 		exp += earnEXP;
 		// set exp
 		poklmon.setExp(exp);
-
 		// check new levels
 		int newl = level + 1;
 		int xp;

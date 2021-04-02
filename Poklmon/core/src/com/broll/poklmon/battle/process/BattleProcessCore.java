@@ -20,8 +20,8 @@ import com.broll.poklmon.save.PoklmonStatistic;
 
 public class BattleProcessCore implements Runnable {
 
-	private BattleManager manager;
-	private ProcessThreadHandler processThreadHandler;
+	protected BattleManager manager;
+	protected ProcessThreadHandler processThreadHandler;
 	private boolean battleOver = false;
 
 	private NetworkEndpoint networkEndpoint;
@@ -34,7 +34,7 @@ public class BattleProcessCore implements Runnable {
 	private BattleProcessItems itemProcess;
 	private BattleEventFlags eventFlags;
 
-	public BattleProcessCore(BattleManager manager) {
+	public void init(BattleManager manager){
 		this.manager = manager;
 		processThreadHandler = new ProcessThreadHandler(this);
 		attackProcess = new BattleProcessAttack(manager, this);
@@ -386,5 +386,9 @@ public class BattleProcessCore implements Runnable {
 
 	public NetworkEndpoint getNetworkEndpoint() {
 		return networkEndpoint;
+	}
+
+	public BattleProcessEXP getExpProcess() {
+		return expProcess;
 	}
 }

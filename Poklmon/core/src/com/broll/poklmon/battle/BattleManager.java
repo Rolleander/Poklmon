@@ -20,130 +20,138 @@ import java.util.List;
 
 public class BattleManager {
 
-	private BattleEndListener endListener;
-	private PlayerMoveSelection playerMoveSelection;
-	private EnemyMoveSelection enemyMoveSelection;
-	private BattleRender battleRender;
-	private BattleParticipants participants;
-	private DataContainer data;
-	private FieldEffects fieldEffects;
-	private Thread battleThread;
-	private Player player;
-	private List<CustomScriptCall> scriptCalls;
-	private boolean networkBattle=false;
+    private BattleEndListener endListener;
+    private PlayerMoveSelection playerMoveSelection;
+    private EnemyMoveSelection enemyMoveSelection;
+    private BattleRender battleRender;
+    private BattleParticipants participants;
+    private DataContainer data;
+    private FieldEffects fieldEffects;
+    private Thread battleThread;
+    private Player player;
+    private List<CustomScriptCall> scriptCalls;
+    private boolean networkBattle = false;
 
-	public BattleManager(DataContainer data, Player player) {
-		TypeComperator.init(data.getMisc().getTypeTable());
-		this.data = data;
-		this.player = player;
-		battleRender = new BattleRender(this);
-		playerMoveSelection = new PlayerMoveSelection(this);
-		enemyMoveSelection = new EnemyMoveSelection(this);
-	}
+    public BattleManager(DataContainer data, Player player) {
+        TypeComperator.init(data.getMisc().getTypeTable());
+        this.data = data;
+        this.player = player;
+        battleRender = new BattleRender(this);
+        playerMoveSelection = new PlayerMoveSelection(this);
+        enemyMoveSelection = new EnemyMoveSelection(this);
+    }
 
-	public void debugInit(BattleParticipants participants) {
-		fieldEffects = new FieldEffects(participants);
-		this.participants = participants;
-		battleRender.init();
-	}
+    public void debugInit(BattleParticipants participants) {
+        fieldEffects = new FieldEffects(participants);
+        this.participants = participants;
+        battleRender.init();
+    }
 
-	private void initBattle(BattleParticipants participants, BattleEndListener end) {
-		this.participants = participants;
-		scriptCalls = new ArrayList<CustomScriptCall>();
-		fieldEffects = new FieldEffects(participants);
-		battleRender.getPoklmonRender().setEnemyPoklmonVisible(false);
-		battleRender.getPoklmonRender().setPlayerPoklmonVisible(false);
-		playerMoveSelection.reset();
-		// check player poklmons defeated
-		if (participants.getPlayer().isFainted()) {
-			// find next poklmon in list, that isnt fainted
-			for (int i = 1; i < participants.getPlayerTeam().size(); i++) {
-				if (!participants.getPlayerTeam().get(i).isFainted()) {
-					participants.changePlayerPoklmon(participants.getPlayerTeam().get(i));
-					break;
-				}
-			}
-		}
-	}
+    private void initBattle(BattleParticipants participants, BattleEndListener end) {
+        this.participants = participants;
+        scriptCalls = new ArrayList<CustomScriptCall>();
+        fieldEffects = new FieldEffects(participants);
+        battleRender.getPoklmonRender().setEnemyPoklmonVisible(false);
+        battleRender.getPoklmonRender().setPlayerPoklmonVisible(false);
+        playerMoveSelection.reset();
+        // check player poklmons defeated
+        if (participants.getPlayer().isFainted()) {
+            // find next poklmon in list, that isnt fainted
+            for (int i = 1; i < participants.getPlayerTeam().size(); i++) {
+                if (!participants.getPlayerTeam().get(i).isFainted()) {
+                    participants.changePlayerPoklmon(participants.getPlayerTeam().get(i));
+                    break;
+                }
+            }
+        }
+    }
 
-	private void startCore(BattleProcessCore core, BattleEndListener end) {
-		// init ki
-		enemyMoveSelection.initKI(core, participants);
-		this.endListener = end;
-		battleRender.init();
-		battleThread = new Thread(core);
-		battleThread.start();
-	}
+    private void startCore(BattleProcessCore core, BattleEndListener end) {
+        core.init(this);
+        // init ki
+        enemyMoveSelection.initKI(core, participants);
+        this.endListener = end;
+        battleRender.init();
+        battleThread = new Thread(core);
+        battleThread.start();
+    }
 
-	public void startNetworkBattle(NetworkEndpoint networkEndpoint, long seed, BattleParticipants participants,
-			BattleEndListener end) {
-		networkBattle=true;
-		BattleRandom.init(seed);
-		initBattle(participants, end);
-		BattleProcessCore core = new BattleProcessCore(this);
-		core.initNetwork(networkEndpoint);
-		startCore(core, end);
-	}
+    public void startNetworkBattle(NetworkEndpoint networkEndpoint, long seed, BattleParticipants participants,
+                                   BattleEndListener end) {
+        networkBattle = true;
+        BattleRandom.init(seed);
+        initBattle(participants, end);
+        BattleProcessCore core = new BattleProcessCore();
+        core.initNetwork(networkEndpoint);
+        startCore(core, end);
+    }
 
-	public void startBattle(BattleParticipants participants, BattleEndListener end) {
-		networkBattle=false;
-		BattleRandom.init();
-		initBattle(participants, end);
-		BattleProcessCore core = new BattleProcessCore(this);
-		startCore(core, end);
-	}
+    public void startBattle(BattleParticipants participants, BattleEndListener end) {
+        networkBattle = false;
+        BattleRandom.init();
+        initBattle(participants, end);
+        BattleProcessCore core = new BattleProcessCore();
+        startCore(core, end);
+    }
 
-	public void update(float delta) {
-		if (SystemClock.isTick()) {
-			player.getData().getGameVariables().setPlayTime(player.getData().getGameVariables().getPlayTime() + 1);
-		}
-		battleRender.update(delta);
-		playerMoveSelection.update(delta);
-	}
+    public void startCustom(BattleParticipants participants, BattleProcessCore core, BattleEndListener end) {
+        networkBattle = false;
+        BattleRandom.init();
+        initBattle(participants, end);
+        startCore(core, end);
+    }
 
-	public void render(Graphics g) {
-		battleRender.render(g);
-		playerMoveSelection.render(g);
-	}
+    public void update(float delta) {
+        if (SystemClock.isTick()) {
+            player.getData().getGameVariables().setPlayTime(player.getData().getGameVariables().getPlayTime() + 1);
+        }
+        battleRender.update(delta);
+        playerMoveSelection.update(delta);
+    }
 
-	public EnemyMoveSelection getEnemyMoveSelection() {
-		return enemyMoveSelection;
-	}
+    public void render(Graphics g) {
+        battleRender.render(g);
+        playerMoveSelection.render(g);
+    }
 
-	public PlayerMoveSelection getPlayerMoveSelection() {
-		return playerMoveSelection;
-	}
+    public EnemyMoveSelection getEnemyMoveSelection() {
+        return enemyMoveSelection;
+    }
 
-	public BattleRender getBattleRender() {
-		return battleRender;
-	}
+    public PlayerMoveSelection getPlayerMoveSelection() {
+        return playerMoveSelection;
+    }
 
-	public BattleEndListener getEndListener() {
-		return endListener;
-	}
+    public BattleRender getBattleRender() {
+        return battleRender;
+    }
 
-	public BattleParticipants getParticipants() {
-		return participants;
-	}
+    public BattleEndListener getEndListener() {
+        return endListener;
+    }
 
-	public DataContainer getData() {
-		return data;
-	}
+    public BattleParticipants getParticipants() {
+        return participants;
+    }
 
-	public FieldEffects getFieldEffects() {
-		return fieldEffects;
-	}
+    public DataContainer getData() {
+        return data;
+    }
 
-	public Player getPlayer() {
-		return player;
-	}
+    public FieldEffects getFieldEffects() {
+        return fieldEffects;
+    }
 
-	public List<CustomScriptCall> getScriptCalls() {
-		return scriptCalls;
-	}
-	
-	public boolean isNetworkBattle() {
-		return networkBattle;
-	}
+    public Player getPlayer() {
+        return player;
+    }
+
+    public List<CustomScriptCall> getScriptCalls() {
+        return scriptCalls;
+    }
+
+    public boolean isNetworkBattle() {
+        return networkBattle;
+    }
 
 }

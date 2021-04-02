@@ -1,5 +1,6 @@
 package com.broll.poklmon.battle.render.sequence;
 
+import com.badlogic.gdx.Gdx;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.util.SelectionListener;
@@ -87,7 +88,7 @@ public class PoklmonEvolutionSequence extends SequenceRender {
 		if (intro == true) {
 			// update
 			if (time < DURATION) {
-				time += delta;
+				time += Gdx.graphics.getDeltaTime() +1;
 				if (change > 10) {
 					change -= .1;
 				}

@@ -23,7 +23,7 @@ public abstract class SearchEntry extends JComponent {
     }
 
     public boolean filtered(String text) {
-        return StringUtils.containsIgnoreCase(this.text, text);
+        return StringUtils.containsIgnoreCase(this.text, text) || StringUtils.containsIgnoreCase(this.key + "", text);
     }
 
     public abstract void updateFocus(boolean isSelected, boolean cellHasFocus);

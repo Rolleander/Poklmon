@@ -1,2 +1,2 @@
-Base-EXP:  https://www.pokewiki.de/FP-Liste
-Base-Stats: https://www.pokewiki.de/Rangliste_der_Pok%C3%A9mon
+Base-EXP:  https://www.pokewiki.de/FP-Liste_(3._-_4._Generation)
+Base-Stats: https://www.pokewiki.de/Rangliste_der_Pok%C3%A9mon_der_1._Generation

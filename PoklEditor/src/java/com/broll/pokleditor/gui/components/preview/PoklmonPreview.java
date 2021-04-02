@@ -44,7 +44,7 @@ public class PoklmonPreview extends TextSearchEntry {
         NONE.setId(-1);
     }
 
-    public PoklmonPreview(Poklmon poklmon) {
+    public PoklmonPreview(Poklmon poklmon, Poklmon preStage) {
         super(poklmon.getName(), poklmon.getId());
         this.poklmon = poklmon;
         if (poklmon.getId() == -1) {
@@ -68,10 +68,16 @@ public class PoklmonPreview extends TextSearchEntry {
         center.endColumn();
         center.addCell(new JLabel("#" + poklmon.getPokldexNumber()));
         int evolveTo = poklmon.getEvolveIntoPoklmon();
-        if (evolveTo != -1) {
+        if (evolveTo != -1 || preStage != null) {
             center.endColumn();
-            String into = PoklData.loadPoklmon(evolveTo).getName();
-            center.addCell(new JLabel("Lv." + poklmon.getEvolveLevel() + " -> " + into));
+            if (preStage != null) {
+                center.addCell(new JLabel("Base:  " + preStage.getId() + ". " + preStage.getName() + " evolves Lv. " + preStage.getEvolveLevel()));
+            }
+            if (evolveTo != -1) {
+                Poklmon evolve = PoklData.loadPoklmon(evolveTo);
+                String into = evolve.getName();
+                center.addCell(new JLabel("Lv." + poklmon.getEvolveLevel() + " evolves into " + evolve.getId() + ". " + into));
+            }
         }
         center.endColumn();
 
@@ -98,9 +104,16 @@ public class PoklmonPreview extends TextSearchEntry {
     }
 
     public static List<SearchEntry> all(boolean allowNone) {
-        List<SearchEntry> entries = PoklDataUtil.getAllPoklmons().stream().map(PoklmonPreview::new).collect(Collectors.toList());
+        List<Poklmon> poklmons = PoklDataUtil.getAllPoklmons();
+        Map<Poklmon, Poklmon> preStages = new HashMap<>();
+        poklmons.forEach(poklmon -> {
+            if (poklmon.getEvolveIntoPoklmon() != -1) {
+                preStages.put(PoklData.loadPoklmon(poklmon.getEvolveIntoPoklmon()), poklmon);
+            }
+        });
+        List<SearchEntry> entries = poklmons.stream().map(pokl -> new PoklmonPreview(pokl, preStages.get(pokl))).collect(Collectors.toList());
         if (allowNone) {
-            entries.add(0, new PoklmonPreview(NONE));
+            entries.add(0, new PoklmonPreview(NONE, null));
         }
         return entries;
     }

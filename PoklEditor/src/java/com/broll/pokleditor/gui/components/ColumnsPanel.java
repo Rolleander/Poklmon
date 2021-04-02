@@ -12,7 +12,7 @@ public class ColumnsPanel extends JPanel {
     private JPanel column;
 
     public ColumnsPanel() {
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+        setLayout(new FlowLayout(FlowLayout.LEFT,15,5));
         column = new JPanel(new VerticalLayout(VerticalLayout.TOP));
     }
 
