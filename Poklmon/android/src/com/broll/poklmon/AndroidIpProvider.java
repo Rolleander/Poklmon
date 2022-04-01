@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 
 import com.broll.poklmon.network.AddressProvider;
-import com.esotericsoftware.minlog.Log;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -39,7 +38,7 @@ public class AndroidIpProvider implements AddressProvider {
         try {
             ipAddressString = InetAddress.getByAddress(ipByteArray).getHostAddress();
         } catch (UnknownHostException ex) {
-            Log.error("Unable to get host address.",ex);
+            ex.printStackTrace();
             ipAddressString = null;
         }
         return ipAddressString;

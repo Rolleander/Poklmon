@@ -5,17 +5,11 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
+import com.broll.pokleditor.debug.CallbackList;
 import com.broll.pokleditor.gui.components.JScriptHelpBox;
 import com.broll.pokleditor.gui.components.ScriptBox;
 import com.broll.pokleditor.gui.components.StringBox;
 import com.broll.pokllib.item.Item;
-import com.broll.poklmon.game.items.AttackItemScript;
-import com.broll.poklmon.game.items.BasisItemScript;
-import com.broll.poklmon.game.items.MedicineItemScript;
-import com.broll.poklmon.game.items.OtherItemScript;
-import com.broll.poklmon.game.items.PoklballItemScript;
-import com.broll.poklmon.game.items.WearableItemScript;
-import com.broll.poklmon.game.items.callbacks.CallbackList;
 
 public class ItemEditScript extends JPanel {
 
@@ -27,12 +21,12 @@ public class ItemEditScript extends JPanel {
 	public ItemEditScript() {
 		setLayout(new BorderLayout());
 		JScriptHelpBox help = new JScriptHelpBox();
-		help.addObject(MedicineItemScript.class, "medicine");
-		help.addObject(PoklballItemScript.class, "poklball");
-		help.addObject(WearableItemScript.class, "wearable");
-		help.addObject(OtherItemScript.class, "other");
-		help.addObject(BasisItemScript.class, "basis");
-		help.addObject(AttackItemScript.class, "attack");
+		help.addObject("com.broll.poklmon.game.items.MedicineItemScript", "medicine");
+		help.addObject("com.broll.poklmon.game.items.PoklballItemScript", "poklball");
+		help.addObject("com.broll.poklmon.game.items.WearableItemScript", "wearable");
+		help.addObject("com.broll.poklmon.game.items.OtherItemScript", "other");
+		help.addObject("com.broll.poklmon.game.items.BasisItemScript", "basis");
+		help.addObject("com.broll.poklmon.game.items.AttackItemScript", "attack");
 
 		for(Class c: CallbackList.getCallbacks()){
 			help.addClass(c, null);

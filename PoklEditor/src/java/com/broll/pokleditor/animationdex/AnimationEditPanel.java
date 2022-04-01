@@ -13,7 +13,7 @@ import com.broll.pokleditor.gui.components.StringBox;
 import com.broll.pokleditor.gui.GraphicLoader;
 import com.broll.pokleditor.window.EditorWindow;
 import com.broll.pokllib.animation.Animation;
-import com.broll.poklmon.main.StartInformation;
+import com.broll.pokllib.game.StartInformation;
 
 public class AnimationEditPanel extends JPanel{
 
@@ -42,7 +42,7 @@ public class AnimationEditPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				save();
 				EditorWindow.save();
-				StartInformation startInformation = new StartInformation(null);
+				StartInformation startInformation = new StartInformation();
 				startInformation.debugAnimation(animation.getId());
 				GameDebugger.debugGame(startInformation);
 			}

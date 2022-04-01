@@ -3,10 +3,17 @@ package com.broll.pokleditor.main;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.net.URLDecoder;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import com.broll.pokleditor.data.PoklData;
+import com.broll.pokleditor.debug.DebuggerClasses;
 import com.broll.pokleditor.debug.GameDebugger;
 import com.broll.pokleditor.gui.script.JavascriptFormatter;
 import com.broll.pokleditor.map.MapTileEditor;
@@ -26,62 +33,54 @@ public class PoklEditorMain {
     private static File dataPath;
 
     public static void main(String[] args) {
-        if (args.length == 0) {
-            //in ide
-            String path = PoklEditorMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-            path = path.substring(0, path.length() - "PoklEditor/build/classes/java/main/".length());
-            GameDebugger.debugPath = new File(path + "/Poklmon.jar");
-            path = path + "Poklmon/android/assets/";
-            POKL_PATH = new File(path + "data/");
-        } else {
-            try {
+        try {
+            if (args.length == 0) {
+                //in ide
+                String path = PoklEditorMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+                path = path.substring(0, path.length() - "PoklEditor/build/classes/java/main/".length());
+                GameDebugger.debugPath = new File(path + "/Poklmon/desktop/build/libs/Poklmon.jar");
+                path = path + "Poklmon/assets/";
+                POKL_PATH = new File(path + "data/");
+            } else {
                 String path = PoklEditorMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
                 System.out.println("EditorClass: " + path);
                 String decodedPath = URLDecoder.decode(path, "UTF-8");
                 decodedPath = decodedPath.substring(0, decodedPath.length() - "PoklEditor.jar".length());
                 POKL_PATH = new File(decodedPath + "data/");
                 GameDebugger.debugPath = new File(decodedPath + "/Poklmon.jar");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
             }
-        }
-
-        System.out.println("POKL_PATH: " + POKL_PATH.getAbsolutePath());
-        System.out.println("DEBUG_PATH: " +   GameDebugger.debugPath .getAbsolutePath());
-        ImageLoader.initPath(POKL_PATH);
-        SoundLoader.initPath(POKL_PATH);
-
-        LoadingWindow.open();
-        System.out.println("Load Tiles...");
-        MapTileEditor.tiles = ImageLoader.loadTileset();
-        System.out.println("Load DbControl...");
-        dataPath = new File(POKL_PATH.getPath() + "/poklmon.data");
-        dataControl = new KryoDataControl();
-        try {
+            System.out.println("POKL_PATH: " + POKL_PATH.getAbsolutePath());
+            System.out.println("DEBUG_PATH: " + GameDebugger.debugPath.getAbsolutePath());
+            ImageLoader.initPath(POKL_PATH);
+            SoundLoader.initPath(POKL_PATH);
+            LoadingWindow.open();
+            System.out.println("Load Tiles...");
+            MapTileEditor.tiles = ImageLoader.loadTileset();
+            System.out.println("Load DbControl...");
+            dataPath = new File(POKL_PATH.getPath() + "/poklmon.data");
+            dataControl = new KryoDataControl();
             System.out.println("Load Data...");
             dataControl.read(new FileInputStream(dataPath));
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        System.out.println("Init PoklLib..");
-        PoklLib.init(dataControl);
-        // PoklLib.init(new XmlDataControl());
-        System.out.println("Init Window...");
-        EditorWindow window = new EditorWindow();
-        try {
+            System.out.println("Init PoklLib..");
+            PoklLib.init(dataControl);
+            // PoklLib.init(new XmlDataControl());
+            System.out.println("Init Window...");
+            EditorWindow window = new EditorWindow();
             System.out.println("Load Indexes...");
             PoklData.loadIndexes();
+            System.out.println("Create caches...");
+            ImageLoader.createCache();
+            JavascriptFormatter.init();
+            System.out.println("Load debugger classes...");
+            DebuggerClasses.loadDebuggerClasses();
+            System.out.println("Show Window...");
+            EditorPanel panel = new EditorPanel();
+            window.open(panel);
         } catch (Exception e) {
-            EditorWindow.showErrorMessage("Couldnt load Indexes!");
             e.printStackTrace();
-            return;
+            BugSplashDialog.showError("Failed to start editor: " + e.getMessage());
+            System.exit(0);
         }
-        System.out.println("Create caches...");
-        ImageLoader.createCache();
-        JavascriptFormatter.init();
-        System.out.println("Show Window...");
-        EditorPanel panel = new EditorPanel();
-        window.open(panel);
     }
 
     public static void forceSave() {

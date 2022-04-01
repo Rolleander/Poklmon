@@ -11,9 +11,9 @@ import com.broll.pokleditor.map.dialog.ResizeMapDialog;
 import com.broll.pokleditor.map.history.MapEditControl;
 import com.broll.pokleditor.map.objects.ObjectUtil;
 import com.broll.pokleditor.window.EditorWindow;
+import com.broll.pokllib.game.StartInformation;
 import com.broll.pokllib.map.MapData;
 import com.broll.pokllib.object.MapObject;
-import com.broll.poklmon.main.StartInformation;
 
 public class MapControlImpl implements MapControlInterface {
 	private MapData map;
@@ -53,7 +53,7 @@ public class MapControlImpl implements MapControlInterface {
 		int x = selectionx;
 		int y = selectiony;
 
-		StartInformation startInformation = new StartInformation(null);
+		StartInformation startInformation = new StartInformation();
 		startInformation.debugMap(mapId, x, y);
 		GameDebugger.debugGame(startInformation);
 	}

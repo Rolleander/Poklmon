@@ -10,9 +10,9 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.minlog.Log;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
@@ -27,7 +27,7 @@ public final class CustomObjectSerializer {
         kryo.setRegistrationRequired(false);
         Log.set(Log.LEVEL_WARN);
         try {
-            Input input = new Input(IOUtils.toInputStream(save, Charset.defaultCharset()));
+            Input input = new Input(new ByteArrayInputStream(save.getBytes()));
             return kryo.readObject(input, clazz);
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public final class CustomObjectSerializer {
             Output output = new Output(stream);
             kryo.writeObject(output, object);
             output.close();
-            return stream.toString(Charset.defaultCharset());
+            return stream.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

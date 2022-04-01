@@ -8,9 +8,6 @@ import javax.swing.JTabbedPane;
 import com.broll.pokleditor.gui.components.JScriptHelpBox;
 import com.broll.pokleditor.gui.components.ScriptBox;
 import com.broll.pokllib.object.MapObject;
-import com.broll.poklmon.script.ObjectInitEnvironment;
-import com.broll.poklmon.script.ObjectRuntimeEnvironment;
-import com.broll.poklmon.script.ScriptingEnvironment;
 
 public class MapObjectScript {
 
@@ -21,8 +18,8 @@ public class MapObjectScript {
 
 	public MapObjectScript() {
 
-		addScriptDictionary(new ObjectInitEnvironment(), attributes);
-		addScriptDictionary(new ObjectRuntimeEnvironment(), trigger);
+		addInitScriptEnv(attributes);
+		addRuntimeScriptEnv(trigger);
 
 		JTabbedPane tabs = new JTabbedPane();
 		tabs.addTab("Init Script", attributes);
@@ -34,12 +31,30 @@ public class MapObjectScript {
 		// content.add(trigger, BorderLayout.CENTER);
 	}
 
-	private void addScriptDictionary(ScriptingEnvironment env, ScriptBox box) {
-		env.addController(null, new com.broll.poklmon.map.object.MapObject(null,null));
+	private void addInitScriptEnv(ScriptBox box){
+		//has to match com.broll.poklmon.script.ObjectInitEnvironment
 		JScriptHelpBox help = new JScriptHelpBox();
-		for (int i = 0; i < env.getController().size(); i++) {
-			help.addObject(env.getController().get(i).getClass(), env.getObjectNames().get(i));
-		}
+		help.addObject("com.broll.poklmon.map.object.MapObject", "self");
+		help.addObject("com.broll.poklmon.script.commands.InitCommands","init");
+		help.addObject("com.broll.poklmon.script.commands.VariableCommands","game");
+		help.addObject("com.broll.poklmon.script.commands.PathingCommands","path");
+		help.addObject("com.broll.poklmon.script.commands.SystemCommands","system");
+		box.addDictonary(help);
+	}
+
+	private void addRuntimeScriptEnv(ScriptBox box){
+		//has to match com.broll.poklmon.script.ObjectInitEnvironment
+		JScriptHelpBox help = new JScriptHelpBox();
+		help.addObject("com.broll.poklmon.map.object.MapObject", "self");
+		help.addObject("com.broll.poklmon.script.commands.PlayerCommands","player");
+		help.addObject("com.broll.poklmon.script.commands.BattleCommands","battle");
+		help.addObject("com.broll.poklmon.script.commands.DialogCommands","dialog");
+		help.addObject("com.broll.poklmon.script.commands.MenuCommands","menu");
+		help.addObject("com.broll.poklmon.script.commands.ObjectCommands","object");
+		help.addObject("com.broll.poklmon.script.commands.SystemCommands","system");
+		help.addObject("com.broll.poklmon.script.commands.VariableCommands","game");
+		help.addObject("com.broll.poklmon.script.commands.PathingCommands","path");
+		help.addObject("com.broll.poklmon.script.commands.NetworkCommands","network");
 		box.addDictonary(help);
 	}
 

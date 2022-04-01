@@ -12,7 +12,6 @@ import com.broll.pokleditor.gui.components.JScriptHelpBox;
 import com.broll.pokleditor.gui.components.ScriptBox;
 import com.broll.pokleditor.gui.GraphicLoader;
 import com.broll.pokleditor.map.control.MapControlImpl;
-import com.broll.poklmon.map.areas.AreaScriptActions;
 
 public class MapAreaScriptBox extends JPanel {
 
@@ -23,7 +22,7 @@ public class MapAreaScriptBox extends JPanel {
 		JPanel tools = new JPanel();
 		tools.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		JScriptHelpBox help = new JScriptHelpBox();
-		help.addObject(AreaScriptActions.class, "area");
+		help.addObject("com.broll.poklmon.map.areas.AreaScriptActions", "area");
 		script.addDictonary(help);
 
 		JButton poklwizard = new JButton("Add Wild Poklmons", GraphicLoader.loadIcon("grass.png"));

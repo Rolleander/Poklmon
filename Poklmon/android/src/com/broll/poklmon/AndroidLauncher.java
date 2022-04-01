@@ -5,7 +5,7 @@ import android.view.WindowManager;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.broll.poklmon.main.StartInformation;
+import com.broll.pokllib.game.StartInformation;
 import com.broll.poklmon.main.states.TitleMenuState;
 import com.broll.poklmon.network.NetworkServer;
 import com.broll.poklmon.save.manage.SaveFileManager;
@@ -19,7 +19,7 @@ public class AndroidLauncher extends AndroidApplication {
 		config.useCompass=false;
 		config.useGyroscope=false;
 		config.useImmersiveMode=true;
-		StartInformation start=new StartInformation(null);
+		StartInformation start=new StartInformation();
 	//	start.debugScene(TitleMenuState.class);
 		start.setTouchControling(true);
 		SaveFileManager.initSaveInterface(new AndroidSaveFolder());

@@ -22,6 +22,7 @@ import com.broll.poklmon.main.states.TitleMenuState;
 import com.broll.poklmon.transition.DefaultTransition;
 import com.broll.poklmon.transition.ScreenTransition;
 import com.broll.poklmon.transition.TransitionListener;
+import com.broll.pokllib.game.StartInformation;
 import com.esotericsoftware.minlog.Log;
 
 import java.util.ArrayList;

@@ -43,7 +43,7 @@ public class FightPokemonBuilder {
 		short[] DV = CaughtPoklmonMeasurement.generateRandomDVs();
 		short[] FP = { 0, 0, 0, 0, 0, 0 };
 		p.setDv(DV);
-		p.setHasPowerfulGenes(RarePoklmonCalc.hasPowerfulGenes(DV));
+		//p.setHasPowerfulGenes(RarePoklmonCalc.hasPowerfulGenes(DV));
 		PoklmonWesen wesen = CaughtPoklmonMeasurement.getRandomWesen();
 		p.setWesen(wesen);
 		FightAttributes att = createAttributes(poklmon, level, DV, FP, wesen);
@@ -70,7 +70,7 @@ public class FightPokemonBuilder {
 		p.setMainStatus(poklmon.getStatus());
 		p.updateExp();
 		short[] DV = poklmon.getDv();
-		p.setHasPowerfulGenes(RarePoklmonCalc.hasPowerfulGenes(DV));
+		//p.setHasPowerfulGenes(RarePoklmonCalc.hasPowerfulGenes(DV));
 		FightAttributes att = createAttributes(pokl, level, DV, poklmon.getFp(), poklmon.getWesen());
 		// set current kp
 		int health = poklmon.getKp();

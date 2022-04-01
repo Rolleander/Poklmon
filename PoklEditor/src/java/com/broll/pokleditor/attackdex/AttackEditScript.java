@@ -14,10 +14,8 @@ import com.broll.pokleditor.gui.components.ScriptTest;
 import com.broll.pokleditor.gui.components.StringBox;
 import com.broll.pokleditor.window.EditorWindow;
 import com.broll.pokllib.attack.Attack;
-import com.broll.poklmon.battle.attack.UseAttack;
-import com.broll.poklmon.battle.attack.script.ScriptAttackActions;
-import com.broll.poklmon.battle.poklmon.FightPoklmon;
-import com.broll.poklmon.main.StartInformation;
+import com.broll.pokllib.game.StartInformation;
+
 
 public class AttackEditScript extends JPanel {
 
@@ -31,10 +29,10 @@ public class AttackEditScript extends JPanel {
 		setLayout(new BorderLayout());
 		this.saveListener = saveListener;
 		JScriptHelpBox help = new JScriptHelpBox();
-		help.addObject(UseAttack.class, "atk");
-		help.addObject(ScriptAttackActions.class, "util");
-		help.addObject(FightPoklmon.class, "user");
-		help.addObject(FightPoklmon.class, "target");
+		help.addObject("com.broll.poklmon.battle.attack.UseAttack", "atk");
+		help.addObject("com.broll.poklmon.battle.attack.script.ScriptAttackActions", "util");
+		help.addObject("com.broll.poklmon.battle.poklmon.FightPoklmon", "user");
+		help.addObject("com.broll.poklmon.battle.poklmon.FightPoklmon", "target");
 
 		effectscript.addDictonary(help);
 		add(effectscript, BorderLayout.CENTER);
@@ -66,7 +64,7 @@ public class AttackEditScript extends JPanel {
 			saveListener.saveChanges();
 			// EditorWindow.createDebugData();
 			EditorWindow.save();
-			StartInformation startInformation = new StartInformation(null);
+			StartInformation startInformation = new StartInformation();
 			startInformation.debugAttack(attack.getId());
 			GameDebugger.debugGame(startInformation);
 		}

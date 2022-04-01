@@ -19,7 +19,7 @@ import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.debug.DebugPlayerFactory;
 import com.broll.poklmon.main.GameState;
-import com.broll.poklmon.main.StartInformation;
+import com.broll.pokllib.game.StartInformation;
 import com.broll.poklmon.player.Player;
 import com.broll.poklmon.resource.GUIDesign;
 import com.broll.poklmon.resource.GUIFonts;
@@ -68,7 +68,11 @@ public class LoadingState extends GameState {
 			} else {
 
 				// test a scene
-				nextState = startInformation.getDebugScene();
+				try {
+					nextState = Class.forName("com.broll.poklmon.main.states."+startInformation.getDebugScene());
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		states.transition(nextState);

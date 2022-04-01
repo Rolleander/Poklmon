@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.broll', name: 'poklmon-core', version: '1.0'
     compile group: 'com.broll', name: 'pokllib', version: '1.0'
     compile group: 'org.reflections', name: 'reflections', version: '0.9.12'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
@@ -30,4 +29,12 @@ task dist(type: Jar) {
     manifest {
         attributes 'Main-Class': 'com.broll.pokleditor.main.PoklEditorMain'
     }
+}
+
+task run(type: JavaExec) {
+    group = "Execution"
+    standardInput = System.in
+    description = "Runs the Editor"
+    classpath =  sourceSets.main.runtimeClasspath
+    main = "com.broll.pokleditor.main.PoklEditorMain"
 }
