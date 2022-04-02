@@ -14,19 +14,10 @@
 	* Java-script support for implementing attack, item and event-scripts
 	* Testing objects and the game
 
-## Installation
-
-- Build PoklLib (Data-Library used by the game and editor) 
-```
-cd PoklLib
-gradlew publishToMavenLocal
-```
-
 ## Run Game on Desktop
 
 ```
-cd Poklmon
-gradlew desktop:run
+gradlew runDesktop
 ```
 
 ## Run Game on Android
@@ -37,23 +28,13 @@ gradlew desktop:run
 - minSdkVersion 14, targetSdkVersion 30
 
 ```
-cd Poklmon
-gradlew android:run
+gradlew runAndroid
 ```
 
 ## Run Editor
 
 ![Screenshot](docs/editor.JPG)
 
-- Build dist jar (Editor requires it for debugging the game and scripting support) 
 ```
-cd Poklmon
-gradlew desktop:dist
-```
-
-- Start the editor
-
-```
-cd PoklEditor
-gradlew run
+gradlew runEditor
 ```
