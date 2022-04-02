@@ -30,6 +30,7 @@ import com.broll.pokleditor.gui.dialogs.TeleportLocationDialog;
 import com.broll.pokleditor.gui.GraphicLoader;
 import com.broll.pokleditor.gui.script.JavascriptFormatter;
 import com.broll.pokleditor.gui.script.RhinoJavaScriptLanguageSupport;
+import com.broll.pokleditor.gui.script.ScriptCompletionSetup;
 
 import org.fife.rsta.ac.LanguageSupport;
 import org.fife.rsta.ac.LanguageSupportFactory;
@@ -48,22 +49,6 @@ public class ScriptBox extends JPanel {
     private JLabel compileInfo = new JLabel("");
     private JSplitPane content = new JSplitPane();
 
-    private static JavaScriptLanguageSupport language;
-
-    static {
-        RhinoJavaScriptLanguageSupport support = new RhinoJavaScriptLanguageSupport();
-       /*
-         JarManager jars = support.getJarManager();
-       try {
-           jars.addCurrentJreClassFileSource();
-            jars.addClassFileSource(new File("C:\\Users\\Roland\\Dropbox\\PoklDev\\game\\PoklGdxCore.jar"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        jars.getClassFileSources().forEach(it -> System.out.println(it));*/
-        language = support;
-    }
-
     public ScriptBox(String name, int w, int h, final ScriptTest scriptTest) {
         setLayout(new BorderLayout());
         JPanel infoLine = new JPanel(new BorderLayout());
@@ -72,7 +57,7 @@ public class ScriptBox extends JPanel {
         script = new RSyntaxTextArea();
         script.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
         script.setCodeFoldingEnabled(false);
-        language.install(script);
+        ScriptCompletionSetup.languageSupport.install(script);
         JLabel title = new JLabel(name);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
         infoLine.add(title, BorderLayout.WEST);

@@ -47,7 +47,7 @@ public class MapControlImpl implements MapControlInterface {
 	@Override
 	public void debugFromHere() {
 		// save
-		EditorWindow.save();
+		EditorWindow.writeDebugData();
 		// start game in debug mode
 		int mapId = map.getFile().getId();
 		int x = selectionx;

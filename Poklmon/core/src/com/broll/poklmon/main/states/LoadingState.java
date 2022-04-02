@@ -32,182 +32,186 @@ import java.io.InputStream;
 
 public class LoadingState extends GameState {
 
-	private DataContainer data = new DataContainer();
-	private int loadingStep = 0;
-	private String loadingInfo = "Poklmons";
-	private StartInformation startInformation;
+    private DataContainer data = new DataContainer();
+    private int loadingStep = 0;
+    private String loadingInfo = "Poklmons";
+    private StartInformation startInformation;
 
-	public LoadingState(StartInformation startInformation) {
-		this.startInformation = startInformation;
-	}
+    public LoadingState(StartInformation startInformation) {
+        this.startInformation = startInformation;
+    }
 
-	private void finishedLoading() {
-		Class nextState = IntroState.class;
-		if (startInformation.isDebugGame()) {
+    private void finishedLoading() {
+        Class nextState = IntroState.class;
+        if (startInformation.isDebugGame()) {
 
-			if (startInformation.isDebugMap()) {
-				// test map
-				Player.SAVING_ALLOWED = false;
-				nextState = MapState.class;
-				int mapNr = startInformation.getMapId();
-				int mapX = startInformation.getMapX();
-				int mapY = startInformation.getMapY();
-				DebugPlayerFactory debugPlayerFactory = new DebugPlayerFactory(data);
-				GameData gameData = debugPlayerFactory.createDebugPlayer(mapNr, mapX, mapY);
-				MapState gameState = (MapState) states.getState(MapState.class);
-				gameState.openGame(gameData);
-			} else if (startInformation.isDebugAttack()) {
-				// test attack
-				nextState = BattleDebugState.class;
-				BattleDebugState state = (BattleDebugState) states.getState(BattleDebugState.class);
-				state.debugAttack(startInformation.getAttackId());
-			} else if (startInformation.isDebugAnimation()) {
-				nextState = AnimationDebugState.class;
-				AnimationDebugState state = (AnimationDebugState) states.getState(AnimationDebugState.class);
-				state.debugAnimation(startInformation.getAnimationId());
-			} else {
+            if (startInformation.isDebugMap()) {
+                // test map
+                Player.SAVING_ALLOWED = false;
+                nextState = MapState.class;
+                int mapNr = startInformation.getMapId();
+                int mapX = startInformation.getMapX();
+                int mapY = startInformation.getMapY();
+                DebugPlayerFactory debugPlayerFactory = new DebugPlayerFactory(data);
+                GameData gameData = debugPlayerFactory.createDebugPlayer(mapNr, mapX, mapY);
+                MapState gameState = (MapState) states.getState(MapState.class);
+                gameState.openGame(gameData);
+            } else if (startInformation.isDebugAttack()) {
+                // test attack
+                nextState = BattleDebugState.class;
+                BattleDebugState state = (BattleDebugState) states.getState(BattleDebugState.class);
+                state.debugAttack(startInformation.getAttackId());
+            } else if (startInformation.isDebugAnimation()) {
+                nextState = AnimationDebugState.class;
+                AnimationDebugState state = (AnimationDebugState) states.getState(AnimationDebugState.class);
+                state.debugAnimation(startInformation.getAnimationId());
+            } else {
 
-				// test a scene
-				try {
-					nextState = Class.forName("com.broll.poklmon.main.states."+startInformation.getDebugScene());
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		states.transition(nextState);
-	}
+                // test a scene
+                try {
+                    nextState = Class.forName("com.broll.poklmon.main.states." + startInformation.getDebugScene());
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        states.transition(nextState);
+    }
 
-	public DataContainer getData() {
-		return data;
-	}
+    public DataContainer getData() {
+        return data;
+    }
 
-	@Override
-	public void render(float delta) {
-		update(delta);
-		render(graphics);
-	}
+    @Override
+    public void render(float delta) {
+        update(delta);
+        render(graphics);
+    }
 
-	@Override
-	public void onInit() {
-	}
+    @Override
+    public void onInit() {
+    }
 
-	@Override
-	public void onEnter() {
-	}
+    @Override
+    public void onEnter() {
+    }
 
-	@Override
-	public void onExit() {
-	}
+    @Override
+    public void onExit() {
+    }
 
-	@Override
-	public void update(float delta) {
-		try {
-			switch (loadingStep) {
-			case 0:
-				loadingInfo = "Data";
-				// load gamedata file
-				KryoDataControl dataControl = new KryoDataControl();
-				InputStream stream = Gdx.files.internal(ResourceUtils.DATA_PATH + "poklmon.data").read();
-				try {
-					dataControl.read(stream);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				try {
-					stream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				PoklLib.init(dataControl);
-				TextContainer.load();
-				break;
+    @Override
+    public void update(float delta) {
+        try {
+            switch (loadingStep) {
+                case 0:
+                    loadingInfo = "Data";
+                    // load gamedata file
+                    KryoDataControl dataControl = new KryoDataControl();
+                    String poklData = "poklmon.data";
+                    if (startInformation.isDebugGame()) {
+                        poklData = "poklmon-debug.data";
+                    }
+                    InputStream stream = Gdx.files.internal(ResourceUtils.DATA_PATH + poklData).read();
+                    try {
+                        dataControl.read(stream);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        stream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    PoklLib.init(dataControl);
+                    TextContainer.load();
+                    break;
 
-			case 1:
-				// Load poklmon data
-				loadingInfo = "Items";
-				PoklmonContainer pokldat = new PoklmonContainer(DataLoader.loadPoklmons());
-				data.setPoklmons(pokldat);
-				//load msic
-				MiscContainer misc=new MiscContainer();
-				misc.load();
-				data.setMisc(misc);
-				break;
-			case 2:
-				// Load item data
-				loadingInfo = "Attacks";
-				ItemContainer items = new ItemContainer(DataLoader.loadItems());
-				data.setItems(items);
-				break;
+                case 1:
+                    // Load poklmon data
+                    loadingInfo = "Items";
+                    PoklmonContainer pokldat = new PoklmonContainer(DataLoader.loadPoklmons());
+                    data.setPoklmons(pokldat);
+                    //load msic
+                    MiscContainer misc = new MiscContainer();
+                    misc.load();
+                    data.setMisc(misc);
+                    break;
+                case 2:
+                    // Load item data
+                    loadingInfo = "Attacks";
+                    ItemContainer items = new ItemContainer(DataLoader.loadItems());
+                    data.setItems(items);
+                    break;
 
-			case 3:
-				// Load attack data
-				loadingInfo = "Animations";
-				AttackContainer atkdat = new AttackContainer(DataLoader.loadAttacks());
-				data.setAttacks(atkdat);
-				break;
+                case 3:
+                    // Load attack data
+                    loadingInfo = "Animations";
+                    AttackContainer atkdat = new AttackContainer(DataLoader.loadAttacks());
+                    data.setAttacks(atkdat);
+                    break;
 
-			case 4:
-				// Load animation data
-				loadingInfo = "Graphics";
-				AnimationContainer anidat = new AnimationContainer(DataLoader.loadAnimations());
-				data.setAnimations(anidat);
-				break;
-			case 5:
-				// load graphic data
-				loadingInfo = "Sounds";
-				GraphicsContainer graphics = new GraphicsContainer();
-				graphics.load();
-				data.setGraphics(graphics);
-				break;
+                case 4:
+                    // Load animation data
+                    loadingInfo = "Graphics";
+                    AnimationContainer anidat = new AnimationContainer(DataLoader.loadAnimations());
+                    data.setAnimations(anidat);
+                    break;
+                case 5:
+                    // load graphic data
+                    loadingInfo = "Sounds";
+                    GraphicsContainer graphics = new GraphicsContainer();
+                    graphics.load();
+                    data.setGraphics(graphics);
+                    break;
 
-			case 6:
-				// load sound data
-				loadingInfo = "Design";
-				SoundContainer sounds = new SoundContainer(DataLoader.loadSounds());
-				data.setSounds(sounds);
-				break;
+                case 6:
+                    // load sound data
+                    loadingInfo = "Design";
+                    SoundContainer sounds = new SoundContainer(DataLoader.loadSounds());
+                    data.setSounds(sounds);
+                    break;
 
-			case 7:
-				// load music data
-				loadingInfo = "";
-				MusicContainer musicdat = new MusicContainer();
-				data.setMusics(musicdat);
-				// load fonts
-				GUIFonts.loadFonts();
-				// load design
-				GUIDesign.loadDesign();
-				MenuGraphics.loadGraphics();
-				break;
+                case 7:
+                    // load music data
+                    loadingInfo = "";
+                    MusicContainer musicdat = new MusicContainer();
+                    data.setMusics(musicdat);
+                    // load fonts
+                    GUIFonts.loadFonts();
+                    // load design
+                    GUIDesign.loadDesign();
+                    MenuGraphics.loadGraphics();
+                    break;
 
-			case 8:
-				// finished loading
-				System.out.println("Finished Loading Game!");
-				finishedLoading();
-				break;
-			}
-			loadingStep++;
-		} catch (DataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+                case 8:
+                    // finished loading
+                    System.out.println("Finished Loading Game!");
+                    finishedLoading();
+                    break;
+            }
+            loadingStep++;
+        } catch (DataException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
 
-		}
-	}
+        }
+    }
 
-	@Override
-	public void render(Graphics g) {
-		float width = 350;
-		float height = 350;
-		float x = 400 - width / 2;
-		float y = 300 - height / 2;
+    @Override
+    public void render(Graphics g) {
+        float width = 350;
+        float height = 350;
+        float x = 400 - width / 2;
+        float y = 300 - height / 2;
 
-		float start = 0;
-		float end = ((float) loadingStep / 7) * 360;
-		g.setColor(ColorUtil.newColor(50, 50, 50, 255));
-		g.fillArc(x, y, height / 2, start, end);
+        float start = 0;
+        float end = ((float) loadingStep / 7) * 360;
+        g.setColor(ColorUtil.newColor(50, 50, 50, 255));
+        g.fillArc(x, y, height / 2, start, end);
 
-		g.setColor(ColorUtil.newColor(200, 200, 200, 255));
-		g.drawString("Loading " + loadingInfo + "...", 5, 580);
-	}
+        g.setColor(ColorUtil.newColor(200, 200, 200, 255));
+        g.drawString("Loading " + loadingInfo + "...", 5, 580);
+    }
 
 }

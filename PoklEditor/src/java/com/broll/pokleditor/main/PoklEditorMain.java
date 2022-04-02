@@ -16,6 +16,7 @@ import com.broll.pokleditor.data.PoklData;
 import com.broll.pokleditor.debug.DebuggerClasses;
 import com.broll.pokleditor.debug.GameDebugger;
 import com.broll.pokleditor.gui.script.JavascriptFormatter;
+import com.broll.pokleditor.gui.script.ScriptCompletionSetup;
 import com.broll.pokleditor.map.MapTileEditor;
 import com.broll.pokleditor.panel.EditorPanel;
 import com.broll.pokleditor.resource.ImageLoader;
@@ -30,7 +31,7 @@ public class PoklEditorMain {
 
     private static KryoDataControl dataControl;
     public static File POKL_PATH;
-    private static File dataPath;
+    private static File dataPath, debugDataPath;
 
     public static void main(String[] args) {
         try {
@@ -58,6 +59,7 @@ public class PoklEditorMain {
             MapTileEditor.tiles = ImageLoader.loadTileset();
             System.out.println("Load DbControl...");
             dataPath = new File(POKL_PATH.getPath() + "/poklmon.data");
+            debugDataPath = new File(POKL_PATH.getPath() + "/poklmon-debug.data");
             dataControl = new KryoDataControl();
             System.out.println("Load Data...");
             dataControl.read(new FileInputStream(dataPath));
@@ -73,6 +75,7 @@ public class PoklEditorMain {
             JavascriptFormatter.init();
             System.out.println("Load debugger classes...");
             DebuggerClasses.loadDebuggerClasses();
+            ScriptCompletionSetup.setup();
             System.out.println("Show Window...");
             EditorPanel panel = new EditorPanel();
             window.open(panel);
@@ -83,9 +86,18 @@ public class PoklEditorMain {
         }
     }
 
-    public static void forceSave() {
+    public static void writeSaveData() {
+        System.out.println("Saving...");
+        writeData(dataPath);
+    }
+
+    public static void writeDebugData(){
+        System.out.println("Save debug data...");
+        writeData(debugDataPath);
+    }
+
+    private static void writeData(File dataPath){
         try {
-            System.out.println("Saving...");
             // dataControl.saveData("data/poklmon.data");
             dataControl.commit(new FileOutputStream(dataPath));
         } catch (Exception e) {
@@ -93,6 +105,7 @@ public class PoklEditorMain {
             BugSplashDialog.showError("Failed to save data: " + e.getMessage());
         }
     }
+
 
     public static void cleanupDebug() {
         PoklLib.init(dataControl);

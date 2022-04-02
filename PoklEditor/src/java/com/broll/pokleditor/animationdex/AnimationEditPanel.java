@@ -41,7 +41,7 @@ public class AnimationEditPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				save();
-				EditorWindow.save();
+				EditorWindow.writeDebugData();
 				StartInformation startInformation = new StartInformation();
 				startInformation.debugAnimation(animation.getId());
 				GameDebugger.debugGame(startInformation);

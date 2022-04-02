@@ -3,10 +3,6 @@ package com.broll.pokleditor.window;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,7 +13,6 @@ import com.broll.pokleditor.attackdex.AttackdexPanel;
 import com.broll.pokleditor.attackstatistic.AttackStatisticPanel;
 import com.broll.pokleditor.gui.GraphicLoader;
 import com.broll.pokleditor.itemdex.ItemdexPanel;
-import com.broll.pokleditor.main.BugSplashDialog;
 import com.broll.pokleditor.main.PoklEditorMain;
 import com.broll.pokleditor.panel.EditorPanel;
 import com.broll.pokleditor.pokldex.PokldexPanel;
@@ -62,7 +57,7 @@ public class EditorWindow {
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 				switch (answer) {
 				case JOptionPane.YES_OPTION:
-					save(); // falltrough
+					writeSaveData(); // falltrough
 				case JOptionPane.NO_OPTION:
 					// close
 					frame.dispose();
@@ -91,25 +86,18 @@ public class EditorWindow {
 		LoadingWindow.close();
 	}
 
-	public static void save() {
+	public static void writeSaveData() {
 		// update map
 		EditorPanel.map.save();
 		// save data into db file
-		PoklEditorMain.forceSave();
+		PoklEditorMain.writeSaveData();
 	}
 
-	public static void createDebugData() {
-		save();
-		// copy data to debugdata
-		File dataFile = new File("data/poklmon.data");
-		File testFile = new File("data/poklmon_test.data");
-		try {
-			Files.copy(dataFile.toPath(), testFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			e.printStackTrace();
-			BugSplashDialog.showError("Failed to coyp test data: " + e.getMessage());
-		}
-		
+	public static void writeDebugData(){
+		// update map
+		EditorPanel.map.save();
+		// save data into db file
+		PoklEditorMain.writeDebugData();
 	}
 
 	public static void repaint() {

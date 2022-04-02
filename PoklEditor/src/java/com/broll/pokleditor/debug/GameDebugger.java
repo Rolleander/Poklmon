@@ -22,10 +22,7 @@ public class GameDebugger {
             String[] cmds = getCommand("path:" + PoklEditorMain.POKL_PATH.getAbsolutePath() + " " + start);
             System.out.println("Exec: " + Arrays.stream(cmds).collect(Collectors.joining(" ")));
             Process p = new ProcessBuilder().inheritIO().command(cmds).start();
-            p.waitFor();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

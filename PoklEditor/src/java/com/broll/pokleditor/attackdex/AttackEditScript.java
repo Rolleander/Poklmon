@@ -63,7 +63,7 @@ public class AttackEditScript extends JPanel {
 		public void debugScript(String script) {
 			saveListener.saveChanges();
 			// EditorWindow.createDebugData();
-			EditorWindow.save();
+			EditorWindow.writeDebugData();
 			StartInformation startInformation = new StartInformation();
 			startInformation.debugAttack(attack.getId());
 			GameDebugger.debugGame(startInformation);
