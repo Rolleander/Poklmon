@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    testCompile("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
    // implementation group: 'com.db4o', name: 'com.db4o', version: '7.7.67'
    // implementation group: 'com.esotericsoftware', name: 'kryo', version: '3.0.3'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.3'

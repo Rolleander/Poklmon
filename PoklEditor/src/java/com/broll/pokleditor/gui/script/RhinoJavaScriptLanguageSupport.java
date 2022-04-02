@@ -18,11 +18,6 @@ public class RhinoJavaScriptLanguageSupport extends JavaScriptLanguageSupport {
     public RhinoJavaScriptLanguageSupport() {
         JavaScriptTokenMaker.setJavaScriptVersion("1.7");
         setECMAVersion(TypeDeclarationsECMAv5.class.getName(), getJarManager());
-        try {
-            getJarManager().addCurrentJreClassFileSource();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

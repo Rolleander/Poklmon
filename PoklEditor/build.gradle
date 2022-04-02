@@ -13,12 +13,12 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.broll', name: 'pokllib', version: '1.0'
-    compile group: 'org.reflections', name: 'reflections', version: '0.9.12'
+    implementation group: 'com.broll', name: 'pokllib', version: '1.0'
+    implementation group: 'org.reflections', name: 'reflections', version: '0.9.12'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-    compile 'com.fifesoft:rsyntaxtextarea:3.1.2'
-    compile 'com.fifesoft:languagesupport:3.1.1'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    implementation 'com.fifesoft:rsyntaxtextarea:3.1.2'
+    implementation 'com.fifesoft:languagesupport:3.1.1'
 }
 
 task dist(type: Jar) {

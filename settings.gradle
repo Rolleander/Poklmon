@@ -1,0 +1,4 @@
+rootProject.name = 'PoklmonDev'
+includeBuild 'PoklLib'
+includeBuild 'Poklmon'
+includeBuild 'PoklEditor'

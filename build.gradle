@@ -1,0 +1,30 @@
+tasks.register('buildLib'){
+	dependsOn gradle.includedBuild('PoklLib').task(':publishToMavenLocal')
+}
+tasks.register('runEditor') {
+    description 'opens the editor'
+    group = '_PoklDev'
+	dependsOn ':buildLib'
+    dependsOn gradle.includedBuild('Poklmon').task(':desktop:dist')
+    dependsOn gradle.includedBuild('PoklEditor').task(':run')
+}
+tasks.register('runDesktop') {
+    description 'starts the game for desktop'
+    group = '_PoklDev'
+	dependsOn ':buildLib'
+    dependsOn gradle.includedBuild('Poklmon').task(':desktop:run')
+}
+tasks.register('runAndroid') {
+    description 'starts the game for android (phone in debug modus has to be connected)'
+    group = '_PoklDev'
+	dependsOn ':buildLib'
+    dependsOn gradle.includedBuild('Poklmon').task(':android:run')
+}
+tasks.register('clean') {
+    description 'cleans all projects'
+    group = '_PoklDev'
+    dependsOn gradle.includedBuild('Poklmon').task(':android:clean')
+    dependsOn gradle.includedBuild('Poklmon').task(':desktop:clean')
+    dependsOn gradle.includedBuild('PoklEditor').task(':clean')
+    dependsOn gradle.includedBuild('PoklLib').task(':clean')
+}
