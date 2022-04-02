@@ -1,30 +1,32 @@
-tasks.register('buildLib'){
-	dependsOn gradle.includedBuild('PoklLib').task(':publishToMavenLocal')
+
+task buildLib(type: GradleBuild){
+    dir = 'PoklLib'
+    tasks = ['build', 'publishToMavenLocal']
 }
-tasks.register('runEditor') {
+
+task buildGameJar(type: GradleBuild){
+    dir = 'Poklmon'
+    tasks = [':desktop:build', ':desktop:dist']
+}
+
+task runEditor(type: GradleBuild, dependsOn:
+        ['buildLib', 'buildGameJar']) {
     description 'opens the editor'
     group = '_PoklDev'
-	dependsOn ':buildLib'
-    dependsOn gradle.includedBuild('Poklmon').task(':desktop:dist')
-    dependsOn gradle.includedBuild('PoklEditor').task(':run')
+    dir = 'PoklEditor'
+    tasks = [':run']
 }
-tasks.register('runDesktop') {
+
+task runDesktop(type: GradleBuild, dependsOn: 'buildLib') {
     description 'starts the game for desktop'
     group = '_PoklDev'
-	dependsOn ':buildLib'
-    dependsOn gradle.includedBuild('Poklmon').task(':desktop:run')
+    dir = 'Poklmon'
+    tasks = [':desktop:build',':desktop:run']
 }
-tasks.register('runAndroid') {
+
+task runAndroid(type: GradleBuild, dependsOn: 'buildLib') {
     description 'starts the game for android (phone in debug modus has to be connected)'
     group = '_PoklDev'
-	dependsOn ':buildLib'
-    dependsOn gradle.includedBuild('Poklmon').task(':android:run')
-}
-tasks.register('clean') {
-    description 'cleans all projects'
-    group = '_PoklDev'
-    dependsOn gradle.includedBuild('Poklmon').task(':android:clean')
-    dependsOn gradle.includedBuild('Poklmon').task(':desktop:clean')
-    dependsOn gradle.includedBuild('PoklEditor').task(':clean')
-    dependsOn gradle.includedBuild('PoklLib').task(':clean')
+    dir = 'Poklmon'
+    tasks = [':android:build',':android:run']
 }
