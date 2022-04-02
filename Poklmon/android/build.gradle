@@ -13,10 +13,16 @@ android {
             assets.srcDirs = ['../assets']
             jniLibs.srcDirs = ['libs']
         }
-
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
     packagingOptions {
         exclude 'META-INF/robovm/ios/robovm.xml'
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/NOTICE.md'
+        exclude '../assets/data/poklmon-debug.data'
     }
     defaultConfig {
         applicationId "com.broll.poklmon"

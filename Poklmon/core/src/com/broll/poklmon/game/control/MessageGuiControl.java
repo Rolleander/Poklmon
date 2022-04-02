@@ -52,7 +52,7 @@ public class MessageGuiControl {
         this.game = game;
         this.data = game.getData();
         dialogBox = new DialogBox(data);
-        dialogBox.setTextSpeed(DialogBox.TEXT_FAST);
+        dialogBox.setTextSpeed(DialogBox.TEXT_FASTEST);
         nameInput = new NameInputField(data);
         numberInput = new NumberInputField(data);
         process = sceneProcessManager;

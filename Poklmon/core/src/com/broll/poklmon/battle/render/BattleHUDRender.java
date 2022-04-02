@@ -31,7 +31,7 @@ public class BattleHUDRender {
 		this.data=battle.getData();
 		dialogBox=new DialogBox(data);
 		dialogBox.setStyle(DialogBox.STYLE_BATTLE);
-		dialogBox.setTextSpeed(DialogBox.TEXT_FAST);
+		dialogBox.setTextSpeed(DialogBox.TEXT_FASTEST);
 		nameInput=new NameInputField(data);
 		playerBar = new PlayerStateBar(data);
 		enemyBar = new EnemyStateBar(data, battleManager);
