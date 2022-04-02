@@ -1,19 +1,16 @@
 /PoklEditor/.gradle
-/PoklEditor/gradle
 /PoklEditor/.idea
 /PoklEditor/.settings
 /PoklEditor/bin
 /PoklEditor/build
 /PoklEditor/local.properties
 /Poklmon/.gradle
-/Poklmon/gradle
 /Poklmon/.idea
 /Poklmon/.settings
 /Poklmon/local.properties
 /Poklmon/bin
 /Poklmon/build
 /PoklLib/.gradle
-/PoklLib/gradle
 /PoklLib/.idea
 /PoklLib/.settings
 /PoklLib/bin
@@ -23,3 +20,4 @@
 .idea
 /Poklmon/assets/data/poklmon-debug.data
 /Poklmon/gradle.properties
+/.idea
