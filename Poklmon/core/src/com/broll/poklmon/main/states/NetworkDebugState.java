@@ -1,5 +1,7 @@
 package com.broll.poklmon.main.states;
 
+import com.badlogic.gdx.utils.Logger;
+import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.debug.DebugPlayerFactory;
@@ -13,6 +15,7 @@ import com.esotericsoftware.minlog.Log;
 public class NetworkDebugState extends GameState {
 
 	private DataContainer data;
+	private final static Logger logger = new Logger(PoklmonGame.class.getName());
 	public static int STATE_ID = -99;
 
 	public NetworkDebugState(DataContainer data) {
@@ -28,7 +31,7 @@ public class NetworkDebugState extends GameState {
 				client.open("192.168.178.69");
 				//
 				PoklmonTransfer t2 = (PoklmonTransfer) client.receive(PoklmonTransfer.class);
-				System.out.println("client received: " + t2.data.getName());
+				logger.info("client received: " + t2.data.getName());
 				PoklmonTransfer t = new PoklmonTransfer();
 				DebugPlayerFactory dpf = new DebugPlayerFactory(data);
 				t.data = dpf.createDebugPoklmon(10, 15);
@@ -37,11 +40,10 @@ public class NetworkDebugState extends GameState {
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
-
-					e.printStackTrace();
+					logger.error("Interrupted",e);
 				}
 				client.close();
-				System.out.println("client end");
+				logger.info("client end");
 			} catch (NetworkException e) {
 				e.printStackTrace();
 			}
@@ -63,18 +65,17 @@ public class NetworkDebugState extends GameState {
 				DebugPlayerFactory dpf = new DebugPlayerFactory(data);
 				t.data = dpf.createDebugPoklmon(10, 15);
 				t.data.setName("test");
-				System.out.println("server send " + t);
+				logger.info("server send " + t);
 				server.send(t);
 				PoklmonTransfer t2 = (PoklmonTransfer) server.receive(PoklmonTransfer.class);
 				System.out.println("server received: " + t2.data.getName());
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
-
-					e.printStackTrace();
+					logger.error("interruped",e);
 				}
 				server.close();
-				System.out.println("server end");
+				logger.info("server end");
 			} catch (NetworkException e) {
 				e.printStackTrace();
 			}
@@ -89,7 +90,6 @@ public class NetworkDebugState extends GameState {
 	@Override
 	public void onEnter() {
 		Log.DEBUG();
-
 		Thread t1 = new Thread(new Server());
 		t1.start();
 		try {

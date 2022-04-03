@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.BufferUtils;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -22,10 +23,8 @@ import com.broll.poklmon.main.GameStateManager;
 import com.broll.poklmon.main.SystemClock;
 import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.resource.ResourceUtils;
-import com.esotericsoftware.minlog.Log;
 
 import java.io.File;
-import java.nio.IntBuffer;
 import java.util.Timer;
 
 public class PoklmonGame extends Game {
@@ -34,8 +33,10 @@ public class PoklmonGame extends Game {
     public final static int HEIGHT = 600;
     public final static int FPS = 60;
 
+
     public static boolean DEBUG_MODE = false;
     public static boolean TOUCH_MODE = false;
+    private final static Logger logger = new Logger(PoklmonGame.class.getName());
     private Timer timer;
     private GameStateManager stateManager;
     private StartInformation startInformation;
@@ -52,7 +53,7 @@ public class PoklmonGame extends Game {
 
     @Override
     public void create() {
-        System.out.println("Init Game...");
+        logger.info("Init Game...");
         timer = new Timer();
         timer.schedule(new SystemClock(), 0, 1000);
         File dataPath = startInformation.getDataPath();
@@ -63,7 +64,7 @@ public class PoklmonGame extends Game {
         DEBUG_MODE = startInformation.isDebugGame();
 
         ResourceUtils.setDataPath(dataPath);
-        System.out.println("Start Poklmon Game on Path: " + dataPath.getAbsolutePath());
+        logger.info("Start Poklmon Game on Path: "+dataPath.getAbsolutePath());
         stateManager = new GameStateManager(this);
         camera = new OrthographicCamera();
         camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -99,7 +100,7 @@ public class PoklmonGame extends Game {
 
     @Override
     public void dispose() {
-        Log.info("Dispose Game");
+        logger.info("Dispose Game");
         timer.cancel();
         timer = null;
         MusicContainer.dispose();

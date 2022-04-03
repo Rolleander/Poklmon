@@ -1,6 +1,5 @@
 package com.broll.poklmon.menu.pc;
 
-import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.ColorUtil;
 import com.broll.poklmon.data.basics.Graphics;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PcMenu extends MenuPage {
 

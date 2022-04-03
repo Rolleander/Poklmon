@@ -5,7 +5,6 @@ import com.broll.poklmon.data.basics.Graphics;
 import com.broll.poklmon.data.basics.Image;
 import com.broll.poklmon.data.basics.SpriteSheet;
 import com.broll.poklmon.map.MapDisplay;
-import com.esotericsoftware.minlog.Log;
 
 public class CharacterGraphic {
 

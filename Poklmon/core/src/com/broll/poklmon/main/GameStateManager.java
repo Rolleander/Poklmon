@@ -1,6 +1,7 @@
 package com.broll.poklmon.main;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.Logger;
 import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.DataLoader;
@@ -23,7 +24,6 @@ import com.broll.poklmon.transition.DefaultTransition;
 import com.broll.poklmon.transition.ScreenTransition;
 import com.broll.poklmon.transition.TransitionListener;
 import com.broll.pokllib.game.StartInformation;
-import com.esotericsoftware.minlog.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +34,7 @@ public class GameStateManager {
     private List<GameState> states = new ArrayList<GameState>();
     private PoklmonGame game;
     private Graphics graphics;
+    private static Logger logger = new Logger(GameStateManager.class.getName());
     private Stack<WaitingTranstion> transitionStack = new Stack<WaitingTranstion>();
 
     public GameStateManager(PoklmonGame game) {
@@ -70,7 +71,7 @@ public class GameStateManager {
     }
 
     public void gameException(Exception e) {
-        Log.error("Exception occured in Game!", e);
+        logger.error("Exception occured in Game!", e);
         ExceptionState state = (ExceptionState) getState(ExceptionState.class);
         String currentState = game.getScreen().getClass().getSimpleName();
         state.setException(currentState, e);

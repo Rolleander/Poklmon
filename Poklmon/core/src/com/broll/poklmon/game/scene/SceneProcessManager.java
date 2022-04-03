@@ -1,13 +1,14 @@
 package com.broll.poklmon.game.scene;
 
+import com.badlogic.gdx.utils.Logger;
 import com.broll.pokllib.object.ObjectDirection;
+import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.script.ObjectInitEnvironment;
 import com.broll.poklmon.script.ObjectRuntimeEnvironment;
 import com.broll.poklmon.script.ObjectScriptExtension;
 import com.broll.poklmon.main.GameStateManager;
 import com.broll.poklmon.map.object.MapObject;
-import com.esotericsoftware.minlog.Log;
 
 import java.util.Stack;
 
@@ -19,6 +20,8 @@ public class SceneProcessManager {
 	private ObjectInitEnvironment initEnvironment;
 	private Stack<ScriptInstance> triggerStack = new Stack<ScriptInstance>();
 	private GameStateManager stateManager;
+	private final static Logger logger = new Logger(SceneProcessManager.class.getName());
+
 
 	public SceneProcessManager(GameManager game, GameStateManager stateManager) {
 		this.game = game;
@@ -52,7 +55,7 @@ public class SceneProcessManager {
 				}
 				@Override
 				public void exceptionOccured(Exception e) {
-					Log.error("Exception occured in ControlSceneProcess",e);
+					logger.error("Exception occured in ControlSceneProcess",e);
 					stateManager.gameException(e);
 				}
 			});
@@ -72,7 +75,7 @@ public class SceneProcessManager {
 				}
 				@Override
 				public void exceptionOccured(Exception e) {
-					Log.error("Exception occured in ScriptSceneProcess ["+triggerScript+"]",e);
+					logger.error("Exception occured in ScriptSceneProcess ["+triggerScript+"]",e);
 					stateManager.gameException(e);
 				}
 			}, objectScriptHandler);
@@ -102,7 +105,7 @@ public class SceneProcessManager {
 			}
 			@Override
 			public void exceptionOccured(Exception e) {
-				Log.error("Exception occured in Init-Script ["+script+"]",e);
+				logger.error("Exception occured in Init-Script ["+script+"]",e);
 				stateManager.gameException(e);
 			}
 		}, objectScriptHandler);
