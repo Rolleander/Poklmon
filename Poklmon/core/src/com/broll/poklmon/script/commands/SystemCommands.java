@@ -24,17 +24,14 @@ import java.util.concurrent.TimeUnit;
 
 public class SystemCommands extends CommandControl {
 
-    private com.broll.poklmon.script.commands.CustomScripts customScripts;
 
     public SystemCommands(GameManager game) {
         super(game);
-        customScripts = new CustomScripts(game);
     }
 
     @Override
     public void init(MapObject object, ScriptProcessInteraction sceneProcess) {
         super.init(object, sceneProcess);
-        customScripts.init(object, sceneProcess);
     }
 
     public void pause(double seconds) {
@@ -113,10 +110,6 @@ public class SystemCommands extends CommandControl {
 
     public int getPoklmonsCount() {
         return game.getData().getPoklmons().getNumberOfPoklmons();
-    }
-
-    public void callScript(String script) {
-        customScripts.call(script);
     }
 
     public void playMusic(String file) {

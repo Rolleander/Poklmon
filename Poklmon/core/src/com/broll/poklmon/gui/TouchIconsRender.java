@@ -41,8 +41,8 @@ public class TouchIconsRender {
         buttons.add(new TouchButton(6, Input.Keys.A, new Vector2()));
         buttons.add(new TouchButton(7, Input.Keys.S, new Vector2()));
 
-        //  hideButton(2, true);
-        //   hideButton(3, true);
+        hideButton(2, true);
+        hideButton(3, true);
     }
 
     public static void hideButton(int nr, boolean hide) {
