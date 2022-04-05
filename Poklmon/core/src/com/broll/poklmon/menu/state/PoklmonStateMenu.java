@@ -38,7 +38,6 @@ public class PoklmonStateMenu {
 	private List<StateSite> stateSites = new ArrayList<StateSite>();
 	private int currentSite = 0;
 	private int maxKp;
-	private FontUtils fontUtils=new FontUtils();
 
 	public PoklmonStateMenu(DataContainer data) {
 		this.data = data;
@@ -115,7 +114,7 @@ public class PoklmonStateMenu {
 			// draw status
 			MainFightStatus status = poklmon.getStatus();
 			if (status != null) {
-				HudRenderUtils.renderMainStatus(g,fontUtils, status, 20,70);
+				HudRenderUtils.renderMainStatus(g, status, 20,70);
 			}
 
 			// draw types
@@ -140,7 +139,7 @@ public class PoklmonStateMenu {
 
 			int level = poklmon.getLevel();
 			String levelText = "Lv." + level;
-			int w = MenuUtils.getTextWidth(g,fontUtils, levelText);
+			int w = MenuUtils.getTextWidth(g, levelText);
 			MenuUtils.drawFancyString(g, levelText, 780 - w, 20);
 
 			// draw image

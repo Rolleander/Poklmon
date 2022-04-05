@@ -18,6 +18,7 @@ public class GUIFonts {
 		smallText = loadFont("smallFont.fnt");
 		titleText = loadFont("titleFont.fnt");
 		tinyText = loadFont("tinyFont.fnt");
+		FontUtils.getWidth(dialogText,"Hallo du!");
 	}
 
 	public static void dispose(){

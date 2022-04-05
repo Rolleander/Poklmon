@@ -50,7 +50,7 @@ public class NewGameState extends GameState {
 				gamedata.getPoklmons().add(NewGameFactory.createStarterPoklmon(data, starterPoklmonID, poklmonName));
 				PokldexEntry entry = new PokldexEntry(CaughtPoklmonMeasurement.getCaughtDayInfo());
 				entry.setCacheCount(1);
-				gamedata.getVariables().getPokldex().getPokldex().put(new Integer(starterPoklmonID), entry);
+				gamedata.getVariables().getPokldex().getPokldex().put(starterPoklmonID, entry);
 				// open game
 				MapState gamestate = (MapState) states.getState(MapState.class);
 				gamestate.openGame(gamedata);

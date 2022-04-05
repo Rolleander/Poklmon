@@ -46,7 +46,6 @@ public class MessageGuiControl {
     private String[] menuItems = new String[8];
     private PlayerMenu playerMenu;
     private final static int SELECTION_MAX = 10;
-    private FontUtils fontUtils=new FontUtils();
 
     public MessageGuiControl(GameManager game, SceneProcessManager sceneProcessManager) {
         this.game = game;
@@ -218,7 +217,7 @@ public class MessageGuiControl {
     public void showSelection(String[] items) {
         int x = 800;
         int y = (600 - 157);
-        selectionBox = new ScrollableSelectionBox(data,items,fontUtils, x, y, SELECTION_MAX, false);
+        selectionBox = new ScrollableSelectionBox(data,items, x, y, SELECTION_MAX, false);
         selectionBox.setListener(new SelectionBoxListener() {
             @Override
             public void select(int item) {
@@ -245,7 +244,7 @@ public class MessageGuiControl {
     public void showSelection(String[] items, boolean[] locked, final boolean cancelable, boolean iconized) {
         int x = 800;
         int y = (600 - 157);
-        selectionBox = new ScrollableSelectionBox(data, items,fontUtils, x, y, SELECTION_MAX, iconized);
+        selectionBox = new ScrollableSelectionBox(data, items, x, y, SELECTION_MAX, iconized);
         for (int i = 0; i < locked.length; i++) {
             selectionBox.blockItem(i, locked[i]);
         }

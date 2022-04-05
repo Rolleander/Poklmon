@@ -1,5 +1,6 @@
 package com.broll.poklmon.poklmon;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.broll.pokllib.poklmon.PoklmonWesen;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +21,7 @@ public class CaughtPoklmonMeasurement
         short[] dv = new short[6];
         for (int i = 0; i < dv.length; i++)
         {
-            dv[i] = (short)(Math.random() * 32);
+            dv[i] = (short) MathUtils.random(0, 31);
         }
         return dv;
     }

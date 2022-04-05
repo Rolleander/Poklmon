@@ -53,10 +53,8 @@ public class AnimationDebugState extends GameState {
 
 		GameManager gameManager = new GameManager(data,null, null);
 		gameManager.startGame(dat);
-		Player playerG = new Player(gameManager);
-
-		playerG.init(dat);
-		battleManager = new BattleManager(data, playerG);
+		gameManager.getPlayer().init(dat);
+		battleManager = new BattleManager(data, gameManager);
 
 		BattleParticipants parc = new BattleParticipants(false);
 		PoklmonData playerpokl = null;

@@ -11,11 +11,13 @@ import com.broll.poklmon.battle.process.BattleProcessCore;
 import com.broll.poklmon.battle.util.message.BattleMessages;
 import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.game.items.MedicineItemScript;
+import com.broll.poklmon.script.commands.VariableCommands;
 
 public class MedicineItemRunner extends BattleProcessControl implements MedicineItemScript {
 
 	private FightPoklmon target;
 	private boolean cancel;
+	private VariableCommands variableCommands;
 
 	public MedicineItemRunner(BattleManager manager, BattleProcessCore handler) {
 		super(manager, handler);
@@ -23,6 +25,7 @@ public class MedicineItemRunner extends BattleProcessControl implements Medicine
 
 	public void init(FightPoklmon target) {
 		this.target = target;
+		this.variableCommands = new VariableCommands(manager.getGame());
 		cancel = false;
 	}
 
@@ -44,7 +47,7 @@ public class MedicineItemRunner extends BattleProcessControl implements Medicine
 	}
 
 	@Override
-	public void heal(double percent) {
+	public void healPercent(double percent) {
 		int kp = (int) (percent * target.getAttributes().getMaxhealth());
 		healProcess(kp);
 	}
@@ -57,6 +60,11 @@ public class MedicineItemRunner extends BattleProcessControl implements Medicine
 	@Override
 	public void cancel() {
 		cancel = true;
+	}
+
+	@Override
+	public VariableCommands getVariableCmd() {
+		return variableCommands;
 	}
 
 	@Override

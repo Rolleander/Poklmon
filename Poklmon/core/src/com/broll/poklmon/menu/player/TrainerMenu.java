@@ -9,6 +9,7 @@ import com.broll.poklmon.gui.GUIUpdate;
 import com.broll.poklmon.menu.MenuPage;
 import com.broll.poklmon.menu.PlayerMenu;
 import com.broll.poklmon.player.Player;
+import com.broll.poklmon.resource.FontUtils;
 import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.save.manage.SaveFileUtils;
 
@@ -71,7 +72,7 @@ public class TrainerMenu extends MenuPage
         g.drawString(text,x,y);
         int space=340;
         g.setColor(ColorUtil.newColor(30, 30, 30));
-        g.drawString(value,x+space-fontUtils.getWidth(GUIFonts.hudText,value),y);
+        g.drawString(value,x+space- FontUtils.getWidth(GUIFonts.hudText,value),y);
         y+=30;
     }
 

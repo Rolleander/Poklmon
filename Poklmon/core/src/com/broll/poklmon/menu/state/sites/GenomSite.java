@@ -12,60 +12,56 @@ import com.broll.poklmon.save.PoklmonData;
 
 public class GenomSite extends SpikesStateSite {
 
-	// public static Color[] attributeColors={ColorUtil.newColor(20,200,75),new
-	// Color(220,70,70),ColorUtil.newColor(40,90,240),ColorUtil.newColor(220,80,240),new
-	// Color(80,220,250),ColorUtil.newColor(255,255,165)};
+    // public static Color[] attributeColors={ColorUtil.newColor(20,200,75),new
+    // Color(220,70,70),ColorUtil.newColor(40,90,240),ColorUtil.newColor(220,80,240),new
+    // Color(80,220,250),ColorUtil.newColor(255,255,165)};
 
-	public GenomSite(Poklmon poklmonInfo, PoklmonData poklmon, DataContainer data) {
-		super(poklmonInfo, poklmon, data);
+    public GenomSite(Poklmon poklmonInfo, PoklmonData poklmon, DataContainer data) {
+        super(poklmonInfo, poklmon, data);
 
-	}
+    }
 
-	private int sum;
-	private short[] dv;
+    private int sum;
+    private short[] dv;
 
-	@Override
-	protected void initData() {
-		this.lineWidth = 300;
-		dv = poklmon.getDv();
+    @Override
+    protected void initData() {
+        this.lineWidth = 300;
+        dv = poklmon.getDv();
 
-		sum = 0;
+        sum = 0;
 
-		for (short s : dv) {
-			sum += s;
-		}
-		initGraphes(dv);
+        for (short s : dv) {
+            sum += s;
+        }
+        initGraphes(dv, (short) 31);
+    }
 
+    @Override
+    public void render(Graphics g, float x, float y) {
 
-	}
+        updateGraphes();
+        this.x = x;
+        this.y = y;
 
+        g.setFont(GUIFonts.hudText);
 
+        lines = 0;
 
-	@Override
-	public void render(Graphics g, float x, float y) {
+        renderLine(g, "Genomstärke", "" + sum);
 
-		updateGraphes();
-		this.x = x;
-		this.y = y;
+        this.x += 40;
+        this.y += 50;
 
-		g.setFont(GUIFonts.hudText);
+        g.setColor(ColorUtil.newColor(0, 0, 0, 50));
+        float w = (GRAPH_WIDTH + GRAPH_SPACING) * dv.length - GRAPH_SPACING;
 
-		lines = 0;
+        g.fillRect(this.x - 10, this.y, w + 20, GRAPH_HEIGHT);
 
-		renderLine(g, "Genomstärke", "" + sum);
-
-		this.x += 40;
-		this.y += 50;
-
-		g.setColor(ColorUtil.newColor(0, 0, 0, 50));
-		float w = (GRAPH_WIDTH + GRAPH_SPACING) * dv.length - GRAPH_SPACING;
-
-		g.fillRect(this.x - 10, this.y, w + 20, GRAPH_HEIGHT);
-
-		for (int i = 0; i < dv.length; i++) {
-			renderGraph(g,  i);
-		}
-	}
+        for (int i = 0; i < dv.length; i++) {
+            renderGraph(g, i);
+        }
+    }
 
 
 }

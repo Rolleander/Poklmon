@@ -1,5 +1,6 @@
 package com.broll.poklmon;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -59,6 +60,9 @@ public class PoklmonGame extends Game {
         File dataPath = startInformation.getDataPath();
         if (dataPath == null) {
             dataPath = new File("data");
+        }
+        if(startInformation.isDebugGame()){
+            Gdx.app.setLogLevel(Application.LOG_INFO);
         }
         TOUCH_MODE = startInformation.isTouchControling();
         DEBUG_MODE = startInformation.isDebugGame();

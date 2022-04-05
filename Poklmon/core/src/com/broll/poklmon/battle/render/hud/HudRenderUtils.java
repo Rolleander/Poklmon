@@ -9,7 +9,7 @@ import com.broll.poklmon.resource.GUIFonts;
 
 public abstract class HudRenderUtils {
 
-	public static void renderMainStatus(Graphics g,FontUtils fontUtils, MainFightStatus status, int x, int y) {
+	public static void renderMainStatus(Graphics g, MainFightStatus status, int x, int y) {
 
 		int w = 59;
 		int h = 22;
@@ -21,7 +21,7 @@ public abstract class HudRenderUtils {
 		g.setColor(ColorUtil.newColor(248, 248, 248));
 		BitmapFont font = GUIFonts.tinyText;
 		String txt = status.getIcontext();
-		int tw = fontUtils.getWidth(font, txt);
+		int tw = FontUtils.getWidth(font, txt);
 		g.setFont(font);
 		g.drawString(txt, x + w / 2 - tw / 2, y);
 	}

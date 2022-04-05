@@ -5,6 +5,7 @@ import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.poklmon.states.EffectStatus;
 import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
 import com.broll.poklmon.battle.process.CustomScriptCall;
+import com.broll.poklmon.script.commands.VariableCommands;
 
 public interface WearableItemScript {
 	
@@ -45,4 +46,6 @@ public interface WearableItemScript {
 	public void setStatusChange(FightPoklmon target, MainFightStatus status);
 	
 	public boolean canSetStatusChange(FightPoklmon target, MainFightStatus status);
+
+	VariableCommands getVariableCmd();
 }

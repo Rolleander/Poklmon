@@ -64,7 +64,7 @@ public class FameSite extends StateSite
         g+= PoklmonAttributeCalculator.getInitiative(poklmonInfo, level, dv[5], dv[5], wesen);
         statMedal=getMedalID(g, 1500);
         
-        allMedal=getMedalID(battleMedal+levelMedal+arenaMedal+dvMedal+trainMedal+statMedal, 50);
+        allMedal=getMedalID(battleMedal+levelMedal+arenaMedal+dvMedal+trainMedal+statMedal, 5*3);
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.broll.poklmon.battle.util.BattleEndListener;
 import com.broll.poklmon.battle.util.BattleRandom;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.Graphics;
+import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.main.SystemClock;
 import com.broll.poklmon.network.NetworkEndpoint;
 import com.broll.poklmon.player.Player;
@@ -28,14 +29,16 @@ public class BattleManager {
     private DataContainer data;
     private FieldEffects fieldEffects;
     private Thread battleThread;
+    private GameManager game;
     private Player player;
     private List<CustomScriptCall> scriptCalls;
     private boolean networkBattle = false;
 
-    public BattleManager(DataContainer data, Player player) {
+    public BattleManager(DataContainer data, GameManager game) {
         TypeComperator.init(data.getMisc().getTypeTable());
         this.data = data;
-        this.player = player;
+        this.game = game;
+        this.player = game.getPlayer();
         battleRender = new BattleRender(this);
         playerMoveSelection = new PlayerMoveSelection(this);
         enemyMoveSelection = new EnemyMoveSelection(this);
@@ -154,4 +157,7 @@ public class BattleManager {
         return networkBattle;
     }
 
+    public GameManager getGame() {
+        return game;
+    }
 }

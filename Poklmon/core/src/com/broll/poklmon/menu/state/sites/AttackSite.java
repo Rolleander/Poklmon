@@ -113,7 +113,7 @@ public class AttackSite extends StateSite {
 			g.setColor(ColorUtil.newColor(50, 50, 50));
 			y += 23;
 
-			MenuUtils.drawBoxString(g, attack.getDescription(), fontUtils,x, y - 5, 780, -4);
+			MenuUtils.drawBoxString(g, attack.getDescription(),x, y - 5, 780, -4);
 			// g.drawString(attack.getDescription(), x, y - 5);
 
 		}

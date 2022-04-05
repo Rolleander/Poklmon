@@ -9,20 +9,24 @@ import com.broll.poklmon.game.items.MedicineItemScript;
 import com.broll.poklmon.poklmon.PoklmonAttributeCalculator;
 import com.broll.poklmon.save.AttackData;
 import com.broll.poklmon.save.PoklmonData;
+import com.broll.poklmon.script.commands.VariableCommands;
 
 public class MenuMedicineItemRunner extends MenuItemRunner implements MedicineItemScript {
+
+	private PoklmonData target;
+	private boolean canceled;
+	private VariableCommands variableCommands;
 
 	public MenuMedicineItemRunner(GameManager game) {
 		super(game);
 	}
 
-	private PoklmonData target;
 
 	public void init(PoklmonData target) {
 		this.target = target;
+		this.variableCommands = new VariableCommands(game);
 	}
 
-	private boolean canceled;
 
 	public boolean isCanceled() {
 		return canceled;
@@ -64,7 +68,7 @@ public class MenuMedicineItemRunner extends MenuItemRunner implements MedicineIt
 	}
 
 	@Override
-	public void heal(double percent) {
+	public void healPercent(double percent) {
 		healPoklmon((int) (getMaxKp() * percent));
 	}
 
@@ -81,6 +85,11 @@ public class MenuMedicineItemRunner extends MenuItemRunner implements MedicineIt
 	@Override
 	public void cancel() {
 		canceled = true;
+	}
+
+	@Override
+	public VariableCommands getVariableCmd() {
+		return variableCommands;
 	}
 
 	@Override

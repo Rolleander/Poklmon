@@ -12,12 +12,12 @@ public class MessageLineCutter
     private static int minCutChars = 25;
     private static char blankChar = ' ';
 
-    public static String[] cutMessage(String message,FontUtils fontUtils)
+    public static String[] cutMessage(String message)
     {
-        return cutMessage(message,fontUtils,GUIFonts.dialogText,maxWidth,minCutChars);
+        return cutMessage(message,GUIFonts.dialogText,maxWidth,minCutChars);
     }
     
-    public static String[] cutMessage(String message,FontUtils fontUtils,BitmapFont font, int maxWidth, int minCutChars)
+    public static String[] cutMessage(String message, BitmapFont font, int maxWidth, int minCutChars)
     {
         ArrayList<String> lines = new ArrayList<String>();
         while (message.length() >= minCutChars)
@@ -27,7 +27,7 @@ public class MessageLineCutter
             for (int i = minCutChars; i < message.length(); i++)
             {
                 String s = message.substring(0, i);
-                if (fontUtils.getWidth(font,s) > maxWidth)
+                if (FontUtils.getWidth(font,s) > maxWidth)
                 {
                     cut = i - 1;
                     break;

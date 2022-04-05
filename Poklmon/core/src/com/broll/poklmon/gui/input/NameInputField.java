@@ -22,7 +22,6 @@ public class NameInputField {
 	private int maxLength = 13;
 	private DataContainer data;
 	private boolean customInput = false;
-	private FontUtils fontUtils=new FontUtils();
 
 	public NameInputField(DataContainer data) {
 		w = 450;
@@ -78,11 +77,11 @@ public class NameInputField {
 			}
 			g.setFont(GUIFonts.dialogText);
 			g.setColor(ColorUtil.newColor(0, 0, 200));
-			int sx = x + w / 2 - fontUtils.getWidth(GUIFonts.dialogText, n) / 2;
-			int sy = y + h / 2 - fontUtils.getHeight(GUIFonts.dialogText, n) / 2;
+			int sx = x + w / 2 - FontUtils.getWidth(GUIFonts.dialogText, n) / 2;
+			int sy = y + h / 2 - FontUtils.getHeight(GUIFonts.dialogText, n) / 2;
 			g.drawString(n, sx, sy);
 
-			g.drawString(end, sx + fontUtils.getWidth(GUIFonts.dialogText, n), sy);
+			g.drawString(end, sx + FontUtils.getWidth(GUIFonts.dialogText, n), sy);
 		}
 	}
 

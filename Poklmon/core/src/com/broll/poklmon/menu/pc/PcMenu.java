@@ -122,7 +122,7 @@ public class PcMenu extends MenuPage {
             maxs++;
         }
         String text = "Seite " + (id + 1) + " / " + maxs;
-        g.drawString(text, 558 - MenuUtils.getTextWidth(g, fontUtils, text), 73);
+        g.drawString(text, 558 - MenuUtils.getTextWidth(g, text), 73);
 
         //draw box
         for (int i = 0; i < anz; i++) {
@@ -152,7 +152,7 @@ public class PcMenu extends MenuPage {
         float x = 10;
         for (int i = 0; i < PcSelection.options.length; i++) {
             boolean selected = optionSelection == i && selectMode == PcSelection.SELECT_OPTION;
-            x += MenuUtils.drawButton(g, PcSelection.options[i], fontUtils, x, 10, selected);
+            x += MenuUtils.drawButton(g, PcSelection.options[i], x, 10, selected);
             x += 10;
         }
 

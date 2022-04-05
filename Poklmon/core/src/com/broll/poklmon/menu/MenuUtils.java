@@ -33,24 +33,24 @@ public class MenuUtils {
 		g.drawString(text, x, y);
 	}
 
-	public static int getTextWidth(Graphics g,FontUtils fontUtils, String text) {
+	public static int getTextWidth(Graphics g, String text) {
 		if (text == null) {
 			return 0;
 		}
-		return fontUtils.getWidth(g.getFont(), text);
+		return FontUtils.getWidth(g.getFont(), text);
 	}
 
-	public static void drawBoxString(Graphics g, String text,FontUtils fontUtils, float x, float y, int width, int yplus) {
-		String[] lines = MessageLineCutter.cutMessage(text, fontUtils,GUIFonts.dialogText, width, 15);
+	public static void drawBoxString(Graphics g, String text, float x, float y, int width, int yplus) {
+		String[] lines = MessageLineCutter.cutMessage(text, GUIFonts.dialogText, width, 15);
 		for (String l : lines) {
 			g.drawString(l, x, y);
 			y += g.getFont().getLineHeight() + yplus;
 		}
 	}
 
-	public static int drawButton(Graphics g, String text,FontUtils fontUtils, float x, float y, boolean selected) {
+	public static int drawButton(Graphics g, String text, float x, float y, boolean selected) {
 		g.setFont(GUIFonts.hudText);
-		int w = getTextWidth(g,fontUtils, text) + 20;
+		int w = getTextWidth(g, text) + 20;
 		int h = 40;
 		Image button;
 		if (selected) {

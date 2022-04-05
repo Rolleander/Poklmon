@@ -33,6 +33,7 @@ public class AutoLevelUpHandler implements LevelCalcListener {
         if (!attackLearning.tryLearnAttack(poklmon, attack)) {
             //will forget random previous attack
             attackLearning.learnAttack(poklmon, attack, MathUtils.random(0, 3));
+            //TODO instead of random forget, shift attacks and forget oldest
         }
         return true;
     }

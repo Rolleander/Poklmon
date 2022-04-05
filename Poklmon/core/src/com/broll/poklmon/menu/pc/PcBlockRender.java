@@ -17,7 +17,6 @@ public class PcBlockRender
     private DataContainer data;
     public static int WIDTH=180;
     public static int HEIGHT=40;
-    private FontUtils fontUtils=new FontUtils();
 
     public PcBlockRender(DataContainer data)
     {
@@ -75,7 +74,7 @@ public class PcBlockRender
         g.setColor(ColorUtil.newColor(0,0,100));
         int level=poklmon.getLevel();
         String t="Lv."+level;
-        g.drawString(t,x+176-MenuUtils.getTextWidth(g,fontUtils, t),y+16);
+        g.drawString(t,x+176-MenuUtils.getTextWidth(g, t),y+16);
 
     }
 

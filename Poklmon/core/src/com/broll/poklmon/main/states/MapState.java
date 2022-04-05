@@ -42,21 +42,21 @@ public class MapState extends GameState {
     public void startPoklmonBattle(BattleParticipants participants, ScreenTransition transition,
                                    BattleEndListener endListener) {
         BattleState battle = (BattleState) states.getState(BattleState.class);
-        battle.startBattle(participants, gameInstance.getPlayer(), endListener);
+        battle.startBattle(participants, gameInstance, endListener);
         states.transition(BattleState.class, transition);
     }
 
     public void startNetworkPoklmonBattle(NetworkEndpoint endpoint, long seed, BattleParticipants participants,
                                           ScreenTransition transition, BattleEndListener endListener) {
         BattleState battle = (BattleState) states.getState(BattleState.class);
-        battle.startNetworkBattle(endpoint, seed, participants, gameInstance.getPlayer(), endListener);
+        battle.startNetworkBattle(endpoint, seed, participants, gameInstance, endListener);
         states.transition(BattleState.class, transition);
     }
 
     public void startCustomBattle(BattleParticipants participants, BattleProcessCore core, ScreenTransition transition,
                                   BattleEndListener endListener) {
         CustomBattleState battle = (CustomBattleState) states.getState(CustomBattleState.class);
-        battle.startBattle(participants, gameInstance.getPlayer(), core, endListener);
+        battle.startBattle(participants, gameInstance, core, endListener);
         states.transition(CustomBattleState.class, transition);
     }
 

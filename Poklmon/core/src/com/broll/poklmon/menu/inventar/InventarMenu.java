@@ -84,7 +84,7 @@ public class InventarMenu extends MenuPage {
 		for (int i = 0; i < bags.length; i++) {
 			ItemType type = bags[i];
 			String text = type.getName();
-			x += MenuUtils.drawButton(g, text,fontUtils, x, y, i == bagSelection);
+			x += MenuUtils.drawButton(g, text, x, y, i == bagSelection);
 		}
 
 		// render items
@@ -119,7 +119,7 @@ public class InventarMenu extends MenuPage {
 					g.setColor(ColorUtil.newColor(30, 30, 30));
 					g.setFont(GUIFonts.smallText);
 					String cs = "" + c;
-					g.drawString(cs, x + w - 10 - MenuUtils.getTextWidth(g,fontUtils, cs), y + 5);
+					g.drawString(cs, x + w - 10 - MenuUtils.getTextWidth(g, cs), y + 5);
 				}
 				if (item.getItem().getType() == ItemType.BASIS_ITEM) {
 					String shortcut = null;
@@ -174,7 +174,7 @@ public class InventarMenu extends MenuPage {
 			g.setFont(GUIFonts.smallText);
 			g.setColor(ColorUtil.newColor(30, 30, 30));
 			y += 40;
-			MenuUtils.drawBoxString(g, text,fontUtils, x, y, w + 150, 3);
+			MenuUtils.drawBoxString(g, text, x, y, w + 150, 3);
 		}
 	}
 

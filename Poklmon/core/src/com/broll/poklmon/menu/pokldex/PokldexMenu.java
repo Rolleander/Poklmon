@@ -171,7 +171,7 @@ public class PokldexMenu extends MenuPage {
         g.fillRect(x - 2, y + 2, 380, 80);
         g.setColor(ColorUtil.newColor(20, 20, 20));
         g.setFont(GUIFonts.tinyText);
-        String[] lines = MessageLineCutter.cutMessage(description, fontUtils, GUIFonts.tinyText, 375, 15);
+        String[] lines = MessageLineCutter.cutMessage(description, GUIFonts.tinyText, 375, 15);
         for (String st : lines) {
             g.drawString(st, x, y);
             y += 18;

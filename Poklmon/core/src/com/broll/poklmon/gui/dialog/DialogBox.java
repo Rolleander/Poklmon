@@ -27,7 +27,6 @@ public class DialogBox {
 	private float timerSeconds;
 	private DataContainer data;
 	private boolean clicked = false;
-	private FontUtils fontUtils=new FontUtils();
 
 	public DialogBox(DataContainer data) {
 		this.data = data;
@@ -55,7 +54,7 @@ public class DialogBox {
 		clicked = false;
 		timer.cancel();
 		this.exitListener = listener;
-		lines = MessageLineCutter.cutMessage(message,fontUtils);
+		lines = MessageLineCutter.cutMessage(message);
 		withTimer = false;
 		letters = 0;
 	}
@@ -72,7 +71,7 @@ public class DialogBox {
 		clicked = false;
 		timer.cancel();
 		this.exitListener = listener;
-		lines = MessageLineCutter.cutMessage(message,fontUtils);
+		lines = MessageLineCutter.cutMessage(message);
 		timerSeconds = seconds;
 		withTimer = true;
 		letters = 0;

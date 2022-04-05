@@ -11,11 +11,13 @@ import com.broll.poklmon.battle.process.BattleProcessCore;
 import com.broll.poklmon.battle.process.CustomScriptCall;
 import com.broll.poklmon.battle.util.BattleRandom;
 import com.broll.poklmon.game.items.WearableItemScript;
+import com.broll.poklmon.script.commands.VariableCommands;
 
 public class WearableItemRunner extends BattleProcessControl implements WearableItemScript {
 
 	private FightPoklmon carrier;
 	private boolean playerTeam;
+	private VariableCommands variableCmds;
 
 	public WearableItemRunner(BattleManager manager, BattleProcessCore handler) {
 		super(manager, handler);
@@ -24,6 +26,7 @@ public class WearableItemRunner extends BattleProcessControl implements Wearable
 	public void init(FightPoklmon carrier, boolean playerTeam) {
 		this.carrier = carrier;
 		this.playerTeam = playerTeam;
+		this.variableCmds = new VariableCommands(manager.getGame());
 	}
 
 	private void addCall(CustomScriptCall call) {
@@ -124,6 +127,11 @@ public class WearableItemRunner extends BattleProcessControl implements Wearable
 	@Override
 	public boolean canSetStatusChange(FightPoklmon target, MainFightStatus status) {
 		return core.getEffectProcess().getInflictprocess().canSetStatusChange(target, status);
+	}
+
+	@Override
+	public VariableCommands getVariableCmd() {
+		return variableCmds;
 	}
 
 }

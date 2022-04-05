@@ -2,6 +2,7 @@ package com.broll.poklmon.game.items;
 
 import com.broll.poklmon.battle.poklmon.PlayerPoklmon;
 import com.broll.poklmon.battle.poklmon.WildPoklmon;
+import com.broll.poklmon.script.commands.VariableCommands;
 
 public interface PoklballItemScript {
 
@@ -13,6 +14,8 @@ public interface PoklballItemScript {
 	
 	public WildPoklmon getTarget();
 	
-	public PlayerPoklmon getActivePoklmon();	
+	public PlayerPoklmon getActivePoklmon();
+
+	VariableCommands getVariableCmd();
 	
 }

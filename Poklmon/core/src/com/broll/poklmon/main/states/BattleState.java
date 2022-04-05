@@ -5,6 +5,7 @@ import com.broll.poklmon.battle.BattleParticipants;
 import com.broll.poklmon.battle.util.BattleEndListener;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.Graphics;
+import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.gui.GUIUpdate;
 import com.broll.poklmon.input.CharReceiver;
 import com.broll.poklmon.main.GameState;
@@ -35,10 +36,10 @@ public class BattleState extends GameState {
 		}
 	}
 
-	public void startBattle(BattleParticipants participants, Player player, final BattleEndListener endListener) {
+	public void startBattle(BattleParticipants participants, GameManager game, final BattleEndListener endListener) {
 		if (battle == null) {
 			// init
-			battle = new BattleManager(data, player);
+			battle = new BattleManager(data, game);
 		}
 		playBattleMusic(participants);
 
@@ -60,11 +61,11 @@ public class BattleState extends GameState {
 		});
 	}
 
-	public void startNetworkBattle(NetworkEndpoint endpoint, long seed, BattleParticipants participants, Player player,
+	public void startNetworkBattle(NetworkEndpoint endpoint, long seed, BattleParticipants participants, GameManager game,
 			final BattleEndListener endListener) {
 		if (battle == null) {
 			// init
-			battle = new BattleManager(data, player);
+			battle = new BattleManager(data, game);
 		}
 		playBattleMusic(participants);
 

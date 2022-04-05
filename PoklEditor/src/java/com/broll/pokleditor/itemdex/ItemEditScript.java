@@ -27,7 +27,6 @@ public class ItemEditScript extends JPanel {
 		help.addObject("com.broll.poklmon.game.items.OtherItemScript", "other");
 		help.addObject("com.broll.poklmon.game.items.BasisItemScript", "basis");
 		help.addObject("com.broll.poklmon.game.items.AttackItemScript", "attack");
-
 		for(Class c: CallbackList.getCallbacks()){
 			help.addClass(c, null);
 		}

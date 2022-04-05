@@ -19,8 +19,6 @@ public class InfoBox {
     private float textX, textY;
     private boolean visible;
     private boolean extendUp = false;
-    private FontUtils fontUtils = new FontUtils();
-
 
     public InfoBox(float x, float y, boolean extendLeft) {
         this.x = x;
@@ -42,8 +40,8 @@ public class InfoBox {
     }
 
     private void updateSize() {
-        float tw = fontUtils.getWidth(GUIFonts.dialogText, text);
-        float th = fontUtils.getHeight(GUIFonts.dialogText, text) * 2;
+        float tw = FontUtils.getWidth(GUIFonts.dialogText, text);
+        float th = FontUtils.getHeight(GUIFonts.dialogText, text) * 2;
         float w = X_OFFSET * 2 + tw;
         float h = Y_OFFSET * 2 + th;
         float ax = 0;

@@ -16,8 +16,6 @@ public abstract class StateSite
     protected Poklmon poklmonInfo;
     protected PoklmonData poklmon;
     protected DataContainer data;
-    protected FontUtils fontUtils=new FontUtils();
-
 
     public StateSite(Poklmon poklmonInfo, PoklmonData poklmon, DataContainer data)
     {
@@ -51,7 +49,7 @@ public abstract class StateSite
             g.fillRect(x, y, 450, lineHeight);
         }
 
-        int w=MenuUtils.getTextWidth(g,fontUtils, value);
+        int w=MenuUtils.getTextWidth(g, value);
    
         if(value!=null&&value.length()>0&&w>0)
         {

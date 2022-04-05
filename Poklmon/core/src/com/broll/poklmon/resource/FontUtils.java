@@ -1,46 +1,29 @@
 package com.broll.poklmon.resource;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.utils.Logger;
 
-public class FontUtils {
-
-	private static Logger logger = new Logger(FontUtils.class.getName());
-	private  GlyphLayout glyphLayout;
-	private String currentString=null;
+public final class FontUtils {
 
 
-	public FontUtils(){
+    private FontUtils() {
 
-	}
+    }
 
-	private void update(BitmapFont font, String text){
-		if(glyphLayout==null){
-			glyphLayout=new GlyphLayout(font,text);
-			return;
-		}
-		if(!text.equals(currentString)){
-			currentString=text;
-			glyphLayout.setText(font,currentString);
-		}
-	}
+    public static  int getWidth(BitmapFont font, String text) {
+        float width =0 ;
+        float padRight = font.getData().padRight;
+        float padLeft = font.getData().padLeft;
+        for(int i=0; i<text.length(); i++){
+            BitmapFont.Glyph glyph = font.getData().getGlyph(text.charAt(i));
+            if(glyph!=null){
+             width += (glyph.width + glyph.xoffset) * font.getScaleX() - padRight + padLeft;
+            }
+        }
+        return (int) width;
+    }
 
-	public  int getWidth(BitmapFont font, String text) {
-		if(text==null){
-			return 0;
-		}
-		try{
-			update(font,text);
-		}catch (Exception e){
-			//sometimes glyphLayout.setText crashes with null pointer in line 162...
-			logger.error("Exception in glyphlayout",e);
-		}
-		return (int) glyphLayout.width;
-	}
-
-	public int getHeight(BitmapFont font, String text) {
-		return (int) font.getCapHeight();
-	}
+    public static int getHeight(BitmapFont font, String text) {
+        return (int) font.getCapHeight();
+    }
 
 }

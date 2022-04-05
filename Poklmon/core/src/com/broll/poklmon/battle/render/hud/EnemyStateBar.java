@@ -47,7 +47,7 @@ public class EnemyStateBar extends StateBar {
         // draw status
         MainFightStatus status = poklmon.getStatusChanges().getMainStatus();
         if (status != null) {
-            HudRenderUtils.renderMainStatus(g, fontUtils, status, x + 12, y + 49);
+            HudRenderUtils.renderMainStatus(g, status, x + 12, y + 49);
         }
 
         //draw poklball if its caught

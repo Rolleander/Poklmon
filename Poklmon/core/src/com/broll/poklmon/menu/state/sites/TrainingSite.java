@@ -1,5 +1,7 @@
 package com.broll.poklmon.menu.state.sites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Logger;
 import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.ColorUtil;
@@ -11,8 +13,10 @@ import com.broll.poklmon.poklmon.util.FpCalculator;
 import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.save.PoklmonData;
 
+
 public class TrainingSite extends SpikesStateSite {
 
+	private static final Logger LOG =new Logger("TrainingSite", Gdx.app.getLogLevel());
 
 	public TrainingSite(Poklmon poklmonInfo, PoklmonData poklmon, DataContainer data) {
 		super(poklmonInfo, poklmon, data);
@@ -32,10 +36,11 @@ public class TrainingSite extends SpikesStateSite {
 
 		for (short s : fp) {
 			sum += s;
+			LOG.info("fp- "+s);
 		}
 		int perc=(int) (((float)sum/(float)FpCalculator.MAX_SUM)*100);
-
-		initGraphes(fp);
+		LOG.info("sum "+sum+" perc "+perc);
+		initGraphes(fp, (short) FpCalculator.MAX_STAT);
 		sumText=perc+"%";
 	}
 

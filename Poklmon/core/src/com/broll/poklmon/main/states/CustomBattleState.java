@@ -6,6 +6,7 @@ import com.broll.poklmon.battle.process.BattleProcessCore;
 import com.broll.poklmon.battle.util.BattleEndListener;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.data.basics.Graphics;
+import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.gui.GUIUpdate;
 import com.broll.poklmon.input.CharReceiver;
 import com.broll.poklmon.main.GameState;
@@ -21,10 +22,10 @@ public class CustomBattleState extends GameState {
         this.data = data;
     }
 
-    public void startBattle(BattleParticipants participants, Player player, BattleProcessCore core, final BattleEndListener endListener) {
+    public void startBattle(BattleParticipants participants, GameManager game, BattleProcessCore core, final BattleEndListener endListener) {
         if (battle == null) {
             // init
-            battle = new BattleManager(data, player);
+            battle = new BattleManager(data, game);
         }
 
         battle.startCustom(participants, core, new BattleEndListener() {

@@ -11,7 +11,6 @@ public abstract class MenuPage
     protected Player player;
     protected PlayerMenu menu;
     protected DataContainer data;
-    protected FontUtils fontUtils=new FontUtils();
 
     public MenuPage(PlayerMenu menu, Player player, DataContainer data)
     {
