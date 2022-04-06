@@ -43,7 +43,7 @@ public class ScriptAttackActions {
         this.user = user;
     }
 
-    public void decreaseAp(){
+    public void decreaseAp() {
         user.useAttack(fightAttack);
     }
 
@@ -62,6 +62,10 @@ public class ScriptAttackActions {
         a.setEffectCode(old.getEffectCode());
         a.setName(old.getName());
         return a;
+    }
+
+    public int getCurrentRound() {
+        return battleProcessCore.getBattleRound();
     }
 
     public BattleManager getBattleManager() {

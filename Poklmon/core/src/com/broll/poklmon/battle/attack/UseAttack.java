@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class UseAttack {
     public final static int NO_CUSTOM_ANIMATION = -1;
     private boolean stopAttackProcessing;
+    private boolean showMessage = true;
 
     private ElementType element;
     private AttackType type;
@@ -53,7 +54,16 @@ public class UseAttack {
     private double lifeLose;
     private double kpHealPercent;
     private SpecialScript specialFunction;
+    private String customText;
+    private String endText;
 
+    public void setCustomText(String customText) {
+        this.customText = customText;
+    }
+
+    public String getCustomText() {
+        return customText;
+    }
 
     public void clearAttrbiuteChangeTarget() {
         attributeChangeTarget.clear();
@@ -356,5 +366,21 @@ public class UseAttack {
 
     public void stopAttackProcessing() {
         this.stopAttackProcessing = true;
+    }
+
+    public void setShowMessage(boolean showMessage) {
+        this.showMessage = showMessage;
+    }
+
+    public boolean isShowMessage() {
+        return showMessage;
+    }
+
+    public void setEndText(String endText) {
+        this.endText = endText;
+    }
+
+    public String getEndText() {
+        return endText;
     }
 }

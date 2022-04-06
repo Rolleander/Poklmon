@@ -59,9 +59,17 @@ public class BattleProcessAttack extends BattleProcessControl {
         }
 
         if (core.getEffectProcess().getHandicapProcess().canAttack(user, atk)) {
-            final String text = TextContainer.get("attackText", poklmonName, name);
-            final BattleHUDRender hud = manager.getBattleRender().getHudRender();
-            showText(text);
+            String text = TextContainer.get("attackText", poklmonName, name);
+            if (atk.getCustomText() != null) {
+                text = atk.getCustomText();
+            }
+            BattleHUDRender hud = manager.getBattleRender().getHudRender();
+            if (atk.isShowMessage()) {
+                showText(text);
+            }
+            if (atk.isStopAttackProcessing()) {
+                return;
+            }
             // reduce ap
             user.useAttack(attack);
             // check hit
@@ -84,10 +92,11 @@ public class BattleProcessAttack extends BattleProcessControl {
 
                 if (atk.getSpecialFunction() != null) {
                     scriptAttacks.useSpecialScript(atk, user, target);
+                    if (atk.isStopAttackProcessing()) {
+                        return;
+                    }
                 }
-                if (atk.isStopAttackProcessing()) {
-                    return;
-                }
+
                 // show attack animation
                 int id = attack.getAttack().getAnimationID();
                 if (atk.getCustomAnimation() != UseAttack.NO_CUSTOM_ANIMATION) {
@@ -116,6 +125,12 @@ public class BattleProcessAttack extends BattleProcessControl {
                         showText(comp.getName());
                     }
                 }
+
+                //custom end text
+                if (atk.getEndText() != null) {
+                    showText(atk.getEndText());
+                }
+
             } else {
                 // attack no effect / miss
                 showText(noHitText);

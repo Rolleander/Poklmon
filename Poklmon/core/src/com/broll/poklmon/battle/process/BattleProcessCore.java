@@ -19,8 +19,6 @@ import com.broll.poklmon.network.NetworkException;
 import com.broll.poklmon.save.PoklmonStatistic;
 import com.broll.poklmon.script.ScriptProcessingRunnable;
 
-import java.util.List;
-
 public class BattleProcessCore extends ScriptProcessingRunnable {
 
     protected BattleManager manager;
@@ -36,9 +34,11 @@ public class BattleProcessCore extends ScriptProcessingRunnable {
     private BattleProcessEnemyMove enemyMoveProcess;
     private BattleProcessItems itemProcess;
     private BattleEventFlags eventFlags;
+    private int battleRound;
 
     public void init(BattleManager manager) {
         this.manager = manager;
+        this.battleRound = 0;
         processThreadHandler = new ProcessThreadHandler(this);
         attackProcess = new BattleProcessAttack(manager, this);
         effectProcess = new BattleProcessEffects(manager, this);
@@ -107,7 +107,6 @@ public class BattleProcessCore extends ScriptProcessingRunnable {
         boolean hasNoRoundAttack = effectProcess.getRoundBasedEffectAttacks().canDoNormalAttack(playerPoklmon);
         boolean canSelectAttack = effectProcess.getHandicapProcess().canSelectMove(playerPoklmon);
         FightAttack overwriteAttack = effectProcess.getRoundBasedEffectAttacks().useSpecialAttack(playerPoklmon);
-
         BattleMove playerMove;
 
         if (canSelectAttack && hasNoRoundAttack) {
@@ -124,7 +123,7 @@ public class BattleProcessCore extends ScriptProcessingRunnable {
         }
 
         // check for round based player attacks
-        if (!hasNoRoundAttack &&  playerMove.getMoveType() == BattleMoveType.ATTACK) {
+        if (!hasNoRoundAttack && playerMove.getMoveType() == BattleMoveType.ATTACK) {
             // try use round attack
             if (overwriteAttack != null) {
                 playerMove = new BattleMove(overwriteAttack);
@@ -241,6 +240,7 @@ public class BattleProcessCore extends ScriptProcessingRunnable {
             // start next round
             if (!battleOver) {
                 manager.getBattleRender().getBackgroundRender().setMoving(true);
+                battleRound++;
                 // start next round
                 processPlayerInput();
             }
@@ -371,5 +371,9 @@ public class BattleProcessCore extends ScriptProcessingRunnable {
 
     public BattleProcessEXP getExpProcess() {
         return expProcess;
+    }
+
+    public int getBattleRound() {
+        return battleRound;
     }
 }

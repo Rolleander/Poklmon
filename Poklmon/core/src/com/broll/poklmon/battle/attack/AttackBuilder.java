@@ -2,6 +2,7 @@ package com.broll.poklmon.battle.attack;
 
 import com.badlogic.gdx.Gdx;
 import com.broll.pokllib.attack.Attack;
+import com.broll.pokllib.attack.AttackType;
 import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.pokllib.poklmon.PoklmonWesen;
@@ -48,7 +49,7 @@ public class AttackBuilder {
 		importer.addPackage(ObjectDirection.class.getPackage());
 		importer.addPackage(FightPoklmonParameterCalc.class.getPackage());
 		importer.addPackage(SkipAttackCallback.class.getPackage());
-
+		importer.addPackage(AttackType.class.getPackage());
 		String effect = attack.getAttack().getEffectCode();
 		if (effect != null && !effect.isEmpty()) {
 			ProcessingUtils.runScript(engine, importer.buildScript(effect));
