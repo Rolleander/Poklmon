@@ -100,4 +100,11 @@ public class MapState extends GameState {
         this.gameInstance.renderGame(g);
         this.debugRender.render(g);
     }
+
+    @Override
+    public void dispose() {
+        if (gameInstance != null) {
+            gameInstance.getSceneProcessManager().cancelScript();
+        }
+    }
 }

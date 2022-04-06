@@ -9,19 +9,19 @@ import com.broll.poklmon.script.ObjectRuntimeEnvironment;
 import com.broll.poklmon.script.ObjectScriptExtension;
 import com.broll.poklmon.main.GameStateManager;
 import com.broll.poklmon.map.object.MapObject;
+import com.broll.poklmon.script.ProcessingUtils;
 
 import java.util.Stack;
 
 public class SceneProcessManager {
 	private ScriptSceneProcess scriptProcess;
+	private Thread scriptThread;
 	private GameManager game;
 	private boolean scriptRunning = false;
 	private ObjectRuntimeEnvironment runtimeEnvironment;
 	private ObjectInitEnvironment initEnvironment;
 	private Stack<ScriptInstance> triggerStack = new Stack<ScriptInstance>();
 	private GameStateManager stateManager;
-	private final static Logger logger = new Logger(SceneProcessManager.class.getName());
-
 
 	public SceneProcessManager(GameManager game, GameStateManager stateManager) {
 		this.game = game;
@@ -53,11 +53,7 @@ public class SceneProcessManager {
 				public void sceneEnded() {
 					finishedScript();
 				}
-				@Override
-				public void exceptionOccured(Exception e) {
-					logger.error("Exception occured in ControlSceneProcess",e);
-					stateManager.gameException(e);
-				}
+
 			});
 		} else {
 			MapObject object = script.getMapObject();
@@ -73,17 +69,20 @@ public class SceneProcessManager {
 				public void sceneEnded() {
 					finishedScript();
 				}
-				@Override
-				public void exceptionOccured(Exception e) {
-					logger.error("Exception occured in ScriptSceneProcess ["+triggerScript+"]",e);
-					stateManager.gameException(e);
-				}
+
 			}, objectScriptHandler);
 			runtimeEnvironment.initController(object, scriptProcess);
 			runtimeEnvironment.importObjects(objectScriptHandler.getEngine());
 		}
-		Thread thread = new Thread(scriptProcess);
-		thread.start();
+		scriptThread = new Thread(scriptProcess);
+		scriptThread.setName("SceneProcessManager:ScriptThread");
+		scriptThread.start();
+	}
+
+	public void cancelScript(){
+		if(scriptThread!=null && scriptProcess !=null){
+			ProcessingUtils.cancel(scriptThread, scriptProcess);
+		}
 	}
 
 	public void runScript(ScriptInstance script) {
@@ -103,11 +102,7 @@ public class SceneProcessManager {
 			@Override
 			public void sceneEnded() {
 			}
-			@Override
-			public void exceptionOccured(Exception e) {
-				logger.error("Exception occured in Init-Script ["+script+"]",e);
-				stateManager.gameException(e);
-			}
+
 		}, objectScriptHandler);
 		initEnvironment.initController(object, scriptProcess);
 		initEnvironment.importObjects(objectScriptHandler.getEngine());

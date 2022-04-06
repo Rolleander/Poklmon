@@ -16,120 +16,98 @@ import com.broll.poklmon.battle.process.effects.TeamEffectProcess;
 import com.broll.poklmon.battle.util.BattleRandom;
 import com.broll.poklmon.battle.util.flags.BattleEventFlags;
 import com.broll.poklmon.battle.util.flags.DamageTaken;
-import com.broll.poklmon.battle.util.message.BattleMessages;
 import com.broll.poklmon.data.AttackContainer;
 import com.broll.poklmon.data.TextContainer;
 
-public class SpecialScriptAttacks extends BattleProcessControl
-{
+public class SpecialScriptAttacks extends BattleProcessControl {
 
-    public SpecialScriptAttacks(BattleManager manager, BattleProcessCore handler)
-    {
+    public SpecialScriptAttacks(BattleManager manager, BattleProcessCore handler) {
         super(manager, handler);
     }
 
-    public void useSpecialScript(UseAttack attack, FightPoklmon user, FightPoklmon target)
-    {
+    public void useSpecialScript(UseAttack attack, FightPoklmon user, FightPoklmon target) {
         SpecialScript script = attack.getSpecialFunction();
 
-        if (script == SpecialScript.JUSTICE)
-        {
+        if (script == SpecialScript.JUSTICE) {
+            attack.stopAttackProcessing();
             //aufteilen der kp
             int userkp = user.getAttributes().getHealth();
             int targetkp = target.getAttributes().getHealth();
-            if (userkp != targetkp)
-            {
+            if (userkp != targetkp) {
                 showText("Die KP werden gerecht verteilt!");
                 int newkp = (userkp + targetkp) / 2;
                 adaptKP(user, newkp);
                 adaptKP(target, newkp);
-            }
-            else
-            {
+            } else {
                 noEffect();
             }
         }
 
-        if (script == SpecialScript.METRONOM)
-        {
+        if (script == SpecialScript.METRONOM) {
+            attack.stopAttackProcessing();
             //use random attack
             AttackContainer attacks = manager.getData().getAttacks();
-            int id = (int)(attacks.getNumberOfAttacks() * BattleRandom.random());
+            int id = (int) (attacks.getNumberOfAttacks() * BattleRandom.random());
             Attack atk = attacks.getAttack(id);
             FightAttack newAttack = new FightAttack(atk);
             core.getAttackProcess().processAttack(newAttack, user, target);
         }
 
-        if (script == SpecialScript.IMITATOR)
-        {
+        if (script == SpecialScript.IMITATOR) {
+            attack.stopAttackProcessing();
             //use last attack from enemy
             int lastAttack = core.getEventFlags().getPoklmonFlags(target).getLastAttackID();
-            if (lastAttack != BattleEventFlags.NONE)
-            {
+            if (lastAttack != BattleEventFlags.NONE) {
                 //use attack
                 FightAttack newAttack = new FightAttack(manager.getData().getAttacks().getAttack(lastAttack));
                 core.getAttackProcess().processAttack(newAttack, user, target);
-            }
-            else
-            {
+            } else {
                 noEffect();
             }
         }
 
-        if (script == SpecialScript.MIMIKRY)
-        {
+        if (script == SpecialScript.MIMIKRY) {
+            attack.stopAttackProcessing();
             //learn last used attack from enemy
             int lastAttack = core.getEventFlags().getPoklmonFlags(target).getLastAttackID();
-            if (lastAttack != BattleEventFlags.NONE)
-            {
+            if (lastAttack != BattleEventFlags.NONE) {
                 int mimikryID = 129;
                 int pos = getAttackIDPosition(user, mimikryID);
-                if (pos != -1)
-                {
+                if (pos != -1) {
                     //learn attack at pos
                     learnAttack(user, lastAttack, pos);
-                }
-                else
-                {
+                } else {
                     //has no mimikry as attack to replace => fail
                     noEffect();
                 }
-            }
-            else
-            {
+            } else {
                 //enemy has no last attack
                 noEffect();
             }
         }
 
-        if (script == SpecialScript.REVENGE)
-        {
+        if (script == SpecialScript.REVENGE) {
+            attack.stopAttackProcessing();
             //racheangriff
             int targetKP = target.getAttributes().getHealth();
             int userKP = user.getAttributes().getHealth();
-            if (targetKP > userKP)
-            {
+            if (targetKP > userKP) {
                 //gegnerische kp auf eigene absenken
                 adaptKP(target, userKP);
-            }
-            else
-            {
+            } else {
                 noEffect();
             }
         }
 
-        if (script == SpecialScript.KONTER)
-        {
+        if (script == SpecialScript.KONTER) {
+            attack.stopAttackProcessing();
             //kontert physischen treffer des gegners
             DamageTaken damageTaken = core.getEventFlags().getPoklmonFlags(user).getLastDamageTaken();
-            if (damageTaken != null)
-            {
-                if (damageTaken.getAttackType() == AttackType.PHYSICAL)
-                {
+            if (damageTaken != null) {
+                if (damageTaken.getAttackType() == AttackType.PHYSICAL) {
                     //nur physische attacken kontern
                     int damage = damageTaken.getDamage();
-                    if (damage > 0)
-                    {
+                    if (damage > 0) {
                         //schaden auf gegner
                         int newdamage = damage * 2;
                         //TODO konter hit animation zeigen
@@ -141,18 +119,15 @@ public class SpecialScriptAttacks extends BattleProcessControl
             noEffect();
         }
 
-        if (script == SpecialScript.SPECIALKONTER)
-        {
+        if (script == SpecialScript.SPECIALKONTER) {
+            attack.stopAttackProcessing();
             //kontert speziall treffer des gegners
             DamageTaken damageTaken = core.getEventFlags().getPoklmonFlags(user).getLastDamageTaken();
-            if (damageTaken != null)
-            {
-                if (damageTaken.getAttackType() == AttackType.SPECIAL)
-                {
+            if (damageTaken != null) {
+                if (damageTaken.getAttackType() == AttackType.SPECIAL) {
                     //nur speziall attacken kontern
                     int damage = damageTaken.getDamage();
-                    if (damage > 0)
-                    {
+                    if (damage > 0) {
                         //schaden auf gegner
                         int newdamage = damage * 2;
                         //TODO spiegelwand hit animation zeigen
@@ -164,14 +139,11 @@ public class SpecialScriptAttacks extends BattleProcessControl
             noEffect();
         }
 
-        if (script == SpecialScript.VERGELTUNG)
-        {
+        if (script == SpecialScript.VERGELTUNG) {
             //angriffstärke verdoppeln wenn getroffen 
             DamageTaken damageTaken = core.getEventFlags().getPoklmonFlags(user).getLastDamageTaken();
-            if (damageTaken != null)
-            {
-                if (damageTaken.getDamage() > 0)
-                {
+            if (damageTaken != null) {
+                if (damageTaken.getDamage() > 0) {
                     //stärke verdoppeln
                     int damage = attack.getDamage() * 2;
                     attack.setDamage(damage);
@@ -179,23 +151,19 @@ public class SpecialScriptAttacks extends BattleProcessControl
             }
         }
 
-        if (script == SpecialScript.REFRESH)
-        {
+        if (script == SpecialScript.REFRESH) {
+            attack.stopAttackProcessing();
             //selbstheilung von statusveränderungen
             PoklmonStatusChanges status = user.getStatusChanges();
-            if (status.hasMainStateChangeEffect())
-            {
+            if (status.hasMainStateChangeEffect()) {
                 //heal
                 core.getEffectProcess().getHealProcess().healMainChangeStatus(user);
-            }
-            else
-            {
+            } else {
                 noEffect();
             }
         }
 
-        if (script == SpecialScript.MAGNITUDE)
-        {
+        if (script == SpecialScript.MAGNITUDE) {
             //intensität
             int[] intensStrength = {10, 30, 50, 70, 90, 110, 150};
             double[] chances = {0.05, 0.10, 0.20, 0.30, 0.20, 0.10, 0.5};
@@ -207,8 +175,7 @@ public class SpecialScriptAttacks extends BattleProcessControl
             attack.setDamage(damage);
         }
 
-        if (script == SpecialScript.WASSERDRUCK)
-        {
+        if (script == SpecialScript.WASSERDRUCK) {
             //wasserdruck
             int[] strength = {20, 40, 50, 60, 80, 100, 200};
 
@@ -222,25 +189,24 @@ public class SpecialScriptAttacks extends BattleProcessControl
         }
 
 
-        if (script == SpecialScript.ATTACKWISH)
-        {
+        if (script == SpecialScript.ATTACKWISH) {
+            attack.stopAttackProcessing();
             AttackContainer attacks = manager.getData().getAttacks();
-            int id = (int)(attacks.getNumberOfAttacks() * BattleRandom.random());
+            int id = (int) (attacks.getNumberOfAttacks() * BattleRandom.random());
             int oldId = 159;
             int pos = getAttackIDPosition(user, oldId);
             learnAttack(user, id, pos);
         }
 
-
-        if (script == SpecialScript.KPMULTIPLYDAMAGE)
-        {
+        if (script == SpecialScript.KPMULTIPLYDAMAGE) {
+            attack.stopAttackProcessing();
             //kp mit schaden multiplitzieren
             float health = user.getAttributes().getHealthPercent();
             int damage = attack.getDamage();
             attack.setDamage(StateEffectCalc.rint(health * damage));
         }
-        
-        if(script ==SpecialScript.REMOVESHIELDS){          
+
+        if (script == SpecialScript.REMOVESHIELDS) {
             //schilder des gegners entfernen
             TeamEffectProcess teamEffects = core.getEffectProcess().getTeamEffectProcess();
             teamEffects.removeTeamEffect(target, TeamEffect.ENERGYBLOCK);
@@ -251,76 +217,47 @@ public class SpecialScriptAttacks extends BattleProcessControl
         }
     }
 
-    public boolean cancelPlainAttack(UseAttack useAttack)
-    {
-        SpecialScript script = useAttack.getSpecialFunction();
-        switch (script)
-        {
-            case VERGELTUNG:
-                return false;
-            case MAGNITUDE:
-                return false;
-            case KPMULTIPLYDAMAGE:
-                return false;
-            case WASSERDRUCK:
-                return false;
-            case REMOVESHIELDS:
-                return false;
-            default:
-                return true;
-        }
-    }
 
-    private int getAttackIDPosition(FightPoklmon poklmon, int attack)
-    {
-        for (int i = 0; i < 4; i++)
-        {
+    private int getAttackIDPosition(FightPoklmon poklmon, int attack) {
+        for (int i = 0; i < 4; i++) {
             FightAttack fatk = poklmon.getAttacks()[i];
-            if (fatk == null)
-            {
+            if (fatk == null) {
                 continue;
             }
             Attack atk = fatk.getAttack();
             int id = manager.getData().getAttacks().getAttackID(atk);
-            if (id == attack)
-            {
+            if (id == attack) {
                 return i;
             }
         }
         return -1;
     }
 
-    private void learnAttack(FightPoklmon poklmon, int attack, int place)
-    {
+    private void learnAttack(FightPoklmon poklmon, int attack, int place) {
         Attack atk = manager.getData().getAttacks().getAttack(attack);
-        int ap=poklmon.getAttacks()[place].getAp();//keep ap
+        int ap = poklmon.getAttacks()[place].getAp();//keep ap
         FightAttack learnAttack = new FightAttack(atk, ap);
         String atkName = atk.getName();
         String poklName = poklmon.getName();
         poklmon.getAttacks()[place] = learnAttack;
-        String text =  TextContainer.get("dialog_LearnTM_Success",poklName,atkName);
+        String text = TextContainer.get("dialog_LearnTM_Success", poklName, atkName);
         showText(text);
     }
 
-    private void noEffect()
-    {
+    private void noEffect() {
         showText(TextContainer.get("attackNoEffect"));
     }
 
-    private void adaptKP(FightPoklmon poklmon, int newkp)
-    {
+    private void adaptKP(FightPoklmon poklmon, int newkp) {
         int kp = poklmon.getAttributes().getHealth();
-        if (kp > newkp)
-        {
+        if (kp > newkp) {
             //damage
             int damage = kp - newkp;
             core.getAttackProcess().doDamage(poklmon, null, damage);
-        }
-        else if (kp < newkp)
-        {
+        } else if (kp < newkp) {
             //heal
             int heal = newkp - kp;
-            core.getEffectProcess().getInflictprocess().healPoklmon(poklmon,null, heal);
+            core.getEffectProcess().getInflictprocess().healPoklmon(poklmon, null, heal);
         }
     }
 

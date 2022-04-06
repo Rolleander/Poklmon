@@ -5,56 +5,60 @@ import com.broll.pokllib.attack.AttackDamage;
 import com.broll.pokllib.attack.AttackPriority;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.attack.FightAttack;
+import com.broll.poklmon.battle.process.callbacks.OverwriteAttackCallback;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.poklmon.states.EffectStatus;
 import com.broll.poklmon.battle.poklmon.states.PoklmonStatusChanges;
 import com.broll.poklmon.battle.process.BattleProcessControl;
 import com.broll.poklmon.battle.process.BattleProcessCore;
+import com.broll.poklmon.battle.process.CustomScriptCall;
+import com.broll.poklmon.battle.process.callbacks.ojects.OverwriteAttackSettings;
 import com.broll.poklmon.battle.util.BattleRandom;
 
-public class RoundBasedEffectAttacks extends BattleProcessControl
-{
+public class RoundBasedEffectAttacks extends BattleProcessControl {
     private String dispText;
+    private OverwriteAttackSettings overwriteAttackSettings;
 
-    public RoundBasedEffectAttacks(BattleManager manager, BattleProcessCore handler)
-    {
+    public RoundBasedEffectAttacks(BattleManager manager, BattleProcessCore handler) {
         super(manager, handler);
     }
 
-    public boolean canDoNormalAttack(FightPoklmon poklmon)
-    {
+    public boolean canDoNormalAttack(FightPoklmon poklmon) {
+        this.overwriteAttackSettings = new OverwriteAttackSettings();
         PoklmonStatusChanges status = poklmon.getStatusChanges();
 
-        if (status.hasEffectChange(EffectStatus.SOLARBEAM))
-        {
+        if (status.hasEffectChange(EffectStatus.SOLARBEAM)) {
             return false;
         }
-        if (status.hasEffectChange(EffectStatus.FUCHTLER))
-        {
+        if (status.hasEffectChange(EffectStatus.FUCHTLER)) {
             return false;
         }
-        if (status.hasEffectChange(EffectStatus.FLUTWELLE))
-        {
+        if (status.hasEffectChange(EffectStatus.FLUTWELLE)) {
             return false;
         }
-        if (status.hasEffectChange(EffectStatus.DRAGONSTORM))
-        {
+        if (status.hasEffectChange(EffectStatus.DRAGONSTORM)) {
+            return false;
+        }
+        for (OverwriteAttackCallback script : manager.getScriptCalls(OverwriteAttackCallback.class)) {
+            script.call(poklmon, overwriteAttackSettings);
+        }
+        if (!overwriteAttackSettings.isAllowOtherMoves()) {
             return false;
         }
         return true;
     }
 
-    public boolean mustWaitRound(FightPoklmon poklmon)
-    {
+    public boolean mustWaitRound(FightPoklmon poklmon) {
         return false;
     }
 
-    public FightAttack useSpecialAttack(FightPoklmon poklmon)
-    {
+    public FightAttack useSpecialAttack(FightPoklmon poklmon) {
+        if (overwriteAttackSettings.getAttack() != null) {
+            return new FightAttack(overwriteAttackSettings.getAttack());
+        }
         PoklmonStatusChanges status = poklmon.getStatusChanges();
-        
-        if (status.hasEffectChange(EffectStatus.SOLARBEAM))
-        {
+
+        if (status.hasEffectChange(EffectStatus.SOLARBEAM)) {
             status.removeEffectChange(EffectStatus.SOLARBEAM);
 
             //use solarbeam attack
@@ -65,8 +69,7 @@ public class RoundBasedEffectAttacks extends BattleProcessControl
 
         }
 
-        if (status.hasEffectChange(EffectStatus.FLUTWELLE))
-        {
+        if (status.hasEffectChange(EffectStatus.FLUTWELLE)) {
             status.removeEffectChange(EffectStatus.FLUTWELLE);
             //use strong flutwelle attack
             Attack flutwelle = copyAttack(110, null);
@@ -79,13 +82,11 @@ public class RoundBasedEffectAttacks extends BattleProcessControl
 
         }
 
-        if (status.hasEffectChange(EffectStatus.FUCHTLER))
-        {
+        if (status.hasEffectChange(EffectStatus.FUCHTLER)) {
             int duration = status.getEffectChangeDuration(EffectStatus.FUCHTLER);
             // heal from fuchtler nach 1-2 folgerunden
             String script = null;
-            if (isOver(duration, 1, 2))
-            {
+            if (isOver(duration, 1, 2)) {
                 status.removeEffectChange(EffectStatus.FUCHTLER);
                 //verwirre anwender
                 script = "util.addUserEffectChance(\"confusion\", 1)";
@@ -94,14 +95,12 @@ public class RoundBasedEffectAttacks extends BattleProcessControl
             Attack fuchtler = copyAttack(109, script);
             return new FightAttack(fuchtler);
         }
-        
-        if (status.hasEffectChange(EffectStatus.DRAGONSTORM))
-        {
+
+        if (status.hasEffectChange(EffectStatus.DRAGONSTORM)) {
             int duration = status.getEffectChangeDuration(EffectStatus.DRAGONSTORM);
             // heal from drachensturm nach 1-2 folgerunden
             String script = null;
-            if (isOver(duration, 1, 2))
-            {
+            if (isOver(duration, 1, 2)) {
                 status.removeEffectChange(EffectStatus.DRAGONSTORM);
                 //verwirre anwender
                 script = "util.addUserEffectChance(\"confusion\", 1)";
@@ -114,18 +113,15 @@ public class RoundBasedEffectAttacks extends BattleProcessControl
         return null;
     }
 
-    public boolean isOver(int rounds, int minRounds, int maxRounds)
-    {
-        if (rounds >= minRounds)
-        {
+    public boolean isOver(int rounds, int minRounds, int maxRounds) {
+        if (rounds >= minRounds) {
             int dif = (maxRounds - minRounds) + 1;
-            return rounds > (int)(BattleRandom.random() * dif);
+            return rounds > (int) (BattleRandom.random() * dif);
         }
         return false;
     }
 
-    private Attack copyAttack(int nr, String effect)
-    {
+    private Attack copyAttack(int nr, String effect) {
         Attack a = new Attack();
         Attack old = manager.getData().getAttacks().getAttack(nr);
         a.setAnimationID(old.getAnimationID());
@@ -142,8 +138,7 @@ public class RoundBasedEffectAttacks extends BattleProcessControl
         return a;
     }
 
-    public String getDispText()
-    {
+    public String getDispText() {
         return dispText;
     }
 

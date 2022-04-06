@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
 import com.broll.pokllib.game.StartInformation;
 import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.network.NetworkServer;
@@ -50,6 +51,7 @@ public class DesktopLauncher {
         }
         SaveFileManager.initSaveInterface(new DesktopSaveFolder());
         NetworkServer.setAddressProvider(new DesktopIpProvider());
+
         new Lwjgl3Application(new PoklmonGame(startInformation), config);
     }
 

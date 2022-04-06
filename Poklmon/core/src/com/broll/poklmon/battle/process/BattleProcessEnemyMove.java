@@ -11,12 +11,11 @@ import com.broll.poklmon.battle.render.BattleSequences;
 import com.broll.poklmon.battle.util.BattleMove;
 import com.broll.poklmon.battle.util.PoklmonTeamCheck;
 import com.broll.poklmon.battle.util.ScriptValue;
-import com.broll.poklmon.battle.util.message.BattleMessages;
 import com.broll.poklmon.data.TextContainer;
-import com.broll.poklmon.game.items.callbacks.PoklmonEnterCallback;
-import com.broll.poklmon.game.items.callbacks.PoklmonLeaveCallback;
-import com.broll.poklmon.game.items.callbacks.PoklmonSwitchCallback;
-import com.broll.poklmon.game.items.callbacks.PricemoneyCalculationCallback;
+import com.broll.poklmon.battle.process.callbacks.PoklmonEnterCallback;
+import com.broll.poklmon.battle.process.callbacks.PoklmonLeaveCallback;
+import com.broll.poklmon.battle.process.callbacks.PoklmonSwitchCallback;
+import com.broll.poklmon.battle.process.callbacks.PricemoneyCalculationCallback;
 import com.broll.poklmon.network.NetworkException;
 
 import java.util.ArrayList;
@@ -89,10 +88,8 @@ public class BattleProcessEnemyMove extends BattleProcessControl {
 			showText(outro);
 			int money = manager.getParticipants().getWinMoney();
 			ScriptValue value = new ScriptValue(money);
-			for (CustomScriptCall script : manager.getScriptCalls()) {
-				if (script instanceof PricemoneyCalculationCallback) {
-					value.value = ((PricemoneyCalculationCallback) script).call(value.value);
-				}
+			for (PricemoneyCalculationCallback script : manager.getScriptCalls(PricemoneyCalculationCallback.class)) {
+					value.value =script.call(value.value);
 			}
 			money = value.value;
 			showText( TextContainer.get("trainerMoney",manager.getParticipants().getPlayerName(),money));
@@ -118,10 +115,8 @@ public class BattleProcessEnemyMove extends BattleProcessControl {
 	private void sendNextPoklmon(FightPoklmon next) {
 		FightPoklmon oldPoklmon = manager.getParticipants().getEnemy();
 		oldPoklmon.setFighting(false);
-		for (CustomScriptCall script : manager.getScriptCalls()) {
-			if (script instanceof PoklmonLeaveCallback) {
-				((PoklmonLeaveCallback) script).call(oldPoklmon);
-			}
+		for (PoklmonLeaveCallback script : manager.getScriptCalls(PoklmonLeaveCallback.class)) {
+			script.call(oldPoklmon);
 		}
 		// repalce positions in array
 		ArrayList<FightPoklmon> team = manager.getParticipants().getEnemyTeam();
@@ -135,15 +130,11 @@ public class BattleProcessEnemyMove extends BattleProcessControl {
 		enemyPoklmonIntro();
 		// enter callback
 		next.setFighting(true);
-		for (CustomScriptCall script : manager.getScriptCalls()) {
-			if (script instanceof PoklmonSwitchCallback) {
-				((PoklmonSwitchCallback) script).call(oldPoklmon,next);
-			}
+		for (PoklmonSwitchCallback script : manager.getScriptCalls(PoklmonSwitchCallback.class)) {
+			script.call(oldPoklmon,next);
 		}
-		for (CustomScriptCall script : manager.getScriptCalls()) {
-			if (script instanceof PoklmonEnterCallback) {
-				((PoklmonEnterCallback) script).call(next);
-			}
+		for (PoklmonEnterCallback script : manager.getScriptCalls(PoklmonEnterCallback.class)) {
+			script.call(next);
 		}
 	}
 

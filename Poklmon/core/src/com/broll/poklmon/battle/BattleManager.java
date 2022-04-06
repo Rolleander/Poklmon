@@ -15,8 +15,12 @@ import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.main.SystemClock;
 import com.broll.poklmon.network.NetworkEndpoint;
 import com.broll.poklmon.player.Player;
+import com.broll.poklmon.script.ProcessingUtils;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BattleManager {
@@ -29,9 +33,10 @@ public class BattleManager {
     private DataContainer data;
     private FieldEffects fieldEffects;
     private Thread battleThread;
+    private BattleProcessCore core;
     private GameManager game;
     private Player player;
-    private List<CustomScriptCall> scriptCalls;
+    private Multimap<Object, CustomScriptCall> scriptCalls;
     private boolean networkBattle = false;
 
     public BattleManager(DataContainer data, GameManager game) {
@@ -52,7 +57,7 @@ public class BattleManager {
 
     private void initBattle(BattleParticipants participants, BattleEndListener end) {
         this.participants = participants;
-        scriptCalls = new ArrayList<CustomScriptCall>();
+        scriptCalls = ArrayListMultimap.create();
         fieldEffects = new FieldEffects(participants);
         battleRender.getPoklmonRender().setEnemyPoklmonVisible(false);
         battleRender.getPoklmonRender().setPlayerPoklmonVisible(false);
@@ -70,12 +75,14 @@ public class BattleManager {
     }
 
     private void startCore(BattleProcessCore core, BattleEndListener end) {
+        this.core = core;
         core.init(this);
         // init ki
         enemyMoveSelection.initKI(core, participants);
         this.endListener = end;
         battleRender.init();
         battleThread = new Thread(core);
+        battleThread.setName("BattleProcessCore");
         battleThread.start();
     }
 
@@ -149,8 +156,26 @@ public class BattleManager {
         return player;
     }
 
-    public List<CustomScriptCall> getScriptCalls() {
-        return scriptCalls;
+    public void addScriptCall(Object owner, CustomScriptCall call) {
+        synchronized (this.scriptCalls) {
+            this.scriptCalls.put(owner, call);
+        }
+    }
+
+    public <T extends CustomScriptCall> List<T> getScriptCalls(Class<T> type) {
+        List<T> calls = new ArrayList<>();
+        for (CustomScriptCall call : scriptCalls.values()) {
+            if (type.isInstance(call)) {
+                calls.add((T) call);
+            }
+        }
+        return calls;
+    }
+
+    public void removeScriptCalls(Object owner) {
+        synchronized (this.scriptCalls) {
+            this.scriptCalls.removeAll(owner);
+        }
     }
 
     public boolean isNetworkBattle() {
@@ -159,5 +184,11 @@ public class BattleManager {
 
     public GameManager getGame() {
         return game;
+    }
+
+    public void dispose(){
+        if(core!=null){
+            ProcessingUtils.cancel(battleThread, core);
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.broll.poklmon.game.items.callbacks;
+package com.broll.poklmon.battle.process.callbacks;
 
 import com.broll.poklmon.battle.poklmon.PlayerPoklmon;
 import com.broll.poklmon.battle.process.CustomScriptCall;

@@ -1,25 +1,22 @@
 package com.broll.poklmon.main;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.TimerTask;
 
-public class SystemClock extends TimerTask{
+public class SystemClock {
 
-	
-	public static boolean isTick;
-	
+
+	private static float time;
 	
 	public static boolean isTick() {
-		if(isTick)
-		{
-			isTick=false;
+		float expired = Gdx.graphics.getDeltaTime();
+		time+=expired;
+		if(time >= 1){
+			time-=1;
 			return true;
 		}
 		return false;
 	}
 
-
-	@Override
-	public void run() {
-		isTick=true;
-	}
 }

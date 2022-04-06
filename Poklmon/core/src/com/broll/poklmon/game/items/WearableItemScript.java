@@ -1,13 +1,19 @@
 package com.broll.poklmon.game.items;
 
+import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.attack.AttackAttributePlus;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.poklmon.states.EffectStatus;
 import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
+import com.broll.poklmon.battle.process.BattleProcessCore;
 import com.broll.poklmon.battle.process.CustomScriptCall;
 import com.broll.poklmon.script.commands.VariableCommands;
 
 public interface WearableItemScript {
+
+	BattleManager getBattleManager();
+
+	BattleProcessCore getBattleProcessCore();
 	
 	public void showText(String text);
 
@@ -22,6 +28,8 @@ public interface WearableItemScript {
 	public boolean isCarrierActive();
 
 	public void addCallback(CustomScriptCall call);
+
+	void removeCallbacks();
 
 	public boolean isBool();
 

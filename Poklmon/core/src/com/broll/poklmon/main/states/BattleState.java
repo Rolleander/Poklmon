@@ -121,4 +121,11 @@ public class BattleState extends GameState {
 		battle.render(g);
 	}
 
+	@Override
+	public void dispose() {
+		if(battle!=null){
+			battle.dispose();
+		}
+	}
+
 }

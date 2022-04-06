@@ -12,7 +12,7 @@ public class CallbackList {
     public static Set<Class> getCallbacks() {
         try {
             Class customScriptCallClass = DebuggerClasses.getClass("com.broll.poklmon.battle.process.CustomScriptCall");
-            Reflections reflections = new Reflections(DebuggerClasses.debugerClassLoader, "com.broll.poklmon.game.items.callbacks");
+            Reflections reflections = new Reflections(DebuggerClasses.debugerClassLoader, "com.broll.poklmon.battle.process.callbacks");
             Set<Class> allClasses = reflections.getSubTypesOf(customScriptCallClass);
             return allClasses;
         } catch (Exception e) {

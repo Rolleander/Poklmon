@@ -8,6 +8,7 @@ import com.broll.poklmon.gui.GUIUpdate;
 import com.broll.poklmon.resource.FontUtils;
 import com.broll.poklmon.resource.GUIDesign;
 import com.broll.poklmon.resource.GUIFonts;
+import com.broll.poklmon.script.TimerUtils;
 
 public class DialogBox {
 	public final static int STYLE_PLAIN = 0, STYLE_BATTLE = 1;
@@ -18,7 +19,6 @@ public class DialogBox {
 
 	private int xpos, ypos;
 	private int style = STYLE_PLAIN;
-	private DialogTimer timer;
 	private String[] lines;
 	private boolean withTimer = false;
 	private SelectionListener exitListener;
@@ -33,13 +33,6 @@ public class DialogBox {
 		xpos = 0;
 		int h = HEIGHT;
 		ypos = 600 - h;
-		timer = new DialogTimer(new TimerListener() {
-
-			public void timerStopped() {
-				clicked = true;
-				closeMessage();
-			}
-		});
 	}
 
 	public void setTextSpeed(int textWait) {
@@ -52,7 +45,6 @@ public class DialogBox {
 
 	public void showMessage(String message, SelectionListener listener) {
 		clicked = false;
-		timer.cancel();
 		this.exitListener = listener;
 		lines = MessageLineCutter.cutMessage(message);
 		withTimer = false;
@@ -69,7 +61,6 @@ public class DialogBox {
 
 	public void showMessage(String message, float seconds, SelectionListener listener) {
 		clicked = false;
-		timer.cancel();
 		this.exitListener = listener;
 		lines = MessageLineCutter.cutMessage(message);
 		timerSeconds = seconds;
@@ -92,7 +83,7 @@ public class DialogBox {
 			letters = 0;
 			lines = newLines;
 			if (withTimer) {
-				timer.startAgain();
+				startTimer();
 			}
 		} else {
 			if (exitListener != null) {
@@ -160,6 +151,16 @@ public class DialogBox {
 		return l;
 	}
 
+	private void startTimer(){
+		TimerUtils.timerTask(timerSeconds, new Runnable() {
+			@Override
+			public void run() {
+				clicked = true;
+				closeMessage();
+			}
+		});
+	}
+
 	private int wait = 0;
 
 	public void update() {
@@ -170,7 +171,7 @@ public class DialogBox {
 				letters++;
 				if (letters == getMaxLength()) {
 					if (withTimer) {
-						timer.start(timerSeconds);
+						startTimer();
 					}
 				}
 			}

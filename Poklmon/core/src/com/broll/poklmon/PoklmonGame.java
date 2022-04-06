@@ -24,6 +24,7 @@ import com.broll.poklmon.main.GameStateManager;
 import com.broll.poklmon.main.SystemClock;
 import com.broll.poklmon.resource.GUIFonts;
 import com.broll.poklmon.resource.ResourceUtils;
+import com.broll.poklmon.script.TimerUtils;
 
 import java.io.File;
 import java.util.Timer;
@@ -38,7 +39,6 @@ public class PoklmonGame extends Game {
     public static boolean DEBUG_MODE = false;
     public static boolean TOUCH_MODE = false;
     private final static Logger logger = new Logger(PoklmonGame.class.getName());
-    private Timer timer;
     private GameStateManager stateManager;
     private StartInformation startInformation;
     private Graphics graphics;
@@ -54,21 +54,20 @@ public class PoklmonGame extends Game {
 
     @Override
     public void create() {
+        logger.setLevel(Gdx.app.getLogLevel());
         logger.info("Init Game...");
-        timer = new Timer();
-        timer.schedule(new SystemClock(), 0, 1000);
         File dataPath = startInformation.getDataPath();
         if (dataPath == null) {
             dataPath = new File("data");
         }
-        if(startInformation.isDebugGame()){
+        if (startInformation.isDebugGame()) {
             Gdx.app.setLogLevel(Application.LOG_INFO);
         }
         TOUCH_MODE = startInformation.isTouchControling();
         DEBUG_MODE = startInformation.isDebugGame();
 
         ResourceUtils.setDataPath(dataPath);
-        logger.info("Start Poklmon Game on Path: "+dataPath.getAbsolutePath());
+        logger.info("Start Poklmon Game on Path: " + dataPath.getAbsolutePath());
         stateManager = new GameStateManager(this);
         camera = new OrthographicCamera();
         camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -78,7 +77,7 @@ public class PoklmonGame extends Game {
         touchSpriteBatch = new SpriteBatch();
         input = new InputReceiver(viewport);
         if (TOUCH_MODE) {
-            touchViewport = new ScreenViewport( );
+            touchViewport = new ScreenViewport();
             TouchInputReceiver touchInputReceiver = new TouchInputReceiver(touchViewport);
             Gdx.input.setInputProcessor(new InputMultiplexer(touchInputReceiver, input));
             TouchIconsRender.init(touchSpriteBatch, touchViewport);
@@ -94,9 +93,10 @@ public class PoklmonGame extends Game {
         viewport.apply();
         graphics.prepareRender(camera);
         graphics.sb.begin();
+        TimerUtils.update();
         super.render();
         graphics.sb.end();
-        if(PoklmonGame.TOUCH_MODE){
+        if (PoklmonGame.TOUCH_MODE) {
             touchViewport.apply();
             TouchIconsRender.render();
         }
@@ -105,8 +105,7 @@ public class PoklmonGame extends Game {
     @Override
     public void dispose() {
         logger.info("Dispose Game");
-        timer.cancel();
-        timer = null;
+        stateManager.dispose();
         MusicContainer.dispose();
         DataLoader.dispose();
         GUIFonts.dispose();

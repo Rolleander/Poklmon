@@ -2,8 +2,9 @@ package com.broll.poklmon.newgame;
 
 import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.data.SoundContainer;
+import com.broll.poklmon.script.ScriptProcessingRunnable;
 
-public class NewgameProcess implements Runnable {
+public class NewgameProcess extends ScriptProcessingRunnable {
 
 	private NewgameListener newgameListener;
 	private NewgameGUI gui;
@@ -19,7 +20,7 @@ public class NewgameProcess implements Runnable {
 	}
 
 	@Override
-	public synchronized void run() {
+	public void runProcess() {
 
 		String myName = null;
 		String poklmonName = null;

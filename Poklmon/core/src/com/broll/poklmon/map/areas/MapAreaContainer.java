@@ -2,6 +2,7 @@ package com.broll.poklmon.map.areas;
 
 import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.pokllib.map.MapFile;
+import com.broll.poklmon.script.ProcessingUtils;
 import com.broll.poklmon.script.ScriptEngineFactory;
 import com.esotericsoftware.minlog.Log;
 
@@ -38,12 +39,7 @@ public class MapAreaContainer {
 		importer.addPackage(AreaType.class.getPackage());
 
 		engine.put("area", actions);
-		try {
-			engine.eval(importer.buildScript(script));
-		} catch (javax.script.ScriptException e) {
-			Log.error("Error in map area script: " + script);
-			e.printStackTrace();
-		}
+		ProcessingUtils.runScript(engine, importer.buildScript(script));
 		return area;
 	}
 

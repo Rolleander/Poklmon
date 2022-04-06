@@ -11,7 +11,7 @@ public abstract class CommandControl {
     protected GameManager game;
     protected MapObject object;
     private ScriptProcessInteraction interaction;
-    private final static int MINIMUM_DELAY = 100;
+    private final static float MINIMUM_DELAY = 0.1f;
 
     public CommandControl(GameManager game) {
         this.game = game;
@@ -31,23 +31,16 @@ public abstract class CommandControl {
     }
 
     public void invoke(final Invoke invoke) {
-        TimerTask task = new TimerTask() {
+        TimerUtils.timerTask(MINIMUM_DELAY, new Runnable() {
             @Override
             public void run() {
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            invoke.invoke();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                try {
+                    invoke.invoke();
+                } catch (Exception e) {
+                    Gdx.app.error("CommandControl","InvokeExcpetion",e);
+                }
             }
-        };
-        Timer timer = new Timer();
-        timer.schedule(task, MINIMUM_DELAY);
+        });
         waitForResume();
     }
 }

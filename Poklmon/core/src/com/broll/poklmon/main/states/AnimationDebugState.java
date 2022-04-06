@@ -129,4 +129,10 @@ public class AnimationDebugState extends GameState {
 	public void onInit() {
 	}
 
+	@Override
+	public void dispose() {
+		if(battleManager!=null){
+			battleManager.dispose();
+		}
+	}
 }

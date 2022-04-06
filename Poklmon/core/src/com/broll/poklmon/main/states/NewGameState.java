@@ -14,72 +14,81 @@ import com.broll.poklmon.resource.MenuGraphics;
 import com.broll.poklmon.save.GameData;
 import com.broll.poklmon.save.PokldexEntry;
 import com.broll.poklmon.save.manage.SaveFileManager;
+import com.broll.poklmon.script.ProcessingUtils;
 
 public class NewGameState extends GameState {
 
-	public static int STATE_ID = 3;
-	private DataContainer data;
-	private NewgameGUI gui;
-	private NewgameProcess process;
+    public static int STATE_ID = 3;
+    private DataContainer data;
+    private NewgameGUI gui;
+    private NewgameProcess process;
+    private Thread processThread;
 
-	public NewGameState(DataContainer data) {
-		this.data = data;
-	}
+    public NewGameState(DataContainer data) {
+        this.data = data;
+    }
 
-	@Override
-	public void onInit() {
-	}
+    @Override
+    public void onInit() {
+    }
 
-	@Override
-	public void onEnter() {
-		game.getInput().setCharReceiver(new CharReceiver() {
-			@Override
-			public void typed(int keycode, char typedChar) {
-				gui.keyPressed(keycode, typedChar);
-			}
-		});
-		process = new NewgameProcess(new NewgameListener() {
+    @Override
+    public void onEnter() {
+        game.getInput().setCharReceiver(new CharReceiver() {
+            @Override
+            public void typed(int keycode, char typedChar) {
+                gui.keyPressed(keycode, typedChar);
+            }
+        });
+        process = new NewgameProcess(new NewgameListener() {
 
-			@Override
-			public void finishedSelection(int character, String name, int starterPoklmonID, String poklmonName) {
+            @Override
+            public void finishedSelection(int character, String name, int starterPoklmonID, String poklmonName) {
 
-				// create new gamedata
-				GameData gamedata = new GameData();
-				gamedata.setPlayerData(NewGameFactory.createNewPlayer(character, name));
-				gamedata.setVariables(NewGameFactory.initGameVariables());
-				gamedata.getPoklmons().add(NewGameFactory.createStarterPoklmon(data, starterPoklmonID, poklmonName));
-				PokldexEntry entry = new PokldexEntry(CaughtPoklmonMeasurement.getCaughtDayInfo());
-				entry.setCacheCount(1);
-				gamedata.getVariables().getPokldex().getPokldex().put(starterPoklmonID, entry);
-				// open game
-				MapState gamestate = (MapState) states.getState(MapState.class);
-				gamestate.openGame(gamedata);
-				// switch to game screen
-				SaveFileManager.createNewSaveFile(gamedata);
-				states.transition(MapState.class);
-			}
-		});
-		gui = new NewgameGUI(data, process);
-		process.setGui(gui);
+                // create new gamedata
+                GameData gamedata = new GameData();
+                gamedata.setPlayerData(NewGameFactory.createNewPlayer(character, name));
+                gamedata.setVariables(NewGameFactory.initGameVariables());
+                gamedata.getPoklmons().add(NewGameFactory.createStarterPoklmon(data, starterPoklmonID, poklmonName));
+                PokldexEntry entry = new PokldexEntry(CaughtPoklmonMeasurement.getCaughtDayInfo());
+                entry.setCacheCount(1);
+                gamedata.getVariables().getPokldex().getPokldex().put(starterPoklmonID, entry);
+                // open game
+                MapState gamestate = (MapState) states.getState(MapState.class);
+                gamestate.openGame(gamedata);
+                // switch to game screen
+                SaveFileManager.createNewSaveFile(gamedata);
+                states.transition(MapState.class);
+            }
+        });
+        gui = new NewgameGUI(data, process);
+        process.setGui(gui);
 
-		Thread processThread = new Thread(process);
-		processThread.start();
-	}
+        processThread = new Thread(process);
+        processThread.setName("NewGameProcess");
+        processThread.start();
+    }
 
-	@Override
-	public void onExit() {
-	}
+    @Override
+    public void onExit() {
+    }
 
-	@Override
-	public void update(float delta) {
-		gui.update(delta);
-		GUIUpdate.consume();
-	}
+    @Override
+    public void update(float delta) {
+        gui.update(delta);
+        GUIUpdate.consume();
+    }
 
-	@Override
-	public void render(Graphics g) {
-		MenuGraphics.background.draw();
-		gui.render(g);
-	}
+    @Override
+    public void render(Graphics g) {
+        MenuGraphics.background.draw();
+        gui.render(g);
+    }
 
+    @Override
+    public void dispose() {
+        if (processThread != null && process != null) {
+            ProcessingUtils.cancel(processThread, process);
+        }
+    }
 }

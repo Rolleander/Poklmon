@@ -20,6 +20,7 @@ import com.broll.poklmon.main.states.MenuDebugState;
 import com.broll.poklmon.main.states.NetworkDebugState;
 import com.broll.poklmon.main.states.NewGameState;
 import com.broll.poklmon.main.states.TitleMenuState;
+import com.broll.poklmon.script.CancelProcessingException;
 import com.broll.poklmon.transition.DefaultTransition;
 import com.broll.poklmon.transition.ScreenTransition;
 import com.broll.poklmon.transition.TransitionListener;
@@ -71,6 +72,10 @@ public class GameStateManager {
     }
 
     public void gameException(Exception e) {
+        if(e instanceof CancelProcessingException){
+            //game is shutting down all processes and scripts
+            return;
+        }
         logger.error("Exception occured in Game!", e);
         ExceptionState state = (ExceptionState) getState(ExceptionState.class);
         String currentState = game.getScreen().getClass().getSimpleName();
@@ -134,6 +139,12 @@ public class GameStateManager {
             }
         } catch (Exception e) {
             gameException(e);
+        }
+    }
+
+    public void dispose() {
+        for (GameState s : states) {
+            s.dispose();
         }
     }
 

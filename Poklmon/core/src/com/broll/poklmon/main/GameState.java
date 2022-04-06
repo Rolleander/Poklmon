@@ -54,6 +54,7 @@ public abstract class GameState implements Screen {
 
 	@Override
 	public void dispose() {
+
 	}
 
 	public abstract void onInit() throws Exception;

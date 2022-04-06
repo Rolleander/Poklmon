@@ -11,10 +11,10 @@ import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
 
 import java.util.ArrayList;
 
-public class UseAttack
-{
-    public final static int NO_CUSTOM_ANIMATION=-1;
-    
+public class UseAttack {
+    public final static int NO_CUSTOM_ANIMATION = -1;
+    private boolean stopAttackProcessing;
+
     private ElementType element;
     private AttackType type;
     private float hitchance;
@@ -23,13 +23,13 @@ public class UseAttack
 
     private int damage;
     private int fixDamage;
-    private int customAnimation=-1;
+    private int customAnimation = -1;
     private boolean hitsAlways;
     private boolean ignoreConfusion;
     private boolean ignoreIce;
     private boolean ignoreSleep;
     private boolean ignoreParalyze;
-    private boolean skipDamage=false;
+    private boolean skipDamage = false;
 
     private int volltrefferChance = 1;
     private boolean hasNoEffect;
@@ -54,363 +54,307 @@ public class UseAttack
     private double kpHealPercent;
     private SpecialScript specialFunction;
 
-    
-    public void clearAttrbiuteChangeTarget()
-    {
+
+    public void clearAttrbiuteChangeTarget() {
         attributeChangeTarget.clear();
     }
-    
-    public void clearAttrbiuteChangeUser()
-    {
+
+    public void clearAttrbiuteChangeUser() {
         attributeChangeUser.clear();
     }
-    
+
     public void setFixDamage(int fixDamage) {
-		this.fixDamage = fixDamage;
-	}
-    
+        this.fixDamage = fixDamage;
+    }
+
     public int getFixDamage() {
-		return fixDamage;
-	}
-    
-    public void setCustomAnimation(int customAnimation)
-    {
+        return fixDamage;
+    }
+
+    public void setCustomAnimation(int customAnimation) {
         this.customAnimation = customAnimation;
     }
-    
-    public boolean isSkipDamage()
-    {
+
+    public boolean isSkipDamage() {
         return skipDamage;
     }
-    
-    public void setSkipDamage(boolean skipDamage)
-    {
+
+    public void setSkipDamage(boolean skipDamage) {
         this.skipDamage = skipDamage;
     }
-    
-    public int getCustomAnimation()
-    {
+
+    public int getCustomAnimation() {
         return customAnimation;
     }
 
-    public GlobalEffect getGlobalEffect()
-    {
+    public GlobalEffect getGlobalEffect() {
         return globalEffect;
     }
 
-    public TeamEffect getTeamEffectTarget()
-    {
+    public TeamEffect getTeamEffectTarget() {
         return teamEffectTarget;
     }
 
-    public TeamEffect getTeamEffectUser()
-    {
+    public TeamEffect getTeamEffectUser() {
         return teamEffectUser;
     }
 
-    public WeatherEffect getWeatherEffect()
-    {
+    public WeatherEffect getWeatherEffect() {
         return weatherEffect;
     }
 
-    public void setGlobalEffect(GlobalEffect globalEffect)
-    {
+    public void setGlobalEffect(GlobalEffect globalEffect) {
         this.globalEffect = globalEffect;
     }
 
-    public void setTeamEffectTarget(TeamEffect teamEffectTarget)
-    {
+    public void setTeamEffectTarget(TeamEffect teamEffectTarget) {
         this.teamEffectTarget = teamEffectTarget;
     }
 
-    public void setTeamEffectUser(TeamEffect teamEffectUser)
-    {
+    public void setTeamEffectUser(TeamEffect teamEffectUser) {
         this.teamEffectUser = teamEffectUser;
     }
 
-    public void setWeatherEffect(WeatherEffect weatherEffect)
-    {
+    public void setWeatherEffect(WeatherEffect weatherEffect) {
         this.weatherEffect = weatherEffect;
     }
 
-    public void setPercentCurrentDamage(double percentCurrentDamage)
-    {
+    public void setPercentCurrentDamage(double percentCurrentDamage) {
         this.percentCurrentDamage = percentCurrentDamage;
     }
 
-    public double getPercentCurrentDamage()
-    {
+    public double getPercentCurrentDamage() {
         return percentCurrentDamage;
     }
 
-    public void setIgnoreParalyze(boolean ignoreParalyze)
-    {
+    public void setIgnoreParalyze(boolean ignoreParalyze) {
         this.ignoreParalyze = ignoreParalyze;
     }
 
-    public void setPercentDamage(double percentDamage)
-    {
+    public void setPercentDamage(double percentDamage) {
         this.percentDamage = percentDamage;
     }
 
-    public double getPercentDamage()
-    {
+    public double getPercentDamage() {
         return percentDamage;
     }
 
-    public void setIgnoreSleep(boolean ignoreSleep)
-    {
+    public void setIgnoreSleep(boolean ignoreSleep) {
         this.ignoreSleep = ignoreSleep;
     }
 
-    public boolean isIgnoreParalyze()
-    {
+    public boolean isIgnoreParalyze() {
         return ignoreParalyze;
     }
 
-    public boolean isIgnoreSleep()
-    {
+    public boolean isIgnoreSleep() {
         return ignoreSleep;
     }
 
-    public void setIgnoreConfusion(boolean ignoreConfusion)
-    {
+    public void setIgnoreConfusion(boolean ignoreConfusion) {
         this.ignoreConfusion = ignoreConfusion;
     }
 
-    public void setIgnoreIce(boolean ignoreIce)
-    {
+    public void setIgnoreIce(boolean ignoreIce) {
         this.ignoreIce = ignoreIce;
     }
 
-    public boolean isIgnoreConfusion()
-    {
+    public boolean isIgnoreConfusion() {
         return ignoreConfusion;
     }
 
-    public boolean isIgnoreIce()
-    {
+    public boolean isIgnoreIce() {
         return ignoreIce;
     }
 
-    public void setSpecialFunction(SpecialScript specialFunction)
-    {
+    public void setSpecialFunction(SpecialScript specialFunction) {
         this.specialFunction = specialFunction;
     }
 
-    public SpecialScript getSpecialFunction()
-    {
+    public SpecialScript getSpecialFunction() {
         return specialFunction;
     }
 
-    public void setKpHealPercent(double kpHealPercent)
-    {
+    public void setKpHealPercent(double kpHealPercent) {
         this.kpHealPercent = kpHealPercent;
     }
 
-    public double getKpHealPercent()
-    {
+    public double getKpHealPercent() {
         return kpHealPercent;
     }
 
-    public void setLifeLose(double lifeLose)
-    {
+    public void setLifeLose(double lifeLose) {
         this.lifeLose = lifeLose;
     }
 
-    public double getLifeLose()
-    {
+    public double getLifeLose() {
         return lifeLose;
     }
 
-    public void setVolltrefferChance(int volltrefferChance)
-    {
+    public void setVolltrefferChance(int volltrefferChance) {
         this.volltrefferChance = volltrefferChance;
     }
 
-    public double getSelfDamagePercent()
-    {
+    public double getSelfDamagePercent() {
         return selfDamagePercent;
     }
 
-    public void setSelfDamagePercent(double selfDamagePercent)
-    {
+    public void setSelfDamagePercent(double selfDamagePercent) {
         this.selfDamagePercent = selfDamagePercent;
     }
 
-    public double getAbsorbeDamagePercent()
-    {
+    public double getAbsorbeDamagePercent() {
         return absorbeDamagePercent;
     }
 
-    public void setAbsorbeDamagePercent(double dvar)
-    {
+    public void setAbsorbeDamagePercent(double dvar) {
         this.absorbeDamagePercent = dvar;
     }
 
-    public int getDamage()
-    {
+    public int getDamage() {
         return damage;
     }
 
-    public MainFightStatus getChangeStatusTarget()
-    {
+    public MainFightStatus getChangeStatusTarget() {
         return changeStatusTarget;
     }
 
-    public void setChangeStatusTarget(MainFightStatus changeStatusTarget)
-    {
+    public void setChangeStatusTarget(MainFightStatus changeStatusTarget) {
         this.changeStatusTarget = changeStatusTarget;
     }
 
-    public MainFightStatus getChangeStatusUser()
-    {
+    public MainFightStatus getChangeStatusUser() {
         return changeStatusUser;
     }
 
-    public void setChangeStatusUser(MainFightStatus changeStatusUser)
-    {
+    public void setChangeStatusUser(MainFightStatus changeStatusUser) {
         this.changeStatusUser = changeStatusUser;
     }
 
-    public EffectStatus getEffectStatusTarget()
-    {
+    public EffectStatus getEffectStatusTarget() {
         return effectStatusTarget;
     }
 
-    public void setEffectStatusTarget(EffectStatus effectStatusTarget)
-    {
+    public void setEffectStatusTarget(EffectStatus effectStatusTarget) {
         this.effectStatusTarget = effectStatusTarget;
     }
 
-    public EffectStatus getEffectStatusUser()
-    {
+    public EffectStatus getEffectStatusUser() {
         return effectStatusUser;
     }
 
-    public void setEffectStatusUser(EffectStatus effectStatusUser)
-    {
+    public void setEffectStatusUser(EffectStatus effectStatusUser) {
         this.effectStatusUser = effectStatusUser;
     }
 
-    public int getMultihitCount()
-    {
+    public int getMultihitCount() {
         return multihitCount;
     }
 
-    public void setMultihitCount(int multihitCount)
-    {
+    public void setMultihitCount(int multihitCount) {
         this.multihitCount = multihitCount;
     }
 
-    public boolean isMultihitAttack()
-    {
+    public boolean isMultihitAttack() {
         return multihitCount > 1;
     }
 
-    public ArrayList<AttributeChange> getAttributeChangeTarget()
-    {
+    public ArrayList<AttributeChange> getAttributeChangeTarget() {
         return attributeChangeTarget;
     }
 
-    public ArrayList<AttributeChange> getAttributeChangeUser()
-    {
+    public ArrayList<AttributeChange> getAttributeChangeUser() {
         return attributeChangeUser;
     }
 
-    public ElementType getElement()
-    {
+    public ElementType getElement() {
         return element;
     }
 
-    public float getHitchance()
-    {
+    public float getHitchance() {
         return hitchance;
     }
 
-    public AttackType getType()
-    {
+    public AttackType getType() {
         return type;
     }
 
-    public boolean isHitsAlways()
-    {
+    public boolean isHitsAlways() {
         return hitsAlways;
     }
 
-    public int getVolltrefferChance()
-    {
+    public int getVolltrefferChance() {
         return volltrefferChance;
     }
 
-    public boolean isHasNoEffect()
-    {
+    public boolean isHasNoEffect() {
         return hasNoEffect;
     }
 
     /**
      * Sets the {@link #element}.
-     * 
+     *
      * @param element The new element to set.
      */
-    public void setElement(ElementType element)
-    {
+    public void setElement(ElementType element) {
         this.element = element;
     }
 
     /**
      * Sets the {@link #type}.
-     * 
+     *
      * @param type The new type to set.
      */
-    public void setType(AttackType type)
-    {
+    public void setType(AttackType type) {
         this.type = type;
     }
 
     /**
      * Sets the {@link #hitchance}.
-     * 
+     *
      * @param hitchance The new hitchance to set.
      */
-    public void setHitchance(float hitchance)
-    {
+    public void setHitchance(float hitchance) {
         this.hitchance = hitchance;
     }
 
     /**
      * Sets the {@link #damage}.
-     * 
+     *
      * @param damage The new damage to set.
      */
-    public void setDamage(int damage)
-    {
+    public void setDamage(int damage) {
         this.damage = damage;
     }
 
     /**
      * Sets the {@link #hitsAlways}.
-     * 
+     *
      * @param hitsAlways The new hitsAlways to set.
      */
-    public void setHitsAlways(boolean hitsAlways)
-    {
+    public void setHitsAlways(boolean hitsAlways) {
         this.hitsAlways = hitsAlways;
     }
 
     /**
      * Sets the {@link #hasNoEffect}.
-     * 
+     *
      * @param hasNoEffect The new hasNoEffect to set.
      */
-    public void setHasNoEffect(boolean hasNoEffect)
-    {
+    public void setHasNoEffect(boolean hasNoEffect) {
         this.hasNoEffect = hasNoEffect;
     }
 
 
-	public boolean hasSpecialDamage() {
-		 return percentDamage > 0 || percentCurrentDamage > 0||fixDamage>0;
-	}
+    public boolean hasSpecialDamage() {
+        return percentDamage > 0 || percentCurrentDamage > 0 || fixDamage > 0;
+    }
 
+    public boolean isStopAttackProcessing() {
+        return stopAttackProcessing;
+    }
+
+    public void stopAttackProcessing() {
+        this.stopAttackProcessing = true;
+    }
 }

@@ -119,6 +119,13 @@ public class BattleDebugState extends GameState {
 	}
 
 	@Override
+	public void dispose() {
+		if(battleManager!=null){
+			battleManager.dispose();
+		}
+	}
+
+	@Override
 	public void render(Graphics g) {
 		battleManager.render(g);
 	}

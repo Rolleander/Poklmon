@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
+import com.broll.pokleditor.debug.CallbackList;
 import com.broll.pokleditor.debug.GameDebugger;
 import com.broll.pokleditor.gui.components.AnimationBox;
 import com.broll.pokleditor.gui.components.JScriptHelpBox;
@@ -33,7 +34,9 @@ public class AttackEditScript extends JPanel {
 		help.addObject("com.broll.poklmon.battle.attack.script.ScriptAttackActions", "util");
 		help.addObject("com.broll.poklmon.battle.poklmon.FightPoklmon", "user");
 		help.addObject("com.broll.poklmon.battle.poklmon.FightPoklmon", "target");
-
+		for(Class c: CallbackList.getCallbacks()){
+			help.addClass(c, null);
+		}
 		effectscript.addDictonary(help);
 		add(effectscript, BorderLayout.CENTER);
 		JPanel north = new JPanel();

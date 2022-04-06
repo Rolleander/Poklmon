@@ -141,7 +141,7 @@ public class LevelUpHandler extends CommandControl implements LevelCalcListener 
     private class LevelUpAnimation extends BattleProcessCore {
 
         @Override
-        public synchronized void run() {
+        public synchronized void runProcess() {
             PoklmonEvolutionSequence seq = (PoklmonEvolutionSequence) manager.getBattleRender().getSequenceRender()
                     .getSequenceRender(BattleSequences.POKLMON_EVOLUTION);
             seq.setPoklmon(FightPokemonBuilder.createPlayerPoklmon(game.getData(), poklmon));
