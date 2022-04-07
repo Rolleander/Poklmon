@@ -9,11 +9,14 @@ import com.broll.poklmon.battle.item.MedicineItemRunner;
 import com.broll.poklmon.battle.item.PoklballItemRunner;
 import com.broll.poklmon.battle.item.WearableItemVariables;
 import com.broll.poklmon.battle.poklmon.CoughtPoklmonFactory;
+import com.broll.poklmon.battle.poklmon.FightPokemonBuilder;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.poklmon.WildPoklmon;
 import com.broll.poklmon.battle.render.BattleSequences;
 import com.broll.poklmon.battle.render.sequence.CatchPoklmonSequence;
 import com.broll.poklmon.save.PoklmonData;
+
+import java.util.List;
 
 public class BattleProcessItems extends BattleProcessControl {
 
@@ -28,14 +31,23 @@ public class BattleProcessItems extends BattleProcessControl {
     }
 
     public void initWearables() {
-        for (FightPoklmon poklmon : manager.getParticipants().getPlayerTeam()) {
+        initWearables(manager.getParticipants().getPlayerTeam());
+        initWearables(manager.getParticipants().getEnemyTeam());
+    }
+
+    private void initWearables(List<FightPoklmon> poklmons) {
+        for (FightPoklmon poklmon : poklmons) {
             int item = poklmon.getCarryItem();
             if (item != -1) {
                 Item wear = manager.getData().getItems().getItem(item);
                 if (wear.getType() == ItemType.WEARABLE) {
-                    itemScriptExecutor.buildWearable(wear, poklmon, true, manager, core);
+                    itemScriptExecutor.buildWearable(wear, poklmon, manager, core);
                 }
             }
+        }
+        // update poklmon stats (so items effect them)
+        for (FightPoklmon poklmon : poklmons) {
+            FightPokemonBuilder.updateFightPoklmon(manager, poklmon);
         }
     }
 

@@ -6,6 +6,6 @@ import com.broll.poklmon.battle.process.CustomScriptCall;
 
 public interface AfterAttackCallback extends CustomScriptCall{
 
-	public void call(FightPoklmon attacker, UseAttack attack);
+	void call(FightPoklmon attacker, UseAttack attack, boolean didHit);
 	
 }

@@ -11,6 +11,8 @@ import com.broll.poklmon.battle.poklmon.states.MainFightStatus;
 
 import java.util.ArrayList;
 
+import javax.script.ScriptEngine;
+
 public class UseAttack {
     public final static int NO_CUSTOM_ANIMATION = -1;
     private boolean stopAttackProcessing;
@@ -56,6 +58,11 @@ public class UseAttack {
     private SpecialScript specialFunction;
     private String customText;
     private String endText;
+    ScriptEngine engine;
+
+    void init(ScriptEngine engine){
+        this.engine = engine;
+    }
 
     public void setCustomText(String customText) {
         this.customText = customText;
@@ -383,4 +390,5 @@ public class UseAttack {
     public String getEndText() {
         return endText;
     }
+
 }

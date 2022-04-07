@@ -73,10 +73,10 @@ public class ItemScriptExecutor {
         return runner;
     }
 
-    public void buildWearable(Item item, FightPoklmon carrier, boolean isPlayerPoklmon, BattleManager manager,
+    public void buildWearable(Item item, FightPoklmon carrier, BattleManager manager,
                               BattleProcessCore handler) {
         WearableItemRunner runner = new WearableItemRunner(manager, handler);
-        runner.init(carrier, isPlayerPoklmon);
+        runner.init(carrier, carrier.isInPlayerTeam());
         buildScriptEngine();
         engine.put("wearable", runner);
         runItemScript(item);

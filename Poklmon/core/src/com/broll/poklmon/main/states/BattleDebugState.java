@@ -3,6 +3,7 @@ package com.broll.poklmon.main.states;
 import com.broll.pokllib.poklmon.PoklmonWesen;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.BattleParticipants;
+import com.broll.poklmon.battle.attack.FightAttack;
 import com.broll.poklmon.battle.poklmon.FightPokemonBuilder;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.util.BattleEndListener;
@@ -46,12 +47,15 @@ public class BattleDebugState extends GameState {
 		BattleParticipants participants = new BattleParticipants(false);
 		participants.setPlayerName("Hans");
 		int r = (int) (data.getPoklmons().getNumberOfPoklmons() * Math.random());
-		r = 1;
+		r = (int) (Math.random() * 50);
 		// r=0;
 
-		int l = (int) (Math.random() * 40 + 10);
+		int l = 30;
 		// r=0;
 		FightPoklmon enemy = FightPokemonBuilder.createWildPoklmon(data, data.getPoklmons().getPoklmon(r), l);
+		if(debugAttack>1){
+			enemy.getAttacks()[0] = new FightAttack(data.getAttacks().getAttack(debugAttack), 40);
+		}
 		participants.addEnemyPoklmon(enemy);
 
 		for (int p = 0; p < 6; p++) {
@@ -59,8 +63,7 @@ public class BattleDebugState extends GameState {
 			r = (int) (data.getPoklmons().getNumberOfPoklmons() * Math.random());
 			r = p + 1;
 			pokl.setPoklmon(r);
-			r = (int) (Math.random() * 30 + 20);
-			pokl.setLevel(r);
+			pokl.setLevel(l);
 
 			pokl.setKp(700);
 

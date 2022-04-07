@@ -178,6 +178,10 @@ public class BattleManager {
         }
     }
 
+    public void clearScriptCalls(){
+        this.scriptCalls.clear();
+    }
+
     public boolean isNetworkBattle() {
         return networkBattle;
     }

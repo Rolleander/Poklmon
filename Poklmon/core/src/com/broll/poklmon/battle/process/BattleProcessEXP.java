@@ -10,7 +10,6 @@ import com.broll.poklmon.battle.poklmon.PlayerPoklmon;
 import com.broll.poklmon.battle.render.BattleSequences;
 import com.broll.poklmon.battle.render.sequence.PoklmonEvolutionSequence;
 import com.broll.poklmon.battle.render.sequence.PoklmonExpSequence;
-import com.broll.poklmon.battle.util.ScriptValue;
 import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.battle.process.callbacks.XpReceiverCalculationCallback;
 import com.broll.poklmon.battle.process.callbacks.XpValueCalculationCallback;
@@ -119,9 +118,7 @@ public class BattleProcessEXP extends BattleProcessControl {
             data.setName(null);
         }
         data.setPoklmon(id);
-        expPoklmon.setPoklmon(pokl);
-        expPoklmon.setImage(manager.getData().getGraphics().getPoklmonImage(pokl.getGraphicName()));
-        expPoklmon.setName(data.getName());
+        expPoklmon.evolveToPoklmon(pokl, manager.getData());
         FightPokemonBuilder.updateFightPoklmon(manager, expPoklmon);
     }
 
@@ -131,15 +128,14 @@ public class BattleProcessEXP extends BattleProcessControl {
         boolean trainerBattle = manager.getParticipants().isTrainerFight();
 
         int exp = EXPGainCalculator.getEXPValue(expBase, level, trainerBattle);
-        ScriptValue expValue = new ScriptValue(exp);
         // script callback
         for (XpValueCalculationCallback script : manager.getScriptCalls(XpValueCalculationCallback.class)) {
-            expValue.value = script.call(expValue.value);
+            exp = script.call(exp);
         }
         ArrayList<PlayerPoklmon> winners = getGainingPoklmons(enemy);
         int number = winners.size();
         if (number > 0) {
-            int exppart = getEXPParts(expValue.value, number);
+            int exppart = getEXPParts(exp, number);
             for (PlayerPoklmon p : winners) {
                 // give exp to poklmons
                 giveEXPTo(p, exppart);

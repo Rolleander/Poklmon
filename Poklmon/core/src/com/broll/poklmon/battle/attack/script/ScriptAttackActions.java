@@ -2,6 +2,7 @@ package com.broll.poklmon.battle.attack.script;
 
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.attack.AttackDamage;
+import com.broll.pokllib.attack.AttackType;
 import com.broll.pokllib.poklmon.ElementType;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.attack.AttackAttributePlus;
@@ -22,11 +23,14 @@ import com.broll.poklmon.battle.util.BattleRandom;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class ScriptAttackActions {
 
-    private BattleManager battleManager;
-    private BattleProcessCore battleProcessCore;
+    private final BattleManager battleManager;
+    private final BattleProcessCore battleProcessCore;
     private FightPoklmon user, target;
     private FightAttack fightAttack;
     private UseAttack attack;
@@ -45,6 +49,14 @@ public class ScriptAttackActions {
 
     public void decreaseAp() {
         user.useAttack(fightAttack);
+    }
+
+    public Attack createEmptyAttack(){
+        Attack a = new Attack();
+        a.setAttackType(AttackType.STATUS);
+        a.setElementType(ElementType.NORMAL);
+        a.setEffectCode("atk.stopAttackProcessing();");
+        return a;
     }
 
     public Attack copyAttack(int nr) {
@@ -76,20 +88,32 @@ public class ScriptAttackActions {
         return battleProcessCore;
     }
 
+    public void doHeal(FightPoklmon poklmon, String text, int kp) {
+        battleProcessCore.getEffectProcess().getInflictprocess().healPoklmon(poklmon, text, kp);
+    }
+
+    public void doHealPercent(FightPoklmon poklmon, String text, float percent) {
+        doHeal(poklmon, text, getKpPercentage(poklmon, percent));
+    }
+
+    public void doDamage(FightPoklmon poklmon, String text, int kp) {
+        battleProcessCore.getEffectProcess().getInflictprocess().damagePoklmon(poklmon, text, -1, kp);
+    }
+
+    public void doDamage(FightPoklmon poklmon, String text, int animation, int kp) {
+        battleProcessCore.getEffectProcess().getInflictprocess().damagePoklmon(poklmon, text, animation, kp);
+    }
+
+    public void doDamagePercent(FightPoklmon poklmon, String text, float percent) {
+        doDamage(poklmon, text, getKpPercentage(poklmon, percent));
+    }
+
+    public int getKpPercentage(FightPoklmon poklmon, float percent) {
+        return (int) (poklmon.getAttributes().getMaxhealth() * percent);
+    }
+
     public void showText(String text) {
         battleProcessCore.getAttackProcess().showText(text);
-    }
-
-    public String showInput(String defaultText) {
-        return battleProcessCore.getAttackProcess().showInput(defaultText);
-    }
-
-    public int showSelection(String text, String[] selections) {
-        return battleProcessCore.getAttackProcess().showSelection(text, selections);
-    }
-
-    public int showCancelableSelection(String text, String[] selections) {
-        return battleProcessCore.getAttackProcess().showCancelableSelection(text, selections);
     }
 
     public void showInfo(String text) {

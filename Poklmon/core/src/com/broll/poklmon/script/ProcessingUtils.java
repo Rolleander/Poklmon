@@ -29,6 +29,18 @@ public final class ProcessingUtils {
         }
     }
 
+    public static Object tryInvokeFunction(ScriptEngine engine, String function, Object... params) {
+        Invocable invocable = (Invocable) engine;
+        try {
+            return invocable.invokeFunction(function, params);
+        } catch (ScriptException e) {
+            handleException(e, function);
+        } catch (NoSuchMethodException e) {
+            return null;
+        }
+        return null;
+    }
+
     public static Object invokeFunction(ScriptEngine engine, String script, String function) {
         runScript(engine, script);
         Invocable invocable = (Invocable) engine;

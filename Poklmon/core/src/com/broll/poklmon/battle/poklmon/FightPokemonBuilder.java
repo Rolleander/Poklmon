@@ -6,8 +6,6 @@ import com.broll.pokllib.poklmon.Poklmon;
 import com.broll.pokllib.poklmon.PoklmonWesen;
 import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.attack.FightAttack;
-import com.broll.poklmon.battle.process.CustomScriptCall;
-import com.broll.poklmon.battle.util.ScriptValue;
 import com.broll.poklmon.data.DataContainer;
 import com.broll.poklmon.battle.process.callbacks.StatAttackCallback;
 import com.broll.poklmon.battle.process.callbacks.StatDefenceCallback;
@@ -15,7 +13,6 @@ import com.broll.poklmon.battle.process.callbacks.StatInitiativeCallback;
 import com.broll.poklmon.battle.process.callbacks.StatKpCallback;
 import com.broll.poklmon.battle.process.callbacks.StatSpecialAttackCallback;
 import com.broll.poklmon.battle.process.callbacks.StatSpecialDefenceCallback;
-import com.broll.poklmon.poklmon.CaughtPoklmonMeasurement;
 import com.broll.poklmon.poklmon.PoklmonAttributeCalculator;
 import com.broll.poklmon.save.AttackData;
 import com.broll.poklmon.save.PoklmonData;
@@ -24,63 +21,39 @@ import java.util.List;
 
 public class FightPokemonBuilder {
 
-    public static FightPoklmon createTrainerPoklmon(DataContainer data, Poklmon poklmon, int level, int[] attacks) {
-        FightPoklmon p = new FightPoklmon();
+    public static TrainerPoklmon createTrainerPoklmon(DataContainer data, Poklmon poklmon, int level, int[] attacks) {
+        TrainerPoklmon p = new TrainerPoklmon(poklmon, level);
         initEnemyPoklmon(p, data, poklmon, level, attacks);
-        short[] DV = {10, 10, 10, 10, 10, 10};
-        short[] FP = {50, 50, 50, 50, 50, 50};
-        FightAttributes att = createAttributes(poklmon, level, DV, FP, PoklmonWesen.ERNST);
-        // set max kp
-        att.setHealth(att.getMaxhealth());
-        p.setAttributes(att);
+        p.getAttributes().fullHealh();
         return p;
     }
 
     public static WildPoklmon createWildPoklmon(DataContainer data, Poklmon poklmon, int level) {
-        WildPoklmon p = new WildPoklmon();
+        WildPoklmon p = new WildPoklmon(poklmon, level);
         initEnemyPoklmon(p, data, poklmon, level);
-        short[] DV = CaughtPoklmonMeasurement.generateRandomDVs();
-        short[] FP = {0, 0, 0, 0, 0, 0};
-        p.setDv(DV);
-        //p.setHasPowerfulGenes(RarePoklmonCalc.hasPowerfulGenes(DV));
-        PoklmonWesen wesen = CaughtPoklmonMeasurement.getRandomWesen();
-        p.setWesen(wesen);
-        FightAttributes att = createAttributes(poklmon, level, DV, FP, wesen);
-        // set max kp
-        att.setHealth(att.getMaxhealth());
-        p.setAttributes(att);
+        p.getAttributes().fullHealh();
         return p;
     }
 
     public static FightPoklmon createPlayerPoklmon(DataContainer data, PoklmonData poklmon) {
-        PlayerPoklmon p = new PlayerPoklmon(poklmon);
         Poklmon pokl = data.getPoklmons().getPoklmon(poklmon.getPoklmon());
-        p.setPoklmon(pokl);
+        PlayerPoklmon p = new PlayerPoklmon(pokl, poklmon);
         String name = poklmon.getName();
         if (name == null) {
             p.setName(pokl.getName());
         } else {
             p.setName(name);
         }
-        int level = poklmon.getLevel();
+        if (poklmon.getKp() >= p.getAttributes().getMaxhealth()) {
+            p.getAttributes().fullHealh();
+        } else {
+            p.getAttributes().setHealth(poklmon.getKp());
+        }
         p.setPoklball(poklmon.getPoklball());
         p.setImage(data.getGraphics().getPoklmonImage(pokl.getGraphicName()));
-        p.setLevel(level);
         p.setMainStatus(poklmon.getStatus());
         p.updateExp();
-        short[] DV = poklmon.getDv();
-        //p.setHasPowerfulGenes(RarePoklmonCalc.hasPowerfulGenes(DV));
-        FightAttributes att = createAttributes(pokl, level, DV, poklmon.getFp(), poklmon.getWesen());
-        // set current kp
-        int health = poklmon.getKp();
-        if (health > att.getMaxhealth()) {
-            health = att.getMaxhealth();
-        } else if (health < 0) {
-            health = 0;
-        }
         p.setCarryItem(poklmon.getCarryItem());
-        att.setHealth(health);
-        p.setAttributes(att);
         // set attacks
         FightAttack[] attacks = new FightAttack[4];
         for (int i = 0; i < 4; i++) {
@@ -90,46 +63,43 @@ public class FightPokemonBuilder {
         return p;
     }
 
-    public static void updateFightPoklmon(BattleManager battle, PlayerPoklmon pokl) {
-        PoklmonData poklmon = pokl.getPoklmonData();
-        short[] DV = poklmon.getDv();
-        int level = poklmon.getLevel();
-        FightAttributes att = createAttributes(pokl.getPoklmon(), level, DV, poklmon.getFp(), poklmon.getWesen());
-        ScriptValue v = new ScriptValue(att.getAttack());
+    public static void updateFightPoklmon(BattleManager battle, FightPoklmon pokl) {
+        short[] DV = pokl.getDv();
+        int level = pokl.getLevel();
+        FightAttributes att = createAttributes(pokl.getPoklmon(), level, DV, pokl.getFp(), pokl.getWesen());
+        int value = att.getAttack();
         for (StatAttackCallback script : battle.getScriptCalls(StatAttackCallback.class)) {
-            v.value = script.call(v.value);
+            value = script.call(value);
         }
-        pokl.getAttributes().setAttack(v.value);
-        v.value = att.getDefence();
+        pokl.getAttributes().setAttack(value);
+        value = att.getDefence();
         for (StatDefenceCallback script : battle.getScriptCalls(StatDefenceCallback.class)) {
-            v.value = script.call(v.value);
+            value = script.call(value);
         }
-        pokl.getAttributes().setDefence(v.value);
-        v.value = att.getInit();
+        pokl.getAttributes().setDefence(value);
+        value = att.getInit();
         for (StatInitiativeCallback script : battle.getScriptCalls(StatInitiativeCallback.class)) {
-            v.value = script.call(v.value);
+            value = script.call(value);
         }
-        pokl.getAttributes().setInit(v.value);
-        v.value = att.getSpecial_attack();
+        pokl.getAttributes().setInit(value);
+        value = att.getSpecial_attack();
         for (StatSpecialAttackCallback script : battle.getScriptCalls(StatSpecialAttackCallback.class)) {
-            v.value = script.call(v.value);
+            value = script.call(value);
         }
-        pokl.getAttributes().setSpecial_attack(v.value);
-        v.value = att.getSpecial_defence();
+        pokl.getAttributes().setSpecial_attack(value);
+        value = att.getSpecial_defence();
         for (StatSpecialDefenceCallback script : battle.getScriptCalls(StatSpecialDefenceCallback.class)) {
-            v.value = script.call(v.value);
+            value = script.call(value);
         }
-        pokl.getAttributes().setSpecial_defence(v.value);
-        v.value = att.getMaxhealth();
+        pokl.getAttributes().setSpecial_defence(value);
+        value = att.getMaxhealth();
         for (StatKpCallback script : battle.getScriptCalls(StatKpCallback.class)) {
-            v.value = script.call(v.value);
+            value = script.call(value);
         }
-        pokl.getAttributes().setMaxhealth(v.value);
+        pokl.getAttributes().setMaxhealth(value);
     }
 
     private static FightPoklmon initEnemyPoklmon(FightPoklmon p, DataContainer data, Poklmon poklmon, int level) {
-        p.setPoklmon(poklmon);
-        p.setLevel(level);
         p.setImage(data.getGraphics().getPoklmonImage(poklmon.getGraphicName()));
         p.setName(poklmon.getName());
 
@@ -160,8 +130,6 @@ public class FightPokemonBuilder {
 
     private static FightPoklmon initEnemyPoklmon(FightPoklmon p, DataContainer data, Poklmon poklmon, int level,
                                                  int[] attacks) {
-        p.setPoklmon(poklmon);
-        p.setLevel(level);
         p.setImage(data.getGraphics().getPoklmonImage(poklmon.getGraphicName()));
         p.setName(poklmon.getName());
 
@@ -190,8 +158,8 @@ public class FightPokemonBuilder {
         return atk;
     }
 
-    private static FightAttributes createAttributes(Poklmon poklmon, int level, short[] DV, short[] FP,
-                                                    PoklmonWesen wesen) {
+    public static FightAttributes createAttributes(Poklmon poklmon, int level, short[] DV, short[] FP,
+                                                   PoklmonWesen wesen) {
         FightAttributes att = new FightAttributes();
         att.setMaxhealth(PoklmonAttributeCalculator.getKP(poklmon, level, DV[0], FP[0]));
         att.setAttack(PoklmonAttributeCalculator.getAttack(poklmon, level, DV[1], FP[1], wesen));

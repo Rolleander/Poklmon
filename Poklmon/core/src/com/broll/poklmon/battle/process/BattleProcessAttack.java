@@ -21,7 +21,6 @@ import com.broll.poklmon.battle.render.BattleSequences;
 import com.broll.poklmon.battle.render.sequence.PoklmonDamageSequence;
 import com.broll.poklmon.battle.render.sequence.PoklmonDefeatedSequence;
 import com.broll.poklmon.battle.render.sequence.PoklmonHealSequence;
-import com.broll.poklmon.battle.util.ScriptValue;
 import com.broll.poklmon.battle.util.flags.DamageTaken;
 import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.battle.process.callbacks.AfterAttackCallback;
@@ -130,11 +129,16 @@ public class BattleProcessAttack extends BattleProcessControl {
                 if (atk.getEndText() != null) {
                     showText(atk.getEndText());
                 }
-
+                //call onhit function
+                attackBuilder.callOnHit(atk);
             } else {
                 // attack no effect / miss
                 showText(noHitText);
                 hud.setShowText(false);
+            }
+            // attack done
+            for (AfterAttackCallback script : manager.getScriptCalls(AfterAttackCallback.class)) {
+                script.call(user, atk, hitAttack);
             }
         } else {
             // cant attack because of effects
@@ -186,12 +190,10 @@ public class BattleProcessAttack extends BattleProcessControl {
 
                 }
 
-                ScriptValue scriptValue = new ScriptValue(damage);
                 // script callback
                 for (DamageCalculationCallback script : manager.getScriptCalls(DamageCalculationCallback.class)) {
-                    scriptValue.value = script.call(user, attack, scriptValue.value);
+                    damage = script.call(user, attack, damage);
                 }
-                damage = scriptValue.value;
 
                 TypeCompare comp = DamageCalculator.getTypeBonus();
                 String damageText = null;
@@ -218,11 +220,9 @@ public class BattleProcessAttack extends BattleProcessControl {
                 if (absorb > 0) {
                     // show heal animation and heal kp
                     int heal = (int) Math.max(effectiveDamage * absorb, 1);
-                    ScriptValue sv = new ScriptValue(heal);
                     for (AttackHealCalculationCallback script : manager.getScriptCalls(AttackHealCalculationCallback.class)) {
-                        sv.value = script.call(user, attack, sv.value);
+                        heal = script.call(user, attack, heal);
                     }
-                    heal = sv.value;
                     core.getEffectProcess().getInflictprocess().healPoklmon(user, null, heal);
                 }
 
@@ -242,12 +242,9 @@ public class BattleProcessAttack extends BattleProcessControl {
             double selfheal = attack.getKpHealPercent();
             if (selfheal > 0) {
                 int kpheal = (int) (user.getAttributes().getMaxhealth() * selfheal);
-                ScriptValue scriptValue = new ScriptValue(kpheal);
                 for (AttackHealCalculationCallback script : manager.getScriptCalls(AttackHealCalculationCallback.class)) {
-                    scriptValue.value = script.call(user, attack,
-                            scriptValue.value);
+                    kpheal = script.call(user, attack, kpheal);
                 }
-                kpheal = scriptValue.value;
                 String text = TextContainer.get("selfheal", user.getName());
                 // showText(text);
                 core.getEffectProcess().getInflictprocess().healPoklmon(user, text, kpheal);
@@ -260,14 +257,10 @@ public class BattleProcessAttack extends BattleProcessControl {
         core.getEffectProcess().doAttackEffects(attack, user, target);
         // param effects
         core.getParamProcess().doParamChanges(attack, user, target);
-        // attack done
-        for (AfterAttackCallback script : manager.getScriptCalls(AfterAttackCallback.class)) {
-            script.call(user, attack);
-        }
     }
 
     public synchronized void doDamage(FightPoklmon target, String damageText, int damage) {
-        if (target.isFainted()) {
+        if (target.isFainted() || damage <= 0) {
             return;
         }
         PoklmonDamageSequence anim = (PoklmonDamageSequence) manager.getBattleRender().getSequenceRender()
@@ -282,7 +275,7 @@ public class BattleProcessAttack extends BattleProcessControl {
     }
 
     public synchronized void doHeal(FightPoklmon target, String healText, int heal) {
-        if (target.isFullHealth()) {
+        if (target.isFullHealth() || heal <= 0) {
             return;
         }
         if (target == manager.getParticipants().getPlayer() || target == manager.getParticipants().getEnemy()) {

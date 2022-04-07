@@ -10,156 +10,158 @@ import java.util.List;
 
 public class BattleParticipants {
 
-	private boolean isTrainerFight;
-	private EnemyKIType enemyKIType = EnemyKIType.RANDOM;
-	private String enemyName, playerName;
-	private FightPoklmon player, enemy;
-	private ArrayList<FightPoklmon> playerTeam = new ArrayList<FightPoklmon>();
-	private ArrayList<FightPoklmon> enemyTeam = new ArrayList<FightPoklmon>();
-	private List<TrainerItem> trainerItems = new ArrayList<TrainerItem>();
-	private int winMoney;
-	private String introText, outroText;
-	private AreaType areaType=AreaType.GRASS;
-	private String customMusic;
+    private boolean isTrainerFight;
+    private EnemyKIType enemyKIType = EnemyKIType.RANDOM;
+    private String enemyName, playerName;
+    private FightPoklmon player, enemy;
+    private ArrayList<FightPoklmon> playerTeam = new ArrayList<FightPoklmon>();
+    private ArrayList<FightPoklmon> enemyTeam = new ArrayList<FightPoklmon>();
+    private List<TrainerItem> trainerItems = new ArrayList<TrainerItem>();
+    private int winMoney;
+    private String introText, outroText;
+    private AreaType areaType = AreaType.GRASS;
+    private String customMusic;
 
-	public BattleParticipants() {
-	}
+    public BattleParticipants() {
+    }
 
-	public void setAreaType(AreaType areaType) {
-		this.areaType = areaType;
-	}
-	
-	public void setCustomMusic(String customMusic) {
-		this.customMusic = customMusic;
-	}
-	
-	public String getCustomMusic() {
-		return customMusic;
-	}
-	
-	public void addTrainerItem(int id) {
-		for (TrainerItem item : trainerItems) {
-			if (item.getId() == id) {
-				item.add(1);
-				return;
-			}
-		}
-		trainerItems.add(new TrainerItem(id));
-	}
+    public void setAreaType(AreaType areaType) {
+        this.areaType = areaType;
+    }
 
-	public void addTrainerItem(int id, int count) {
-		for (TrainerItem item : trainerItems) {
-			if (item.getId() == id) {
-				item.add(count);
-				return;
-			}
-		}
-		trainerItems.add(new TrainerItem(id, count));
-	}
+    public void setCustomMusic(String customMusic) {
+        this.customMusic = customMusic;
+    }
 
-	public List<TrainerItem> getTrainerItems() {
-		return trainerItems;
-	}
+    public String getCustomMusic() {
+        return customMusic;
+    }
 
-	public void setIntroText(String introText) {
-		this.introText = introText;
-	}
+    public void addTrainerItem(int id) {
+        for (TrainerItem item : trainerItems) {
+            if (item.getId() == id) {
+                item.add(1);
+                return;
+            }
+        }
+        trainerItems.add(new TrainerItem(id));
+    }
 
-	public void setOutroText(String outroText) {
-		this.outroText = outroText;
-	}
+    public void addTrainerItem(int id, int count) {
+        for (TrainerItem item : trainerItems) {
+            if (item.getId() == id) {
+                item.add(count);
+                return;
+            }
+        }
+        trainerItems.add(new TrainerItem(id, count));
+    }
 
-	public void setWinMoney(int winMoney) {
-		this.winMoney = winMoney;
-	}
+    public List<TrainerItem> getTrainerItems() {
+        return trainerItems;
+    }
 
-	public BattleParticipants(boolean trainerFight) {
-		this.isTrainerFight = trainerFight;
-	}
+    public void setIntroText(String introText) {
+        this.introText = introText;
+    }
 
-	public void setTrainerFight(boolean isTrainerFight) {
-		this.isTrainerFight = isTrainerFight;
-	}
+    public void setOutroText(String outroText) {
+        this.outroText = outroText;
+    }
 
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
-	}
+    public void setWinMoney(int winMoney) {
+        this.winMoney = winMoney;
+    }
 
-	public String getPlayerName() {
-		return playerName;
-	}
+    public BattleParticipants(boolean trainerFight) {
+        this.isTrainerFight = trainerFight;
+    }
 
-	public void setEnemyName(String enemyName) {
-		this.enemyName = enemyName;
-	}
+    public void setTrainerFight(boolean isTrainerFight) {
+        this.isTrainerFight = isTrainerFight;
+    }
 
-	public String getEnemyName() {
-		return enemyName;
-	}
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 
-	public void addPlayerPoklmon(FightPoklmon poklmon) {
-		if (player == null) {
-			player = poklmon;
-		}
-		playerTeam.add(poklmon);
-	}
+    public String getPlayerName() {
+        return playerName;
+    }
 
-	public void addEnemyPoklmon(FightPoklmon poklmon) {
-		if (enemy == null) {
-			enemy = poklmon;
-		}
-		enemyTeam.add(poklmon);
-	}
+    public void setEnemyName(String enemyName) {
+        this.enemyName = enemyName;
+    }
 
-	public FightPoklmon getEnemy() {
-		return enemy;
-	}
+    public String getEnemyName() {
+        return enemyName;
+    }
 
-	public FightPoklmon getPlayer() {
-		return player;
-	}
+    public void addPlayerPoklmon(FightPoklmon poklmon) {
+        if (player == null) {
+            player = poklmon;
+        }
+        poklmon.initTeam(false);
+        playerTeam.add(poklmon);
+    }
 
-	public void changePlayerPoklmon(FightPoklmon pokl) {
-		player = pokl;
-	}
+    public void addEnemyPoklmon(FightPoklmon poklmon) {
+        if (enemy == null) {
+            enemy = poklmon;
+        }
+        poklmon.initTeam(true);
+        enemyTeam.add(poklmon);
+    }
 
-	public void changeEnemyPoklmon(FightPoklmon pokl) {
-		enemy = pokl;
-	}
+    public FightPoklmon getEnemy() {
+        return enemy;
+    }
 
-	public boolean isTrainerFight() {
-		return isTrainerFight;
-	}
+    public FightPoklmon getPlayer() {
+        return player;
+    }
 
-	public ArrayList<FightPoklmon> getEnemyTeam() {
-		return enemyTeam;
-	}
+    public void changePlayerPoklmon(FightPoklmon pokl) {
+        player = pokl;
+    }
 
-	public ArrayList<FightPoklmon> getPlayerTeam() {
-		return playerTeam;
-	}
+    public void changeEnemyPoklmon(FightPoklmon pokl) {
+        enemy = pokl;
+    }
 
-	public void setEnemyKIType(EnemyKIType enemyKIType) {
-		this.enemyKIType = enemyKIType;
-	}
+    public boolean isTrainerFight() {
+        return isTrainerFight;
+    }
 
-	public EnemyKIType getEnemyKI() {
-		return enemyKIType;
-	}
+    public ArrayList<FightPoklmon> getEnemyTeam() {
+        return enemyTeam;
+    }
 
-	public String getIntroText() {
-		return introText;
-	}
+    public ArrayList<FightPoklmon> getPlayerTeam() {
+        return playerTeam;
+    }
 
-	public String getOutroText() {
-		return outroText;
-	}
+    public void setEnemyKIType(EnemyKIType enemyKIType) {
+        this.enemyKIType = enemyKIType;
+    }
 
-	public int getWinMoney() {
-		return winMoney;
-	}
-	
-	public AreaType getAreaType() {
-		return areaType;
-	}
+    public EnemyKIType getEnemyKI() {
+        return enemyKIType;
+    }
+
+    public String getIntroText() {
+        return introText;
+    }
+
+    public String getOutroText() {
+        return outroText;
+    }
+
+    public int getWinMoney() {
+        return winMoney;
+    }
+
+    public AreaType getAreaType() {
+        return areaType;
+    }
 }

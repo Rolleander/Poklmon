@@ -34,6 +34,7 @@ public class AttackEditScript extends JPanel {
 		help.addObject("com.broll.poklmon.battle.attack.script.ScriptAttackActions", "util");
 		help.addObject("com.broll.poklmon.battle.poklmon.FightPoklmon", "user");
 		help.addObject("com.broll.poklmon.battle.poklmon.FightPoklmon", "target");
+		help.addObject("com.broll.poklmon.battle.attack.script.ScriptContext", "flags");
 		for(Class c: CallbackList.getCallbacks()){
 			help.addClass(c, null);
 		}

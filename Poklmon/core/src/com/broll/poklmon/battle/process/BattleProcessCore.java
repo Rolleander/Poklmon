@@ -64,14 +64,9 @@ public class BattleProcessCore extends ScriptProcessingRunnable {
 
     @Override
     public void runProcess() {
-        if (!isNetworkBattle()) { // disable carry-items in network battle
-            // init wearable items
-            itemProcess.initWearables();
-            // update player poklmon stats (so items effect them)
-            for (FightPoklmon pokl : manager.getParticipants().getPlayerTeam()) {
-                FightPokemonBuilder.updateFightPoklmon(manager, (PlayerPoklmon) pokl);
-            }
-        }
+        // init wearable items
+        itemProcess.initWearables();
+
         // trigger intro animations
         enemyMoveProcess.enemyPoklmonIntro();
         playerMoveProcess.playerPoklmonIntro();
@@ -139,7 +134,9 @@ public class BattleProcessCore extends ScriptProcessingRunnable {
 
         boolean hasNoRoundAttack = effectProcess.getRoundBasedEffectAttacks().canDoNormalAttack(enemyPoklmon);
         boolean canSelectAttack = effectProcess.getHandicapProcess().canSelectMove(enemyPoklmon);
-        BattleMove enemyMove = null;
+        FightAttack overwriteAttack = effectProcess.getRoundBasedEffectAttacks().useSpecialAttack(enemyPoklmon);
+
+        BattleMove enemyMove;
         if (canSelectAttack && hasNoRoundAttack) {
             playerMoveProcess.connectionWaiting();
             manager.getEnemyMoveSelection().processKI();
@@ -152,11 +149,8 @@ public class BattleProcessCore extends ScriptProcessingRunnable {
 
         // check for round based enemy attacks
         if (enemyMove.getMoveType() == BattleMoveType.ATTACK) {
-            if (effectProcess.getRoundBasedEffectAttacks().canDoNormalAttack(enemyPoklmon) == false) {
-                FightAttack attack = effectProcess.getRoundBasedEffectAttacks().useSpecialAttack(enemyPoklmon);
-                if (attack != null) {
-                    enemyMove = new BattleMove(attack);
-                }
+            if (overwriteAttack != null) {
+                enemyMove = new BattleMove(overwriteAttack);
             }
         }
         return enemyMove;
@@ -314,6 +308,7 @@ public class BattleProcessCore extends ScriptProcessingRunnable {
     }
 
     public void endBattle(boolean playerWon) {
+        manager.clearScriptCalls();
         battleOver = true;
         updateBattleStatistic();
         if (playerWon) {

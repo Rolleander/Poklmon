@@ -5,7 +5,6 @@ import com.broll.poklmon.battle.BattleParticipants;
 import com.broll.poklmon.battle.poklmon.FightPokemonBuilder;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.util.BattleEndListener;
-import com.broll.poklmon.battle.util.ScriptValue;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.network.NetworkClient;
 import com.broll.poklmon.network.NetworkEndpoint;
@@ -21,6 +20,7 @@ import com.broll.poklmon.transition.WildBattleTransition;
 import com.esotericsoftware.minlog.Log;
 
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class NetworkCommands extends CommandControl {
 
@@ -172,7 +172,7 @@ public class NetworkCommands extends CommandControl {
 		battleParticipants.setWinMoney(winMoney);
 		battleParticipants.setTrainerFight(true);
 		battleParticipants.setEnemyName(enemyName);
-		final ScriptValue returner = new ScriptValue(0);
+		final AtomicInteger returnValue = new AtomicInteger(0);
 		invoke(new Invoke() {
 			@Override
 			public void invoke() {
@@ -181,27 +181,27 @@ public class NetworkCommands extends CommandControl {
 							@Override
 							public void battleWon() {
 								game.getPlayer().healTeam();
-								returner.value = 0;
+								returnValue.set(0);
 								resume();
 							}
 
 							@Override
 							public void battleLost() {
 								game.getPlayer().healTeam();
-								returner.value = 1;
+								returnValue.set(1);
 								resume();
 							}
 
 							@Override
 							public void battleEnd() {
 								game.getPlayer().healTeam();
-								returner.value = 2;
+								returnValue.set(2);
 								resume();
 							}
 						});
 			}
 		});
-		return returner.value;
+		return returnValue.get();
 	}
 
 	public String getErrorMessage() {
