@@ -1,14 +1,22 @@
 package com.broll.poklmon.battle.attack.script;
 
+import com.broll.poklmon.battle.BattleManager;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
+import com.broll.poklmon.battle.process.BattleProcessCore;
+import com.broll.poklmon.battle.util.flags.BattleEventFlags;
+import com.broll.poklmon.battle.util.flags.FightPoklmonFlags;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ScriptContext {
 
-
+    private BattleProcessCore core;
     private final Map<String, Object> context = new HashMap<>();
+
+    public ScriptContext(BattleProcessCore core) {
+        this.core = core;
+    }
 
     private String getGlobalContextName(String key) {
         return "global_" + key;
@@ -72,6 +80,10 @@ public class ScriptContext {
 
     public void clearGlobalContext(String key) {
         context.remove(getGlobalContextName(key));
+    }
+
+    public FightPoklmonFlags getFightFlags(FightPoklmon poklmon) {
+        return core.getEventFlags().getPoklmonFlags(poklmon);
     }
 }
 

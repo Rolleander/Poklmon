@@ -26,7 +26,7 @@ public class AttackBuilder {
 
     public AttackBuilder(BattleManager battle, BattleProcessCore core) {
         this.scriptActions = new ScriptAttackActions(battle, core);
-        this.scriptContext = new ScriptContext();
+        this.scriptContext = new ScriptContext(core);
     }
 
     public UseAttack useAttack(FightAttack attack, FightPoklmon user, FightPoklmon target) {
