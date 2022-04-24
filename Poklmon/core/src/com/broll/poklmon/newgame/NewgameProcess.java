@@ -2,6 +2,7 @@ package com.broll.poklmon.newgame;
 
 import com.broll.poklmon.PoklmonGame;
 import com.broll.poklmon.data.SoundContainer;
+import com.broll.poklmon.game.GameDifficulty;
 import com.broll.poklmon.script.ScriptProcessingRunnable;
 
 public class NewgameProcess extends ScriptProcessingRunnable {
@@ -26,6 +27,7 @@ public class NewgameProcess extends ScriptProcessingRunnable {
 		String poklmonName = null;
 		int poklmonID = 0;
 		int character = 0;
+		int difficulty = 0;
 		// start new game process
 
 		showText("Hallo neuer Trainer!");
@@ -125,6 +127,23 @@ public class NewgameProcess extends ScriptProcessingRunnable {
 			giveItem("Pokldex");
 			showText("Damit kannst du immer nachschauen welche Poklmon du gesehen oder bereits gefangen hast. Außerdem stehen dort noch weitere Informationen, sobald du eine bestimmte Art gefangen hast.");
 
+			showText("Hast du eigentlich schon bemerkt dass wir uns in einem virtuellen Spiel befinden? Ich kann dir auch nicht sagen warum, aber deshalb darfst du die Schwierigkeit deines Abenteuers selbst bestimmen!");
+			showSelection("Wie schwer soll dieses Spiel werden?", GameDifficulty.NAMES);
+			difficulty = selection;
+			switch (difficulty){
+				case GameDifficulty.DIFFICULTY_NORMAL:
+					showText("Na gut, das war ja zu erwarten.");
+					break;
+				case GameDifficulty.DIFFICULTY_EASY:
+					showText("Du willst dich wohl überhaupt nicht anstrengen müssen? Das habe ich mir gleich gdacht...");
+					break;
+				case GameDifficulty.DIFFICULTY_HARD:
+					showText("Ich muss schon sagen, das ist mutig von dir.");
+					break;
+				case GameDifficulty.DIFFICULTY_BRUTAL:
+					showText("Scheinbar bist du grössenwahnsinnig oder einfach nur dumm, sage nicht ich habe dich nicht gewarnt!");
+					break;
+			}
 			showText("Jetzt fehlt dir nur noch dein erstes eigenes Poklmon!");
 			showText("Da du eh keine Ahnung hast, nimm einfach einen der drei Poklbälle hier!");
 			boolean hasPoklmon = false;
@@ -196,8 +215,7 @@ public class NewgameProcess extends ScriptProcessingRunnable {
 			openNameInput("Peter");
 			poklmonName = input;
 		}
-
-		newgameListener.finishedSelection(character, myName, poklmonID, poklmonName);
+		newgameListener.finishedSelection(difficulty, character, myName, poklmonID, poklmonName);
 	}
 
 	private void playSound(String name) {

@@ -72,7 +72,7 @@ public class BattleCommands extends CommandControl {
 		atk[1] = atk2;
 		atk[2] = atk3;
 		atk[3] = atk4;
-		FightPoklmon trainer = FightPokemonBuilder.createTrainerPoklmon(game.getData(), poklmon, level, atk);
+		FightPoklmon trainer = FightPokemonBuilder.createTrainerPoklmon(game, poklmon, level, atk);
 		battleParticipants.addEnemyPoklmon(trainer);
 	}
 

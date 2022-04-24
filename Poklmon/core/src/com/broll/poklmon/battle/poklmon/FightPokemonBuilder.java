@@ -13,6 +13,7 @@ import com.broll.poklmon.battle.process.callbacks.StatInitiativeCallback;
 import com.broll.poklmon.battle.process.callbacks.StatKpCallback;
 import com.broll.poklmon.battle.process.callbacks.StatSpecialAttackCallback;
 import com.broll.poklmon.battle.process.callbacks.StatSpecialDefenceCallback;
+import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.poklmon.PoklmonAttributeCalculator;
 import com.broll.poklmon.save.AttackData;
 import com.broll.poklmon.save.PoklmonData;
@@ -21,9 +22,9 @@ import java.util.List;
 
 public class FightPokemonBuilder {
 
-    public static TrainerPoklmon createTrainerPoklmon(DataContainer data, Poklmon poklmon, int level, int[] attacks) {
-        TrainerPoklmon p = new TrainerPoklmon(poklmon, level);
-        initEnemyPoklmon(p, data, poklmon, level, attacks);
+    public static TrainerPoklmon createTrainerPoklmon(GameManager game, Poklmon poklmon, int level, int[] attacks) {
+        TrainerPoklmon p = new TrainerPoklmon(game.getPlayer().getVariableControl(), poklmon, level);
+        initEnemyPoklmon(p, game.getData(), poklmon, level, attacks);
         p.getAttributes().fullHealh();
         return p;
     }

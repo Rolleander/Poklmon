@@ -9,6 +9,7 @@ import com.broll.poklmon.newgame.NewGameFactory;
 import com.broll.poklmon.newgame.NewgameGUI;
 import com.broll.poklmon.newgame.NewgameListener;
 import com.broll.poklmon.newgame.NewgameProcess;
+import com.broll.poklmon.player.Player;
 import com.broll.poklmon.poklmon.CaughtPoklmonMeasurement;
 import com.broll.poklmon.resource.MenuGraphics;
 import com.broll.poklmon.save.GameData;
@@ -43,8 +44,7 @@ public class NewGameState extends GameState {
         process = new NewgameProcess(new NewgameListener() {
 
             @Override
-            public void finishedSelection(int character, String name, int starterPoklmonID, String poklmonName) {
-
+            public void finishedSelection(int difficulty, int character, String name, int starterPoklmonID, String poklmonName) {
                 // create new gamedata
                 GameData gamedata = new GameData();
                 gamedata.setPlayerData(NewGameFactory.createNewPlayer(character, name));
@@ -53,6 +53,7 @@ public class NewGameState extends GameState {
                 PokldexEntry entry = new PokldexEntry(CaughtPoklmonMeasurement.getCaughtDayInfo());
                 entry.setCacheCount(1);
                 gamedata.getVariables().getPokldex().getPokldex().put(starterPoklmonID, entry);
+                gamedata.getVariables().getIntegers().put(Player.DIFFICULTY_ID, difficulty);
                 // open game
                 MapState gamestate = (MapState) states.getState(MapState.class);
                 gamestate.openGame(gamedata);

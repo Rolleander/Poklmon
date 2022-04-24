@@ -33,8 +33,8 @@ public class Player {
     public static boolean SAVING_ALLOWED = true;
     public final static String SCHUTZ_ID = "$PLAYER.SCHUTZ";
     public final static String STEP_ID = "$PLAYER.STEPS";
+    public final static String DIFFICULTY_ID = "$PLAYER.DIFFICULTY";
     public final static String SHORTCUT = "#itemshortcut";
-
 
     public Player(GameManager gameManager) {
         this.game = gameManager;

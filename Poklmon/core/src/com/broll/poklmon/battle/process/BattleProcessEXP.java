@@ -13,6 +13,7 @@ import com.broll.poklmon.battle.render.sequence.PoklmonExpSequence;
 import com.broll.poklmon.data.TextContainer;
 import com.broll.poklmon.battle.process.callbacks.XpReceiverCalculationCallback;
 import com.broll.poklmon.battle.process.callbacks.XpValueCalculationCallback;
+import com.broll.poklmon.game.GameDifficulty;
 import com.broll.poklmon.poklmon.util.FpCalculator;
 import com.broll.poklmon.poklmon.util.LevelCalcListener;
 import com.broll.poklmon.poklmon.util.PoklmonAttackLearning;
@@ -128,6 +129,7 @@ public class BattleProcessEXP extends BattleProcessControl {
         boolean trainerBattle = manager.getParticipants().isTrainerFight();
 
         int exp = EXPGainCalculator.getEXPValue(expBase, level, trainerBattle);
+        exp = (int) ((float) exp * GameDifficulty.getExpMultiplicator(manager.getGame().getPlayer().getVariableControl()));
         // script callback
         for (XpValueCalculationCallback script : manager.getScriptCalls(XpValueCalculationCallback.class)) {
             exp = script.call(exp);
