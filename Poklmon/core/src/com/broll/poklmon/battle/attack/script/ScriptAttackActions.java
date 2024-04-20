@@ -20,8 +20,6 @@ import com.broll.poklmon.battle.poklmon.states.PoklmonStatusChanges;
 import com.broll.poklmon.battle.process.BattleProcessCore;
 import com.broll.poklmon.battle.process.CustomScriptCall;
 import com.broll.poklmon.battle.util.BattleRandom;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 
 import java.util.HashMap;
 import java.util.Map;

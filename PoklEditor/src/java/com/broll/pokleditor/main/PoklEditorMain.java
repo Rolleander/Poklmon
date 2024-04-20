@@ -16,7 +16,7 @@ import com.broll.pokleditor.data.PoklData;
 import com.broll.pokleditor.debug.DebuggerClasses;
 import com.broll.pokleditor.debug.GameDebugger;
 import com.broll.pokleditor.gui.script.JavascriptFormatter;
-import com.broll.pokleditor.gui.script.ScriptCompletionSetup;
+import com.broll.pokleditor.gui.script.ScriptEnvironments;
 import com.broll.pokleditor.map.MapTileEditor;
 import com.broll.pokleditor.panel.EditorPanel;
 import com.broll.pokleditor.resource.ImageLoader;
@@ -75,7 +75,8 @@ public class PoklEditorMain {
             JavascriptFormatter.init();
             System.out.println("Load debugger classes...");
             DebuggerClasses.loadDebuggerClasses();
-            ScriptCompletionSetup.setup();
+            System.out.println("Init scripting environment...");
+            ScriptEnvironments.init();
             System.out.println("Show Window...");
             EditorPanel panel = new EditorPanel();
             window.open(panel);

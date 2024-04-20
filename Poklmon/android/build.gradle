@@ -1,7 +1,6 @@
 
 android {
-    buildToolsVersion "29.0.3"
-    compileSdkVersion 30
+    namespace = "com.broll.poklmon"
     compileOptions.encoding = 'ISO-8859-1'
     sourceSets {
         main {
@@ -22,14 +21,19 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/NOTICE.md'
+        exclude 'META-INF/INDEX.LIST'
         exclude '../assets/data/poklmon-debug.data'
     }
     defaultConfig {
         applicationId "com.broll.poklmon"
-        minSdkVersion 14
-        targetSdkVersion 30
+        compileSdk 34
+        minSdkVersion 28
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
+    }
+    dependencies {
+        coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
     }
     buildTypes {
         release {
@@ -43,7 +47,7 @@ android {
 // called every time gradle gets executed, takes the native dependencies of
 // the natives configuration, and extracts them to the proper libs/ folders
 // so they get packed with the APK.
-task copyAndroidNatives {
+tasks.register('copyAndroidNatives') {
     doFirst {
         file("libs/armeabi/").mkdirs()
         file("libs/armeabi-v7a/").mkdirs()
@@ -55,10 +59,10 @@ task copyAndroidNatives {
             def outputDir = null
             if (jar.name.endsWith("natives-arm64-v8a.jar")) outputDir = file("libs/arm64-v8a")
             if (jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
-            if(jar.name.endsWith("natives-armeabi.jar")) outputDir = file("libs/armeabi")
-            if(jar.name.endsWith("natives-x86_64.jar")) outputDir = file("libs/x86_64")
-            if(jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
-            if(outputDir != null) {
+            if (jar.name.endsWith("natives-armeabi.jar")) outputDir = file("libs/armeabi")
+            if (jar.name.endsWith("natives-x86_64.jar")) outputDir = file("libs/x86_64")
+            if (jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
+            if (outputDir != null) {
                 copy {
                     from zipTree(jar)
                     into outputDir
@@ -69,32 +73,8 @@ task copyAndroidNatives {
     }
 }
 
-tasks.whenTaskAdded { packageTask ->
+tasks.configureEach { packageTask ->
     if (packageTask.name.contains("package")) {
         packageTask.dependsOn 'copyAndroidNatives'
     }
 }
-
-task run(type: Exec) {
-    def path
-    def localProperties = project.file("../local.properties")
-    if (localProperties.exists()) {
-        Properties properties = new Properties()
-        localProperties.withInputStream { instr ->
-            properties.load(instr)
-        }
-        def sdkDir = properties.getProperty('sdk.dir')
-        if (sdkDir) {
-            path = sdkDir
-        } else {
-            path = "$System.env.ANDROID_HOME"
-        }
-    } else {
-        path = "$System.env.ANDROID_HOME"
-    }
-
-    def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.broll.poklmon/com.broll.poklmon.AndroidLauncher'
-}
-
-eclipse.project.name = appName + "-android"

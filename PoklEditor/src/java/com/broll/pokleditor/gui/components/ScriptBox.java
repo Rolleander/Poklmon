@@ -1,5 +1,19 @@
 package com.broll.pokleditor.gui.components;
 
+import com.broll.pokleditor.data.PoklDataUtil;
+import com.broll.pokleditor.gui.GraphicLoader;
+import com.broll.pokleditor.gui.components.preview.AttackPreview;
+import com.broll.pokleditor.gui.components.preview.ItemPreview;
+import com.broll.pokleditor.gui.components.preview.PoklmonPreview;
+import com.broll.pokleditor.gui.components.preview.TextSearchEntry;
+import com.broll.pokleditor.gui.dialogs.TeleportLocationDialog;
+import com.broll.pokleditor.gui.script.JavascriptFormatter;
+import com.broll.pokleditor.gui.script.ScriptEnvironments;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rtextarea.RTextScrollPane;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,36 +23,14 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-
-import com.broll.pokleditor.data.PoklDataUtil;
-import com.broll.pokleditor.gui.components.preview.AttackPreview;
-import com.broll.pokleditor.gui.components.preview.ItemPreview;
-import com.broll.pokleditor.gui.components.preview.PoklmonPreview;
-import com.broll.pokleditor.gui.components.preview.TextSearchEntry;
-import com.broll.pokleditor.gui.dialogs.TeleportLocationDialog;
-import com.broll.pokleditor.gui.GraphicLoader;
-import com.broll.pokleditor.gui.script.JavascriptFormatter;
-import com.broll.pokleditor.gui.script.RhinoJavaScriptLanguageSupport;
-import com.broll.pokleditor.gui.script.ScriptCompletionSetup;
-
-import org.fife.rsta.ac.LanguageSupport;
-import org.fife.rsta.ac.LanguageSupportFactory;
-import org.fife.rsta.ac.java.JarManager;
-import org.fife.rsta.ac.js.JavaScriptLanguageSupport;
-import org.fife.rsta.ac.js.ast.JavaScriptVariableDeclaration;
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 
 
 public class ScriptBox extends JPanel {
@@ -48,16 +40,18 @@ public class ScriptBox extends JPanel {
     private final static Color text = new Color(150, 250, 150);
     private JLabel compileInfo = new JLabel("");
     private JSplitPane content = new JSplitPane();
+    private ScriptEnvironments.Type type;
 
-    public ScriptBox(String name, int w, int h, final ScriptTest scriptTest) {
+    public ScriptBox(String name, int w, int h, ScriptEnvironments.Type type, final ScriptTest scriptTest) {
         setLayout(new BorderLayout());
+        this.type = type;
         JPanel infoLine = new JPanel(new BorderLayout());
         FontMetrics fm = this.getFontMetrics((new JLabel().getFont()));
 
         script = new RSyntaxTextArea();
-        script.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+        changeScriptType(type);
         script.setCodeFoldingEnabled(false);
-        ScriptCompletionSetup.languageSupport.install(script);
+        ScriptEnvironments.getScriptLanguageSupport(type).install(script);
         JLabel title = new JLabel(name);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
         infoLine.add(title, BorderLayout.WEST);
@@ -69,7 +63,8 @@ public class ScriptBox extends JPanel {
         // script.setForeground(text);
 
         script.setBorder(BorderFactory.createEmptyBorder(3, 5, 3, 5));
-        JScrollPane scroll = new JScrollPane(script);
+        RTextScrollPane scroll = new RTextScrollPane(script);
+        scroll.setLineNumbersEnabled(true);
         scroll.setMinimumSize(new Dimension(100, 0));
         scroll.setPreferredSize(new Dimension(w * fm.charWidth('m'), h * fm.getHeight()));
         content.setLeftComponent(scroll);
@@ -142,6 +137,13 @@ public class ScriptBox extends JPanel {
         });
         topLane.add(button);
         add(topLane, BorderLayout.NORTH);
+    }
+
+    public void changeScriptType(ScriptEnvironments.Type type){
+        if(type != this.type){
+            ScriptEnvironments.getScriptLanguageSupport(this.type).uninstall(script);
+            ScriptEnvironments.getScriptLanguageSupport(type).install(script);
+        }
     }
 
     private void copyToClipboard(String s) {

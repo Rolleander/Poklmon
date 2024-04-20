@@ -1,5 +1,6 @@
 sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.resources.srcDirs = ["../assets"]
 
 project.ext.mainClassName = "com.broll.poklmon.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../assets");
@@ -27,19 +28,17 @@ task debug(dependsOn: classes, type: JavaExec) {
 }
 
 task dist(type: Jar) {
-    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
-    baseName = "Poklmon"
-    version = ""
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes 'Main-Class': project.mainClassName
     }
     dependsOn configurations.runtimeClasspath
     from {
-        configurations.runtimeClasspath.collect { it.isDirectory()? it : zipTree(it) }
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
+    archiveFileName.set("gainea.jar")
     with jar
 }
 
-dist.dependsOn classes
 
-eclipse.project.name = appName + "-desktop"
+dist.dependsOn classes

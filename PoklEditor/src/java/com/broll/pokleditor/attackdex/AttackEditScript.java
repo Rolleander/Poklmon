@@ -13,6 +13,7 @@ import com.broll.pokleditor.gui.components.SaveListener;
 import com.broll.pokleditor.gui.components.ScriptBox;
 import com.broll.pokleditor.gui.components.ScriptTest;
 import com.broll.pokleditor.gui.components.StringBox;
+import com.broll.pokleditor.gui.script.ScriptEnvironments;
 import com.broll.pokleditor.window.EditorWindow;
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.game.StartInformation;
@@ -21,7 +22,7 @@ import com.broll.pokllib.game.StartInformation;
 public class AttackEditScript extends JPanel {
 
 	private Attack attack;
-	private ScriptBox effectscript = new ScriptBox("Effectscript", 50, 5, new CompilerHelp());
+	private ScriptBox effectscript = new ScriptBox("Effectscript", 50, 5, ScriptEnvironments.Type.ATTACK,new CompilerHelp());
 	private AnimationBox animation = new AnimationBox("Attack Animation");
 	private StringBox description = new StringBox("Beschreibung", 40);
 	private SaveListener saveListener;

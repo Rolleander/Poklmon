@@ -11,6 +11,8 @@ import com.broll.poklmon.network.NetworkServer;
 import com.broll.poklmon.save.manage.SaveFileManager;
 
 public class AndroidLauncher extends AndroidApplication {
+
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

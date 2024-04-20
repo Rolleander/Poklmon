@@ -9,9 +9,9 @@ public class ScriptEngineFactory {
 
 	public static ScriptEngine createScriptEngine() {
 		ScriptEngineManager factory = new ScriptEngineManager();
-		ScriptEngine engine = factory.getEngineByName("rhino");
+		ScriptEngine engine = factory.getEngineByName("Nashorn");
 		if(engine==null) {
-			 engine = factory.getEngineByName("JavaScript");
+			engine = factory.getEngineByName("rhino");
 		}
 		if(engine==null) {
 			throw new GdxRuntimeException("No scripting Engine found!");

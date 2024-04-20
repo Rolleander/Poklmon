@@ -7,12 +7,13 @@ import javax.swing.JTabbedPane;
 
 import com.broll.pokleditor.gui.components.JScriptHelpBox;
 import com.broll.pokleditor.gui.components.ScriptBox;
+import com.broll.pokleditor.gui.script.ScriptEnvironments;
 import com.broll.pokllib.object.MapObject;
 
 public class MapObjectScript {
 
-	private ScriptBox attributes = new ScriptBox("Attributes", 60, 25, null);
-	private ScriptBox trigger = new ScriptBox("Triggerscript", 60, 25, null);
+	private ScriptBox attributes = new ScriptBox("Attributes", 60, 25, ScriptEnvironments.Type.OBJECT_INIT,null);
+	private ScriptBox trigger = new ScriptBox("Triggerscript", 60, 25, ScriptEnvironments.Type.OBJECT_RUNTIME, null);
 	private MapObject object;
 	private JPanel content = new JPanel();
 

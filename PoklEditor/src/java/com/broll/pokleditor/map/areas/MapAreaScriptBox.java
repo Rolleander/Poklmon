@@ -11,11 +11,12 @@ import javax.swing.JPanel;
 import com.broll.pokleditor.gui.components.JScriptHelpBox;
 import com.broll.pokleditor.gui.components.ScriptBox;
 import com.broll.pokleditor.gui.GraphicLoader;
+import com.broll.pokleditor.gui.script.ScriptEnvironments;
 import com.broll.pokleditor.map.control.MapControlImpl;
 
 public class MapAreaScriptBox extends JPanel {
 
-	private ScriptBox script = new ScriptBox("AreaScript", 30, 30, null);
+	private ScriptBox script = new ScriptBox("AreaScript", 30, 30, ScriptEnvironments.Type.AREA_INIT,null);
 
 	public MapAreaScriptBox() {
 		setLayout(new BorderLayout());
