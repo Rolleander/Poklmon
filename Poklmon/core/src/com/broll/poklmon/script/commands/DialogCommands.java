@@ -17,6 +17,10 @@ public class DialogCommands extends CommandControl {
 		super(game);
 	}
 
+	/**
+	 * shows the text
+	 * @param text
+	 */
 	public void text(final String text) {
 		invoke(new Invoke() {
 			@Override

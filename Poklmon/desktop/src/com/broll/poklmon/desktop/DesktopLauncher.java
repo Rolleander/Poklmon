@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class DesktopLauncher {
+
+
     public static void main(String[] arg) {
         StartInformation startInformation;
         if (arg.length > 0) {

@@ -1,4 +1,4 @@
-package com.broll.pokllib.jscript;
+package com.broll.poklmon.script;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class PackageImporter {
 	
 	public void addPackage(Package pack)
 	{
-	 imports.add("Packages."+pack.getName());
+	 imports.add(pack.getName());
 	}
 	
 	public String buildScript(String script)

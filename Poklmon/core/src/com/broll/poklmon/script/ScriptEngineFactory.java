@@ -2,6 +2,8 @@ package com.broll.poklmon.script;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 

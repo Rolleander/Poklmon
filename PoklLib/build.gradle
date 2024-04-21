@@ -1,24 +1,28 @@
 apply plugin: "java-library"
 apply plugin: 'maven-publish'
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
-
+sourceSets.test.java.srcDirs= ["test"]
 
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url "https://plugins.gradle.org/m2/" }
+     maven { url "https://plugins.gradle.org/m2/" }
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://repository.apache.org/snapshots/"    }
     jcenter()
     google()
 }
 
 dependencies {
     testImplementation("junit:junit:4.12")
+// https://mvnrepository.com/artifact/com.google.guava/guava
+
    // implementation group: 'com.db4o', name: 'com.db4o', version: '7.7.67'
    // implementation group: 'com.esotericsoftware', name: 'kryo', version: '3.0.3'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.3'
     implementation group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.24.0'
+
 }
 
 publishing {

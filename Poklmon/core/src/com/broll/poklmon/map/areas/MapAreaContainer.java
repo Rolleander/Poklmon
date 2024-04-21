@@ -1,10 +1,9 @@
 package com.broll.poklmon.map.areas;
 
-import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.pokllib.map.MapFile;
+import com.broll.poklmon.script.PackageImporter;
 import com.broll.poklmon.script.ProcessingUtils;
 import com.broll.poklmon.script.ScriptEngineFactory;
-import com.esotericsoftware.minlog.Log;
 
 import java.util.ArrayList;
 import java.util.List;

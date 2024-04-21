@@ -55,7 +55,8 @@ project(":core") {
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         // https://mvnrepository.com/artifact/com.google.guava/guava
         implementation group: 'com.google.guava', name: 'guava', version: '33.1.0-jre'
-//
+        implementation group: 'org.openjdk.nashorn', name: 'nashorn-core', version: '15.4'
+
         implementation group: 'com.esotericsoftware', name: 'kryonet', version: '2.22.0-RC1'
         implementation group: 'org.reflections', name: 'reflections', version: '0.9.12'
     }
@@ -68,7 +69,6 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
-        implementation group: 'org.openjdk.nashorn', name: 'nashorn-core', version: '15.4'
 
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
@@ -83,7 +83,7 @@ project(":android") {
 
     dependencies {
         implementation project(":core")
-        //dont upgrade, doesnt work with on android anymore otherwise
+        //dont upgrade, doesnt work on android anymore otherwise
         implementation group: 'org.mozilla', name: 'rhino', version: '1.7.13'
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"

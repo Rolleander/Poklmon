@@ -1,6 +1,5 @@
 package com.broll.poklmon.script;
 
-import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.poklmon.game.GameManager;
 import com.broll.poklmon.game.scene.ScriptSceneProcess;
 import com.broll.poklmon.map.object.MapObject;

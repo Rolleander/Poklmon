@@ -10,6 +10,8 @@ import com.broll.pokleditor.gui.dialogs.TeleportLocationDialog;
 import com.broll.pokleditor.gui.script.JavascriptFormatter;
 import com.broll.pokleditor.gui.script.ScriptEnvironments;
 
+import org.fife.rsta.ac.LanguageSupport;
+import org.fife.rsta.ac.LanguageSupportFactory;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;

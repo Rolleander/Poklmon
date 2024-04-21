@@ -23,17 +23,17 @@ import com.esotericsoftware.minlog.Log;
 public class KryoDataControl implements DataControlInterface {
 
 	// indexes
-	private AnimationDex animationDex = new AnimationDex();
-	private AttackDex attackDex = new AttackDex();
-	private ItemDex itemDex = new ItemDex();
-	private MapDex mapDex = new MapDex();
-	private PoklDex poklDex = new PoklDex();
+	 AnimationDex animationDex = new AnimationDex();
+	 AttackDex attackDex = new AttackDex();
+	 ItemDex itemDex = new ItemDex();
+	 MapDex mapDex = new MapDex();
+	 PoklDex poklDex = new PoklDex();
 	// containers
-	private Map<Integer, Animation> animations = new HashMap<Integer, Animation>();
-	private Map<Integer, Attack> attacks = new HashMap<Integer, Attack>();
-	private Map<Integer, Item> items = new HashMap<Integer, Item>();
-	private Map<Integer, MapFile> maps = new HashMap<Integer, MapFile>();
-	private Map<Integer, Poklmon> poklmons = new HashMap<Integer, Poklmon>();
+	 Map<Integer, Animation> animations = new HashMap<Integer, Animation>();
+	 Map<Integer, Attack> attacks = new HashMap<Integer, Attack>();
+	 Map<Integer, Item> items = new HashMap<Integer, Item>();
+	 Map<Integer, MapFile> maps = new HashMap<Integer, MapFile>();
+	 Map<Integer, Poklmon> poklmons = new HashMap<Integer, Poklmon>();
 
 	public KryoDataControl() {
 	}

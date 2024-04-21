@@ -3,7 +3,6 @@ package com.broll.poklmon.battle.attack;
 import com.badlogic.gdx.Gdx;
 import com.broll.pokllib.attack.Attack;
 import com.broll.pokllib.attack.AttackType;
-import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.pokllib.poklmon.PoklmonWesen;
 import com.broll.poklmon.battle.BattleManager;
@@ -14,6 +13,7 @@ import com.broll.poklmon.battle.process.callbacks.SkipAttackCallback;
 import com.broll.poklmon.battle.field.TeamEffect;
 import com.broll.poklmon.battle.poklmon.FightPoklmon;
 import com.broll.poklmon.battle.process.BattleProcessCore;
+import com.broll.poklmon.script.PackageImporter;
 import com.broll.poklmon.script.ProcessingUtils;
 import com.broll.poklmon.script.ScriptEngineFactory;
 

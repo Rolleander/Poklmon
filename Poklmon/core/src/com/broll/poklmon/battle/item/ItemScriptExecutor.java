@@ -2,7 +2,6 @@ package com.broll.poklmon.battle.item;
 
 import com.broll.pokllib.attack.AttackType;
 import com.broll.pokllib.item.Item;
-import com.broll.pokllib.jscript.PackageImporter;
 import com.broll.pokllib.object.ObjectDirection;
 import com.broll.pokllib.poklmon.PoklmonWesen;
 import com.broll.poklmon.battle.BattleManager;
@@ -18,6 +17,7 @@ import com.broll.poklmon.game.items.execute.AttackItemRunner;
 import com.broll.poklmon.game.items.execute.BasisItemRunner;
 import com.broll.poklmon.game.items.execute.MenuMedicineItemRunner;
 import com.broll.poklmon.game.items.execute.OtherItemRunner;
+import com.broll.poklmon.script.PackageImporter;
 import com.broll.poklmon.script.ProcessingUtils;
 import com.broll.poklmon.script.ScriptEngineFactory;
 import com.broll.poklmon.model.CharacterWorldState;
