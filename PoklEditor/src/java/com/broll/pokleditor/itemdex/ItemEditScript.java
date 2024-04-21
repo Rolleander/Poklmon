@@ -22,17 +22,6 @@ public class ItemEditScript extends JPanel {
 
     public ItemEditScript() {
         setLayout(new BorderLayout());
-        JScriptHelpBox help = new JScriptHelpBox();
-        help.addObject("com.broll.poklmon.game.items.MedicineItemScript", "medicine");
-        help.addObject("com.broll.poklmon.game.items.PoklballItemScript", "poklball");
-        help.addObject("com.broll.poklmon.game.items.WearableItemScript", "wearable");
-        help.addObject("com.broll.poklmon.game.items.OtherItemScript", "other");
-        help.addObject("com.broll.poklmon.game.items.BasisItemScript", "basis");
-        help.addObject("com.broll.poklmon.game.items.AttackItemScript", "attack");
-        for (Class c : CallbackList.getCallbacks()) {
-            help.addClass(c, null);
-        }
-        effectscript.addDictonary(help);
         add(effectscript, BorderLayout.CENTER);
         JPanel north = new JPanel();
         north.setLayout(new FlowLayout(FlowLayout.LEFT));

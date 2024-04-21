@@ -22,9 +22,6 @@ public class MapAreaScriptBox extends JPanel {
 		setLayout(new BorderLayout());
 		JPanel tools = new JPanel();
 		tools.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		JScriptHelpBox help = new JScriptHelpBox();
-		help.addObject("com.broll.poklmon.map.areas.AreaScriptActions", "area");
-		script.addDictonary(help);
 
 		JButton poklwizard = new JButton("Add Wild Poklmons", GraphicLoader.loadIcon("grass.png"));
 		poklwizard.addActionListener(new ActionListener() {

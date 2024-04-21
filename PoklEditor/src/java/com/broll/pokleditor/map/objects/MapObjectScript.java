@@ -19,9 +19,6 @@ public class MapObjectScript {
 
 	public MapObjectScript() {
 
-		addInitScriptEnv(attributes);
-		addRuntimeScriptEnv(trigger);
-
 		JTabbedPane tabs = new JTabbedPane();
 		tabs.addTab("Init Script", attributes);
 		tabs.addTab("Trigger Script", trigger);
@@ -32,32 +29,6 @@ public class MapObjectScript {
 		// content.add(trigger, BorderLayout.CENTER);
 	}
 
-	private void addInitScriptEnv(ScriptBox box){
-		//has to match com.broll.poklmon.script.ObjectInitEnvironment
-		JScriptHelpBox help = new JScriptHelpBox();
-		help.addObject("com.broll.poklmon.map.object.MapObject", "self");
-		help.addObject("com.broll.poklmon.script.commands.InitCommands","init");
-		help.addObject("com.broll.poklmon.script.commands.VariableCommands","game");
-		help.addObject("com.broll.poklmon.script.commands.PathingCommands","path");
-		help.addObject("com.broll.poklmon.script.commands.SystemCommands","system");
-		box.addDictonary(help);
-	}
-
-	private void addRuntimeScriptEnv(ScriptBox box){
-		//has to match com.broll.poklmon.script.ObjectInitEnvironment
-		JScriptHelpBox help = new JScriptHelpBox();
-		help.addObject("com.broll.poklmon.map.object.MapObject", "self");
-		help.addObject("com.broll.poklmon.script.commands.PlayerCommands","player");
-		help.addObject("com.broll.poklmon.script.commands.BattleCommands","battle");
-		help.addObject("com.broll.poklmon.script.commands.DialogCommands","dialog");
-		help.addObject("com.broll.poklmon.script.commands.MenuCommands","menu");
-		help.addObject("com.broll.poklmon.script.commands.ObjectCommands","object");
-		help.addObject("com.broll.poklmon.script.commands.SystemCommands","system");
-		help.addObject("com.broll.poklmon.script.commands.VariableCommands","game");
-		help.addObject("com.broll.poklmon.script.commands.PathingCommands","path");
-		help.addObject("com.broll.poklmon.script.commands.NetworkCommands","network");
-		box.addDictonary(help);
-	}
 
 	public void setMapObject(MapObject object) {
 		this.object = object;

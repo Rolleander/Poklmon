@@ -15,7 +15,6 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.FontMetrics;
@@ -29,15 +28,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 
 public class ScriptBox extends JPanel {
 
     private RSyntaxTextArea script;
-    private final static Color background = new Color(0, 0, 0);
-    private final static Color text = new Color(150, 250, 150);
     private JLabel compileInfo = new JLabel("");
     private JSplitPane content = new JSplitPane();
     private ScriptEnvironments.Type type;
@@ -51,6 +47,7 @@ public class ScriptBox extends JPanel {
         script = new RSyntaxTextArea();
         changeScriptType(type);
         script.setCodeFoldingEnabled(false);
+        script.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
         ScriptEnvironments.getScriptLanguageSupport(type).install(script);
         JLabel title = new JLabel(name);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
@@ -58,9 +55,6 @@ public class ScriptBox extends JPanel {
         infoLine.add(compileInfo, BorderLayout.CENTER);
         add(infoLine, BorderLayout.NORTH);
 
-        // script.setCaretColor(Color.WHITE);
-        // script.setBackground(background);
-        // script.setForeground(text);
 
         script.setBorder(BorderFactory.createEmptyBorder(3, 5, 3, 5));
         RTextScrollPane scroll = new RTextScrollPane(script);
@@ -150,14 +144,6 @@ public class ScriptBox extends JPanel {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(s), null);
     }
 
-    public void addDictonary(JPanel scriptDictionary) {
-        JScrollPane scroll = new JScrollPane(scriptDictionary);
-        scroll.getVerticalScrollBar().setUnitIncrement(20);
-        scroll.setMinimumSize(new Dimension(100, 0));
-        scroll.setPreferredSize(new Dimension(200, 0));
-        content.setRightComponent(scroll);
-        content.setOneTouchExpandable(true);
-    }
 
     public String getScript() {
         return script.getText();

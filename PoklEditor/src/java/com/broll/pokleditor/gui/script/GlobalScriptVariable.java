@@ -6,6 +6,12 @@ public class GlobalScriptVariable {
     private final String packagePath;
     private final String className;
 
+    public GlobalScriptVariable(String packagePath, String className){
+        this.name = className;
+        this.packagePath = packagePath;
+        this.className = className;
+    }
+
     public GlobalScriptVariable(String name, String packagePath, String className){
         this.name = name;
         this.packagePath = packagePath;

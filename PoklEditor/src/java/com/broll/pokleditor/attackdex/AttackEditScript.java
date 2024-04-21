@@ -30,16 +30,6 @@ public class AttackEditScript extends JPanel {
 	public AttackEditScript(SaveListener saveListener) {
 		setLayout(new BorderLayout());
 		this.saveListener = saveListener;
-		JScriptHelpBox help = new JScriptHelpBox();
-		help.addObject("com.broll.poklmon.battle.attack.UseAttack", "atk");
-		help.addObject("com.broll.poklmon.battle.attack.script.ScriptAttackActions", "util");
-		help.addObject("com.broll.poklmon.battle.poklmon.FightPoklmon", "user");
-		help.addObject("com.broll.poklmon.battle.poklmon.FightPoklmon", "target");
-		help.addObject("com.broll.poklmon.battle.attack.script.ScriptContext", "flags");
-		for(Class c: CallbackList.getCallbacks()){
-			help.addClass(c, null);
-		}
-		effectscript.addDictonary(help);
 		add(effectscript, BorderLayout.CENTER);
 		JPanel north = new JPanel();
 		north.setLayout(new FlowLayout(FlowLayout.LEFT));
