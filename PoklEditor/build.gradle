@@ -23,14 +23,16 @@ dependencies {
 
 }
 
-task dist(type: Jar) {
-    sourceSets.main.output.resourcesDir = sourceSets.main.java.outputDir
-    from files(sourceSets.main.output.classesDirs)
-    from files(sourceSets.main.output.resourcesDir)
-    from {configurations.compile.collect {zipTree(it)}}
+tasks.register('dist', Jar) {
+    from sourceSets.main.output
+    from {
+        configurations.compileClasspath.collect { zipTree(it) }
+    }
     manifest {
         attributes 'Main-Class': 'com.broll.pokleditor.main.PoklEditorMain'
     }
+    archiveBaseName.set('pokleditor')
+    destinationDirectory.set(layout.buildDirectory.dir('dist'))
 }
 
 task run(type: JavaExec) {

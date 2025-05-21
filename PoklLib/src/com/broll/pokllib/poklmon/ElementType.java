@@ -9,7 +9,7 @@ public enum ElementType {
     
 	NORMAL("Normal"),FIRE("Feuer"),WATER("Wasser"),ELECTRO("Elektro"),PLANT("Pflanze"),
 	ICE("Eis"),BATTLE("Kampf"),POISON("Gift"),GROUND("Boden"),FLYING("Flug"),
-	PYSCHO("Psycho"),BUG("Käfer"),STONE("Gestein"),GHOST("Geist"),DRAGON("Drache"),
+	PYSCHO("Psycho"),BUG("KÃ¤fer"),STONE("Gestein"),GHOST("Geist"),DRAGON("Drache"),
 	STRANGE("Seltsam"),STEEL("Stahl");
 
 	private String name;

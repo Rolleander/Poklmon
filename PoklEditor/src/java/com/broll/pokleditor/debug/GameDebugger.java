@@ -29,9 +29,7 @@ public class GameDebugger {
 
     private static String[] getCommand(String startCommands) {
         String path = debugPath.getAbsolutePath();
-        //	String cp="\""+path+"PoklGdxLauncher.jar;"+path+"PoklGdxCore.jar;"+path+"libs/*\"";
-        //	String mainclass="com.broll.poklmon.desktop.DesktopLauncher";
-        return new String[]{"java", "-jar", path, startCommands};
+        return new String[]{"java","--add-exports=java.base/sun.security.action=ALL-UNNAMED", "-XstartOnFirstThread", "-jar", path, startCommands};
     }
 
 }
