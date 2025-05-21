@@ -3,12 +3,12 @@ package com.broll.poklmon.battle.field;
 public enum WeatherEffect
 {
 
-    RAIN("Es beginnt zu regnen!","Der Regen lässt nach!"),
-    SUN("Die Sonne strahlt hell!","Die Sonnenstrahlen ziehen sich zurück!"),
-    SNOW("Ein Schneesturm zieht auf!","Der Schneesturm zieht vorüber!"),
-    FOG("Ein dichter Nebel erscheint!","Der Nebel lässt nach!"),
-    STORM("Ein Sturmgewitter zieht auf!","Das Gewitter lässt nach!"),
-    NIGHT("Der Himmel verdunkelt sich!","Die Dunkelheit löst sich auf!");
+    RAIN("Es beginnt zu regnen!","Der Regen lÃ¤sst nach!"),
+    SUN("Die Sonne strahlt hell!","Die Sonnenstrahlen ziehen sich zurÃ¼ck!"),
+    SNOW("Ein Schneesturm zieht auf!","Der Schneesturm zieht vorÃ¼ber!"),
+    FOG("Ein dichter Nebel erscheint!","Der Nebel lÃ¤sst nach!"),
+    STORM("Ein Sturmgewitter zieht auf!","Das Gewitter lÃ¤sst nach!"),
+    NIGHT("Der Himmel verdunkelt sich!","Die Dunkelheit lÃ¶st sich auf!");
     
     
     private String entryName;

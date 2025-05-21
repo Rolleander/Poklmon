@@ -105,7 +105,7 @@ public class PlayerCommands extends CommandControl {
             text = "x" + count;
         }
         game.getMessageGuiControl().showInfo(
-                game.getPlayer().getData().getPlayerData().getName() + " erh‰lt " + text + " " + item + "!");
+                game.getPlayer().getData().getPlayerData().getName() + " erh√§lt " + text + " " + item + "!");
         try {
             Thread.sleep(2500);
         } catch (InterruptedException e) {
@@ -170,7 +170,7 @@ public class PlayerCommands extends CommandControl {
             invoke(new Invoke() {
                 @Override
                 public void invoke() {
-                    String what = "erh‰lt";
+                    String what = "erh√§lt";
                     if (money < 0) {
                         what = "bezahlt";
                     }

@@ -16,7 +16,7 @@ public class PcSelection
     private int optionSelection = 0;
     private int selectMode = SELECT_OPTION;
 
-    public final static String[] options = {"Box", "Team", "Sortieren", "Zurück"};
+    public final static String[] options = {"Box", "Team", "Sortieren", "ZurÃ¼ck"};
     public final static String[] poklmonOptions = {"Bericht", "Tausch"};
 
     private PcMenu menu;

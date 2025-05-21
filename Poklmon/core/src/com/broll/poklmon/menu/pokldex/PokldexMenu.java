@@ -181,7 +181,7 @@ public class PokldexMenu extends MenuPage {
     private void renderDexInfo(Graphics g, int x, int y) {
         // draw ?bersicht
         g.setFont(GUIFonts.hudText);
-        g.drawString("Übersicht", x, y);
+        g.drawString("Ãœbersicht", x, y);
         g.setFont(GUIFonts.smallText);
         y += 40;
         x += 4;

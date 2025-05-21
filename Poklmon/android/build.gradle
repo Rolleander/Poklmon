@@ -27,6 +27,7 @@ android {
     defaultConfig {
         applicationId "com.broll.poklmon"
         compileSdk 34
+        buildToolsVersion "34.0.0"
         minSdkVersion 28
         targetSdkVersion 34
         versionCode 1

@@ -124,7 +124,7 @@ public class StateEffectCalc
         dmg.setHitchance(1);
         dmg.setPriority(AttackPriority.STANDARD);
         atk.setDamage(dmg);
-        //50% r¸ckstoﬂ schaden
+        //50% r√ºcksto√ü schaden
         atk.setEffectCode("atk.setSelfDamagePercent(0.5)");
         atk.setElementType(ElementType.NORMAL);
         atk.setName("Verzweifler");

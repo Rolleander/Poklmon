@@ -5,23 +5,23 @@ public class BattleMessages
     /*
     public static String wildPoklmonIntro="Ein wildes # erscheint!";
     public static String playerPoklmonIntro="Los #!";
-    public static String playerPoklmonOutro="Zur¸ck in den Poklball #!";
-    public static String playerLost="# hat kein kampff‰higes Poklmon mehr. # f‰llt in Ohnmacht...";
-    public static String networkLost="Du hast kein kampff‰higes Poklmon mehr. # gewinnt den Kampf!";
-    public static String networkWon="# hat kein kampff‰higes Poklmon mehr. Du gewinnst den Kampf!";
+    public static String playerPoklmonOutro="Zur√ºck in den Poklball #!";
+    public static String playerLost="# hat kein kampff√§higes Poklmon mehr. # f√§llt in Ohnmacht...";
+    public static String networkLost="Du hast kein kampff√§higes Poklmon mehr. # gewinnt den Kampf!";
+    public static String networkWon="# hat kein kampff√§higes Poklmon mehr. Du gewinnst den Kampf!";
 
     public static String playerLastPoklmon="Dein letztes Poklmon macht sich bereit!";
     
     public static String itemHeal="# regeneriert % KP!";
-    public static String itemAp="# AP wurden aufgef¸llt!";
+    public static String itemAp="# AP wurden aufgef√ºllt!";
     
     
     
-    public static String trainerSwitch="% ruft # zur¸ck!";   
+    public static String trainerSwitch="% ruft # zur√ºck!";   
     public static String trainerDefeated="# wurde besiegt!";
     public static String trainerMoney="# gewinnt % PoklDollar!";   
-    public static String trainerIntro="# mˆchte k‰mpfen!";
-    public static String trainerNextPoklmonQuestion="% wird als n‰chstes # einsetzen! Mˆchtest du dein Poklmon wechseln?";
+    public static String trainerIntro="# m√∂chte k√§mpfen!";
+    public static String trainerNextPoklmonQuestion="% wird als n√§chstes # einsetzen! M√∂chtest du dein Poklmon wechseln?";
     public static String trainerPoklmonIntro="% schickt # in den Kampf!";
            
     public static String commandInfo="Was soll #";
@@ -32,7 +32,7 @@ public class BattleMessages
     public static String attackNoEffect="Es hat keine Wirkung!";
     public static String volltreffer="Volltreffer!";
     public static String multihit="# mal getroffen!";
-    public static String rueckstoss="# wird vom R¸ckstoﬂ verletzt!";
+    public static String rueckstoss="# wird vom R√ºcksto√ü verletzt!";
     public static String kpopfer="# verbraucht Energie!";   
     public static String selfheal="# regeneriert sich!";       
     public static String changeAttribute="% von # ";
@@ -40,7 +40,7 @@ public class BattleMessages
     public static String changeAttributeNegative="sinkt";
     public static String changeAttributePositiveFailed="ist Maximum!";
     public static String changeAttributeNegativeFailed="kann nicht weiter sinken.";
-    public static String gainEXP="# erh‰lt % Erfahrungspunkte!";
+    public static String gainEXP="# erh√§lt % Erfahrungspunkte!";
     public static String[] actions={"Kampf","Beutel","Poklmon","Flucht"};
     public static String[] attributeChangeStrength={"!"," stark!"," enorm!"};
     public static String chooseNextPoklmon="Welches Poklmon schickst du in den Kampf?";

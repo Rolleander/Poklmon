@@ -22,7 +22,7 @@ public class AttackHitCalculator
         double fluchtwert = FightPoklmonParameterCalc.getFluchtwert(target);
         if (attack.getType() == AttackType.STATUS)
         {
-            //status attacken gehen nicht öfter/seltener daneben
+            //status attacken gehen nicht Ã¶fter/seltener daneben
             genauigkeit = 1;
             fluchtwert = 1;
         }

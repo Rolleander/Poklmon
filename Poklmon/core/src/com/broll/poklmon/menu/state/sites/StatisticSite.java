@@ -41,7 +41,7 @@ public class StatisticSite extends StateSite
 
         this.lineWidth = 300;
 
-        renderLine(g, "Kämpfe", ""+statistic.getFightedBattles());
+        renderLine(g, "KÃ¤mpfe", ""+statistic.getFightedBattles());
         int wild=statistic.getFightedBattles()-statistic.getTrainerBattles();
         renderLine(g, "Gegen Trainer", ""+statistic.getTrainerBattles());
         renderLine(g, "Gegen Poklmon", ""+wild);

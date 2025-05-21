@@ -57,7 +57,7 @@ public class PcMenu extends MenuPage {
             }
 
 
-            //immer mindestens 2 leere reihen f�r die team poklmons
+            //immer mindestens 2 leere reihen fï¿½r die team poklmons
         }
         enterFromStatus = false;
     }

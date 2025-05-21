@@ -85,7 +85,7 @@ public class AttackSelectionBox {
 
 				// attack not null?
 				if (!attackNames[attacks.getSelectedIndex()].equals("-")) {
-					// ap für attacke übrig?
+					// ap fÃ¼r attacke Ã¼brig?
 					if (poklmon.getAttacks()[attacks.getSelectedIndex()].getAp() > 0) {
 						// select attack
 						open=false;

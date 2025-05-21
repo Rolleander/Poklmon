@@ -9,9 +9,9 @@ public enum MainFightStatus {
 	PARALYZE("Paralyziert","# wurde paralysiert!","# ist paralysiert und kann nicht angreifen!","# ist nicht mehr paralysiert!",36,ColorUtil.newColor(184,184,24),"PAR"),
 	POISON("Vergiftet","# wurde vergiftet!","Die Vergiftung schadet #!","# ist wieder gesund!",12, ColorUtil.newColor(192,96,192),"VGFT"),
 	TOXIN("Schwer Vergiftet","# wurde schwer vergiftet!","# leidet unter der schweren Vergiftung!","# ist wieder gesund!",12,ColorUtil.newColor(192,96,192),"TOXIN"),
-	BURNING("Brennt","# f‰ngt Feuer!","# brennt!","# hat das Feuer gelˆscht!",35,ColorUtil.newColor(224,112,80),"BRN"),
+	BURNING("Brennt","# f√§ngt Feuer!","# brennt!","# hat das Feuer gel√∂scht!",35,ColorUtil.newColor(224,112,80),"BRN"),
 	ICE("Gefroren","# ist zu Eis erstarrt!","# ist tiefgefroren...","# ist wieder aufgetaut!",-1,ColorUtil.newColor(136,176,224),"GFR"),
-	SLEEPING("Schl‰ft","# ist eingeschlafen!","# schl‰ft tief und fest...","# ist wieder aufgewacht!",-1,ColorUtil.newColor(160,160,136),"SLP"),
+	SLEEPING("Schl√§ft","# ist eingeschlafen!","# schl√§ft tief und fest...","# ist wieder aufgewacht!",-1,ColorUtil.newColor(160,160,136),"SLP"),
 	FAINTED("Besiegt",null,null,"# hat sich erholt!",-1,ColorUtil.newColor(176,32,32),"BSGT");
 	
 	private String name;

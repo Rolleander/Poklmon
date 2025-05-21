@@ -64,7 +64,7 @@ public class InfoSite extends StateSite {
 		if (item == null) {
 			renderLine(g, "", "");
 		} else {
-			renderLine(g, "Tr‰gt", item);
+			renderLine(g, "Tr√§gt", item);
 		}
 		renderLine(g, "EXP", "" + exp);
 		renderLine(g, "N.Level", "" + nextexp);

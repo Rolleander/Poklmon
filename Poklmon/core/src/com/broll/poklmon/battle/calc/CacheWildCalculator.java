@@ -16,7 +16,7 @@ public class CacheWildCalculator {
 
 		float x = (((3 * kpMax - 2 * kp) * ff * ballPower) / (3 * kpMax)) * statev;
 		float chance = x / 255f;
-		//umso eher gefangen => länger wackeln
+		//umso eher gefangen => lÃ¤nger wackeln
 		wobble=(int) (BattleRandom.random()*2+(((chance)/255)*4))+1;
 		
 		return (chance >= BattleRandom.random());

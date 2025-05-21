@@ -99,15 +99,15 @@ public class BattleProcessItems extends BattleProcessControl {
             showText("Super! Du hast " + name + " gefangen!");
 
             if (manager.getPlayer().getPokldexControl().getCachedCount(poklmon.getPoklmon().getId()) == 0) {
-                showText("Für " + name + " wird ein neuer Eintrag im PoklDex hinzugefügt!");
+                showText("FÃ¼r " + name + " wird ein neuer Eintrag im PoklDex hinzugefÃ¼gt!");
             }
-            if (showCancelableSelection("Möchtest du " + name + " einen Namen geben?", new String[]{"Ja", "Nein"}) == 0) {
+            if (showCancelableSelection("MÃ¶chtest du " + name + " einen Namen geben?", new String[]{"Ja", "Nein"}) == 0) {
                 name = showInput("");
                 poklData.setName(name);
             }
 
             if (manager.getPlayer().getPoklmonControl().getPoklmonsInTeam().size() == 6) {
-                showText(name == null ? poklmon.getName() : name + " wurde in deine Box übertragen!");
+                showText(name == null ? poklmon.getName() : name + " wurde in deine Box Ã¼bertragen!");
             }
             manager.getPlayer().getPoklmonControl().addNewPoklmon(poklData);
             catchedPoklmon = true;

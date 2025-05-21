@@ -47,7 +47,7 @@ public class SelectItemDialog {
 		}
 
 		typeSelection = new SelectionBox(manager.getData(), names, x, y, false);
-		text.showInfo("Öffne Beutel...", "");
+		text.showInfo("Ã–ffne Beutel...", "");
 		typeSelection.blockItem(0, manager.getParticipants().isTrainerFight());
 
 		if (!manager.getPlayer().getInventarControl().hasItemsOfType(ItemType.POKLBALL)) {

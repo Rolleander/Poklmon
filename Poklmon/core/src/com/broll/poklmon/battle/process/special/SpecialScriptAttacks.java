@@ -140,11 +140,11 @@ public class SpecialScriptAttacks extends BattleProcessControl {
         }
 
         if (script == SpecialScript.VERGELTUNG) {
-            //angriffst‰rke verdoppeln wenn getroffen 
+            //angriffst√§rke verdoppeln wenn getroffen 
             DamageTaken damageTaken = core.getEventFlags().getPoklmonFlags(user).getLastDamageTaken();
             if (damageTaken != null) {
                 if (damageTaken.getDamage() > 0) {
-                    //st‰rke verdoppeln
+                    //st√§rke verdoppeln
                     int damage = attack.getDamage() * 2;
                     attack.setDamage(damage);
                 }
@@ -153,7 +153,7 @@ public class SpecialScriptAttacks extends BattleProcessControl {
 
         if (script == SpecialScript.REFRESH) {
             attack.stopAttackProcessing();
-            //selbstheilung von statusver‰nderungen
+            //selbstheilung von statusver√§nderungen
             PoklmonStatusChanges status = user.getStatusChanges();
             if (status.hasMainStateChangeEffect()) {
                 //heal
@@ -164,11 +164,11 @@ public class SpecialScriptAttacks extends BattleProcessControl {
         }
 
         if (script == SpecialScript.MAGNITUDE) {
-            //intensit‰t
+            //intensit√§t
             int[] intensStrength = {10, 30, 50, 70, 90, 110, 150};
             double[] chances = {0.05, 0.10, 0.20, 0.30, 0.20, 0.10, 0.5};
             int nr = StateEffectCalc.getChance(chances);
-            String text = "Intensit‰t " + (4 + nr) + "!";
+            String text = "Intensit√§t " + (4 + nr) + "!";
             showText(text);
             showInfo(text);
             int damage = intensStrength[nr];

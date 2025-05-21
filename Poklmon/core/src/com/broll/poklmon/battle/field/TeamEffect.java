@@ -4,12 +4,12 @@ public enum TeamEffect
 {
     // # = Team Trainer Name
     // Bei wildem Poklmon => Poklmonname
-    REFLECTOR("# wird von einem Reflektor umgeben!",null,"Der Reflektor von # l‰sst nach!"),
-    LUCKBARRIERE("# wird vor gef‰hrlichen Angriffen gesch¸tzt!",null,"Der Angriffs-Schutz von # l‰sst nach!"),
-    INITWIND("# erh‰lt R¸ckenwind!",null,"Der R¸ckenwind von # l‰sst nach!"),
-    STATEBARRIERE("# wird vor Status‰nderungen gesch¸tzt!",null,"Der Bodyguard von # l‰sst nach!"),
-    VALUEBARRIERE("# wird vor Statuswertv‰nderungen durch den Gegner gesch¸tzt!",null,"Der Weiﬂnebel von # l‰sst nach!"),
-    ENERGYBLOCK("# wird von einer Energiewand umgeben!",null,"Die Energiewand von # l‰sst nach!");
+    REFLECTOR("# wird von einem Reflektor umgeben!",null,"Der Reflektor von # l√§sst nach!"),
+    LUCKBARRIERE("# wird vor gef√§hrlichen Angriffen gesch√ºtzt!",null,"Der Angriffs-Schutz von # l√§sst nach!"),
+    INITWIND("# erh√§lt R√ºckenwind!",null,"Der R√ºckenwind von # l√§sst nach!"),
+    STATEBARRIERE("# wird vor Status√§nderungen gesch√ºtzt!",null,"Der Bodyguard von # l√§sst nach!"),
+    VALUEBARRIERE("# wird vor Statuswertv√§nderungen durch den Gegner gesch√ºtzt!",null,"Der Wei√ünebel von # l√§sst nach!"),
+    ENERGYBLOCK("# wird von einer Energiewand umgeben!",null,"Die Energiewand von # l√§sst nach!");
     
     
     

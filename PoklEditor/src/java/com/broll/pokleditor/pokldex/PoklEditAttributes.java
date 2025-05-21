@@ -56,7 +56,7 @@ public class PoklEditAttributes extends JPanel
         JPanel inf = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JLabel ex=new JLabel(GraphicLoader.loadIcon("information.png"));
-        ex.setToolTipText("|1100 Vorentwicklung |1500 Schwach |1600 Normal |1700 Stark | 1800+ Legend�r |");
+        ex.setToolTipText("|1100 Vorentwicklung |1500 Schwach |1600 Normal |1700 Stark | 1800+ Legendï¿½r |");
         inf.add(ex);
        
         inf.add(new JLabel("MAX"));

@@ -36,7 +36,7 @@ public class WeatherEffectProcess extends BattleProcessControl
 
         if (fieldEffects.isWeatherEffect(WeatherEffect.NIGHT))
         {
-            //random chance poklmon einzuschl‰fern
+            //random chance poklmon einzuschl√§fern
             checkNightSleep(enemy);
             checkNightSleep(player);
         }
@@ -76,7 +76,7 @@ public class WeatherEffectProcess extends BattleProcessControl
         {
             int maxKp = poklmon.getAttributes().getMaxhealth();
             int damage = StateEffectCalc.getSnowDamage(maxKp);
-            String text = "# wird durch die K‰lte verletzt!";
+            String text = "# wird durch die K√§lte verletzt!";
             String name = poklmon.getName();
             text = BattleMessages.putName(text, name);
             showText(text);

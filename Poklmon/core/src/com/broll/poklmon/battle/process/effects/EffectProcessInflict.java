@@ -36,7 +36,7 @@ public class EffectProcessInflict extends BattleProcessControl {
                     return false;
                 } else {
                     if (status != MainFightStatus.SLEEPING) {
-                        // nur überschreiben wenn neuer zustand schlaf ist,
+                        // nur Ã¼berschreiben wenn neuer zustand schlaf ist,
                         // ansonsten bleibt alter zustand
                         return false;
                     }
@@ -192,7 +192,7 @@ public class EffectProcessInflict extends BattleProcessControl {
 
         // check effects
 
-        // Kräutergarten
+        // KrÃ¤utergarten
         if (state.hasEffectChange(EffectStatus.HEALPLANTS)) {
             // heal target
             String text = BattleMessages.putName(EffectStatus.HEALPLANTS.getDurName(), name);
@@ -232,7 +232,7 @@ public class EffectProcessInflict extends BattleProcessControl {
             doPoklmonEffectDamage(poklmon, EffectStatus.CURSE, damage);
         }
 
-        // einschläfern
+        // einschlÃ¤fern
         if (state.hasEffectChange(EffectStatus.SLEEPY)) {
             int round = state.getEffectChangeDuration(EffectStatus.SLEEPY);
             if (round >= 1) {

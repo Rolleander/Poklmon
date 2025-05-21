@@ -21,7 +21,7 @@ public class GlobalEffectProcess extends BattleProcessControl
 
     public void preRound()
     {
-        //müll verschwindet nach 5 runden
+        //mÃ¼ll verschwindet nach 5 runden
         tryRemoveEffect(GlobalEffect.DUMP, 5);
     }
 

@@ -29,7 +29,7 @@ public class AttackStatsManipulation
 
         if (targetTeam.hasTeamEffect(TeamEffect.LUCKBARRIERE))
         {
-            // volltreffer und zur¸ckschrecken verhindern
+            // volltreffer und zur√ºckschrecken verhindern
             attack.setVolltrefferChance(0);
             if (attack.getEffectStatusTarget() == EffectStatus.CRINGE)
             {
@@ -39,18 +39,18 @@ public class AttackStatsManipulation
 
         if (targetTeam.hasTeamEffect(TeamEffect.VALUEBARRIERE))
         {
-            //weiﬂnebel verhindert ver‰nderung der statuswerte
+            //wei√ünebel verhindert ver√§nderung der statuswerte
             attack.clearAttrbiuteChangeTarget();
         }
 
         if (userStatus.hasEffectChange(EffectStatus.ENERGYFOCUS))
         {
-            //volltrefferchance erhˆhen bei energiefokus
+            //volltrefferchance erh√∂hen bei energiefokus
             int vtchance = attack.getVolltrefferChance();
             attack.setVolltrefferChance(vtchance + 2);
         }
 
-        //verhindern von status‰nderungen 
+        //verhindern von status√§nderungen 
         if (targetTeam.hasTeamEffect(TeamEffect.STATEBARRIERE))
         {
             attack.setChangeStatusTarget(null);

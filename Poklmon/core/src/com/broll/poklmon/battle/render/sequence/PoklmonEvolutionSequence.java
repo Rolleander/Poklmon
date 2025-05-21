@@ -96,7 +96,7 @@ public class PoklmonEvolutionSequence extends SequenceRender {
 				if (outro == false) {
 					outro = true;
 					battle.getBattleRender().getHudRender().showTextWaiting(
-							"Glückwunsch! " + pokl + " hat sich in " + evo + " entwickelt!", new SelectionListener() {
+							"GlÃ¼ckwunsch! " + pokl + " hat sich in " + evo + " entwickelt!", new SelectionListener() {
 								@Override
 								public void selectionDone() {
 									stop();

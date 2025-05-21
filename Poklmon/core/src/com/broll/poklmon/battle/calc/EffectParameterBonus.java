@@ -61,7 +61,7 @@ public class EffectParameterBonus
             intiative *= 0.25;
         }
         
-        //bei rückenwind init verdoppeln
+        //bei rÃ¼ckenwind init verdoppeln
         PoklmonTeamEffect poklmonTeam = fieldEffects.getTeamEffects(poklmon);
         if(poklmonTeam.hasTeamEffect(TeamEffect.INITWIND))
         {

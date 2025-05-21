@@ -73,10 +73,10 @@ public class RoundBasedEffectAttacks extends BattleProcessControl {
             status.removeEffectChange(EffectStatus.FLUTWELLE);
             //use strong flutwelle attack
             Attack flutwelle = copyAttack(110, null);
-            //welle greift mit niedriger priorit‰t an
+            //welle greift mit niedriger priorit√§t an
             flutwelle.getDamage().setPriority(AttackPriority.LOWER);
             int damage = flutwelle.getDamage().getDamage();
-            damage *= 2; //schaden verdoppeln der groﬂen welle
+            damage *= 2; //schaden verdoppeln der gro√üen welle
             flutwelle.getDamage().setDamage(damage);
             return new FightAttack(flutwelle);
 

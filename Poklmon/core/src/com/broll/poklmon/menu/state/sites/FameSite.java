@@ -84,7 +84,7 @@ public class FameSite extends StateSite
         this.lineWidth = 300;
 
 
-        renderLine(g, "Laborleiterk‰mpfe", "" + statistic.getDefeatedArenas());
+        renderLine(g, "Laborleiterk√§mpfe", "" + statistic.getDefeatedArenas());
 
         int liga = statistic.getLigaWins();
 
@@ -108,11 +108,11 @@ public class FameSite extends StateSite
 
         SpriteSheet medals = data.getGraphics().getMenuGraphicsContainer().getMedals();
         renderLine(g, "Abzeichen:", "");
-        renderImageLine(g, "K‰mpfer", medals.getSprite(battleMedal, 0));        
+        renderImageLine(g, "K√§mpfer", medals.getSprite(battleMedal, 0));        
         renderImageLine(g, "Entwicklung", medals.getSprite(levelMedal, 0));
         renderImageLine(g, "Genom", medals.getSprite(dvMedal, 0));
         renderImageLine(g, "Training", medals.getSprite(trainMedal, 0));
-        renderImageLine(g, "St‰rke", medals.getSprite(statMedal, 0));
+        renderImageLine(g, "St√§rke", medals.getSprite(statMedal, 0));
         renderImageLine(g, "Meister", medals.getSprite(arenaMedal, 0));
         renderImageLine(g, "Gesamt", medals.getSprite(allMedal, 0));
 

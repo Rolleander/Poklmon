@@ -48,7 +48,7 @@ public class GenomSite extends SpikesStateSite {
 
         lines = 0;
 
-        renderLine(g, "Genomstärke", "" + sum);
+        renderLine(g, "GenomstÃ¤rke", "" + sum);
 
         this.x += 40;
         this.y += 50;

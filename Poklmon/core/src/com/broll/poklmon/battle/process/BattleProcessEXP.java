@@ -75,14 +75,14 @@ public class BattleProcessEXP extends BattleProcessControl {
                         expPoklmon.getName()
                                 + " versucht "
                                 + atk.getName()
-                                + " zu erlernen, kann aber nicht mehr als vier Attacken gleichzeitig haben. Soll eine andere Attacke für "
+                                + " zu erlernen, kann aber nicht mehr als vier Attacken gleichzeitig haben. Soll eine andere Attacke fÃ¼r "
                                 + atk.getName() + " vergessen werden?", new String[]{"Ja", "Nein"});
                 if (selection == 0) {
                     String[] atkNames = new String[4];
                     for (int i = 0; i < 4; i++) {
                         atkNames[i] = expPoklmon.getAttacks()[i].getAttack().getName();
                     }
-                    selection = showSelection("Welche Attacke soll für " + atk.getName() + " vergessen werden?",
+                    selection = showSelection("Welche Attacke soll fÃ¼r " + atk.getName() + " vergessen werden?",
                             new String[]{"Nicht lernen", atkNames[0], atkNames[1], atkNames[2], atkNames[3]});
                     if (selection > 0) {
                         int place = selection - 1;

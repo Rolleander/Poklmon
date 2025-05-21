@@ -33,9 +33,8 @@ public class PoklmonGame extends Game {
 
     public final static int WIDTH = 800;
     public final static int HEIGHT = 600;
-    public final static int FPS = 60;
-
-
+    public final static int FPS = 80;
+    
     public static boolean DEBUG_MODE = false;
     public static boolean TOUCH_MODE = false;
     private final static Logger logger = new Logger(PoklmonGame.class.getName());
