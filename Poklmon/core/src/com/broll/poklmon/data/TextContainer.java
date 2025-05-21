@@ -20,7 +20,7 @@ public class TextContainer {
         String path=ResourceUtils.DATA_PATH+"i18n/Game";
         FileHandle baseFileHandle = Gdx.files.internal(path);
         Locale locale = new Locale("de", "ger", "VAR1");
-        i18NBundle= I18NBundle.createBundle(baseFileHandle,locale,"ISO-8859-1");
+        i18NBundle= I18NBundle.createBundle(baseFileHandle,locale,"UTF-8");
     }
 
     public static synchronized String get(String key, Object... values){

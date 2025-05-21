@@ -52,7 +52,7 @@ project(":core") {
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api group: 'com.broll', name: 'pokllib', version: '1.0'
-        implementation 'io.apisense:rhino-android:1.0'
+        implementation 'io.apisense:rhino-android:1.3.0'
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         // https://mvnrepository.com/artifact/com.google.guava/guava
         implementation group: 'com.google.guava', name: 'guava', version: '33.1.0-jre'
@@ -84,8 +84,6 @@ project(":android") {
 
     dependencies {
         implementation project(":core")
-        //dont upgrade, doesnt work on android anymore otherwise
-        implementation group: 'org.mozilla', name: 'rhino', version: '1.7.13'
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"

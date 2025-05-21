@@ -11,7 +11,10 @@ public class ScriptEngineFactory {
 
 	public static ScriptEngine createScriptEngine() {
 		ScriptEngineManager factory = new ScriptEngineManager();
-		ScriptEngine engine = factory.getEngineByName("Nashorn");
+		ScriptEngine engine = null;
+		try {
+			engine = factory.getEngineByName("Nashorn");
+		} catch (Throwable t) {}
 		if(engine==null) {
 			engine = factory.getEngineByName("rhino");
 		}
