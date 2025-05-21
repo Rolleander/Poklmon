@@ -33,9 +33,8 @@ public class RhinoJavaScriptLanguageSupport extends JavaScriptLanguageSupport {
 
 
     public RhinoJavaScriptLanguageSupport(ScriptEnvironments.Type type) {
-        JavaScriptTokenMaker.setJavaScriptVersion("1.5");
-        setECMAVersion("1.5",getJarManager());
-//        setECMAVersion(TypeDeclarationsECMAv5.class.getName(), getJarManager());
+        JavaScriptTokenMaker.setJavaScriptVersion("1.7");
+        setECMAVersion("1.7",getJarManager());
         try {
             getJarManager().addClassFileSource(GameDebugger.debugPath);
         } catch (IOException e) {
