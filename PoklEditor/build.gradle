@@ -20,6 +20,7 @@ dependencies {
     implementation 'com.fifesoft:rsyntaxtextarea:3.4.0'
     implementation 'com.fifesoft:languagesupport:3.3.0'
     implementation group: 'org.mozilla', name: 'rhino', version: '1.7.14'
+    implementation group: 'org.openjdk.nashorn', name: 'nashorn-core', version: '15.4'
 
 }
 
