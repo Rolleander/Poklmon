@@ -1,7 +1,7 @@
 
 android {
     namespace = "com.broll.poklmon"
-    compileOptions.encoding = 'ISO-8859-1'
+    compileOptions.encoding = 'UTF-8'
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -43,7 +43,6 @@ android {
         }
     }
 }
-
 
 // called every time gradle gets executed, takes the native dependencies of
 // the natives configuration, and extracts them to the proper libs/ folders
